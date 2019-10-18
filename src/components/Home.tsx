@@ -81,4 +81,23 @@ const Container = styled.section`
       border-radius: 8px;
     }
   }
+
+  @media screen and (min-width: 400px) {
+    flex-direction: column;
+
+    .profile {
+      width: 200px;
+      height: 200px;
+    }
+
+    .information {
+      margin-left: 0;
+      /* border: 1px pink solid; */
+      text-align: center;
+
+      h1 {
+        font-size: 2.5rem;
+      }
+    }
+  }
 `;

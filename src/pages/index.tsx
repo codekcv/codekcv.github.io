@@ -10,13 +10,17 @@ import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 
+import { useSwipeable, Swipeable } from 'react-swipeable';
+
 const App: React.FC = () => {
+  // const handlers = useSwipeable({ onSwipedDown: (eventData) => handleOnSwipe})
+
   const sections = ['home', 'skills', 'projects', 'about', 'contact'];
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     let target = 0;
     if (e.deltaY < 0 && current > 0) target = -1;
-    else if (e.deltaY > 0 && current < sections.length - 1) target = +1;
+    else if (e.deltaY > 0 && current < sections.length - 1) target = 1;
     target && handleScroll('scroll', `${target}`);
   };
 
@@ -34,6 +38,16 @@ const App: React.FC = () => {
 
       target && handleScroll('scroll', `${target}`);
     }
+  };
+
+  const handleOnSwipe = (target: number) => {
+    if (
+      (target === -1 && current === 0) ||
+      (target === 1 && current === sections.length - 1)
+    )
+      return;
+
+    target && handleScroll('scroll', `${target}`);
   };
 
   let current = 0;
@@ -65,14 +79,23 @@ const App: React.FC = () => {
   };
 
   return (
-    <Container onWheel={handleOnWheel} onKeyDown={handleOnKeyDown} tabIndex={0}>
-      <Navbar handleScroll={handleScroll} />
-      <Home />
-      <Skills />
-      <Projects />
-      <About />
-      <Contact />
-    </Container>
+    <Swipeable
+      onSwipedDown={() => handleOnSwipe(-1)}
+      onSwipedUp={() => handleOnSwipe(1)}
+    >
+      <Container
+        onWheel={handleOnWheel}
+        onKeyDown={handleOnKeyDown}
+        tabIndex={0}
+      >
+        <Navbar handleScroll={handleScroll} />
+        <Home />
+        <Skills />
+        <Projects />
+        <About />
+        <Contact />
+      </Container>
+    </Swipeable>
   );
 };
 
