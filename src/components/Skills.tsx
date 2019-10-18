@@ -218,7 +218,7 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgb(32, 38, 51);
+  background: rgb(35, 35, 50);
   width: 100%;
   min-height: 100vh;
 
@@ -239,12 +239,14 @@ const Container = styled.section`
   }
 
   .skills-title {
-    display: none;
+    color: white;
+    font-size: 8vw;
+    text-shadow: 0 3px silver;
   }
 
   .title-area {
     width: 100%;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(45, 45, 70, 1);
     /* border-radius: 10px; */
   }
 
@@ -254,9 +256,6 @@ const Container = styled.section`
     }
 
     .skills-title {
-      display: block;
-      color: white;
-      font-size: 8vw;
       text-shadow: 0 5px silver;
     }
   }
@@ -268,9 +267,10 @@ const Card = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.1);
   margin: 1vh 0;
   padding: 0.4rem;
+  border: 2px pink dotted;
   border-radius: 4px;
   box-shadow: 0 7px 30px -10px inset rgba(150, 170, 180, 0.5);
 
@@ -279,7 +279,9 @@ const Card = styled.div`
     padding-bottom: 2px;
 
     h1 {
-      color: black;
+      color: silver;
+      font-weight: 100;
+      font-size: 2rem;
       text-align: center;
       text-shadow: 0 2px gainsboro;
     }
@@ -299,7 +301,7 @@ const Card = styled.div`
       background: white;
       border-radius: 6px;
       /* box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5); */
-      box-shadow: 0 0 4px 4px gainsboro;
+      /* box-shadow: 0 0 2px 2px rgba(150, 170, 180, 0.5); */
       border-bottom: 2px silver solid;
     }
   }
@@ -307,6 +309,7 @@ const Card = styled.div`
   @media only screen and (min-width: 768px) {
     width: 25vw;
     margin: 2vh 2vw;
+    padding: 1rem;
     border-radius: 16px;
     align-items: center;
 
