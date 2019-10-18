@@ -34,11 +34,12 @@ export const Navbar: React.FC<Props> = ({ handleScroll }) => {
 };
 
 const Container = styled.div`
+  display: none;
   position: fixed;
   width: 100%;
   left: 0;
   top: 0;
-  z-index: 1;
+  z-index: 9;
 
   nav {
     position: relative;
@@ -66,7 +67,7 @@ const Container = styled.div`
     }
   }
 
-  @media screen and (min-width: 320px) {
-    display: none;
+  @media only screen and (min-width: 768px) {
+    display: block;
   }
 `;
