@@ -15,11 +15,10 @@ export const Contact: React.FC<Props> = () => {
 };
 
 const Container = styled.div`
-  background: lightcoral;
+  background: mediumseagreen;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: lightcoral;
   width: 100%;
   min-height: 100vh;
 `;
