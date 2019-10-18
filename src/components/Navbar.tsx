@@ -50,13 +50,18 @@ const Container = styled.div`
     ul {
       display: flex;
       list-style: none;
-      color: gainsboro;
+      color: silver;
       font-size: 1.25rem;
       font-weight: 300;
       text-transform: uppercase;
 
       li {
         margin: 0 20px;
+        cursor: pointer;
+
+        :hover {
+          color: white;
+        }
       }
     }
   }

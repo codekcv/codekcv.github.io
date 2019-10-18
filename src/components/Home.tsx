@@ -61,7 +61,7 @@ const Container = styled.section`
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
 
   color: white;
 
@@ -81,8 +81,12 @@ const Container = styled.section`
     }
 
     h2 {
-      font-weight: 100;
-      color: lightgray;
+      font-weight: 300;
+      color: gainsboro;
+
+      padding: 3px 8px;
+      border: 1px solid gray;
+      border-radius: 8px;
     }
   }
 `;
