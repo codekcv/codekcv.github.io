@@ -2,13 +2,25 @@ import React from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
-import Img from 'gatsby-image';
-import logoHtml from '../images/svg/html5.svg';
-import logoCss from '../images/svg/csss.svg';
-import logoJavascript from '../images/svg/javascript.svg';
-import logoTypescript from '../images/svg/typescript.svg';
 import Particles from 'react-particles-js';
-import myImage from '../images/logos/css3.jpg';
+
+import logoHtml from '../images/logos/html5.png';
+import logoCss from '../images/logos/css3.png';
+import logoJavascript from '../images/logos/javascript.jpg';
+import logoTypescript from '../images/logos/typescript.jpg';
+import logoReact from '../images/logos/reactjs.png';
+import logoRedux from '../images/logos/redux.png';
+import logoSass from '../images/logos/sass.png';
+import logoGatsby from '../images/logos/gatsbyjs.png';
+import logoGraphql from '../images/logos/graphql.png';
+import logoGit from '../images/logos/git.png';
+import logoApollo from '../images/logos/apollo.png';
+import logoMongodb from '../images/logos/mongodb3.png';
+import logoPostgreSQL from '../images/logos/postgreSQL.png';
+import logoNode from '../images/logos/nodejs.png';
+import logoVscode from '../images/logos/vscode.png';
+import logoExpress from '../images/logos/express.png';
+import logoPostman from '../images/logos/postman.png';
 
 interface Props {}
 
@@ -93,13 +105,130 @@ export const Skills: React.FC<Props> = () => {
           className="particlesjs"
           width="100%"
           height="100vh"
-        ></Particles>
-
-        {/* =========================== */}
+          params={{
+            particles: {
+              number: {
+                value: 17,
+              },
+              line_linked: {
+                enable: false,
+              },
+              move: {
+                speed: 3,
+                out_mode: 'out',
+              },
+              shape: {
+                type: ['images'],
+                images: [
+                  {
+                    src: logoHtml,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoNode,
+                    height: 15,
+                    width: 25,
+                  },
+                  {
+                    src: logoCss,
+                    height: 10,
+                    width: 7,
+                  },
+                  {
+                    src: logoJavascript,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoExpress,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoPostman,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoTypescript,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoReact,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoRedux,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoGatsby,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoGraphql,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoSass,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoGit,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoApollo,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoPostgreSQL,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoVscode,
+                    height: 10,
+                    width: 10,
+                  },
+                  {
+                    src: logoMongodb,
+                    height: 10,
+                    width: 10,
+                  },
+                ],
+              },
+              size: {
+                value: 20,
+              },
+            },
+          }}
+        />
 
         <div className="card front-end">
-          <h1>Front-End Technologies</h1>
-          <hr />
+          <div className="title">
+            <h1>Front-End Technologies</h1>
+            <hr />
+            <br />
+          </div>
+
+          <div className="skills">
+            <p>HTML5</p>
+            <p>CSS3 / SASS</p>
+            <p>JavaScript ES6+</p>
+            <p>TypeScript</p>
+            <p>ReactJS</p>
+            <p>Redux</p>
+          </div>
 
           {/* <div className="tech-container">
             {frontendSkills.map(skill => {
@@ -132,14 +261,6 @@ export const Skills: React.FC<Props> = () => {
               );
             })}
           </div> */}
-
-          <br />
-          <p>HTML5</p>
-          <p>CSS3 / SASS</p>
-          <p>JavaScript ES6+</p>
-          <p>TypeScript</p>
-          <p>ReactJS</p>
-          <p>Redux</p>
         </div>
         <div className="card back-end">
           <h1>Back-End Technologies</h1>
@@ -216,6 +337,11 @@ const Container = styled.section`
     margin: 1rem 1rem;
     box-shadow: 0 0 5px black;
     text-align: center;
+    z-index: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     h1 {
       font-size: 1rem;
@@ -245,7 +371,7 @@ const Container = styled.section`
 
     .card {
       width: 400px;
-      min-height: 200px;
+      height: 400px;
     }
   }
 `;
