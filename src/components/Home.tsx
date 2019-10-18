@@ -28,17 +28,9 @@ const getImages = graphql`
 `;
 
 export const Home: React.FC<Props> = () => {
-  const {
-    background: {
-      childImageSharp: { fluid: backgroundImage },
-    },
-  } = useStaticQuery(getImages);
-
-  const {
-    profile: {
-      childImageSharp: { fluid: profileImage },
-    },
-  } = useStaticQuery(getImages);
+  const data = useStaticQuery(getImages);
+  const backgroundImage = data.background.childImageSharp.fluid;
+  const profileImage = data.profile.childImageSharp.fluid;
 
   return (
     <Element name="home">
