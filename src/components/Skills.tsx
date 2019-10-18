@@ -152,7 +152,7 @@ export const Skills: React.FC<Props> = () => {
         <div className="main">
           <Card>
             <div className="title-area">
-              <h1>Front-End Technologies</h1>
+              <h1>Front-End</h1>
               <hr />
             </div>
 
@@ -171,7 +171,7 @@ export const Skills: React.FC<Props> = () => {
 
           <Card>
             <div className="title-area">
-              <h1>Back-End Technologies</h1>
+              <h1>Back-End</h1>
               <hr />
             </div>
 
@@ -234,10 +234,18 @@ const Container = styled.section`
   .main {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 
   .skills-title {
     display: none;
+  }
+
+  .title-area {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    /* border-radius: 10px; */
   }
 
   @media only screen and (min-width: 768px) {
@@ -248,41 +256,45 @@ const Container = styled.section`
     .skills-title {
       display: block;
       color: white;
-      font-size: 8rem;
+      font-size: 8vw;
       text-shadow: 0 5px silver;
     }
   }
 `;
 
 const Card = styled.div`
-  width: 350px;
+  max-width: 90%;
   display: flex;
   flex-direction: column;
   justify-content: center;
 
   background: rgba(255, 255, 255, 0.8);
-  margin: 10px;
-  padding: 1rem;
+  margin: 1vh 0;
+  padding: 0.4rem;
   border-radius: 4px;
   box-shadow: 0 7px 30px -10px inset rgba(150, 170, 180, 0.5);
 
   .title-area {
+    margin-bottom: 6px;
+    padding-bottom: 2px;
+
     h1 {
       color: black;
       text-align: center;
-      text-shadow: 0 3px gainsboro;
+      text-shadow: 0 2px gainsboro;
     }
   }
 
   .skills-area {
     display: flex;
+    justify-content: center;
     align-items: center;
     flex-wrap: wrap;
 
     .logo-container {
       width: 50px;
       height: 50px;
-      margin: 0.35rem;
+      margin: 0.2rem;
       padding: 6px;
       background: white;
       border-radius: 6px;
@@ -293,13 +305,15 @@ const Card = styled.div`
   }
 
   @media only screen and (min-width: 768px) {
-    width: 400px;
+    width: 25vw;
+    margin: 2vh 2vw;
     border-radius: 16px;
+    align-items: center;
 
     .skills-area {
       .logo-container {
-        width: 100px;
-        height: 100px;
+        width: 90px;
+        height: 90px;
         margin: 0.5rem;
         padding: 12px;
         border-radius: 16px;

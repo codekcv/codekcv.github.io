@@ -39,7 +39,7 @@ export const Home: React.FC<Props> = () => {
           <Img className="profile" fluid={profileImage} />
           <div className="information">
             <h1>Christian Villamin</h1>
-            <h2>{`I create web site & web applications`}</h2>
+            <h2>{`I create web site & web applications.`}</h2>
           </div>
         </Container>
       </BackgroundImage>
@@ -59,6 +59,7 @@ const Container = styled.section`
   .profile {
     width: 175px;
     height: 175px;
+    margin-bottom: 2vh;
     border: 5px white solid;
     border-radius: 50%;
   }
@@ -78,8 +79,10 @@ const Container = styled.section`
       color: gainsboro;
 
       padding: 3px 8px;
-      border: 1px solid gray;
+      border: 1px dashed gray;
       border-radius: 8px;
+
+      background: rgba(0, 0, 0, 0.75);
     }
   }
 
@@ -95,7 +98,7 @@ const Container = styled.section`
       text-shadow: 2px 2px darkslategray;
 
       h1 {
-        font-size: 4rem;
+        font-size: 5rem;
       }
 
       h2 {
