@@ -49,30 +49,31 @@ export const Home: React.FC<Props> = () => {
 
 const Container = styled.section`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
-  min-height: 100vh;
-
-  color: white;
+  height: 100vh;
 
   .profile {
-    width: 300px;
-    height: 300px;
+    width: 175px;
+    height: 175px;
     border: 5px white solid;
     border-radius: 50%;
   }
 
   .information {
-    margin-left: 30px;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px darkslategray;
 
     h1 {
-      font-size: 4rem;
-      text-shadow: 2px 2px darkslategray;
+      font-size: 2rem;
     }
 
     h2 {
+      font-size: 1rem;
       font-weight: 300;
       color: gainsboro;
 
@@ -82,25 +83,23 @@ const Container = styled.section`
     }
   }
 
-  @media screen and (min-width: 320px) {
-    flex-direction: column;
-
+  @media only screen and (min-width: 768px) {
     .profile {
-      width: 175px;
-      height: 175px;
+      width: 300px;
+      height: 300px;
     }
 
     .information {
-      margin-left: 0;
-      /* border: 1px pink solid; */
+      color: white;
       text-align: center;
+      text-shadow: 2px 2px darkslategray;
 
       h1 {
-        font-size: 2.25rem;
+        font-size: 4rem;
       }
 
       h2 {
-        font-size: 1rem;
+        font-size: 2rem;
       }
     }
   }

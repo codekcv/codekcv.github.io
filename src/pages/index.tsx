@@ -10,11 +10,9 @@ import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 
-import { useSwipeable, Swipeable } from 'react-swipeable';
+import { Swipeable } from 'react-swipeable';
 
 const App: React.FC = () => {
-  // const handlers = useSwipeable({ onSwipedDown: (eventData) => handleOnSwipe})
-
   const sections = ['home', 'skills', 'projects', 'about', 'contact'];
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
