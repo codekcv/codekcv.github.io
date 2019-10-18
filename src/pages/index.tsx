@@ -99,6 +99,10 @@ const App: React.FC = () => {
   );
 };
 
-const Container = styled.main``;
+const Container = styled.main`
+  width: 100%;
+  height: auto;
+  border: 1px pink solid;
+`;
 
 export default App;

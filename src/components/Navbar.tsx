@@ -65,4 +65,8 @@ const Container = styled.div`
       }
     }
   }
+
+  @media screen and (min-width: 320px) {
+    display: none;
+  }
 `;

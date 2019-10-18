@@ -82,12 +82,12 @@ const Container = styled.section`
     }
   }
 
-  @media screen and (min-width: 400px) {
+  @media screen and (min-width: 320px) {
     flex-direction: column;
 
     .profile {
-      width: 200px;
-      height: 200px;
+      width: 175px;
+      height: 175px;
     }
 
     .information {
@@ -96,7 +96,11 @@ const Container = styled.section`
       text-align: center;
 
       h1 {
-        font-size: 2.5rem;
+        font-size: 2.25rem;
+      }
+
+      h2 {
+        font-size: 1rem;
       }
     }
   }

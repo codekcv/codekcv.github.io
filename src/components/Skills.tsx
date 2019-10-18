@@ -46,4 +46,17 @@ const Container = styled.section`
     margin: 0 1rem;
     box-shadow: 0 0 5px black;
   }
+
+  @media screen and (min-width: 320px) {
+    flex-direction: column;
+
+    .card {
+      background: white;
+      width: 200px;
+      height: 200px;
+      padding: 1rem;
+      margin: 0 1rem;
+      box-shadow: 0 0 5px black;
+    }
+  }
 `;
