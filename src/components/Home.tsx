@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import BackgroundImage from 'gatsby-background-image';
 import Img from 'gatsby-image';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
-import { useSpring, animated } from 'react-spring';
 
 interface Props {}
 
@@ -13,7 +12,7 @@ const getImages = graphql`
     background: file(relativePath: { eq: "codes.jpg" }) {
       childImageSharp {
         fluid(quality: 90, maxWidth: 4160) {
-          ...GatsbyImageSharpFluid_tracedSVG
+          ...GatsbyImageSharpFluid
         }
       }
     }
@@ -21,7 +20,7 @@ const getImages = graphql`
     profile: file(relativePath: { eq: "profile.jpg" }) {
       childImageSharp {
         fluid {
-          ...GatsbyImageSharpFluid_tracedSVG
+          ...GatsbyImageSharpFluid
         }
       }
     }

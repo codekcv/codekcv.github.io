@@ -4,7 +4,6 @@ import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import Particles from 'react-particles-js';
-import { animated, useSpring } from 'react-spring';
 
 interface Props {}
 
@@ -16,7 +15,7 @@ const getLogos = graphql`
           name
           childImageSharp {
             fluid(maxWidth: 256) {
-              ...GatsbyImageSharpFluid_tracedSVG
+              ...GatsbyImageSharpFluid
             }
           }
         }
@@ -43,7 +42,7 @@ export const Skills: React.FC<Props> = () => {
     return logos.find((logo: any) => logo.name === name).fluid;
   };
 
-  const frontendSkills = [
+  const frontendSkills: Object[] = [
     {
       name: 'HTML5',
       logo: getImage('html5'),
@@ -73,12 +72,16 @@ export const Skills: React.FC<Props> = () => {
       logo: getImage('gatsbyjs'),
     },
     {
+      name: 'Apollo',
+      logo: getImage('apollo'),
+    },
+    {
       name: 'D3',
       logo: getImage('d3'),
     },
   ];
 
-  const backendSkills = [
+  const backendSkills: Object[] = [
     {
       name: 'NodeJS',
       logo: getImage('nodejs'),
@@ -100,16 +103,12 @@ export const Skills: React.FC<Props> = () => {
       logo: getImage('postgreSQL'),
     },
     {
-      name: 'Apollo',
-      logo: getImage('apollo'),
-    },
-    {
       name: 'Express',
       logo: getImage('express'),
     },
   ];
 
-  const environment = [
+  const environment: Object[] = [
     {
       name: 'VSCode',
       logo: getImage('vscode'),
@@ -144,77 +143,37 @@ export const Skills: React.FC<Props> = () => {
     },
   ];
 
-  // const anim = useSpring(
-  //   { config: { duration: 5000 } },
-  //   { opacity: 0.7, from: { opacity: 0 } }
-  // );
+  const skillsArr: any[] = [
+    ['Front-End', frontendSkills],
+    ['Back-End', backendSkills],
+    ['Environment', environment],
+  ];
 
   return (
     <Element name="skills">
       <Container id="skills">
         <Particles className="particles" />
-        {/* <animated.h1 className="skills-title" style={anim}>
-          TECHNOLOGY STACK
-        </animated.h1> */}
-        {/* <h1 className="skills-title">TECHNOLOGY STACK</h1> */}
+        <h1 className="skills-title">TECHNOLOGY STACK</h1>
 
         <div className="main">
-          <Card>
-            <div className="title-area">
-              <h1>Front-End</h1>
-              <hr />
-            </div>
+          {skillsArr.map(skills => (
+            <Card key={`${skills[0]}`}>
+              <div className="title-area">
+                <h1>{skills[0]}</h1>
+                <hr />
+              </div>
 
-            <div className="skills-area">
-              {frontendSkills.map(skill => {
-                return (
-                  <div key={skill.name}>
+              <div className="skills-area">
+                {skills[1].map((kill: any) => (
+                  <div key={kill.name}>
                     <div className="logo-container">
-                      <Img fluid={skill.logo} />
+                      <Img fluid={kill.logo} />
                     </div>
                   </div>
-                );
-              })}
-            </div>
-          </Card>
-
-          <Card>
-            <div className="title-area">
-              <h1>Back-End</h1>
-              <hr />
-            </div>
-
-            <div className="skills-area">
-              {backendSkills.map(skill => {
-                return (
-                  <div key={skill.name}>
-                    <div className="logo-container">
-                      <Img fluid={skill.logo} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Card>
-
-          <Card>
-            <div className="title-area">
-              <h1>Environment</h1>
-              <hr />
-            </div>
-
-            <div className="skills-area">
-              {environment.map(skill => {
-                return (
-                  <div key={skill.name}>
-                    <div className="logo-container">
-                      <Img fluid={skill.logo} />
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Card>
+                ))}
+              </div>
+            </Card>
+          ))}
         </div>
       </Container>
     </Element>
@@ -245,6 +204,8 @@ const Container = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 600px;
+    border: 1px pink solid;
   }
 
   .skills-title {
@@ -256,7 +217,6 @@ const Container = styled.section`
   .title-area {
     width: 100%;
     background: rgba(45, 45, 70, 1);
-    /* border-radius: 10px; */
   }
 
   @media only screen and (min-width: 768px) {
@@ -282,6 +242,7 @@ const Card = styled.div`
   border: 2px pink dotted;
   border-radius: 4px;
   box-shadow: 0 7px 30px -10px inset rgba(150, 170, 180, 0.5);
+  flex: 1;
 
   .title-area {
     margin-bottom: 6px;
@@ -301,6 +262,7 @@ const Card = styled.div`
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    flex: 1;
 
     .logo-container {
       width: 50px;
