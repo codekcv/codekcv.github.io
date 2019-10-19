@@ -4,6 +4,7 @@ import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import Particles from 'react-particles-js';
+import { animated, useSpring } from 'react-spring';
 
 interface Props {}
 
@@ -14,7 +15,7 @@ const getLogos = graphql`
         node {
           name
           childImageSharp {
-            fluid {
+            fluid(maxWidth: 256) {
               ...GatsbyImageSharpFluid_tracedSVG
             }
           }
@@ -143,11 +144,19 @@ export const Skills: React.FC<Props> = () => {
     },
   ];
 
+  // const anim = useSpring(
+  //   { config: { duration: 5000 } },
+  //   { opacity: 0.7, from: { opacity: 0 } }
+  // );
+
   return (
     <Element name="skills">
       <Container id="skills">
         <Particles className="particles" />
-        <h1 className="skills-title">TECHNOLOGY STACK</h1>
+        {/* <animated.h1 className="skills-title" style={anim}>
+          TECHNOLOGY STACK
+        </animated.h1> */}
+        {/* <h1 className="skills-title">TECHNOLOGY STACK</h1> */}
 
         <div className="main">
           <Card>

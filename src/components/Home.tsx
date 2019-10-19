@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import BackgroundImage from 'gatsby-background-image';
 import Img from 'gatsby-image';
 import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
+import { useSpring, animated } from 'react-spring';
 
 interface Props {}
 
@@ -39,7 +40,7 @@ export const Home: React.FC<Props> = () => {
           <Img className="profile" fluid={profileImage} />
           <div className="information">
             <h1>Christian Villamin</h1>
-            <h2>{`I create web site & web applications.`}</h2>
+            <h2>{`I create web sites & web applications.`}</h2>
           </div>
         </Container>
       </BackgroundImage>

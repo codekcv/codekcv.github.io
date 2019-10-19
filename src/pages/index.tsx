@@ -1,69 +1,56 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './index.css';
 import styled from 'styled-components';
+import { Navbar } from '../components/Navbar';
 import { Home } from '../components/Home';
 import { Skills } from '../components/Skills';
-
-import { scroller } from 'react-scroll';
-import { Navbar } from '../components/Navbar';
 import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
-
+import { scroller } from 'react-scroll';
 import { Swipeable } from 'react-swipeable';
 
 const App: React.FC = () => {
-  const sections = ['home', 'skills', 'projects', 'about', 'contact'];
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [scrolling, setScrolling] = useState<boolean>(false);
+  const indexRef = useRef<HTMLDivElement>(null);
+  const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
-    let target = 0;
-    if (e.deltaY < 0 && current > 0) target = -1;
-    else if (e.deltaY > 0 && current < sections.length - 1) target = 1;
-    target && handleScroll('scroll', `${target}`);
+    e.deltaY < 0 && handleDirection('up');
+    e.deltaY > 0 && handleDirection('down');
   };
 
   const handleOnKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
-      let target = 0;
-
-      switch (e.key) {
-        case 'ArrowDown':
-          if (current < sections.length - 1) target = 1;
-          break;
-        case 'ArrowUp':
-          if (current > 0) target = -1;
-      }
-
-      target && handleScroll('scroll', `${target}`);
-    }
+    e.key === 'ArrowUp' && handleDirection('up');
+    e.key === 'ArrowDown' && handleDirection('down');
   };
 
   const handleOnSwipe = (target: number) => {
-    if (
-      (target === -1 && current === 0) ||
-      (target === 1 && current === sections.length - 1)
-    )
-      return;
-
-    target && handleScroll('scroll', `${target}`);
+    target === -1 && handleDirection('up');
+    target === 1 && handleDirection('down');
   };
 
-  let current = 0;
-  let scrolling = false;
+  const handleDirection = (direction: string) => {
+    if (scrolling) return;
+    direction === 'up' && currentIndex > 0 && handleScroll('scroll', `-1`);
+    direction === 'down' &&
+      currentIndex < sections.length - 1 &&
+      handleScroll('scroll', `1`);
+  };
 
   const handleScroll = (type: string, target: string) => {
-    if (scrolling) return;
-
-    let index = -1;
+    let index = 0;
 
     switch (type) {
       case 'scroll':
-        index = current += parseInt(target);
+        const val = currentIndex + parseInt(target);
+        index = val;
+        setCurrentIndex(val);
         break;
       case 'click':
         index = sections.indexOf(target);
-        current = index;
-        break;
+        setCurrentIndex(index);
     }
 
     scroller.scrollTo(sections[index], {
@@ -72,9 +59,13 @@ const App: React.FC = () => {
       ignoreCancelEvents: true,
     });
 
-    scrolling = true;
-    setTimeout(() => (scrolling = false), type === 'scroll' ? 500 : 0);
+    setScrolling(true);
+    setTimeout(() => setScrolling(false), type === 'scroll' ? 500 : 0);
   };
+
+  useEffect(() => {
+    indexRef.current && indexRef.current.focus();
+  }, []);
 
   return (
     <Swipeable
@@ -85,6 +76,7 @@ const App: React.FC = () => {
         onWheel={handleOnWheel}
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
+        ref={indexRef}
       >
         <Navbar handleScroll={handleScroll} />
         <Home />
