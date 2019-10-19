@@ -152,7 +152,7 @@ export const Skills: React.FC<Props> = () => {
   return (
     <Element name="skills">
       <Container id="skills">
-        <Particles className="particles" />
+        {/* <Particles className="particles" /> */}
         <h1 className="skills-title">TECHNOLOGY STACK</h1>
 
         <div className="main">
@@ -204,7 +204,7 @@ const Container = styled.section`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 600px;
+    height: auto;
     border: 1px pink solid;
   }
 
@@ -232,9 +232,10 @@ const Container = styled.section`
 
 const Card = styled.div`
   max-width: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  height: 100%;
+  /* display: flex; */
+  /* flex-direction: column;
+  justify-content: center; */
 
   background: rgba(255, 255, 255, 0.1);
   margin: 1vh 0;
@@ -259,14 +260,11 @@ const Card = styled.div`
 
   .skills-area {
     display: flex;
-    justify-content: center;
-    align-items: center;
     flex-wrap: wrap;
-    flex: 1;
 
     .logo-container {
-      width: 50px;
-      height: 50px;
+      width: 14vw;
+      height: 14vw;
       margin: 0.2rem;
       padding: 6px;
       background: white;
@@ -286,8 +284,8 @@ const Card = styled.div`
 
     .skills-area {
       .logo-container {
-        width: 90px;
-        height: 90px;
+        width: 70px;
+        height: 70px;
         margin: 0.5rem;
         padding: 12px;
         border-radius: 16px;
