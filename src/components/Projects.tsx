@@ -93,6 +93,8 @@ const Container = styled.section`
   }
 
   .projects-container {
+    max-width: 95%;
+
     .description {
       margin-bottom: 4px;
     }

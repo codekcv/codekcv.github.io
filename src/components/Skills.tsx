@@ -149,6 +149,8 @@ export const Skills: React.FC<Props> = () => {
     ['Environment', environment],
   ];
 
+  const isMobile = window.innerWidth < 768;
+
   return (
     <Element name="skills">
       <Container id="skills">
@@ -157,10 +159,10 @@ export const Skills: React.FC<Props> = () => {
           params={{
             particles: {
               number: {
-                value: 60,
+                value: isMobile ? 15 : 45,
                 density: {
                   enable: true,
-                  value_area: 800,
+                  value_area: isMobile ? 400 : 800,
                 },
               },
               color: {
