@@ -17,11 +17,23 @@ export const Contact: React.FC<Props> = () => {
             <div>
               <label htmlFor="name">Name</label>
 
-              <input type="text" name="name" id="name" className="input" />
+              <input
+                type="text"
+                name="name"
+                id="name"
+                className="input"
+                required
+              />
             </div>
             <div>
               <label htmlFor="email">Email</label>
-              <input type="email" name="email" id="email" className="input" />
+              <input
+                type="email"
+                name="email"
+                id="email"
+                className="input"
+                required
+              />
             </div>
             <div>
               <label htmlFor="message">Message</label>
@@ -30,6 +42,7 @@ export const Contact: React.FC<Props> = () => {
                 id="message"
                 rows={10}
                 className="input"
+                required
               />
             </div>
             <div className="submit-container">

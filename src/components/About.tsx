@@ -26,7 +26,6 @@ export const About: React.FC = () => {
   return (
     <Element name="about">
       <Container id="about">
-        <h1>@About</h1>
         <div className="profile-container">
           <Img className="profile" fluid={fluid} />
         </div>
@@ -38,29 +37,35 @@ export const About: React.FC = () => {
           </p>
           <br />
           <ul>
-            <li>I learn fast and love learning new things</li>
-            <li>I'm flexible and adapts to environments fast</li>
-            <li>I'm always on my programming game, it is life.</li>
+            <li>I love learning new things and I learn fast.</li>
+            <li>I'm flexible and adapt to environments fast</li>
+            <li>I'm always on my programming game, I code clean and fast.</li>
           </ul>
           <br />
           <h2>Programming History</h2>
           <p>
-            I have started programming when I was 11, using Blizzard's JASS
-            scripting language to make mods for Warcraft III's custom maps. I
-            learned it through self-interest and very much enjoyed the art of
-            programming. I made Tower Defense, Tag games, War Chasers, and many
-            more.
+            I have started programming back in 2007 when I was 11, using
+            Blizzard's event-driven scripting language called JASS to make
+            modifications and create custom maps for their game, Warcraft III. I
+            learned it through self learning and my love for their game, and
+            since then have enjoyed the art of programming to heart. With it, I
+            made games such as Hero Arena(Now as MOBA), Tower Defense, Campaign
+            Adventures, and many more where I played it with my local and online
+            friends.
           </p>
           <br />
           <p>
-            After that, I moved to Java to make my own mobile game using Android
-            Studio and a library called libGDX. I made a 2D platform running
-            game that is set in school. A year later after this, I learned C#
-            and moved to Unity3D to step-up the game. ...more more story...
-            qwekqwek
+            After that, I learned to program in Java to make my own Android
+            mobile game using the Android Studio IDE and a library called
+            libGDX. I made a 2D platform pixel-art running game. A year later, I
+            decided to learn C#, Blender, and moved to Unity3D to step-up the
+            game.
           </p>
           <br />
-          <p>Web Development part... HTML CSS JS</p>
+          <p>
+            Web Development part... HTML CSS JS. freeCodeCamp completer... work
+            this part.
+          </p>
         </div>
       </Container>
     </Element>
@@ -90,6 +95,19 @@ const Container = styled.section`
     padding: 12px;
     background: black;
     box-shadow: 0 0 5px silver;
+
+    h2 {
+      font-size: 6vw;
+    }
+
+    p {
+      font-size: 3vw;
+    }
+
+    ul {
+      margin-left: 24px;
+      font-size: 3vw;
+    }
   }
 
   @media only screen and (min-width: 768px) {
@@ -98,6 +116,19 @@ const Container = styled.section`
       width: 600px;
       margin: 12px;
       padding: 12px;
+
+      h2 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      ul {
+        margin-left: 24px;
+        font-size: 1rem;
+      }
     }
   }
 `;

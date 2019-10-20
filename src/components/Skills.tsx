@@ -152,7 +152,26 @@ export const Skills: React.FC<Props> = () => {
   return (
     <Element name="skills">
       <Container id="skills">
-        <Particles className="particles" />
+        <Particles
+          className="particles"
+          params={{
+            particles: {
+              number: {
+                value: 60,
+                density: {
+                  enable: true,
+                  value_area: 800,
+                },
+              },
+              color: {
+                value: '#fff',
+              },
+              size: {
+                value: 2,
+              },
+            },
+          }}
+        />
         <h1 className="skills-title">TECHNOLOGY STACK</h1>
 
         <div className="main">
