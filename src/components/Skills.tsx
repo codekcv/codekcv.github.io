@@ -14,7 +14,7 @@ const getLogos = graphql`
         node {
           name
           childImageSharp {
-            fluid(maxWidth: 256) {
+            fluid(maxWidth: 128) {
               ...GatsbyImageSharpFluid
             }
           }
@@ -152,7 +152,7 @@ export const Skills: React.FC<Props> = () => {
   return (
     <Element name="skills">
       <Container id="skills">
-        {/* <Particles className="particles" /> */}
+        <Particles className="particles" />
         <h1 className="skills-title">TECHNOLOGY STACK</h1>
 
         <div className="main">

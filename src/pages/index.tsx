@@ -9,6 +9,7 @@ import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 import { scroller } from 'react-scroll';
 import { Swipeable } from 'react-swipeable';
+import { graphql, useStaticQuery } from 'gatsby';
 
 const App: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);

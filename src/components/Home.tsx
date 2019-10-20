@@ -1,17 +1,15 @@
 import React from 'react';
 import BackgroundImage from 'gatsby-background-image';
 import Img from 'gatsby-image';
-import { graphql, useStaticQuery } from 'gatsby';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
-
-interface Props {}
+import { graphql, useStaticQuery } from 'gatsby';
 
 const getImages = graphql`
   query {
     background: file(relativePath: { eq: "codes.jpg" }) {
       childImageSharp {
-        fluid(quality: 90, maxWidth: 4160) {
+        fluid(quality: 90, maxWidth: 1080) {
           ...GatsbyImageSharpFluid
         }
       }
@@ -27,10 +25,15 @@ const getImages = graphql`
   }
 `;
 
-export const Home: React.FC<Props> = () => {
-  const data = useStaticQuery(getImages);
-  const backgroundImage = data.background.childImageSharp.fluid;
-  const profileImage = data.profile.childImageSharp.fluid;
+export const Home: React.FC = () => {
+  const {
+    background: {
+      childImageSharp: { fluid: backgroundImage },
+    },
+    profile: {
+      childImageSharp: { fluid: profileImage },
+    },
+  } = useStaticQuery(getImages);
 
   return (
     <Element name="home">

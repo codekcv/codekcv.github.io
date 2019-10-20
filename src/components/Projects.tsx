@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
+import { Link } from 'gatsby';
 
 interface Props {}
 
@@ -9,6 +10,7 @@ export const Projects: React.FC<Props> = () => {
     <Element name="projects">
       <Container id="projects">
         <h1>@Projects</h1>
+        <Link to="/project">All Projects</Link>
       </Container>
     </Element>
   );
