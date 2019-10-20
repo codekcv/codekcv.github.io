@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
-import { Link } from 'gatsby';
 
 interface Props {}
 
@@ -10,7 +9,7 @@ export const Projects: React.FC<Props> = () => {
     {
       title: 'listerNote',
       description:
-        'A note organizer inspired by Trello. It uses a kanban board where you can add lists with cards.',
+        'A note organizer inspired by Trello. You can make boards, lists, and cards.',
       technologies: ['TypeScript', 'React', 'Redux', 'Hooks'],
       github: '',
       demo: '',
@@ -65,10 +64,6 @@ export const Projects: React.FC<Props> = () => {
             </Project>
           ))}
         </div>
-
-        <div className="see-more">
-          <Link to="/project">All Projects</Link>
-        </div>
       </Container>
     </Element>
   );
@@ -82,7 +77,7 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
 
   .title-container {
     .title {
@@ -111,9 +106,11 @@ const Container = styled.section`
   @media only screen and (min-width: 768px) {
     flex-direction: row;
 
-    .title {
-      font-size: 8vw;
-      text-shadow: 0 5px silver;
+    .title-container {
+      .title {
+        font-size: 8vw;
+        text-shadow: 0 6.5px silver;
+      }
     }
 
     .projects-container {

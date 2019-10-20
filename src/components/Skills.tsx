@@ -150,8 +150,6 @@ export const Skills: React.FC<Props> = () => {
     ['Environment', environment],
   ];
 
-  console.log('kewl', isMobile);
-
   return (
     <Element name="skills">
       <Container id="skills">
@@ -210,7 +208,7 @@ const Container = styled.section`
   align-items: center;
   background: rgb(35, 35, 50);
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
 
   .particles {
     position: absolute;
@@ -221,33 +219,32 @@ const Container = styled.section`
     z-index: 0;
   }
 
-  .main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: auto;
-    border: 1px pink solid;
-  }
-
   .skills-title {
     color: white;
     font-size: 8vw;
     text-shadow: 0 3px silver;
   }
 
-  .title-area {
-    width: 100%;
-    background: rgba(45, 45, 70, 1);
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+
+    .title-area {
+      width: 100%;
+      background: rgba(45, 45, 70, 1);
+    }
   }
 
   @media only screen and (min-width: 768px) {
-    .main {
-      flex-direction: row;
+    .skills-title {
+      text-shadow: 0 6.5px silver;
     }
 
-    .skills-title {
-      text-shadow: 0 5px silver;
+    .main {
+      flex-direction: row;
     }
   }
 `;
@@ -255,9 +252,6 @@ const Container = styled.section`
 const Card = styled.div`
   max-width: 90%;
   height: 100%;
-  /* display: flex; */
-  /* flex-direction: column;
-  justify-content: center; */
 
   background: rgba(255, 255, 255, 0.1);
   margin: 1vh 0;

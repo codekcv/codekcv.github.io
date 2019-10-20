@@ -57,7 +57,7 @@ const Container = styled.section`
   align-items: center;
   background: rgba(0, 0, 0, 0.5);
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
 
   .profile {
     width: 175px;

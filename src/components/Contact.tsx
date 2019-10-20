@@ -63,7 +63,7 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
 
   h1 {
     margin-bottom: 2vh;
