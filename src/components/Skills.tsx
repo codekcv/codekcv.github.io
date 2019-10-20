@@ -4,6 +4,7 @@ import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import Particles from 'react-particles-js';
+import { isMobile } from 'react-device-detect';
 
 interface Props {}
 
@@ -149,7 +150,7 @@ export const Skills: React.FC<Props> = () => {
     ['Environment', environment],
   ];
 
-  const isMobile = window.innerWidth < 768;
+  console.log('kewl', isMobile);
 
   return (
     <Element name="skills">

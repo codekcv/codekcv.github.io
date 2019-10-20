@@ -101,6 +101,7 @@ const Container = styled.section`
 
     .technologies {
       background: lightcoral;
+      font-size: 3.5vw;
       border-radius: 4px;
       margin: 3px;
       padding: 3px;
@@ -113,6 +114,12 @@ const Container = styled.section`
     .title {
       font-size: 8vw;
       text-shadow: 0 5px silver;
+    }
+
+    .projects-container {
+      .technologies {
+        font-size: 1rem;
+      }
     }
   }
 `;
