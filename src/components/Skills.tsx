@@ -157,7 +157,6 @@ export const Skills: React.FC<Props> = ({ active }) => {
   const props = useSpring({
     opacity: toggle ? 1 : 0,
     delay: toggle ? 250 : 0,
-    duration: 5000,
   });
 
   active === 'skills' ? !toggle && setToggle(true) : toggle && setToggle(false);
@@ -166,7 +165,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
     <Element name="skills">
       <Container id="skills">
         <animated.div className="anim-container" style={props}>
-          {/* <Particles
+          <Particles
             className="particles"
             params={{
               particles: {
@@ -185,7 +184,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
                 },
               },
             }}
-          /> */}
+          />
           <h1 className="skills-title">TECHNOLOGY STACK</h1>
           <div className="main">
             {skillsArr.map(skills => (
@@ -199,7 +198,8 @@ export const Skills: React.FC<Props> = ({ active }) => {
                   {skills[1].map((kill: any) => (
                     <div key={kill.name}>
                       <div className="logo-container">
-                        <Img fluid={kill.logo} />
+                        {kill.name}
+                        {/* <Img fluid={kill.logo} /> */}
                       </div>
                     </div>
                   ))}

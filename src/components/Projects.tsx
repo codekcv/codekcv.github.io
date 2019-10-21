@@ -51,14 +51,11 @@ export const Projects: React.FC<Props> = ({ active }) => {
   const props = useSpring({
     opacity: toggle ? 1 : 0,
     delay: toggle ? 250 : 0,
-    duration: 5000,
   });
 
   active === 'projects'
     ? !toggle && setToggle(true)
     : toggle && setToggle(false);
-
-  // const Cool = animated(Container);
 
   return (
     <Element name="projects">
@@ -125,7 +122,9 @@ const Container = styled.section`
   }
 
   @media only screen and (min-width: 768px) {
-    flex-direction: row;
+    .anim-container {
+      flex-direction: row;
+    }
 
     .title-container {
       .title {

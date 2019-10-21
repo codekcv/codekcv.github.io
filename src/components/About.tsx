@@ -32,7 +32,6 @@ export const About: React.FC<Props> = ({ active }) => {
   const props = useSpring({
     opacity: toggle ? 1 : 0,
     delay: toggle ? 250 : 0,
-    duration: 5000,
   });
 
   active === 'about' ? !toggle && setToggle(true) : toggle && setToggle(false);
