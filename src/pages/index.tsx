@@ -85,10 +85,10 @@ const App: React.FC = () => {
       >
         <Navbar handleScroll={handleScroll} />
         <Home active={active} />
-        <Skills />
+        <Skills active={active} />
         <Projects active={active} />
-        <About />
-        <Contact />
+        <About active={active} />
+        <Contact active={active} />
       </Container>
     </Swipeable>
   );

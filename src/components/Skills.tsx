@@ -1,12 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
-
-interface Props {}
+import { useSpring, animated } from 'react-spring';
 
 const getLogos = graphql`
   query {
@@ -25,7 +24,11 @@ const getLogos = graphql`
   }
 `;
 
-export const Skills: React.FC<Props> = () => {
+interface Props {
+  active: string;
+}
+
+export const Skills: React.FC<Props> = ({ active }) => {
   const {
     logos: { edges },
   } = useStaticQuery(getLogos);
@@ -150,65 +153,80 @@ export const Skills: React.FC<Props> = () => {
     ['Environment', environment],
   ];
 
+  const [toggle, setToggle] = useState<boolean>(false);
+  const props = useSpring({
+    opacity: toggle ? 1 : 0,
+    delay: toggle ? 250 : 0,
+    duration: 5000,
+  });
+
+  active === 'skills' ? !toggle && setToggle(true) : toggle && setToggle(false);
+
+  console.log('skio:', active);
+
   return (
     <Element name="skills">
       <Container id="skills">
-        <Particles
-          className="particles"
-          params={{
-            particles: {
-              number: {
-                value: isMobile ? 15 : 45,
-                density: {
-                  enable: true,
-                  value_area: isMobile ? 400 : 800,
+        <animated.div className="anim-container" style={props}>
+          {/* <Particles
+            className="particles"
+            params={{
+              particles: {
+                number: {
+                  value: isMobile ? 15 : 45,
+                  density: {
+                    enable: true,
+                    value_area: isMobile ? 400 : 800,
+                  },
+                },
+                color: {
+                  value: '#fff',
+                },
+                size: {
+                  value: 2,
                 },
               },
-              color: {
-                value: '#fff',
-              },
-              size: {
-                value: 2,
-              },
-            },
-          }}
-        />
-        <h1 className="skills-title">TECHNOLOGY STACK</h1>
+            }}
+          /> */}
+          <h1 className="skills-title">TECHNOLOGY STACK</h1>
+          <div className="main">
+            {skillsArr.map(skills => (
+              <Card key={`${skills[0]}`}>
+                <div className="title-area">
+                  <h1>{skills[0]}</h1>
+                  <hr />
+                </div>
 
-        <div className="main">
-          {skillsArr.map(skills => (
-            <Card key={`${skills[0]}`}>
-              <div className="title-area">
-                <h1>{skills[0]}</h1>
-                <hr />
-              </div>
-
-              <div className="skills-area">
-                {skills[1].map((kill: any) => (
-                  <div key={kill.name}>
-                    <div className="logo-container">
-                      <Img fluid={kill.logo} />
+                <div className="skills-area">
+                  {skills[1].map((kill: any) => (
+                    <div key={kill.name}>
+                      <div className="logo-container">
+                        <Img fluid={kill.logo} />
+                      </div>
                     </div>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </div>
+                  ))}
+                </div>
+              </Card>
+            ))}
+          </div>
+        </animated.div>
       </Container>
     </Element>
   );
 };
 
 const Container = styled.section`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background: rgb(35, 35, 50);
-  width: 100%;
-  height: 100vh;
+
+  .anim-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  }
 
   .particles {
     position: absolute;

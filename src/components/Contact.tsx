@@ -1,69 +1,88 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
+import { useSpring, animated } from 'react-spring';
 
-interface Props {}
+interface Props {
+  active: string;
+}
 
-export const Contact: React.FC<Props> = () => {
+export const Contact: React.FC<Props> = ({ active }) => {
+  const [toggle, setToggle] = useState<boolean>(false);
+  const props = useSpring({
+    opacity: toggle ? 1 : 0,
+    delay: toggle ? 250 : 0,
+    duration: 5000,
+  });
+
+  active === 'contact'
+    ? !toggle && setToggle(true)
+    : toggle && setToggle(false);
+
   return (
     <Element name="contact">
-      <Container>
-        <h1>Contact Me</h1>
-        <div className="contact-container">
-          <form
-            action="https://formspree.io/mabaetbaet@gmail.com"
-            method="POST"
-          >
-            <div>
-              <label htmlFor="name">Name</label>
+      <Container id="contact">
+        <animated.div className="anim-container" style={props}>
+          <h1>Contact Me</h1>
+          <div className="contact-container">
+            <form
+              action="https://formspree.io/mabaetbaet@gmail.com"
+              method="POST"
+            >
+              <div>
+                <label htmlFor="name">Name</label>
 
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="input"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="input"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="message">Message</label>
-              <textarea
-                name="message"
-                id="message"
-                rows={10}
-                className="input"
-                required
-              />
-            </div>
-            <div className="submit-container">
-              <input type="submit" value="submit here" className="submit" />
-            </div>
-          </form>
-        </div>
+                <input
+                  type="text"
+                  name="name"
+                  id="name"
+                  className="input"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="email">Email</label>
+                <input
+                  type="email"
+                  name="email"
+                  id="email"
+                  className="input"
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="message">Message</label>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows={10}
+                  className="input"
+                  required
+                />
+              </div>
+              <div className="submit-container">
+                <input type="submit" value="submit here" className="submit" />
+              </div>
+            </form>
+          </div>
+        </animated.div>
       </Container>
     </Element>
   );
 };
 
 const Container = styled.div`
-  position: relative;
   background: mediumseagreen;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
+
+  .anim-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+  }
 
   h1 {
     margin-bottom: 2vh;
