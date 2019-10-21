@@ -162,8 +162,6 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
   active === 'skills' ? !toggle && setToggle(true) : toggle && setToggle(false);
 
-  console.log('skio:', active);
-
   return (
     <Element name="skills">
       <Container id="skills">

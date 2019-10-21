@@ -40,7 +40,7 @@ export const Home: React.FC<Props> = ({ active }) => {
     },
   } = useStaticQuery(getImages);
 
-  const [toggle, setToggle] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(true);
   const props = useSpring({
     opacity: toggle ? 1 : 0,
     delay: toggle ? 250 : 0,
