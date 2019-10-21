@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { useSpring, animated } from 'react-spring';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
@@ -59,7 +60,7 @@ export const Projects: React.FC<Props> = ({ active }) => {
 
   return (
     <Element name="projects">
-      <Container id="projects">
+      <Container id="projects" isMobile={isMobile}>
         <animated.div className="anim-container" style={props}>
           <div className="title-container">
             <h1 className="title">Projects</h1>
@@ -83,7 +84,7 @@ export const Projects: React.FC<Props> = ({ active }) => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<{ isMobile: boolean }>`
   background: rgb(40, 70, 70);
 
   .anim-container {
@@ -94,7 +95,7 @@ const Container = styled.section`
     align-items: center;
 
     width: 100%;
-    height: 100vh;
+    height: ${props => (props.isMobile ? '-webkit-fill-available' : '100vh')};
   }
 
   .title-container {

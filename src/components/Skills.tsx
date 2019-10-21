@@ -6,6 +6,7 @@ import Img from 'gatsby-image';
 import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
 import { useSpring, animated } from 'react-spring';
+import { isMobile } from 'react-device-detect';
 
 const getLogos = graphql`
   query {
@@ -163,7 +164,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
   return (
     <Element name="skills">
-      <Container id="skills">
+      <Container id="skills" isMobile={isMobile}>
         <animated.div className="anim-container" style={props}>
           <Particles
             className="particles"
@@ -213,7 +214,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<{ isMobile: boolean }>`
   background: rgb(35, 35, 50);
 
   .anim-container {
@@ -223,7 +224,7 @@ const Container = styled.section`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100vh;
+    height: ${props => (props.isMobile ? '-webkit-fill-available' : '100vh')};
   }
 
   .particles {
