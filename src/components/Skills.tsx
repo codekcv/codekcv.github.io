@@ -6,7 +6,6 @@ import Img from 'gatsby-image';
 import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
 import { useSpring, animated } from 'react-spring';
-import { isMobile } from 'react-device-detect';
 
 const getLogos = graphql`
   query {
@@ -27,9 +26,10 @@ const getLogos = graphql`
 
 interface Props {
   active: string;
+  vh: number;
 }
 
-export const Skills: React.FC<Props> = ({ active }) => {
+export const Skills: React.FC<Props> = ({ active, vh }) => {
   const {
     logos: { edges },
   } = useStaticQuery(getLogos);
@@ -164,7 +164,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
   return (
     <Element name="skills">
-      <Container id="skills" isMobile={isMobile}>
+      <Container id="skills" isMobile={isMobile} vh={vh}>
         <animated.div className="anim-container" style={props}>
           <Particles
             className="particles"
@@ -196,11 +196,11 @@ export const Skills: React.FC<Props> = ({ active }) => {
                 </div>
 
                 <div className="skills-area">
-                  {skills[1].map((kill: any) => (
-                    <div key={kill.name}>
+                  {skills[1].map((skill: any) => (
+                    <div key={skill.name}>
                       <div className="logo-container">
-                        {kill.name}
-                        {/* <Img fluid={kill.logo} /> */}
+                        {/* {kill.name} */}
+                        <Img fluid={skill.logo} />
                       </div>
                     </div>
                   ))}
@@ -214,7 +214,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
   );
 };
 
-const Container = styled.section<{ isMobile: boolean }>`
+const Container = styled.section<{ isMobile: boolean; vh: number }>`
   background: rgb(35, 35, 50);
 
   .anim-container {
@@ -224,7 +224,10 @@ const Container = styled.section<{ isMobile: boolean }>`
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: ${props => (props.isMobile ? '-webkit-fill-available' : '100vh')};
+    /* height: ${props =>
+      props.isMobile ? '-webkit-fill-available' : '100vh'}; */
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
   }
 
   .particles {

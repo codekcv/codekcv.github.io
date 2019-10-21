@@ -75,7 +75,7 @@ const Container = styled.section`
     align-items: center;
 
     width: 100%;
-    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
   }
 
   .profile {

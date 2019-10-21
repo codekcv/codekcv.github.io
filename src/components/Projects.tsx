@@ -6,9 +6,10 @@ import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
+  vh: number;
 }
 
-export const Projects: React.FC<Props> = ({ active }) => {
+export const Projects: React.FC<Props> = ({ active, vh }) => {
   const projects = [
     {
       title: 'listerNote',
@@ -95,7 +96,10 @@ const Container = styled.section<{ isMobile: boolean }>`
     align-items: center;
 
     width: 100%;
-    height: ${props => (props.isMobile ? '-webkit-fill-available' : '100vh')};
+    /* height: ${props =>
+      props.isMobile ? '-webkit-fill-available' : '100vh'}; */
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
   }
 
   .title-container {
