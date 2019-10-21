@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
+import { useSpring, animated } from 'react-spring';
 
-interface Props {}
+interface Props {
+  active: string;
+}
 
-export const Projects: React.FC<Props> = () => {
+export const Projects: React.FC<Props> = ({ active }) => {
   const projects = [
     {
       title: 'listerNote',
@@ -44,26 +47,40 @@ export const Projects: React.FC<Props> = () => {
     },
   ];
 
+  const [toggle, setToggle] = useState<boolean>(false);
+  const props = useSpring({
+    opacity: toggle ? 1 : 0,
+    delay: toggle ? 250 : 0,
+    duration: 5000,
+  });
+
+  active === 'projects'
+    ? !toggle && setToggle(true)
+    : toggle && setToggle(false);
+
+  // const Cool = animated(Container);
+
   return (
     <Element name="projects">
       <Container id="projects">
-        <div className="title-container">
-          <h1 className="title">Projects</h1>
-        </div>
-
-        <div className="projects-container">
-          {projects.map(project => (
-            <Project key={project.title}>
-              <h2>{project.title}</h2>
-              <p className="description">{project.description}</p>
-              {project.technologies.map(technology => (
-                <span className="technologies" key={technology}>
-                  {technology}
-                </span>
-              ))}
-            </Project>
-          ))}
-        </div>
+        <animated.div className="anim-container" style={props}>
+          <div className="title-container">
+            <h1 className="title">Projects</h1>
+          </div>
+          <div className="projects-container">
+            {projects.map(project => (
+              <Project key={project.title}>
+                <h2>{project.title}</h2>
+                <p className="description">{project.description}</p>
+                {project.technologies.map(technology => (
+                  <span className="technologies" key={technology}>
+                    {technology}
+                  </span>
+                ))}
+              </Project>
+            ))}
+          </div>
+        </animated.div>
       </Container>
     </Element>
   );
@@ -71,13 +88,17 @@ export const Projects: React.FC<Props> = () => {
 
 const Container = styled.section`
   background: rgb(40, 70, 70);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100vh;
+
+  .anim-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    align-items: center;
+
+    width: 100%;
+    height: 100vh;
+  }
 
   .title-container {
     .title {

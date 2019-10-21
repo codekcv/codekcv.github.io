@@ -7,7 +7,7 @@ import { Skills } from '../components/Skills';
 import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
-import { scroller } from 'react-scroll';
+import { Events, scroller } from 'react-scroll';
 import { Swipeable } from 'react-swipeable';
 
 const App: React.FC = () => {
@@ -15,6 +15,7 @@ const App: React.FC = () => {
   const [scrolling, setScrolling] = useState<boolean>(false);
   const indexRef = useRef<HTMLDivElement>(null);
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
+  const [active, setActive] = useState<string>('home');
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleDirection('up');
@@ -55,7 +56,7 @@ const App: React.FC = () => {
 
     scroller.scrollTo(sections[index], {
       duration: type === 'scroll' ? 490 : 0,
-      smooth: 'easeOutCubic',
+      smooth: true,
       ignoreCancelEvents: true,
     });
 
@@ -65,6 +66,10 @@ const App: React.FC = () => {
 
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
+
+    Events.scrollEvent.register('begin', (to, el) => setActive(to));
+
+    return () => Events.scrollEvent.remove('end');
   }, []);
 
   return (
@@ -79,9 +84,9 @@ const App: React.FC = () => {
         ref={indexRef}
       >
         <Navbar handleScroll={handleScroll} />
-        <Home />
+        <Home active={active} />
         <Skills />
-        <Projects />
+        <Projects active={active} />
         <About />
         <Contact />
       </Container>

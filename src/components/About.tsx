@@ -9,7 +9,7 @@ const getProfile = graphql`
     profile: file(relativePath: { eq: "profile.jpg" }) {
       childImageSharp {
         fluid {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }
@@ -127,10 +127,11 @@ export const About: React.FC = () => {
               <li>Walking outside to think.</li>
             </ul>
             <br />
-            <p>Things I want to learn</p>
+            <p>Things I want to learn sometime</p>
             <ul>
               <li>AI & Machine Learning</li>
-              <li>Dungeon & Dragons</li>
+              <li>Dungeons & Dragons</li>
+              <li>Godot Game Engine</li>
             </ul>
           </div>
         </div>

@@ -1,16 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import BackgroundImage from 'gatsby-background-image';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
+import { useSpring, animated } from 'react-spring';
+
+interface Props {
+  active: string;
+}
 
 const getImages = graphql`
   query {
     background: file(relativePath: { eq: "codes.jpg" }) {
       childImageSharp {
         fluid(quality: 90, maxWidth: 1080) {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_withWebp
         }
       }
     }
@@ -18,14 +23,14 @@ const getImages = graphql`
     profile: file(relativePath: { eq: "profile.jpg" }) {
       childImageSharp {
         fluid {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_withWebp
         }
       }
     }
   }
 `;
 
-export const Home: React.FC = () => {
+export const Home: React.FC<Props> = ({ active }) => {
   const {
     background: {
       childImageSharp: { fluid: backgroundImage },
@@ -35,15 +40,26 @@ export const Home: React.FC = () => {
     },
   } = useStaticQuery(getImages);
 
+  const [toggle, setToggle] = useState<boolean>(false);
+  const props = useSpring({
+    opacity: toggle ? 1 : 0,
+    delay: toggle ? 250 : 0,
+    duration: 5000,
+  });
+
+  active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
+
   return (
     <Element name="home">
       <BackgroundImage fluid={backgroundImage}>
         <Container id="home">
-          <Img className="profile" fluid={profileImage} />
-          <div className="information">
-            <h1>Christian Villamin</h1>
-            <h2>{`I create web sites & web applications.`}</h2>
-          </div>
+          <animated.div className="anim-container" style={props}>
+            <Img className="profile" fluid={profileImage} />
+            <div className="information">
+              <h1>Christian Villamin</h1>
+              <h2>{`I create web sites & web applications.`}</h2>
+            </div>
+          </animated.div>
         </Container>
       </BackgroundImage>
     </Element>
@@ -51,13 +67,17 @@ export const Home: React.FC = () => {
 };
 
 const Container = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   background: rgba(0, 0, 0, 0.5);
-  width: 100%;
-  height: 100vh;
+
+  .anim-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100vh;
+  }
 
   .profile {
     width: 175px;
