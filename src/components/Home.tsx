@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
 import { useSpring, animated } from 'react-spring';
+import { isAndroid, isChrome, isChromium } from 'react-device-detect';
 
 interface Props {
   active: string;
@@ -57,6 +58,7 @@ export const Home: React.FC<Props> = ({ active }) => {
             <div className="information">
               <h1>Christian Villamin</h1>
               <h2>{`I create web sites & web applications.`}</h2>
+              {isAndroid && (isChrome || isChromium) && <p>Android & Chrome</p>}
             </div>
           </animated.div>
         </Container>
@@ -67,15 +69,17 @@ export const Home: React.FC<Props> = ({ active }) => {
 
 const Container = styled.section`
   background: rgba(0, 0, 0, 0.5);
+  position: relative;
 
   .anim-container {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
     width: 100%;
-    height: calc(var(--vh, 1vh) * 100);
+    height: 100vh;
   }
 
   .profile {

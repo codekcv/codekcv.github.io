@@ -9,7 +9,6 @@ import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 import { Events, scroller } from 'react-scroll';
 import { Swipeable } from 'react-swipeable';
-import { isMobile } from 'react-device-detect';
 
 const App: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
@@ -64,17 +63,11 @@ const App: React.FC = () => {
     setScrolling(true);
     setTimeout(() => setScrolling(false), type === 'scroll' ? 500 : 0);
   };
-
-  const [vh, setVh] = useState<number>(0);
-
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
 
-    Events.scrollEvent.register('begin', (to, el) => setActive(to));
-
-    setVh(window.innerHeight * 0.01);
-
-    return () => Events.scrollEvent.remove('end');
+    Events.scrollEvent.register('begin', to => setActive(to));
+    return () => Events.scrollEvent.remove('begin');
   }, []);
 
   return (
@@ -87,12 +80,11 @@ const App: React.FC = () => {
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
         ref={indexRef}
-        vh={vh}
       >
         <Navbar handleScroll={handleScroll} />
         <Home active={active} />
-        <Skills active={active} vh={vh} />
-        <Projects active={active} vh={vh} />
+        <Skills active={active} />
+        <Projects active={active} />
         <About active={active} />
         <Contact active={active} />
       </Container>
@@ -100,13 +92,9 @@ const App: React.FC = () => {
   );
 };
 
-const Container = styled.main<{ vh: number }>`
+const Container = styled.main`
+  position: relative;
   width: 100%;
-  height: auto;
-
-  :root {
-    --vh: ${props => props.vh};
-  }
 `;
 
 export default App;

@@ -7,6 +7,10 @@ import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
 import { useSpring, animated } from 'react-spring';
 
+interface Props {
+  active: string;
+}
+
 const getLogos = graphql`
   query {
     logos: allFile(filter: { relativeDirectory: { eq: "logos" } }) {
@@ -24,12 +28,7 @@ const getLogos = graphql`
   }
 `;
 
-interface Props {
-  active: string;
-  vh: number;
-}
-
-export const Skills: React.FC<Props> = ({ active, vh }) => {
+export const Skills: React.FC<Props> = ({ active }) => {
   const {
     logos: { edges },
   } = useStaticQuery(getLogos);
@@ -164,7 +163,7 @@ export const Skills: React.FC<Props> = ({ active, vh }) => {
 
   return (
     <Element name="skills">
-      <Container id="skills" isMobile={isMobile} vh={vh}>
+      <Container id="skills" isMobile={isMobile}>
         <animated.div className="anim-container" style={props}>
           <Particles
             className="particles"
@@ -214,7 +213,7 @@ export const Skills: React.FC<Props> = ({ active, vh }) => {
   );
 };
 
-const Container = styled.section<{ isMobile: boolean; vh: number }>`
+const Container = styled.section<{ isMobile: boolean }>`
   background: rgb(35, 35, 50);
 
   .anim-container {
@@ -224,10 +223,7 @@ const Container = styled.section<{ isMobile: boolean; vh: number }>`
     justify-content: center;
     align-items: center;
     width: 100%;
-    /* height: ${props =>
-      props.isMobile ? '-webkit-fill-available' : '100vh'}; */
     height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
   }
 
   .particles {

@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
-import Img from 'gatsby-image';
 import { graphql, useStaticQuery } from 'gatsby';
 import { useSpring, animated } from 'react-spring';
+
+interface Props {
+  active: string;
+}
 
 const getProfile = graphql`
   query {
@@ -16,10 +19,6 @@ const getProfile = graphql`
     }
   }
 `;
-
-interface Props {
-  active: string;
-}
 
 export const About: React.FC<Props> = ({ active }) => {
   const {
@@ -183,7 +182,6 @@ const Container = styled.section`
     padding: 12px;
     background: black;
     border: 1px silver solid;
-    /* box-shadow: 0 0 5px silver; */
 
     h2 {
       font-size: 6vw;

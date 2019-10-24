@@ -30,7 +30,6 @@ export const Contact: React.FC<Props> = ({ active }) => {
             >
               <div>
                 <label htmlFor="name">Name</label>
-
                 <input
                   type="text"
                   name="name"
@@ -60,7 +59,7 @@ export const Contact: React.FC<Props> = ({ active }) => {
                 />
               </div>
               <div className="submit-container">
-                <input type="submit" value="submit here" className="submit" />
+                <input type="submit" value="Submit" className="submit" />
               </div>
             </form>
           </div>
@@ -86,6 +85,8 @@ const Container = styled.div`
   h1 {
     margin-bottom: 2vh;
     color: white;
+    text-shadow: 0 3px silver;
+    font-size: 10vw;
   }
 
   .contact-container {
@@ -120,20 +121,25 @@ const Container = styled.div`
 
   .submit {
     background: lightskyblue;
+    width: 100%;
     border: 3px skyblue solid;
     padding: 8px 16px;
     border-radius: 6px;
-
-    text-shadow: 0 1px white;
+    font-size: 1rem;
 
     :hover {
-      background: lightskyblue;
+      background: blue;
     }
   }
 
   @media only screen and (min-width: 768px) {
     .contact-container {
       max-width: 500px;
+    }
+
+    h1 {
+      font-size: 5rem;
+      text-shadow: 0 6px silver;
     }
   }
 `;
