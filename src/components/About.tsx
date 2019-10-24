@@ -144,9 +144,10 @@ export const About: React.FC<Props> = ({ active }) => {
               <br />
               <p>Things I want to learn sometime</p>
               <ul>
-                <li>AI & Machine Learning</li>
+                <li>Python | AI & Machine Learning</li>
                 <li>Dungeons & Dragons</li>
-                <li>Godot Game Engine</li>
+                <li>Godot Game Engine | GDScript</li>
+                <li>Svelte</li>
               </ul>
             </div>
           </div>
@@ -204,7 +205,8 @@ const Container = styled.section`
 
     .about-container {
       color: gainsboro;
-      width: 600px;
+      width: 40vw;
+      max-width: 500px;
       margin: 12px;
       padding: 12px;
 
