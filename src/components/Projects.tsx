@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { useSpring, animated } from 'react-spring';
+import { Skills } from './Skills';
 
 interface Props {
   active: string;
@@ -14,36 +15,38 @@ export const Projects: React.FC<Props> = ({ active }) => {
       description:
         'A note organizer inspired by Trello. You can make boards, lists, and cards.',
       technologies: ['TypeScript', 'React', 'Redux', 'Hooks'],
-      github: '',
-      demo: '',
+      github: 'https://github.com/ChristianVillamin/lister',
+      demo: 'https://listernote.netlify.com/',
     },
     {
       title: 'Anonymous Message Board',
       description: 'A full stack application message board.',
       technologies: ['TypeScript', 'React', 'Redux', 'MongoDB', 'Express'],
-      github: '',
-      demo: '',
+      github:
+        'https://github.com/ChristianVillamin/boilerplate-project-messageboard',
+      demo: 'https://cv-board.glitch.me',
     },
     {
       title: 'Personal Portfolio',
       description: 'My own portfolio website you are currently in.',
       technologies: ['TypeScript', 'React', 'GraphQL'],
-      github: '',
-      demo: '',
+      github:
+        'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
+      demo: 'http://christianvillamin.github.io',
     },
     {
       title: 'Mini-Piano',
       description: 'A virtual 12-keys piano. (Includes 3 songs!)',
       technologies: ['JavaScript', 'React', 'Hooks'],
-      github: '',
-      demo: '',
+      github: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
+      demo: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
     },
     {
       title: 'Calculator',
       description: 'A calculator. Part of freeCodeCamp project.',
       technologies: ['JavaScript', 'React', 'Hooks'],
-      github: '',
-      demo: '',
+      github: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
+      demo: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
     },
   ];
 
@@ -68,6 +71,12 @@ export const Projects: React.FC<Props> = ({ active }) => {
             {projects.map(project => (
               <Project key={project.title}>
                 <h2>{project.title}</h2>
+                <a className="github" href={project.github}>
+                  GitHub
+                </a>
+                <a className="demo" href={project.demo}>
+                  Demo
+                </a>
                 <p className="description">{project.description}</p>
                 {project.technologies.map(technology => (
                   <span className="technologies" key={technology}>
@@ -97,6 +106,20 @@ const Container = styled.section`
     height: 100vh;
   }
 
+  h2 {
+    display: inline-block;
+    margin-right: 8px;
+  }
+
+  .github,
+  .demo {
+    text-decoration: none;
+    margin-right: 8px;
+    border: 1px pink solid;
+    padding: 2px 4px;
+    border-radius: 3px;
+  }
+
   .title-container {
     .title {
       color: white;
@@ -109,7 +132,7 @@ const Container = styled.section`
     max-width: 95%;
 
     .description {
-      margin-bottom: 4px;
+      margin: 4px 0;
     }
 
     .technologies {
