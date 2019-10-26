@@ -48,6 +48,15 @@ export const Projects: React.FC<Props> = ({ active }) => {
       github: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
       demo: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
     },
+    {
+      title: 'Stock Price Checker',
+      description:
+        'A full stack app. Fetches from an API to get latest stock prides..',
+      technologies: ['JavaScript', 'Node', 'Express', 'MongoDB', 'Axios'],
+      github:
+        'https://github.com/ChristianVillamin/boilerplate-project-stockchecker',
+      demo: 'https://cv-stock.glitch.me/',
+    },
   ];
 
   const [toggle, setToggle] = useState<boolean>(false);
