@@ -4,7 +4,7 @@ import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
-import { isAndroid, isChrome, isChromium } from 'react-device-detect';
+import { useSpring, animated } from 'react-spring';
 
 interface Props {
   active: string;
@@ -41,40 +41,33 @@ export const Home: React.FC<Props> = ({ active }) => {
   } = useStaticQuery(getImages);
 
   const [toggle, setToggle] = useState<boolean>(true);
+  const props = useSpring({
+    opacity: toggle ? 1 : 0,
+    paddingTop: toggle ? 0 : 300,
+    delay: 200,
+  });
 
   active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
-
-  useEffect(() => {
-    if (!toggle) return;
-    let element = document.getElementById('my-name');
-
-    if (element) {
-      element.classList.remove('my-name');
-      void element.offsetWidth;
-      element.classList.add('my-name');
-    }
-  }, [toggle]);
 
   return (
     <Element name="home">
       <BackgroundImage fluid={backgroundImage}>
-        <Container id="home" anim={toggle}>
+        <Container id="home">
           <Img className="profile" fluid={profileImage} />
-          <div className="information">
-            <h1 id="my-name">Christian Villamin</h1>
-            <h2>{`I create web sites & web applications.`}</h2>
-            {isAndroid && (isChrome || isChromium) && <p>Android & Chrome</p>}
-          </div>
+          <animated.div className="information" style={props}>
+            <div id="anim-text" className="actual-anim">
+              <h1>Christian Villamin</h1>
+              <h2>{`I create web sites & web applications.`}</h2>
+            </div>
+          </animated.div>
         </Container>
       </BackgroundImage>
     </Element>
   );
 };
 
-const Container = styled.section<{ anim: boolean }>`
+const Container = styled.section`
   background: rgba(0, 0, 0, 0.5);
-  position: relative;
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -83,9 +76,6 @@ const Container = styled.section<{ anim: boolean }>`
 
   width: 100%;
   height: 100vh;
-
-  .anim-container {
-  }
 
   .profile {
     width: 175px;
@@ -100,21 +90,8 @@ const Container = styled.section<{ anim: boolean }>`
     text-align: center;
     text-shadow: 2px 2px darkslategray;
 
-    .my-name {
+    h1 {
       font-size: 2rem;
-
-      animation: example 2s ease;
-      animation-iteration-count: 1;
-      animation-fill-mode: forwards;
-
-      @keyframes example {
-        from {
-          transform: translateY(50px);
-        }
-        to {
-          transform: translateY(0px);
-        }
-      }
     }
 
     h2 {

@@ -12,3 +12,8 @@ declare module '*.png' {
   const content: any;
   export default content;
 }
+
+declare module 'react-reveal/fade' {
+  const reactReveal: any;
+  export default reactReveal;
+}

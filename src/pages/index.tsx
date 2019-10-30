@@ -11,11 +11,11 @@ import { Events, scroller } from 'react-scroll';
 import { Swipeable } from 'react-swipeable';
 
 const App: React.FC = () => {
+  const [active, setActive] = useState<string>('home');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [scrolling, setScrolling] = useState<boolean>(false);
   const indexRef = useRef<HTMLDivElement>(null);
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
-  const [active, setActive] = useState<string>('home');
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleDirection('up');
@@ -55,17 +55,17 @@ const App: React.FC = () => {
     }
 
     scroller.scrollTo(sections[index], {
-      duration: type === 'scroll' ? 490 : 0,
+      duration: type === 'scroll' ? 290 : 0,
       smooth: true,
       ignoreCancelEvents: true,
     });
 
     setScrolling(true);
-    setTimeout(() => setScrolling(false), type === 'scroll' ? 500 : 0);
+    setTimeout(() => setScrolling(false), type === 'scroll' ? 300 : 0);
   };
+
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
-
     Events.scrollEvent.register('begin', to => setActive(to));
     return () => Events.scrollEvent.remove('begin');
   }, []);

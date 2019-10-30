@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -154,9 +154,11 @@ export const Skills: React.FC<Props> = ({ active }) => {
   ];
 
   const [toggle, setToggle] = useState<boolean>(false);
+
   const props = useSpring({
     opacity: toggle ? 1 : 0,
-    delay: toggle ? 250 : 0,
+    paddingTop: toggle ? 0 : 250,
+    delay: toggle ? 200 : 0,
   });
 
   active === 'skills' ? !toggle && setToggle(true) : toggle && setToggle(false);
@@ -186,9 +188,13 @@ export const Skills: React.FC<Props> = ({ active }) => {
             }}
           />
           <h1 className="skills-title">TECHNOLOGY STACK</h1>
-          <div className="main">
-            {skillsArr.map(skills => (
-              <Card key={`${skills[0]}`}>
+          <div className="main" id="anim-id">
+            {skillsArr.map((skills, index) => (
+              <Card
+                key={`${skills[0]}`}
+                className="actual-anim"
+                delay={index * 40}
+              >
                 <div className="title-area">
                   <h1>{skills[0]}</h1>
                   <hr />
@@ -198,7 +204,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
                   {skills[1].map((skill: any) => (
                     <div key={skill.name}>
                       <div className="logo-container">
-                        {/* {kill.name} */}
+                        {/* {skill.name} */}
                         <Img fluid={skill.logo} />
                       </div>
                     </div>
@@ -265,7 +271,7 @@ const Container = styled.section<{ isMobile: boolean }>`
   }
 `;
 
-const Card = styled.div`
+const Card = styled.div<{ delay: number }>`
   max-width: 90%;
   height: 100%;
 

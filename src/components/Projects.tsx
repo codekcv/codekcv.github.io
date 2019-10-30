@@ -62,7 +62,8 @@ export const Projects: React.FC<Props> = ({ active }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const props = useSpring({
     opacity: toggle ? 1 : 0,
-    delay: toggle ? 250 : 0,
+    paddingTop: toggle ? 0 : 300,
+    delay: toggle ? 200 : 0,
   });
 
   active === 'projects'
