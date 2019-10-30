@@ -73,11 +73,13 @@ const Container = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
   width: 100%;
   height: 100vh;
 
   .profile {
+    position: absolute;
+    left: 0;
+    top: 0;
     width: 175px;
     height: 175px;
     margin-bottom: 2vh;

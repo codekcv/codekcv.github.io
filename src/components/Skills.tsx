@@ -166,71 +166,68 @@ export const Skills: React.FC<Props> = ({ active }) => {
   return (
     <Element name="skills">
       <Container id="skills" isMobile={isMobile}>
-        <animated.div className="anim-container" style={props}>
-          <Particles
-            className="particles"
-            params={{
-              particles: {
-                number: {
-                  value: isMobile ? 15 : 45,
-                  density: {
-                    enable: true,
-                    value_area: isMobile ? 400 : 800,
-                  },
-                },
-                color: {
-                  value: '#fff',
-                },
-                size: {
-                  value: 2,
+        <Particles
+          className="particles"
+          params={{
+            particles: {
+              number: {
+                value: isMobile ? 15 : 45,
+                density: {
+                  enable: true,
+                  value_area: isMobile ? 400 : 800,
                 },
               },
-            }}
-          />
-          <h1 className="skills-title">TECHNOLOGY STACK</h1>
-          <div className="main" id="anim-id">
-            {skillsArr.map((skills, index) => (
-              <Card
-                key={`${skills[0]}`}
-                className="actual-anim"
-                delay={index * 40}
-              >
-                <div className="title-area">
-                  <h1>{skills[0]}</h1>
-                  <hr />
-                </div>
+              color: {
+                value: '#fff',
+              },
+              size: {
+                value: 2,
+              },
+            },
+          }}
+        />
 
-                <div className="skills-area">
-                  {skills[1].map((skill: any) => (
-                    <div key={skill.name}>
-                      <div className="logo-container">
-                        {/* {skill.name} */}
-                        <Img fluid={skill.logo} />
-                      </div>
+        {/* <animated.div className="anim-container" style={props}> */}
+        <h1 className="skills-title">TECHNOLOGY STACK</h1>
+        <div className="main" id="anim-id">
+          {skillsArr.map((skills, index) => (
+            <Card
+              key={`${skills[0]}`}
+              className="actual-anim"
+              delay={index * 40}
+            >
+              <div className="title-area">
+                <h1>{skills[0]}</h1>
+                <hr />
+              </div>
+
+              <div className="skills-area">
+                {skills[1].map((skill: any) => (
+                  <div key={skill.name}>
+                    <div className="logo-container">
+                      <Img fluid={skill.logo} />
                     </div>
-                  ))}
-                </div>
-              </Card>
-            ))}
-          </div>
-        </animated.div>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
+        </div>
+        {/* </animated.div> */}
       </Container>
     </Element>
   );
 };
 
 const Container = styled.section<{ isMobile: boolean }>`
+  position: relative;
   background: rgb(35, 35, 50);
-
-  .anim-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
 
   .particles {
     position: absolute;
