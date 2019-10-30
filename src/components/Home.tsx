@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BackgroundImage from 'gatsby-background-image';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
-import { useSpring, animated } from 'react-spring';
 import { isAndroid, isChrome, isChromium } from 'react-device-detect';
 
 interface Props {
@@ -42,44 +41,50 @@ export const Home: React.FC<Props> = ({ active }) => {
   } = useStaticQuery(getImages);
 
   const [toggle, setToggle] = useState<boolean>(true);
-  const props = useSpring({
-    opacity: toggle ? 1 : 0,
-    delay: toggle ? 250 : 0,
-  });
 
   active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
+
+  useEffect(() => {
+    if (!toggle) return;
+    let element = document.getElementById('my-name');
+
+    if (element) {
+      element.classList.remove('my-name');
+      void element.offsetWidth;
+      element.classList.add('my-name');
+    }
+  }, [toggle]);
 
   return (
     <Element name="home">
       <BackgroundImage fluid={backgroundImage}>
-        <Container id="home">
-          <animated.div className="anim-container" style={props}>
-            <Img className="profile" fluid={profileImage} />
-            <div className="information">
-              <h1>Christian Villamin</h1>
-              <h2>{`I create web sites & web applications.`}</h2>
-              {isAndroid && (isChrome || isChromium) && <p>Android & Chrome</p>}
-            </div>
-          </animated.div>
+        <Container id="home" anim={toggle}>
+          <Img className="profile" fluid={profileImage} />
+          <div className="information">
+            <h1 id="my-name">Christian Villamin</h1>
+            <h2>{`I create web sites & web applications.`}</h2>
+            {isAndroid && (isChrome || isChromium) && <p>Android & Chrome</p>}
+          </div>
         </Container>
       </BackgroundImage>
     </Element>
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<{ anim: boolean }>`
   background: rgba(0, 0, 0, 0.5);
   position: relative;
 
-  .anim-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    width: 100%;
-    height: 100vh;
+  width: 100%;
+  height: 100vh;
+
+  .anim-container {
   }
 
   .profile {
@@ -95,8 +100,21 @@ const Container = styled.section`
     text-align: center;
     text-shadow: 2px 2px darkslategray;
 
-    h1 {
+    .my-name {
       font-size: 2rem;
+
+      animation: example 2s ease;
+      animation-iteration-count: 1;
+      animation-fill-mode: forwards;
+
+      @keyframes example {
+        from {
+          transform: translateY(50px);
+        }
+        to {
+          transform: translateY(0px);
+        }
+      }
     }
 
     h2 {
