@@ -5,7 +5,6 @@ import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
-import { useSpring, animated } from 'react-spring';
 
 interface Props {
   active: string;
@@ -56,11 +55,11 @@ export const Skills: React.FC<Props> = ({ active }) => {
       logo: getImage('css3'),
     },
     {
-      name: 'ES6+',
+      name: 'JS ES6+',
       logo: getImage('javascript'),
     },
     {
-      name: 'TS',
+      name: 'TypeScript',
       logo: getImage('typescript'),
     },
     {
@@ -153,16 +152,6 @@ export const Skills: React.FC<Props> = ({ active }) => {
     ['Environment', environment],
   ];
 
-  const [toggle, setToggle] = useState<boolean>(false);
-
-  const props = useSpring({
-    opacity: toggle ? 1 : 0,
-    paddingTop: toggle ? 0 : 250,
-    delay: toggle ? 200 : 0,
-  });
-
-  active === 'skills' ? !toggle && setToggle(true) : toggle && setToggle(false);
-
   return (
     <Element name="skills">
       <Container id="skills" isMobile={isMobile}>
@@ -187,7 +176,6 @@ export const Skills: React.FC<Props> = ({ active }) => {
           }}
         />
 
-        {/* <animated.div className="anim-container" style={props}> */}
         <h1 className="skills-title">TECHNOLOGY STACK</h1>
         <div className="main" id="anim-id">
           {skillsArr.map((skills, index) => (
@@ -214,7 +202,6 @@ export const Skills: React.FC<Props> = ({ active }) => {
             </Card>
           ))}
         </div>
-        {/* </animated.div> */}
       </Container>
     </Element>
   );
@@ -299,6 +286,7 @@ const Card = styled.div<{ delay: number }>`
     flex-wrap: wrap;
 
     .logo-container {
+      position: relative;
       width: 14vw;
       height: 14vw;
       margin: 0.2rem;
@@ -310,9 +298,15 @@ const Card = styled.div<{ delay: number }>`
       transition: 0.3s;
 
       .skill-name {
+        position: absolute;
+        left: 0;
+        width: 100%;
         transition: 0.3s;
         opacity: 0;
         text-align: center;
+        background: rgba(255, 255, 255, 0.27);
+        border-radius: 4px;
+        font-size: 4vw;
       }
 
       :hover {
@@ -340,6 +334,10 @@ const Card = styled.div<{ delay: number }>`
         margin: 0.5rem;
         padding: 12px;
         border-radius: 16px;
+
+        .skill-name {
+          font-size: 14px;
+        }
       }
     }
   }

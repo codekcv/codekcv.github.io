@@ -105,6 +105,7 @@ export const Projects: React.FC<Props> = ({ active }) => {
           <div className="title-container">
             <h1 className="title">Projects</h1>
           </div>
+
           <div className="projects-container">
             {projects.map(project => (
               <Project key={project.title}>
