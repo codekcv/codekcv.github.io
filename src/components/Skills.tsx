@@ -49,38 +49,47 @@ export const Skills: React.FC<Props> = ({ active }) => {
     {
       name: 'HTML5',
       logo: getImage('html5'),
+      link: `https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5`,
     },
     {
       name: 'CSS3',
       logo: getImage('css3'),
+      link: `https://developer.mozilla.org/en-US/docs/Web/CSS`,
     },
     {
       name: 'JS ES6+',
       logo: getImage('javascript'),
+      link: `https://developer.mozilla.org/en-US/docs/Web/JavaScript`,
     },
     {
       name: 'TypeScript',
       logo: getImage('typescript'),
+      link: `https://www.typescriptlang.org/`,
     },
     {
       name: 'React',
       logo: getImage('reactjs'),
+      link: `https://reactjs.org/`,
     },
     {
       name: 'Redux',
       logo: getImage('redux'),
+      link: `https://redux.js.org/`,
     },
     {
       name: 'Gatsby',
       logo: getImage('gatsbyjs'),
+      link: `https://www.gatsbyjs.org/`,
     },
     {
       name: 'Apollo',
       logo: getImage('apollo'),
+      link: `https://www.apollographql.com/`,
     },
     {
       name: 'D3',
       logo: getImage('d3'),
+      link: `https://d3js.org/`,
     },
   ];
 
@@ -88,26 +97,32 @@ export const Skills: React.FC<Props> = ({ active }) => {
     {
       name: 'NodeJS',
       logo: getImage('nodejs'),
+      link: `https://nodejs.org/`,
     },
     {
       name: 'RESTful',
       logo: getImage('rest'),
+      link: `https://restfulapi.net/`,
     },
     {
       name: 'GraphQL',
       logo: getImage('graphql'),
+      link: `https://graphql.org/`,
     },
     {
       name: 'MongoDB',
       logo: getImage('mongodb'),
+      link: `http://mongodb.com/`,
     },
     {
       name: 'PostgreSQL',
       logo: getImage('postgreSQL'),
+      link: `https://www.postgresql.org/`,
     },
     {
       name: 'Express',
       logo: getImage('express'),
+      link: `https://expressjs.com/`,
     },
   ];
 
@@ -115,34 +130,42 @@ export const Skills: React.FC<Props> = ({ active }) => {
     {
       name: 'VSCode',
       logo: getImage('vscode'),
+      link: `https://code.visualstudio.com/`,
     },
     {
       name: 'Git',
       logo: getImage('git'),
+      link: `https://git-scm.com/`,
     },
     {
       name: 'GitHub',
       logo: getImage('github'),
+      link: `https://github.com/christianvillamin`,
     },
     {
       name: 'NPM',
       logo: getImage('npm'),
+      link: `https://www.npmjs.com/`,
     },
     {
       name: 'Postman',
       logo: getImage('postman'),
+      link: `https://www.getpostman.com/`,
     },
     {
       name: 'Jest',
       logo: getImage('jest'),
+      link: `https://jestjs.io/`,
     },
     {
       name: 'ChaiJS',
       logo: getImage('chai'),
+      link: `https://www.chaijs.com/`,
     },
     {
       name: 'MochaJS',
       logo: getImage('mocha'),
+      link: `https://mochajs.org/`,
     },
   ];
 
@@ -193,7 +216,13 @@ export const Skills: React.FC<Props> = ({ active }) => {
                 {skills[1].map((skill: any) => (
                   <div key={skill.name}>
                     <div className="logo-container">
-                      <Img fluid={skill.logo} />
+                      <a
+                        href={skill.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <Img fluid={skill.logo} />
+                      </a>
                       <div className="skill-name">{skill.name}</div>
                     </div>
                   </div>
