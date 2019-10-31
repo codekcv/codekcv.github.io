@@ -206,6 +206,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
                   <div key={skill.name}>
                     <div className="logo-container">
                       <Img fluid={skill.logo} />
+                      <div className="skill-name">{skill.name}</div>
                     </div>
                   </div>
                 ))}
@@ -307,6 +308,28 @@ const Card = styled.div<{ delay: number }>`
       /* box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5); */
       /* box-shadow: 0 0 2px 2px rgba(150, 170, 180, 0.5); */
       border-bottom: 2px silver solid;
+
+      /* animation: anim 1s ease; */
+      transition: 0.3s;
+
+      .skill-name {
+        transition: 0.3s;
+        /* display: none; */
+        opacity: 0;
+        text-align: center;
+      }
+
+      :hover {
+        /* visibility: hidden; */
+        transform: translateY(-10px);
+
+        .skill-name {
+          /* display: block; */
+          opacity: 1;
+          /* transform: translateY(20px); */
+          transform: translateY(15px);
+        }
+      }
     }
   }
 

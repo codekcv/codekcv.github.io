@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { useSpring, animated } from 'react-spring';
-import { Skills } from './Skills';
 
 interface Props {
   active: string;
@@ -60,15 +59,44 @@ export const Projects: React.FC<Props> = ({ active }) => {
   ];
 
   const [toggle, setToggle] = useState<boolean>(false);
-  const props = useSpring({
-    opacity: toggle ? 1 : 0,
-    paddingTop: toggle ? 0 : 300,
-    delay: toggle ? 200 : 0,
-  });
+  const [props, set] = useSpring(() => ({ opacity: 0 }));
 
   active === 'projects'
-    ? !toggle && setToggle(true)
-    : toggle && setToggle(false);
+    ? !toggle &&
+      (() => {
+        setToggle(true);
+        set({
+          opacity: 1,
+          from: { opacity: 0 },
+          delay: 300,
+          reset: true,
+        });
+      })()
+    : toggle &&
+      (() => {
+        setToggle(false);
+        set({ opacity: 0, from: { opacity: 1 }, delay: 300, reset: true });
+      })();
+
+  // if (active === 'projects') {
+  //   if (!toggle) {
+  //     setToggle(true);
+  //     set({
+  //       opacity: 1,
+  //       delay: 300,
+  //       reset: true,
+  //     });
+  //   }
+  // } else {
+  //   if (toggle) {
+  //     setToggle(false);
+  //     set({ opacity: 0, from: { opacity: 1 }, delay: 300, reset: true });
+  //   }
+  // }
+
+  // active === 'projects'
+  //   ? !toggle && setToggle(true)
+  //   : toggle && setToggle(false);
 
   return (
     <Element name="projects">
