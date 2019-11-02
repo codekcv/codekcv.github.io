@@ -43,7 +43,7 @@ export const Home: React.FC<Props> = ({ active }) => {
   const [toggle, setToggle] = useState<boolean>(true);
   const props = useSpring({
     opacity: toggle ? 1 : 0,
-    paddingTop: toggle ? 0 : 300,
+    // paddingTop: toggle ? 0 : 300,
     delay: 200,
   });
 

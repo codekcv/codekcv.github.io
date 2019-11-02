@@ -215,16 +215,17 @@ export const Skills: React.FC<Props> = ({ active }) => {
               <div className="skills-area">
                 {skills[1].map((skill: any) => (
                   <div key={skill.name}>
-                    <div className="logo-container">
-                      <a
-                        href={skill.link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                      >
+                    <a
+                      href={skill.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="logo-container">
                         <Img fluid={skill.logo} />
-                      </a>
-                      <div className="skill-name">{skill.name}</div>
-                    </div>
+
+                        <div className="skill-name">{skill.name}</div>
+                      </div>
+                    </a>
                   </div>
                 ))}
               </div>
@@ -323,7 +324,6 @@ const Card = styled.div<{ delay: number }>`
       background: white;
       border-radius: 6px;
       border-bottom: 2px silver solid;
-
       transition: 0.3s;
 
       .skill-name {
@@ -333,18 +333,9 @@ const Card = styled.div<{ delay: number }>`
         transition: 0.3s;
         opacity: 0;
         text-align: center;
-        background: rgba(255, 255, 255, 0.27);
+        /* background: rgba(255, 255, 255, 0.27); */
         border-radius: 4px;
         font-size: 4vw;
-      }
-
-      :hover {
-        transform: translateY(-10px);
-
-        .skill-name {
-          opacity: 1;
-          transform: translateY(15px);
-        }
       }
     }
   }
@@ -366,6 +357,19 @@ const Card = styled.div<{ delay: number }>`
 
         .skill-name {
           font-size: 14px;
+          text-decoration: none;
+          color: white;
+        }
+
+        :hover {
+          background: none;
+          transform: scale(1.1) translateY(-10px);
+
+          .skill-name {
+            opacity: 1;
+            transform: translateY(13px);
+            text-shadow: 0 2px black;
+          }
         }
       }
     }
