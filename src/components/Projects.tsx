@@ -19,15 +19,7 @@ export const Projects: React.FC<Props> = ({ active }) => {
     {
       title: 'Anonymous Message Board',
       description: 'A full stack application message board.',
-      technologies: [
-        'ES6+',
-        'Node',
-        'Express',
-        'MongoDB',
-        'Axios',
-        'ChaiJS',
-        'MochaJS',
-      ],
+      technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Chai', 'Mocha'],
       github:
         'https://github.com/ChristianVillamin/boilerplate-project-messageboard',
       demo: 'https://cv-board.glitch.me',

@@ -313,7 +313,7 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   background: rgba(255, 255, 255, 0.1);
   margin: 1vh 0;
   padding: 0.4rem;
-  border: 2px silver dotted;
+  /* border: 2px silver dotted; */
   border-radius: 4px;
   flex: 1;
 

@@ -4,12 +4,10 @@ import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
-import { isMobile } from 'react-device-detect';
 import {
   FaTwitter,
   FaYoutube,
   FaFreeCodeCamp,
-  FaEnvelope,
   FaCodepen,
   FaGithub,
 } from 'react-icons/fa';
@@ -52,38 +50,31 @@ export const Home: React.FC<Props> = ({ active }) => {
 
   active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
 
-  const iconSize = isMobile ? 36 : 48;
-
   const links = [
     {
       name: 'GitHub',
-      icon: <FaGithub size={iconSize} />,
+      icon: <FaGithub className="fa" />,
       url: 'https://github.com/ChristianVillamin',
     },
     {
       name: 'CodePen',
-      icon: <FaCodepen size={iconSize} />,
+      icon: <FaCodepen className="fa" />,
       url: 'https://codepen.io/ChristianVillamin',
     },
     {
       name: 'freeCodeCamp',
-      icon: <FaFreeCodeCamp size={iconSize} />,
+      icon: <FaFreeCodeCamp className="fa" />,
       url: 'https://www.freecodecamp.org/christianvillamin',
     },
     {
       name: 'Twitter',
-      icon: <FaTwitter size={iconSize} />,
+      icon: <FaTwitter className="fa" />,
       url: 'https://twitter.com/villamin_c',
     },
     {
       name: 'YouTube',
-      icon: <FaYoutube size={iconSize} />,
+      icon: <FaYoutube className="fa" />,
       url: 'https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg',
-    },
-    {
-      name: 'ChristianVillamin31@gmail.com',
-      icon: <FaEnvelope size={iconSize} />,
-      url: '',
     },
   ];
 
@@ -98,7 +89,7 @@ export const Home: React.FC<Props> = ({ active }) => {
 
             <div className="icons">
               {links.map(link => (
-                <div className="wrapper">
+                <div className="wrapper" key={link.name}>
                   <a href={link.url} target="_blank" rel="noopener noreferrer">
                     <div className="icon">{link.icon}</div>
                   </a>
@@ -130,7 +121,7 @@ const Container = styled.section<{ anim: boolean }>`
     width: 175px;
     height: 175px;
     margin-bottom: 2vh;
-    border: 5px white solid;
+    border: 3px white solid;
     border-radius: 50%;
   }
 
@@ -179,8 +170,13 @@ const Container = styled.section<{ anim: boolean }>`
           transition: 0.2s ease;
           border-radius: 50%;
           background: rgba(0, 0, 0, 0.75);
-          padding: 5px;
+          padding: 8px;
           color: white;
+
+          .fa {
+            width: 32px;
+            height: 32px;
+          }
         }
 
         p {
@@ -209,6 +205,8 @@ const Container = styled.section<{ anim: boolean }>`
     .profile {
       width: 300px;
       height: 300px;
+
+      border: 5px white solid;
     }
 
     .information {
@@ -228,13 +226,18 @@ const Container = styled.section<{ anim: boolean }>`
       .icons {
         display: flex;
         justify-content: space-evenly;
-        margin-top: 15px;
+        margin-top: 5px;
 
         .wrapper {
           margin: 0 1vw;
 
           .icon {
             padding: 10px;
+
+            .fa {
+              width: 54px;
+              height: 54px;
+            }
           }
 
           p {
