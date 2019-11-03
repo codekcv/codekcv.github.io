@@ -43,6 +43,10 @@ export const Contact: React.FC<Props> = ({ active }) => {
               />
             </div>
             <div>
+              <label htmlFor="message">Subject</label>
+              <input className="input" type="input" name="_subject" />
+            </div>
+            <div>
               <label htmlFor="message">Message</label>
               <textarea
                 name="message"
@@ -87,9 +91,10 @@ const Container = styled.div<{ anim: boolean }>`
     box-shadow: 0 0 5px gray;
     border-radius: 6px;
 
-    transition: ${props => (props.anim ? '1s' : '0s')} ease;
-    transition-delay: ${props => (props.anim ? '180ms' : '300ms')};
-    transform: ${props => (props.anim ? 0 : `translateY(-35px)`)};
+    transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
+    transition-delay: ${props => (props.anim ? '180ms' : '0ms')};
+    transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
+    opacity: ${props => (props.anim ? `1` : `0`)};
   }
 
   label {

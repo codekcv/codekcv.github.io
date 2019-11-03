@@ -129,17 +129,17 @@ export const About: React.FC<Props> = ({ active }) => {
             <h2>Hobbies & Interests</h2>
             <p>Things I love (other than programming)</p>
             <ul>
-              <li>Playing my digital piano.</li>
-              <li>Reading fiction and self-help books.</li>
-              <li>Walking outside to think.</li>
+              <li>Playing the piano.</li>
+              <li>Reading fantasy books.</li>
+              <li>Helping people.</li>
             </ul>
             <br />
-            <p>Things I want to learn sometime</p>
+            <p>Things I want to do someday</p>
             <ul>
-              <li>Python | AI & Machine Learning</li>
+              <li>AI & Machine Learning</li>
               <li>Dungeons & Dragons</li>
-              <li>Godot Game Engine | GDScript</li>
-              <li>Svelte</li>
+              <li>Godot Engine & GDScript</li>
+              <li>YT & Make Tutorials</li>
             </ul>
           </div>
         </div>

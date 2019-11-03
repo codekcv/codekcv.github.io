@@ -19,7 +19,15 @@ export const Projects: React.FC<Props> = ({ active }) => {
     {
       title: 'Anonymous Message Board',
       description: 'A full stack application message board.',
-      technologies: ['TypeScript', 'React', 'Redux', 'MongoDB', 'Express'],
+      technologies: [
+        'ES6+',
+        'Node',
+        'Express',
+        'MongoDB',
+        'Axios',
+        'ChaiJS',
+        'MochaJS',
+      ],
       github:
         'https://github.com/ChristianVillamin/boilerplate-project-messageboard',
       demo: 'https://cv-board.glitch.me',
@@ -27,7 +35,7 @@ export const Projects: React.FC<Props> = ({ active }) => {
     {
       title: 'Personal Portfolio',
       description: 'My own portfolio website you are currently in.',
-      technologies: ['TypeScript', 'React', 'GraphQL'],
+      technologies: ['TypeScript', 'Gatsby', 'React', 'GraphQL', 'Styled'],
       github:
         'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
       demo: 'http://christianvillamin.github.io',
@@ -35,14 +43,14 @@ export const Projects: React.FC<Props> = ({ active }) => {
     {
       title: 'Mini-Piano',
       description: 'A virtual 12-keys piano. (Includes 3 songs!)',
-      technologies: ['JavaScript', 'React', 'Hooks'],
+      technologies: ['ES6+', 'React', 'Hooks'],
       github: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
       demo: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
     },
     {
       title: 'Calculator',
       description: 'A calculator. Part of freeCodeCamp project.',
-      technologies: ['JavaScript', 'React', 'Hooks'],
+      technologies: ['ES6+', 'React', 'Hooks'],
       github: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
       demo: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
     },
@@ -50,7 +58,7 @@ export const Projects: React.FC<Props> = ({ active }) => {
       title: 'Stock Price Checker',
       description:
         'A full stack app. Fetches from an API to get latest stock prides..',
-      technologies: ['JavaScript', 'Node', 'Express', 'MongoDB', 'Axios'],
+      technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Axios'],
       github:
         'https://github.com/ChristianVillamin/boilerplate-project-stockchecker',
       demo: 'https://cv-stock.glitch.me/',
