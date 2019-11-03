@@ -109,65 +109,6 @@ export const Home: React.FC<Props> = ({ active }) => {
   );
 };
 
-const Icon = styled.div<{ color: string }>`
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-
-  margin: 0 1vw;
-
-  .icon {
-    transition: 0.2s ease;
-    color: white;
-
-    .fa {
-      width: 32px;
-      height: 32px;
-    }
-  }
-
-  p {
-    transition: 0.2s ease;
-    position: absolute;
-    opacity: 0;
-    top: 45px;
-  }
-
-  :hover {
-    .icon {
-      transform: scale(1.25);
-      color: ${props => props.color};
-    }
-
-    p {
-      opacity: 1;
-      top: 40px;
-    }
-  }
-
-  @media only screen and (min-width: 768px) {
-    margin: 0 1vw;
-
-    .icon {
-      padding: 10px;
-
-      .fa {
-        width: 54px;
-        height: 54px;
-      }
-    }
-
-    :hover {
-      p {
-        opacity: 1;
-        top: 80px;
-      }
-    }
-  }
-`;
-
 const Container = styled.section<{ anim: boolean }>`
   background: rgba(0, 0, 0, 0.65);
   position: relative;
@@ -192,7 +133,6 @@ const Container = styled.section<{ anim: boolean }>`
   .information {
     color: white;
     text-align: center;
-
     transition: ${props => (props.anim ? '1s' : '0s')} ease;
     transition-delay: ${props => (props.anim ? '180ms' : '300ms')};
     transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
@@ -208,11 +148,9 @@ const Container = styled.section<{ anim: boolean }>`
       font-weight: 300;
       color: gainsboro;
       text-shadow: 2px 2px darkslategray;
-
       padding: 3px 8px;
       border: 1px dashed gray;
       border-radius: 8px;
-
       background: rgba(0, 0, 0, 0.75);
     }
 
@@ -227,7 +165,6 @@ const Container = styled.section<{ anim: boolean }>`
     .profile {
       width: 300px;
       height: 300px;
-
       border: 5px white solid;
     }
 
@@ -247,9 +184,59 @@ const Container = styled.section<{ anim: boolean }>`
       }
 
       .icons {
-        display: flex;
-        justify-content: space-evenly;
         margin-top: 10px;
+      }
+    }
+  }
+`;
+
+const Icon = styled.div<{ color: string }>`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 1vw;
+
+  .icon {
+    color: white;
+
+    .fa {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  .name {
+    position: absolute;
+    opacity: 0;
+    top: 45px;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .icon {
+      transition: 0.2s ease;
+      padding: 10px;
+
+      .fa {
+        width: 54px;
+        height: 54px;
+      }
+    }
+
+    .name {
+      transition: 0.2s ease;
+    }
+
+    :hover {
+      .icon {
+        transform: scale(1.25);
+        color: ${props => props.color};
+      }
+
+      .name {
+        opacity: 1;
+        top: 80px;
       }
     }
   }
