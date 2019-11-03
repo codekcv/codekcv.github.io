@@ -128,6 +128,11 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
   const environment: Object[] = [
     {
+      name: 'Pop!_OS',
+      logo: getImage('pop'),
+      link: `https://system76.com/pop`,
+    },
+    {
       name: 'VSCode',
       logo: getImage('vscode'),
       link: `https://code.visualstudio.com/`,
@@ -172,7 +177,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
   const skillsArr: any[] = [
     ['Front-End', frontendSkills],
     ['Back-End', backendSkills],
-    ['Environment', environment],
+    ['System', environment],
   ];
 
   const [toggle, setToggle] = useState<boolean>(true);
