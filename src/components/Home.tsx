@@ -86,7 +86,7 @@ const Container = styled.section<{ anim: boolean }>`
 
     transition: ${props => (props.anim ? '1s' : '0s')} ease;
     transition-delay: ${props => (props.anim ? '180ms' : '300ms')};
-    transform: ${props => (props.anim ? 0 : `translateY(200px)`)};
+    transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
     opacity: ${props => (props.anim ? 1 : 0)};
 
     h1 {

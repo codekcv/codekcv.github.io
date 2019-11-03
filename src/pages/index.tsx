@@ -55,13 +55,13 @@ const App: React.FC = () => {
     }
 
     scroller.scrollTo(sections[index], {
-      duration: type === 'scroll' ? 290 : 0,
+      duration: type === 'scroll' ? 500 : 0,
       smooth: true,
       ignoreCancelEvents: true,
     });
 
     setScrolling(true);
-    setTimeout(() => setScrolling(false), type === 'scroll' ? 300 : 0);
+    setTimeout(() => setScrolling(false), type === 'scroll' ? 510 : 0);
   };
 
   useEffect(() => {

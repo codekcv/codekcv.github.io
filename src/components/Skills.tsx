@@ -177,7 +177,9 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
   const [toggle, setToggle] = useState<boolean>(true);
 
-  active === 'skills' ? !toggle && setToggle(true) : toggle && setToggle(false);
+  active === 'skills'
+    ? !toggle && setToggle(true)
+    : toggle && setTimeout(() => setToggle(false), 0);
 
   return (
     <Element name="skills">
@@ -276,7 +278,14 @@ const Container = styled.section<{ isMobile: boolean }>`
     }
   }
 
+  @media only screen and (max-height: 660px) {
+    padding-top: 1vh;
+    justify-content: flex-start;
+  }
+
   @media only screen and (min-width: 768px) {
+    justify-content: center;
+
     .skills-title {
       text-shadow: 0 6.5px silver;
     }
