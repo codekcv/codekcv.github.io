@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -175,6 +175,10 @@ export const Skills: React.FC<Props> = ({ active }) => {
     ['Environment', environment],
   ];
 
+  const [toggle, setToggle] = useState<boolean>(true);
+
+  active === 'skills' ? !toggle && setToggle(true) : toggle && setToggle(false);
+
   return (
     <Element name="skills">
       <Container id="skills" isMobile={isMobile}>
@@ -200,13 +204,10 @@ export const Skills: React.FC<Props> = ({ active }) => {
         />
 
         <h1 className="skills-title">TECHNOLOGY STACK</h1>
+
         <div className="main" id="anim-id">
           {skillsArr.map((skills, index) => (
-            <Card
-              key={`${skills[0]}`}
-              className="actual-anim"
-              delay={index * 40}
-            >
+            <Card key={`${skills[0]}`} anim={toggle} index={180 + 300 * index}>
               <div className="title-area">
                 <h1>{skills[0]}</h1>
                 <hr />
@@ -286,17 +287,21 @@ const Container = styled.section<{ isMobile: boolean }>`
   }
 `;
 
-const Card = styled.div<{ delay: number }>`
+const Card = styled.div<{ anim: boolean; index: number }>`
   max-width: 90%;
   height: 100%;
 
   background: rgba(255, 255, 255, 0.1);
   margin: 1vh 0;
   padding: 0.4rem;
-  border: 2px pink dotted;
+  border: 2px silver dotted;
   border-radius: 4px;
-  box-shadow: 0 7px 30px -10px inset rgba(150, 170, 180, 0.5);
   flex: 1;
+
+  transition: ${props => (props.anim ? '1s' : '0s')} ease;
+  transition-delay: ${props => (props.anim ? props.index + 'ms' : '300ms')};
+  transform: ${props => (props.anim ? 0 : `translateY(200px)`)};
+  opacity: ${props => (props.anim ? 1 : 0)};
 
   .title-area {
     margin-bottom: 6px;
@@ -307,7 +312,6 @@ const Card = styled.div<{ delay: number }>`
       font-weight: 100;
       font-size: 2rem;
       text-align: center;
-      text-shadow: 0 2px gainsboro;
     }
   }
 
@@ -323,7 +327,6 @@ const Card = styled.div<{ delay: number }>`
       padding: 6px;
       background: white;
       border-radius: 6px;
-      border-bottom: 2px silver solid;
       transition: 0.3s;
 
       .skill-name {
@@ -333,7 +336,6 @@ const Card = styled.div<{ delay: number }>`
         transition: 0.3s;
         opacity: 0;
         text-align: center;
-        /* background: rgba(255, 255, 255, 0.27); */
         border-radius: 4px;
         font-size: 4vw;
       }
@@ -368,7 +370,6 @@ const Card = styled.div<{ delay: number }>`
           .skill-name {
             opacity: 1;
             transform: translateY(13px);
-            text-shadow: 0 2px black;
           }
         }
       }

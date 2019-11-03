@@ -4,7 +4,6 @@ import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
-import { useSpring, animated } from 'react-spring';
 
 interface Props {
   active: string;
@@ -41,32 +40,25 @@ export const Home: React.FC<Props> = ({ active }) => {
   } = useStaticQuery(getImages);
 
   const [toggle, setToggle] = useState<boolean>(true);
-  const props = useSpring({
-    opacity: toggle ? 1 : 0,
-    // paddingTop: toggle ? 0 : 300,
-    delay: 200,
-  });
 
   active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
 
   return (
     <Element name="home">
       <BackgroundImage fluid={backgroundImage}>
-        <Container id="home">
+        <Container id="home" anim={toggle}>
           <Img className="profile" fluid={profileImage} />
-          <animated.div className="information" style={props}>
-            <div id="anim-text" className="actual-anim">
-              <h1>Christian Villamin</h1>
-              <h2>{`I create web sites & web applications.`}</h2>
-            </div>
-          </animated.div>
+          <div className="information">
+            <h1>Christian Villamin</h1>
+            <h2>{`I create web sites & web applications.`}</h2>
+          </div>
         </Container>
       </BackgroundImage>
     </Element>
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<{ anim: boolean }>`
   background: rgba(0, 0, 0, 0.5);
   position: relative;
   display: flex;
@@ -91,6 +83,11 @@ const Container = styled.section`
     color: white;
     text-align: center;
     text-shadow: 2px 2px darkslategray;
+
+    transition: ${props => (props.anim ? '1s' : '0s')} ease;
+    transition-delay: ${props => (props.anim ? '180ms' : '300ms')};
+    transform: ${props => (props.anim ? 0 : `translateY(200px)`)};
+    opacity: ${props => (props.anim ? 1 : 0)};
 
     h1 {
       font-size: 2rem;
@@ -118,14 +115,15 @@ const Container = styled.section`
     .information {
       color: white;
       text-align: center;
-      text-shadow: 2px 2px darkslategray;
 
       h1 {
         font-size: 5rem;
+        text-shadow: none;
       }
 
       h2 {
         font-size: 2rem;
+        text-shadow: 2px 4px darkslategray;
       }
     }
   }

@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
-import { useSpring, animated } from 'react-spring';
 
 interface Props {
   active: string;
@@ -9,10 +8,6 @@ interface Props {
 
 export const Contact: React.FC<Props> = ({ active }) => {
   const [toggle, setToggle] = useState<boolean>(false);
-  const props = useSpring({
-    opacity: toggle ? 1 : 0,
-    delay: toggle ? 200 : 0,
-  });
 
   active === 'contact'
     ? !toggle && setToggle(true)
@@ -21,49 +16,47 @@ export const Contact: React.FC<Props> = ({ active }) => {
   return (
     <Element name="contact">
       <Container id="contact">
-        <animated.div className="anim-container" style={props}>
-          <h1>Contact Me</h1>
-          <div className="contact-container">
-            <form
-              action="https://formspree.io/mabaetbaet@gmail.com"
-              method="POST"
-            >
-              <div>
-                <label htmlFor="name">Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  id="name"
-                  className="input"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  name="email"
-                  id="email"
-                  className="input"
-                  required
-                />
-              </div>
-              <div>
-                <label htmlFor="message">Message</label>
-                <textarea
-                  name="message"
-                  id="message"
-                  rows={10}
-                  className="input"
-                  required
-                />
-              </div>
-              <div className="submit-container">
-                <input type="submit" value="Submit" className="submit" />
-              </div>
-            </form>
-          </div>
-        </animated.div>
+        <h1>Contact Me</h1>
+        <div className="contact-container">
+          <form
+            action="https://formspree.io/mabaetbaet@gmail.com"
+            method="POST"
+          >
+            <div>
+              <label htmlFor="name">Name</label>
+              <input
+                type="text"
+                name="name"
+                id="name"
+                className="input"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="email">Email</label>
+              <input
+                type="email"
+                name="email"
+                id="email"
+                className="input"
+                required
+              />
+            </div>
+            <div>
+              <label htmlFor="message">Message</label>
+              <textarea
+                name="message"
+                id="message"
+                rows={10}
+                className="input"
+                required
+              />
+            </div>
+            <div className="submit-container">
+              <input type="submit" value="Submit" className="submit" />
+            </div>
+          </form>
+        </div>
       </Container>
     </Element>
   );

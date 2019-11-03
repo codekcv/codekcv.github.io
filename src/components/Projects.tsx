@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Element } from 'react-scroll';
-import { useSpring, animated } from 'react-spring';
 
 interface Props {
   active: string;
@@ -59,73 +58,33 @@ export const Projects: React.FC<Props> = ({ active }) => {
   ];
 
   const [toggle, setToggle] = useState<boolean>(false);
-  const [props, set] = useSpring(() => ({ opacity: 0 }));
-
-  active === 'projects'
-    ? !toggle &&
-      (() => {
-        setToggle(true);
-        set({
-          opacity: 1,
-          from: { opacity: 0 },
-          delay: 300,
-          reset: true,
-        });
-      })()
-    : toggle &&
-      (() => {
-        setToggle(false);
-        set({ opacity: 0, from: { opacity: 1 }, delay: 300, reset: true });
-      })();
-
-  // if (active === 'projects') {
-  //   if (!toggle) {
-  //     setToggle(true);
-  //     set({
-  //       opacity: 1,
-  //       delay: 300,
-  //       reset: true,
-  //     });
-  //   }
-  // } else {
-  //   if (toggle) {
-  //     setToggle(false);
-  //     set({ opacity: 0, from: { opacity: 1 }, delay: 300, reset: true });
-  //   }
-  // }
-
-  // active === 'projects'
-  //   ? !toggle && setToggle(true)
-  //   : toggle && setToggle(false);
 
   return (
     <Element name="projects">
       <Container id="projects">
-        <animated.div className="anim-container" style={props}>
-          <div className="title-container">
-            <h1 className="title">Projects</h1>
-          </div>
+        <div className="title-container">
+          <h1 className="title">Projects</h1>
+        </div>
 
-          <div className="projects-container">
-            {projects.map(project => (
-              <Project key={project.title}>
-                <h2>{project.title}</h2>
-                <a className="github" href={project.github}>
-                  GitHub
-                </a>
-                <a className="demo" href={project.demo}>
-                  Demo
-                </a>
-                <p className="description">{project.description}</p>
-                {project.technologies.map(technology => (
-                  <span className="technologies" key={technology}>
-                    {technology}
-                  </span>
-                ))}
-              </Project>
-            ))}
-          </div>
-        </animated.div>
+        <div className="projects-container">
+          {projects.map(project => (
+            <Project key={project.title}>
+              <h2>{project.title}</h2>
+              <a className="github" href={project.github}>
+                GitHub
+              </a>
+              <a className="demo" href={project.demo}>
+                Demo
+              </a>
+              <p className="description">{project.description}</p>
+              {project.technologies.map(technology => (
+                <span className="technologies" key={technology}>
+                  {technology}
+                </span>
+              ))}
+            </Project>
+          ))}
+        </div>
       </Container>
     </Element>
   );
