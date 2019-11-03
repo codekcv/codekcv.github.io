@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import BackgroundImage from 'gatsby-background-image';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
@@ -55,26 +55,31 @@ export const Home: React.FC<Props> = ({ active }) => {
       name: 'GitHub',
       icon: <FaGithub className="fa" />,
       url: 'https://github.com/ChristianVillamin',
+      color: 'white',
     },
     {
       name: 'CodePen',
       icon: <FaCodepen className="fa" />,
       url: 'https://codepen.io/ChristianVillamin',
+      color: 'gray',
     },
     {
       name: 'freeCodeCamp',
       icon: <FaFreeCodeCamp className="fa" />,
       url: 'https://www.freecodecamp.org/christianvillamin',
-    },
-    {
-      name: 'Twitter',
-      icon: <FaTwitter className="fa" />,
-      url: 'https://twitter.com/villamin_c',
+      color: 'green',
     },
     {
       name: 'YouTube',
       icon: <FaYoutube className="fa" />,
       url: 'https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg',
+      color: '#c4302b',
+    },
+    {
+      name: 'Twitter',
+      icon: <FaTwitter className="fa" />,
+      url: 'https://twitter.com/villamin_c',
+      color: '#00acee',
     },
   ];
 
@@ -89,12 +94,12 @@ export const Home: React.FC<Props> = ({ active }) => {
 
             <div className="icons">
               {links.map(link => (
-                <div className="wrapper" key={link.name}>
+                <Icon key={link.name} color={link.color}>
                   <a href={link.url} target="_blank" rel="noopener noreferrer">
                     <div className="icon">{link.icon}</div>
                   </a>
                   <p className="name">{link.name}</p>
-                </div>
+                </Icon>
               ))}
             </div>
           </div>
@@ -104,8 +109,67 @@ export const Home: React.FC<Props> = ({ active }) => {
   );
 };
 
+const Icon = styled.div<{ color: string }>`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+
+  margin: 0 1vw;
+
+  .icon {
+    transition: 0.2s ease;
+    color: white;
+
+    .fa {
+      width: 32px;
+      height: 32px;
+    }
+  }
+
+  p {
+    transition: 0.2s ease;
+    position: absolute;
+    opacity: 0;
+    top: 45px;
+  }
+
+  :hover {
+    .icon {
+      transform: scale(1.25);
+      color: ${props => props.color};
+    }
+
+    p {
+      opacity: 1;
+      top: 40px;
+    }
+  }
+
+  @media only screen and (min-width: 768px) {
+    margin: 0 1vw;
+
+    .icon {
+      padding: 10px;
+
+      .fa {
+        width: 54px;
+        height: 54px;
+      }
+    }
+
+    :hover {
+      p {
+        opacity: 1;
+        top: 80px;
+      }
+    }
+  }
+`;
+
 const Container = styled.section<{ anim: boolean }>`
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.65);
   position: relative;
   display: flex;
   flex-direction: column;
@@ -155,49 +219,7 @@ const Container = styled.section<{ anim: boolean }>`
     .icons {
       display: flex;
       justify-content: space-evenly;
-      margin-top: 15px;
-
-      .wrapper {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-evenly;
-        align-items: center;
-
-        margin: 0 1vw;
-
-        .icon {
-          transition: 0.2s ease;
-          border-radius: 50%;
-          background: rgba(0, 0, 0, 0.75);
-          padding: 8px;
-          color: white;
-
-          .fa {
-            width: 32px;
-            height: 32px;
-          }
-        }
-
-        p {
-          transition: 0.2s ease;
-          position: absolute;
-          opacity: 0;
-          top: 45px;
-        }
-
-        :hover {
-          .icon {
-            transform: scale(1.15);
-            color: white;
-          }
-
-          p {
-            opacity: 1;
-            top: 60px;
-          }
-        }
-      }
+      margin-top: 5px;
     }
   }
 
@@ -221,44 +243,13 @@ const Container = styled.section<{ anim: boolean }>`
       h2 {
         font-size: 2rem;
         text-shadow: 2px 4px darkslategray;
+        padding: 3px 8px 5px 8px;
       }
 
       .icons {
         display: flex;
         justify-content: space-evenly;
-        margin-top: 5px;
-
-        .wrapper {
-          margin: 0 1vw;
-
-          .icon {
-            padding: 10px;
-
-            .fa {
-              width: 54px;
-              height: 54px;
-            }
-          }
-
-          p {
-            transition: 0.2s ease;
-            position: absolute;
-            opacity: 0;
-            top: 50px;
-          }
-
-          :hover {
-            .icon {
-              transform: scale(1.25);
-              color: white;
-            }
-
-            p {
-              opacity: 1;
-              top: 85px;
-            }
-          }
-        }
+        margin-top: 10px;
       }
     }
   }
