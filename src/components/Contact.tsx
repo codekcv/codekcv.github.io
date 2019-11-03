@@ -15,7 +15,7 @@ export const Contact: React.FC<Props> = ({ active }) => {
 
   return (
     <Element name="contact">
-      <Container id="contact">
+      <Container id="contact" anim={toggle}>
         <h1>Contact Me</h1>
         <div className="contact-container">
           <form
@@ -62,7 +62,7 @@ export const Contact: React.FC<Props> = ({ active }) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ anim: boolean }>`
   background: mediumseagreen;
 
   position: relative;
@@ -86,6 +86,10 @@ const Container = styled.div`
     padding: 16px;
     box-shadow: 0 0 5px gray;
     border-radius: 6px;
+
+    transition: ${props => (props.anim ? '1s' : '0s')} ease;
+    transition-delay: ${props => (props.anim ? '180ms' : '300ms')};
+    transform: ${props => (props.anim ? 0 : `translateY(-35px)`)};
   }
 
   label {

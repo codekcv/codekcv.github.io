@@ -176,10 +176,20 @@ export const Skills: React.FC<Props> = ({ active }) => {
   ];
 
   const [toggle, setToggle] = useState<boolean>(true);
+  const [out, setOut] = useState<boolean>(false);
 
-  active === 'skills'
-    ? !toggle && setToggle(true)
-    : toggle && setTimeout(() => setToggle(false), 0);
+  if (!out)
+    active === 'skills'
+      ? !toggle && setToggle(true)
+      : toggle &&
+        (() => {
+          setOut(true);
+
+          setTimeout(() => {
+            setOut(false);
+            setToggle(false);
+          }, 490);
+        })();
 
   return (
     <Element name="skills">
@@ -307,8 +317,8 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   border-radius: 4px;
   flex: 1;
 
-  transition: ${props => (props.anim ? '1s' : '0s')} ease;
-  transition-delay: ${props => (props.anim ? props.index + 'ms' : '300ms')};
+  transition: ${props => (props.anim ? '1s' : 'none')} ease;
+  transition-delay: ${props => (props.anim ? props.index + 'ms' : '500ms')};
   transform: ${props => (props.anim ? 0 : `translateY(200px)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
 
