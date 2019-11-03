@@ -124,6 +124,16 @@ export const Skills: React.FC<Props> = ({ active }) => {
       logo: getImage('express'),
       link: `https://expressjs.com/`,
     },
+    {
+      name: 'JWT',
+      logo: getImage('jwt'),
+      link: `https://jwt.io/`,
+    },
+    {
+      name: 'socket.io',
+      logo: getImage('socket'),
+      link: `https://socket.io/`,
+    },
   ];
 
   const environment: Object[] = [
@@ -318,7 +328,6 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   background: rgba(255, 255, 255, 0.1);
   margin: 1vh 0;
   padding: 0.4rem;
-  /* border: 2px silver dotted; */
   border-radius: 4px;
   flex: 1;
 
