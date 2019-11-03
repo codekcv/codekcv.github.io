@@ -65,15 +65,13 @@ export const Contact: React.FC<Props> = ({ active }) => {
 const Container = styled.div`
   background: mediumseagreen;
 
-  .anim-container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-  }
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
 
   h1 {
     margin-bottom: 2vh;

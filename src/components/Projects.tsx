@@ -92,17 +92,14 @@ export const Projects: React.FC<Props> = ({ active }) => {
 
 const Container = styled.section`
   background: rgb(40, 70, 70);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  align-items: center;
 
-  .anim-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    position: relative;
-    align-items: center;
-
-    width: 100%;
-    height: 100vh;
-  }
+  width: 100%;
+  height: 100vh;
 
   h2 {
     display: inline-block;

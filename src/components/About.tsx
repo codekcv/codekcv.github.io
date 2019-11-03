@@ -151,14 +151,12 @@ export const About: React.FC<Props> = ({ active }) => {
 const Container = styled.section`
   background: lightcoral;
 
-  .anim-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100vh;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100vh;
 
   .profile {
     width: 125px;
