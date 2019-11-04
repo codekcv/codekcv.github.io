@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import Particles from 'react-particles-js';
@@ -207,61 +206,59 @@ export const Skills: React.FC<Props> = ({ active }) => {
         })();
 
   return (
-    <Element name="skills">
-      <Container id="skills" isMobile={isMobile}>
-        <Particles
-          className="particles"
-          params={{
-            particles: {
-              number: {
-                value: isMobile ? 15 : 45,
-                density: {
-                  enable: true,
-                  value_area: isMobile ? 400 : 800,
-                },
-              },
-              color: {
-                value: '#fff',
-              },
-              size: {
-                value: 2,
+    <Container id="skills" isMobile={isMobile}>
+      <Particles
+        className="particles"
+        params={{
+          particles: {
+            number: {
+              value: isMobile ? 15 : 45,
+              density: {
+                enable: true,
+                value_area: isMobile ? 400 : 800,
               },
             },
-          }}
-        />
+            color: {
+              value: '#fff',
+            },
+            size: {
+              value: 2,
+            },
+          },
+        }}
+      />
 
-        <h1 className="skills-title">TECHNOLOGY STACK</h1>
+      <h1 className="skills-title">TECHNOLOGY STACK</h1>
 
-        <div className="main" id="anim-id">
-          {skillsArr.map((skills, index) => (
-            <Card key={`${skills[0]}`} anim={toggle} index={180 + 300 * index}>
-              <div className="title-area">
-                <h1>{skills[0]}</h1>
-                <hr />
-              </div>
+      <div className="main" id="anim-id">
+        {skillsArr.map((skills, index) => (
+          <Card key={`${skills[0]}`} anim={toggle} index={180 + 300 * index}>
+            <div className="title-area">
+              <h1>{skills[0]}</h1>
+              <hr />
+            </div>
 
-              <div className="skills-area">
-                {skills[1].map((skill: any) => (
-                  <div key={skill.name}>
-                    <a
-                      href={skill.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div className="logo-container">
-                        <Img fluid={skill.logo} loading="eager" />
+            <div className="skills-area">
+              {skills[1].map((skill: any) => (
+                <div key={skill.name}>
+                  <a
+                    href={skill.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="logo-container">
+                      <Img fluid={skill.logo} loading="eager" />
 
-                        <div className="skill-name">{skill.name}</div>
-                      </div>
-                    </a>
-                  </div>
-                ))}
-              </div>
-            </Card>
-          ))}
-        </div>
-      </Container>
-    </Element>
+                      <div className="skill-name">{skill.name}</div>
+                    </div>
+                  </a>
+                </div>
+              ))}
+            </div>
+          </Card>
+        ))}
+      </div>
+    </Container>
   );
 };
 
@@ -272,7 +269,7 @@ const Container = styled.section<{ isMobile: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 
   .particles {

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Element } from 'react-scroll';
 
 interface Props {
   active: string;
@@ -60,33 +59,31 @@ export const Projects: React.FC<Props> = ({ active }) => {
   const [toggle, setToggle] = useState<boolean>(false);
 
   return (
-    <Element name="projects">
-      <Container id="projects">
-        <div className="title-container">
-          <h1 className="title">Projects</h1>
-        </div>
+    <Container id="projects">
+      <div className="title-container">
+        <h1 className="title">Projects</h1>
+      </div>
 
-        <div className="projects-container">
-          {projects.map(project => (
-            <Project key={project.title}>
-              <h2>{project.title}</h2>
-              <a className="github" href={project.github}>
-                GitHub
-              </a>
-              <a className="demo" href={project.demo}>
-                Demo
-              </a>
-              <p className="description">{project.description}</p>
-              {project.technologies.map(technology => (
-                <span className="technologies" key={technology}>
-                  {technology}
-                </span>
-              ))}
-            </Project>
-          ))}
-        </div>
-      </Container>
-    </Element>
+      <div className="projects-container">
+        {projects.map(project => (
+          <Project key={project.title}>
+            <h2>{project.title}</h2>
+            <a className="github" href={project.github}>
+              GitHub
+            </a>
+            <a className="demo" href={project.demo}>
+              Demo
+            </a>
+            <p className="description">{project.description}</p>
+            {project.technologies.map(technology => (
+              <span className="technologies" key={technology}>
+                {technology}
+              </span>
+            ))}
+          </Project>
+        ))}
+      </div>
+    </Container>
   );
 };
 
@@ -98,7 +95,7 @@ const Container = styled.section`
   position: relative;
   align-items: center;
 
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 
   h2 {

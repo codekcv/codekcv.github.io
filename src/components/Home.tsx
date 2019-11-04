@@ -84,28 +84,26 @@ export const Home: React.FC<Props> = ({ active }) => {
   ];
 
   return (
-    <Element name="home">
-      <BackgroundImage fluid={backgroundImage}>
-        <Container id="home" anim={toggle}>
-          <Img className="profile" fluid={profileImage} />
-          <div className="information">
-            <h1>Christian Villamin</h1>
-            <h2>{`I create web sites & web applications.`}</h2>
+    <BackgroundImage fluid={backgroundImage}>
+      <Container id="home" anim={toggle}>
+        <Img className="profile" fluid={profileImage} />
+        <div className="information">
+          <h1>Christian Villamin</h1>
+          <h2>{`I create web sites & web applications.`}</h2>
 
-            <div className="icons">
-              {links.map(link => (
-                <Icon key={link.name} color={link.color}>
-                  <a href={link.url} target="_blank" rel="noopener noreferrer">
-                    <div className="icon">{link.icon}</div>
-                  </a>
-                  <p className="name">{link.name}</p>
-                </Icon>
-              ))}
-            </div>
+          <div className="icons">
+            {links.map(link => (
+              <Icon key={link.name} color={link.color}>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  <div className="icon">{link.icon}</div>
+                </a>
+                <p className="name">{link.name}</p>
+              </Icon>
+            ))}
           </div>
-        </Container>
-      </BackgroundImage>
-    </Element>
+        </div>
+      </Container>
+    </BackgroundImage>
   );
 };
 
@@ -116,7 +114,7 @@ const Container = styled.section<{ anim: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 
   .profile {

@@ -2,30 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  handleScroll: (type: string, target: string) => void;
+  handleJump: (target: string) => void;
 }
 
-export const Navbar: React.FC<Props> = ({ handleScroll }) => {
+export const Navbar: React.FC<Props> = ({ handleJump }) => {
   return (
     <Container>
       <nav>
         <ul>
           <li>
-            <div onClick={() => handleScroll('click', 'home')}>Home</div>
+            <div onClick={() => handleJump('home')}>Home</div>
           </li>
           <li>
-            <div onClick={() => handleScroll('click', 'skills')}>Skills</div>
+            <div onClick={() => handleJump('skills')}>Skills</div>
           </li>
           <li>
-            <div onClick={() => handleScroll('click', 'projects')}>
-              Projects
-            </div>
+            <div onClick={() => handleJump('projects')}>Projects</div>
           </li>
           <li>
-            <div onClick={() => handleScroll('click', 'about')}>About</div>
+            <div onClick={() => handleJump('about')}>About</div>
           </li>
           <li>
-            <div onClick={() => handleScroll('click', 'contact')}>Contact</div>
+            <div onClick={() => handleJump('contact')}>Contact</div>
           </li>
         </ul>
       </nav>
@@ -36,17 +34,14 @@ export const Navbar: React.FC<Props> = ({ handleScroll }) => {
 const Container = styled.div`
   display: none;
   position: fixed;
-  width: 100%;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   top: 0;
   z-index: 9;
 
   nav {
     position: relative;
-    display: flex;
-    justify-content: flex-end;
     top: 30px;
-    right: 10px;
 
     ul {
       display: flex;
@@ -57,7 +52,7 @@ const Container = styled.div`
       text-transform: uppercase;
 
       li {
-        margin: 0 20px;
+        margin: 0 15px;
         cursor: pointer;
 
         :hover {
@@ -72,12 +67,14 @@ const Container = styled.div`
 
     nav {
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
+      align-items: center;
       top: 30px;
-      right: 10px;
+      left: 17.5px;
 
       ul {
-        display: flex;
+        width: 100%;
+        justify-content: center;
         list-style: none;
         color: silver;
         font-size: 1.25rem;
@@ -85,11 +82,13 @@ const Container = styled.div`
         text-transform: uppercase;
 
         li {
-          margin: 0 20px;
+          /* margin: 0 20px; */
           cursor: pointer;
+          transition: 0.5s ease;
 
           :hover {
             color: white;
+            transform: translateY(-4px);
           }
         }
       }

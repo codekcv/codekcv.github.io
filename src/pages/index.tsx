@@ -7,8 +7,8 @@ import { Skills } from '../components/Skills';
 import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
-import { Events, scroller } from 'react-scroll';
 import { Swipeable } from 'react-swipeable';
+import { isMobile } from 'react-device-detect';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
@@ -16,6 +16,10 @@ const App: React.FC = () => {
   const [scrolling, setScrolling] = useState<boolean>(false);
   const indexRef = useRef<HTMLDivElement>(null);
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
+
+  const [index, setIndex] = useState(0);
+  const [vw, setVw] = useState(0);
+  const [jumping, setJumping] = useState(false);
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleDirection('up');
@@ -34,67 +38,85 @@ const App: React.FC = () => {
 
   const handleDirection = (direction: string) => {
     if (scrolling) return;
-    direction === 'up' && currentIndex > 0 && handleScroll('scroll', `-1`);
+    direction === 'up' && currentIndex > 0 && handleScroll('scroll', -1);
     direction === 'down' &&
       currentIndex < sections.length - 1 &&
-      handleScroll('scroll', `1`);
+      handleScroll('scroll', 1);
   };
 
-  const handleScroll = (type: string, target: string) => {
-    let index = 0;
-
+  const handleScroll = (type: string, target: number) => {
     switch (type) {
       case 'scroll':
-        const val = currentIndex + parseInt(target);
-        index = val;
+        const val = currentIndex + target;
         setCurrentIndex(val);
         break;
       case 'click':
-        index = sections.indexOf(target);
         setCurrentIndex(index);
     }
 
-    scroller.scrollTo(sections[index], {
-      duration: type === 'scroll' ? 500 : 0,
-      smooth: true,
-      ignoreCancelEvents: true,
-    });
-
+    setIndex(index => index - vw * target);
     setScrolling(true);
     setTimeout(() => setScrolling(false), type === 'scroll' ? 510 : 0);
   };
 
+  const handleJump = (target: string) => {
+    const index = sections.indexOf(target);
+    setCurrentIndex(index);
+    setJumping(true);
+    setIndex(-vw * index);
+    setTimeout(() => setJumping(false), 0);
+  };
+
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
-    Events.scrollEvent.register('begin', to => setActive(to));
-    return () => Events.scrollEvent.remove('begin');
+    setVw(isMobile ? window.innerWidth / 4 : window.innerWidth);
+    console.log(window.innerWidth);
   }, []);
 
   return (
     <Swipeable
-      onSwipedDown={() => handleOnSwipe(-1)}
-      onSwipedUp={() => handleOnSwipe(1)}
+      onSwipedRight={() => handleOnSwipe(-1)}
+      onSwipedLeft={() => handleOnSwipe(1)}
     >
+      <Navbar handleJump={handleJump} />
       <Container
         onWheel={handleOnWheel}
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
         ref={indexRef}
+        pos={index}
+        jumping={jumping}
       >
-        <Navbar handleScroll={handleScroll} />
         <Home active={active} />
         <Skills active={active} />
         <Projects active={active} />
         <About active={active} />
         <Contact active={active} />
+        <div className="filter"></div>
       </Container>
     </Swipeable>
   );
 };
 
-const Container = styled.main`
+const Container = styled.main<{ pos: number; jumping: boolean }>`
   position: relative;
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  width: 500vw;
+
+  transition: ${props => (props.jumping ? 0 : '0.5s')} ease;
+  transform: ${props => 'translateX(' + props.pos + 'px)'};
+
+  /*filter: grayscale(0.25);
+
+  .filter {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    filter: grayscale(1);
+  }*/
 `;
 
 export default App;

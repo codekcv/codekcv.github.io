@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Element } from 'react-scroll';
 
 interface Props {
   active: string;
@@ -14,55 +13,50 @@ export const Contact: React.FC<Props> = ({ active }) => {
     : toggle && setToggle(false);
 
   return (
-    <Element name="contact">
-      <Container id="contact" anim={toggle}>
-        <h1>Contact Me</h1>
-        <div className="contact-container">
-          <form
-            action="https://formspree.io/mabaetbaet@gmail.com"
-            method="POST"
-          >
-            <div>
-              <label htmlFor="name">Name</label>
-              <input
-                type="text"
-                name="name"
-                id="name"
-                className="input"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="email">Email</label>
-              <input
-                type="email"
-                name="email"
-                id="email"
-                className="input"
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="message">Subject</label>
-              <input className="input" type="input" name="_subject" />
-            </div>
-            <div>
-              <label htmlFor="message">Message</label>
-              <textarea
-                name="message"
-                id="message"
-                rows={10}
-                className="input"
-                required
-              />
-            </div>
-            <div className="submit-container">
-              <input type="submit" value="Submit" className="submit" />
-            </div>
-          </form>
-        </div>
-      </Container>
-    </Element>
+    <Container id="contact" anim={toggle}>
+      <h1>Contact Me</h1>
+      <div className="contact-container">
+        <form action="https://formspree.io/mabaetbaet@gmail.com" method="POST">
+          <div>
+            <label htmlFor="name">Name</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              className="input"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              className="input"
+              required
+            />
+          </div>
+          <div>
+            <label htmlFor="message">Subject</label>
+            <input className="input" type="input" name="_subject" />
+          </div>
+          <div>
+            <label htmlFor="message">Message</label>
+            <textarea
+              name="message"
+              id="message"
+              rows={10}
+              className="input"
+              required
+            />
+          </div>
+          <div className="submit-container">
+            <input type="submit" value="Submit" className="submit" />
+          </div>
+        </form>
+      </div>
+    </Container>
   );
 };
 
@@ -74,7 +68,7 @@ const Container = styled.div<{ anim: boolean }>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
 
   h1 {
