@@ -21,6 +21,14 @@ const App: React.FC = () => {
   const [vw, setVw] = useState(0);
   const [jumping, setJumping] = useState(false);
 
+  // REFS
+  const homeRef: any = useRef<HTMLDivElement>(null);
+  const skillsRef: any = useRef<HTMLDivElement>(null);
+  const projectsRef: any = useRef<HTMLDivElement>(null);
+  const aboutRef: any = useRef<HTMLDivElement>(null);
+  const contactRef: any = useRef<HTMLDivElement>(null);
+  const refs = [homeRef, skillsRef, projectsRef, aboutRef, contactRef];
+
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleDirection('up');
     e.deltaY > 0 && handleDirection('down');
@@ -45,16 +53,27 @@ const App: React.FC = () => {
   };
 
   const handleScroll = (type: string, target: number) => {
-    switch (type) {
-      case 'scroll':
-        const val = currentIndex + target;
-        setCurrentIndex(val);
-        break;
-      case 'click':
-        setCurrentIndex(index);
-    }
+    let val = currentIndex + target;
+    setCurrentIndex(val);
+    setActive(sections[val]);
 
-    setIndex(index => index - vw * target);
+    const pos = index + vw * target;
+    console.log(pos);
+
+    // if (refs !== null) {
+    //   window.scrollTo({
+    //     top: 0,
+    //     left: pos, //refs[index].current.scrollLeft,
+    //     behavior: 'smooth',
+    //   });
+    // }
+
+    refs[val].current.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+
+    setIndex(pos);
     setScrolling(true);
     setTimeout(() => setScrolling(false), type === 'scroll' ? 510 : 0);
   };
@@ -70,7 +89,6 @@ const App: React.FC = () => {
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
     setVw(isMobile ? window.innerWidth / 4 : window.innerWidth);
-    console.log(window.innerWidth);
   }, []);
 
   return (
@@ -87,12 +105,21 @@ const App: React.FC = () => {
         pos={index}
         jumping={jumping}
       >
-        <Home active={active} />
-        <Skills active={active} />
-        <Projects active={active} />
-        <About active={active} />
-        <Contact active={active} />
-        <div className="filter"></div>
+        <div id="home" ref={homeRef}>
+          <Home active={active} />
+        </div>
+        <div id="skills" ref={skillsRef}>
+          <Skills active={active} />
+        </div>
+        <div id="projects" ref={projectsRef}>
+          <Projects active={active} />
+        </div>
+        <div id="about" ref={aboutRef}>
+          <About active={active} />
+        </div>
+        <div id="contact" ref={contactRef}>
+          <Contact active={active} />
+        </div>
       </Container>
     </Swipeable>
   );
@@ -104,19 +131,9 @@ const Container = styled.main<{ pos: number; jumping: boolean }>`
   flex-direction: row;
   width: 500vw;
 
-  transition: ${props => (props.jumping ? 0 : '0.5s')} ease;
-  transform: ${props => 'translateX(' + props.pos + 'px)'};
-
-  /*filter: grayscale(0.25);
-
-  .filter {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100vh;
-    filter: grayscale(1);
-  }*/
+  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 export default App;

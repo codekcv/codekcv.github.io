@@ -8,9 +8,9 @@
 }
 
 body {
-  overflow: scroll;
-  overflow-x: hidden;
   overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: hidden;
   touch-action: none;
 }
 
