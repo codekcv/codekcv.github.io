@@ -12,7 +12,7 @@ const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
 };
 
 export const Scroll = (base: number, added: number, duration: number) => {
-  const tick = 1000 / 80;
+  const tick = 1000 / 60;
   let val = 0,
     pos = 0;
 
