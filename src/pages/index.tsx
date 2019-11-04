@@ -8,20 +8,15 @@ import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 import { Swipeable } from 'react-swipeable';
-import { isMobile } from 'react-device-detect';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [scrolling, setScrolling] = useState<boolean>(false);
-  const indexRef = useRef<HTMLDivElement>(null);
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
 
-  const [index, setIndex] = useState(0);
-  const [vw, setVw] = useState(0);
-  const [jumping, setJumping] = useState(false);
-
   // REFS
+  const indexRef = useRef<HTMLDivElement>(null);
   const homeRef: any = useRef<HTMLDivElement>(null);
   const skillsRef: any = useRef<HTMLDivElement>(null);
   const projectsRef: any = useRef<HTMLDivElement>(null);
@@ -53,27 +48,14 @@ const App: React.FC = () => {
   };
 
   const handleScroll = (type: string, target: number) => {
-    let val = currentIndex + target;
-    setCurrentIndex(val);
-    setActive(sections[val]);
+    let index = currentIndex + target;
+    setCurrentIndex(index);
+    setActive(sections[index]);
 
-    const pos = index + vw * target;
-    console.log(pos);
-
-    // if (refs !== null) {
-    //   window.scrollTo({
-    //     top: 0,
-    //     left: pos, //refs[index].current.scrollLeft,
-    //     behavior: 'smooth',
-    //   });
-    // }
-
-    refs[val].current.scrollIntoView({
+    refs[index].current.scrollIntoView({
       behavior: 'smooth',
-      block: 'start',
     });
 
-    setIndex(pos);
     setScrolling(true);
     setTimeout(() => setScrolling(false), type === 'scroll' ? 510 : 0);
   };
@@ -81,14 +63,15 @@ const App: React.FC = () => {
   const handleJump = (target: string) => {
     const index = sections.indexOf(target);
     setCurrentIndex(index);
-    setJumping(true);
-    setIndex(-vw * index);
-    setTimeout(() => setJumping(false), 0);
+    setActive(sections[index]);
+
+    refs[index].current.scrollIntoView({
+      behavior: 'smooth',
+    });
   };
 
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
-    setVw(isMobile ? window.innerWidth / 4 : window.innerWidth);
   }, []);
 
   return (
@@ -102,8 +85,6 @@ const App: React.FC = () => {
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
         ref={indexRef}
-        pos={index}
-        jumping={jumping}
       >
         <div id="home" ref={homeRef}>
           <Home active={active} />
@@ -125,7 +106,7 @@ const App: React.FC = () => {
   );
 };
 
-const Container = styled.main<{ pos: number; jumping: boolean }>`
+const Container = styled.main`
   position: relative;
   display: flex;
   flex-direction: row;
