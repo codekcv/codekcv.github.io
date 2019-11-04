@@ -65,9 +65,7 @@ const App: React.FC = () => {
     setCurrentIndex(index);
     setActive(sections[index]);
 
-    refs[index].current.scrollIntoView({
-      behavior: 'smooth',
-    });
+    refs[index].current.scrollIntoView();
   };
 
   useEffect(() => {
@@ -109,12 +107,7 @@ const App: React.FC = () => {
 const Container = styled.main`
   position: relative;
   display: flex;
-  flex-direction: row;
   width: 500vw;
-
-  overflow: hidden;
-  overflow-x: hidden;
-  overflow-y: hidden;
 `;
 
 export default App;
