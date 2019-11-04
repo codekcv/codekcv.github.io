@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import BackgroundImage from 'gatsby-background-image';
 import Img from 'gatsby-image';
 import styled from 'styled-components';

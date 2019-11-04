@@ -249,7 +249,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
                       rel="noopener noreferrer"
                     >
                       <div className="logo-container">
-                        <Img fluid={skill.logo} />
+                        <Img fluid={skill.logo} loading="eager" />
 
                         <div className="skill-name">{skill.name}</div>
                       </div>
