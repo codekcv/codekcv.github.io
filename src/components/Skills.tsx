@@ -264,7 +264,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
 const Container = styled.section<{ isMobile: boolean }>`
   position: relative;
-  background: rgb(35, 35, 50);
+  /* background: rgb(35, 35, 50); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -283,6 +283,7 @@ const Container = styled.section<{ isMobile: boolean }>`
 
   .skills-title {
     color: white;
+    /* color: rgb(35, 35, 50); */
     font-size: 8vw;
     text-shadow: 0 3px silver;
   }
@@ -322,7 +323,7 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   max-width: 90%;
   height: 100%;
 
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.15);
   margin: 1vh 0;
   padding: 0.4rem;
   border-radius: 4px;

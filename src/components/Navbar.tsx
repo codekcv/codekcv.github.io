@@ -87,8 +87,26 @@ const Container = styled.div`
 
           :hover {
             color: white;
-            transform: translateY(-4px);
+            transform: translateY(-3px);
           }
+        }
+
+        li::after {
+          content: '';
+          position: relative;
+          display: block;
+          width: 0;
+          height: 2px;
+          background: white;
+          left: 50%;
+          transform: translateX(-50%);
+
+          transition: 0.5s ease;
+        }
+
+        li:hover:after {
+          width: 100%;
+          transform: translate(-50%, 3px);
         }
       }
     }

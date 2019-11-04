@@ -9,6 +9,7 @@ import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 import { Swipeable } from 'react-swipeable';
 import { isMobile } from 'react-device-detect';
+import Particles from 'react-particles-js';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
@@ -25,29 +26,32 @@ const App: React.FC = () => {
   const refs = [homeRef, skillsRef, projectsRef, aboutRef, contactRef];
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
-    e.deltaY < 0 && handleDirection('up');
-    e.deltaY > 0 && handleDirection('down');
+    e.deltaY < 0 && handleDirection('left');
+    e.deltaY > 0 && handleDirection('right');
   };
 
   const handleOnKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    e.key === 'ArrowUp' && handleDirection('up');
-    e.key === 'ArrowDown' && handleDirection('down');
+    e.key === 'ArrowLeft' && handleDirection('left');
+    e.key === 'ArrowRight' && handleDirection('right');
   };
 
   const handleOnSwipe = (target: number) => {
-    target === -1 && handleDirection('up');
-    target === 1 && handleDirection('down');
+    target === -1 && handleDirection('left');
+    target === 1 && handleDirection('right');
   };
 
   const handleDirection = (direction: string) => {
     if (scrolling) return;
-    direction === 'up' && active !== 'home' && handleScroll(-1);
-    direction === 'down' && active !== 'contact' && handleScroll(1);
+    console.log(1);
+    direction === 'left' && active !== 'home' && handleScroll(-1);
+    direction === 'right' && active !== 'contact' && handleScroll(1);
   };
 
   const handleScroll = (target: number) => {
+    console.log(2);
     let index = sections.indexOf(active) + target;
     setActive(sections[index]);
+    console.log('i:', index);
     refs[index].current.scrollIntoView({
       behavior: 'smooth',
     });
@@ -72,12 +76,58 @@ const App: React.FC = () => {
       onSwipedLeft={() => handleOnSwipe(1)}
     >
       <Navbar handleJump={handleJump} />
+
       <Container
         onWheel={handleOnWheel}
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
         ref={indexRef}
       >
+        <Particles
+          params={{
+            particles: {
+              number: {
+                value: 100,
+                density: {
+                  enable: true,
+                  value_area: 1500,
+                },
+              },
+              line_linked: {
+                enable: true,
+                opacity: 0.02,
+              },
+              move: {
+                direction: 'right',
+                speed: 0.05,
+              },
+              size: {
+                value: 1,
+              },
+              opacity: {
+                anim: {
+                  enable: true,
+                  speed: 1,
+                  opacity_min: 0.05,
+                },
+              },
+            },
+            interactivity: {
+              events: {
+                onclick: {
+                  enable: true,
+                  mode: 'push',
+                },
+              },
+              modes: {
+                push: {
+                  particles_nb: 1,
+                },
+              },
+            },
+            retina_detect: true,
+          }}
+        />
         <div id="home" ref={homeRef}>
           <Home active={active} />
         </div>
@@ -99,11 +149,20 @@ const App: React.FC = () => {
 };
 
 const Container = styled.main`
+  background: rgb(35, 35, 50);
   position: relative;
   display: flex;
   height: 100vh;
   overflow: hidden;
   /* width: 200vw; */
+
+  .particles {
+    position: absolute;
+    left: 0;
+    width: 500vw;
+    height: 50vh;
+    z-index: 5;
+  }
 `;
 
 export default App;

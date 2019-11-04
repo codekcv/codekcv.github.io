@@ -34,9 +34,10 @@ export const About: React.FC<Props> = ({ active }) => {
       <div className="profile-container">
         {/* <Img className="profile" fluid={fluid} /> */}
       </div>
+      <h1>ABOUT</h1>
       <div className="all-abouts">
         <div className="about-container">
-          <h2>About Me</h2>
+          {/* <h2>About Me</h2> */}
           <p>
             I'm Christian Villamin, a web developer specializing in ReactJS and
             its environment.
@@ -146,7 +147,7 @@ export const About: React.FC<Props> = ({ active }) => {
 };
 
 const Container = styled.section`
-  background: lightcoral;
+  /* background: lightcoral; */
 
   display: flex;
   flex-direction: column;
@@ -155,6 +156,11 @@ const Container = styled.section`
   width: 100vw;
   height: 100vh;
 
+  h1 {
+    color: white;
+    font-size: 8vw;
+    text-shadow: 0 3px silver;
+  }
   .profile {
     width: 125px;
     height: 125px;
@@ -185,6 +191,10 @@ const Container = styled.section`
   }
 
   @media only screen and (min-width: 768px) {
+    h1 {
+      text-shadow: 0 6.5px silver;
+    }
+
     .all-abouts {
       display: flex;
     }

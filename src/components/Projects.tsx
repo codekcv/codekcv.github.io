@@ -88,7 +88,7 @@ export const Projects: React.FC<Props> = ({ active }) => {
 };
 
 const Container = styled.section`
-  background: rgb(40, 70, 70);
+  /* background: rgb(40, 70, 70); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -115,6 +115,7 @@ const Container = styled.section`
   .title-container {
     .title {
       color: white;
+      color: rgb(40, 70, 70);
       font-size: 10vw;
       text-shadow: 0 3px silver;
     }

@@ -61,7 +61,7 @@ export const Contact: React.FC<Props> = ({ active }) => {
 };
 
 const Container = styled.div<{ anim: boolean }>`
-  background: mediumseagreen;
+  /* background: mediumseagreen; */
 
   position: relative;
   display: flex;
@@ -132,7 +132,7 @@ const Container = styled.div<{ anim: boolean }>`
     }
 
     h1 {
-      font-size: 5rem;
+      font-size: 8vw;
       text-shadow: 0 6px silver;
     }
   }
