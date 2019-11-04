@@ -8,10 +8,10 @@ import { Projects } from '../components/Projects';
 import { About } from '../components/About';
 import { Contact } from '../components/Contact';
 import { Swipeable } from 'react-swipeable';
+import { isMobile } from 'react-device-detect';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [scrolling, setScrolling] = useState<boolean>(false);
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
 
@@ -41,15 +41,12 @@ const App: React.FC = () => {
 
   const handleDirection = (direction: string) => {
     if (scrolling) return;
-    direction === 'up' && currentIndex > 0 && handleScroll('scroll', -1);
-    direction === 'down' &&
-      currentIndex < sections.length - 1 &&
-      handleScroll('scroll', 1);
+    direction === 'up' && active !== 'home' && handleScroll(-1);
+    direction === 'down' && active !== 'contact' && handleScroll(1);
   };
 
-  const handleScroll = (type: string, target: number) => {
-    let index = currentIndex + target;
-    setCurrentIndex(index);
+  const handleScroll = (target: number) => {
+    let index = sections.indexOf(active) + target;
     setActive(sections[index]);
 
     refs[index].current.scrollIntoView({
@@ -57,12 +54,11 @@ const App: React.FC = () => {
     });
 
     setScrolling(true);
-    setTimeout(() => setScrolling(false), type === 'scroll' ? 510 : 0);
+    setTimeout(() => setScrolling(false), isMobile ? 400 : 800);
   };
 
   const handleJump = (target: string) => {
     const index = sections.indexOf(target);
-    setCurrentIndex(index);
     setActive(sections[index]);
 
     refs[index].current.scrollIntoView();

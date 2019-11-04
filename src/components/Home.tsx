@@ -132,7 +132,7 @@ const Container = styled.section<{ anim: boolean }>`
     color: white;
     text-align: center;
     transition: ${props => (props.anim ? '1s' : '0s')} ease;
-    transition-delay: ${props => (props.anim ? '180ms' : '300ms')};
+    transition-delay: ${props => (props.anim ? '180ms' : '800ms')};
     transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
     opacity: ${props => (props.anim ? 1 : 0)};
 

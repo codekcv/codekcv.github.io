@@ -202,7 +202,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
           setTimeout(() => {
             setOut(false);
             setToggle(false);
-          }, 490);
+          }, 780);
         })();
 
   return (
@@ -329,7 +329,7 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   flex: 1;
 
   transition: ${props => (props.anim ? '1s' : 'none')} ease;
-  transition-delay: ${props => (props.anim ? props.index + 'ms' : '500ms')};
+  transition-delay: ${props => (props.anim ? props.index + 'ms' : '790ms')};
   transform: ${props => (props.anim ? 0 : `translateY(200px)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
 

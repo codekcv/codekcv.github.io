@@ -82,7 +82,6 @@ const Container = styled.div`
         text-transform: uppercase;
 
         li {
-          /* margin: 0 20px; */
           cursor: pointer;
           transition: 0.5s ease;
 
