@@ -28,7 +28,6 @@
     "react-device-detect": "^1.9.10",
     "react-dom": "^16.10.2",
     "react-icons": "^3.7.0",
-    "react-particles-js": "^2.7.0",
     "react-swipeable": "^5.4.0",
     "styled-components": "^4.4.0"
   },

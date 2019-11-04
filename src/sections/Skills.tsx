@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
-import Particles from 'react-particles-js';
 import { isMobile } from 'react-device-detect';
 
 interface Props {
@@ -207,27 +206,6 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
   return (
     <Container id="skills" isMobile={isMobile}>
-      {/* <Particles
-        className="particles"
-        params={{
-          particles: {
-            number: {
-              value: isMobile ? 15 : 45,
-              density: {
-                enable: true,
-                value_area: isMobile ? 400 : 800,
-              },
-            },
-            color: {
-              value: '#fff',
-            },
-            size: {
-              value: 2,
-            },
-          },
-        }}
-      /> */}
-
       <h1 className="skills-title">TECHNOLOGY STACK</h1>
 
       <div className="main" id="anim-id">
@@ -272,18 +250,8 @@ const Container = styled.section<{ isMobile: boolean }>`
   width: 100vw;
   height: 100vh;
 
-  .particles {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-  }
-
   .skills-title {
-    color: white;
-    /* color: rgb(35, 35, 50); */
+    color: rgb(35, 35, 50);
     font-size: 8vw;
     text-shadow: 0 3px silver;
   }

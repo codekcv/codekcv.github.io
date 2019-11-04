@@ -114,7 +114,6 @@ const Container = styled.section`
 
   .title-container {
     .title {
-      color: white;
       color: rgb(40, 70, 70);
       font-size: 10vw;
       text-shadow: 0 3px silver;

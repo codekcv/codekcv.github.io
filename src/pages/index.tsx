@@ -2,14 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import './index.css';
 import styled from 'styled-components';
 import { Navbar } from '../components/Navbar';
-import { Home } from '../components/Home';
-import { Skills } from '../components/Skills';
-import { Projects } from '../components/Projects';
-import { About } from '../components/About';
-import { Contact } from '../components/Contact';
+import { Home } from '../sections/Home';
+import { Skills } from '../sections/Skills';
+import { Projects } from '../sections/Projects';
+import { About } from '../sections/About';
+import { Contact } from '../sections/Contact';
 import { Swipeable } from 'react-swipeable';
-import { isMobile } from 'react-device-detect';
-import Particles from 'react-particles-js';
+import { Scroll } from '../components/Scroll';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
@@ -31,6 +30,7 @@ const App: React.FC = () => {
   };
 
   const handleOnKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    e.preventDefault();
     e.key === 'ArrowLeft' && handleDirection('left');
     e.key === 'ArrowRight' && handleDirection('right');
   };
@@ -42,33 +42,42 @@ const App: React.FC = () => {
 
   const handleDirection = (direction: string) => {
     if (scrolling) return;
-    console.log(1);
     direction === 'left' && active !== 'home' && handleScroll(-1);
     direction === 'right' && active !== 'contact' && handleScroll(1);
   };
 
   const handleScroll = (target: number) => {
-    console.log(2);
     let index = sections.indexOf(active) + target;
     setActive(sections[index]);
-    console.log('i:', index);
-    refs[index].current.scrollIntoView({
-      behavior: 'smooth',
-    });
+    // refs[index].current.scrollIntoView({
+    //   behavior: 'smooth',
+    // });
+
+    Scroll(window.scrollX, vw * target, 500);
+
+    setPosX(vw / 2 + index * vw);
+
     setScrolling(true);
-    setTimeout(() => setScrolling(false), isMobile ? 400 : 800);
+    setTimeout(() => setScrolling(false), 600);
   };
 
   const handleJump = (target: string) => {
     const index = sections.indexOf(target);
     setActive(sections[index]);
+    setPosX(vw / 2 + index * vw);
 
     refs[index].current.scrollIntoView();
   };
 
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
+    setVw(window.innerWidth);
+    setPosX(window.innerWidth / 2);
   }, []);
+
+  // Character
+  const [posX, setPosX] = useState(0);
+  const [vw, setVw] = useState(0);
 
   return (
     <Swipeable
@@ -76,58 +85,13 @@ const App: React.FC = () => {
       onSwipedLeft={() => handleOnSwipe(1)}
     >
       <Navbar handleJump={handleJump} />
-
       <Container
         onWheel={handleOnWheel}
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
         ref={indexRef}
+        pos={posX}
       >
-        <Particles
-          params={{
-            particles: {
-              number: {
-                value: 100,
-                density: {
-                  enable: true,
-                  value_area: 1500,
-                },
-              },
-              line_linked: {
-                enable: true,
-                opacity: 0.02,
-              },
-              move: {
-                direction: 'right',
-                speed: 0.05,
-              },
-              size: {
-                value: 1,
-              },
-              opacity: {
-                anim: {
-                  enable: true,
-                  speed: 1,
-                  opacity_min: 0.05,
-                },
-              },
-            },
-            interactivity: {
-              events: {
-                onclick: {
-                  enable: true,
-                  mode: 'push',
-                },
-              },
-              modes: {
-                push: {
-                  particles_nb: 1,
-                },
-              },
-            },
-            retina_detect: true,
-          }}
-        />
         <div id="home" ref={homeRef}>
           <Home active={active} />
         </div>
@@ -143,25 +107,60 @@ const App: React.FC = () => {
         <div id="contact" ref={contactRef}>
           <Contact active={active} />
         </div>
+
+        {/* <div id="character">
+          <div id="screen">
+            <h1 id="section">{active}</h1>
+          </div>
+        </div> */}
       </Container>
     </Swipeable>
   );
 };
 
-const Container = styled.main`
-  background: rgb(35, 35, 50);
+const Container = styled.main<{ pos: number }>`
+  background: white;
   position: relative;
   display: flex;
   height: 100vh;
+  width: 500vw;
   overflow: hidden;
-  /* width: 200vw; */
 
-  .particles {
+  #character {
     position: absolute;
-    left: 0;
-    width: 500vw;
-    height: 50vh;
-    z-index: 5;
+    background: white;
+    /* border: 2px silver solid; */
+    width: 75%;
+    height: 250px;
+    left: ${props => 'calc(' + props.pos + 'px)'};
+    transform: translateX(-50%);
+    top: 65px;
+    transition: 1.25s ease;
+    z-index: 0;
+
+    border-radius: 10px;
+    padding: 10px;
+
+    box-shadow: 0 0 5px gray;
+
+    #screen {
+      width: 100%;
+      height: 100%;
+      background: seagreen;
+      /* background: white; */
+      box-shadow: inset 0 0 6px gainsboro;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      #section {
+        /* color: rgba(35, 35, 50, 1); */
+        color: white;
+        font-size: 8vw;
+        text-shadow: 0 6.5px silver;
+      }
+    }
   }
 `;
 
