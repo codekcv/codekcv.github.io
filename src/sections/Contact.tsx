@@ -73,7 +73,7 @@ const Container = styled.div<{ anim: boolean }>`
 
   h1 {
     margin-bottom: 2vh;
-    color: white;
+    color: rgb(45, 45, 70);
     text-shadow: 0 3px silver;
     font-size: 10vw;
   }

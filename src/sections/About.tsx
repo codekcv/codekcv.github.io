@@ -157,7 +157,7 @@ const Container = styled.section`
   height: 100vh;
 
   h1 {
-    color: white;
+    color: rgb(45, 45, 70);
     font-size: 8vw;
     text-shadow: 0 3px silver;
   }

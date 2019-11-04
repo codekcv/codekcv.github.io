@@ -9,6 +9,7 @@ import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
 import { Swipeable } from 'react-swipeable';
 import { Scroll } from '../components/Scroll';
+import { isMobile } from 'react-device-detect';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
@@ -49,14 +50,17 @@ const App: React.FC = () => {
   const handleScroll = (target: number) => {
     let index = sections.indexOf(active) + target;
     setActive(sections[index]);
-    // refs[index].current.scrollIntoView({
-    //   behavior: 'smooth',
-    // });
 
-    Scroll(window.scrollX, vw * target, 500);
+    const vw = isMobile ? window.innerWidth / 4 : window.innerWidth;
+    Scroll(window.pageXOffset, vw * target, 500);
+    // Scroll(window.scrollX, 400, 500);
 
     setPosX(vw / 2 + index * vw);
 
+    // console.log(window.innerWidth / 4);
+    console.log(1, window.pageXOffset);
+    console.log(2, refs[index].current.scrollLeft);
+    console.log(3, index);
     setScrolling(true);
     setTimeout(() => setScrolling(false), 600);
   };
@@ -64,20 +68,18 @@ const App: React.FC = () => {
   const handleJump = (target: string) => {
     const index = sections.indexOf(target);
     setActive(sections[index]);
-    setPosX(vw / 2 + index * vw);
+    // setPosX(vw / 2 + index * vw);
 
     refs[index].current.scrollIntoView();
   };
 
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
-    setVw(window.innerWidth);
     setPosX(window.innerWidth / 2);
   }, []);
 
   // Character
   const [posX, setPosX] = useState(0);
-  const [vw, setVw] = useState(0);
 
   return (
     <Swipeable
@@ -102,7 +104,7 @@ const App: React.FC = () => {
           <Projects active={active} />
         </div>
         <div id="about" ref={aboutRef}>
-          <About active={active} />
+          <About active={active} /> / 4
         </div>
         <div id="contact" ref={contactRef}>
           <Contact active={active} />
@@ -123,7 +125,7 @@ const Container = styled.main<{ pos: number }>`
   position: relative;
   display: flex;
   height: 100vh;
-  width: 500vw;
+  width: 800vw;
   overflow: hidden;
 
   #character {
