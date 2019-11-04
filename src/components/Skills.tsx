@@ -207,7 +207,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
   return (
     <Container id="skills" isMobile={isMobile}>
-      <Particles
+      {/* <Particles
         className="particles"
         params={{
           particles: {
@@ -226,7 +226,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
             },
           },
         }}
-      />
+      /> */}
 
       <h1 className="skills-title">TECHNOLOGY STACK</h1>
 

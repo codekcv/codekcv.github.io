@@ -48,11 +48,9 @@ const App: React.FC = () => {
   const handleScroll = (target: number) => {
     let index = sections.indexOf(active) + target;
     setActive(sections[index]);
-
     refs[index].current.scrollIntoView({
       behavior: 'smooth',
     });
-
     setScrolling(true);
     setTimeout(() => setScrolling(false), isMobile ? 400 : 800);
   };
@@ -103,7 +101,9 @@ const App: React.FC = () => {
 const Container = styled.main`
   position: relative;
   display: flex;
-  width: 500vw;
+  height: 100vh;
+  overflow: hidden;
+  /* width: 200vw; */
 `;
 
 export default App;

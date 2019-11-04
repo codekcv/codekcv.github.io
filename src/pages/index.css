@@ -7,11 +7,6 @@
   font-family: 'Roboto', sans-serif;
 }
 
-body {
-  overflow: hidden;
-  touch-action: none;
-}
-
 ::-webkit-scrollbar {
   width: 0;
 }
