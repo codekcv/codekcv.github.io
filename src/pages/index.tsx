@@ -18,37 +18,42 @@ const App: React.FC = () => {
   const indexRef = useRef<HTMLDivElement>(null);
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
 
+  useEffect(() => {
+    indexRef.current && indexRef.current.focus();
+  }, []);
+
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
-    e.deltaY < 0 && handleDirection('left');
-    e.deltaY > 0 && handleDirection('right');
+    e.deltaY < 0 && handleScroll('left');
+    e.deltaY > 0 && handleScroll('right');
   };
 
   const handleOnKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     e.preventDefault();
-    e.key === 'ArrowLeft' && handleDirection('left');
-    e.key === 'ArrowRight' && handleDirection('right');
+    e.key === 'ArrowLeft' && handleScroll('left');
+    e.key === 'ArrowRight' && handleScroll('right');
   };
 
   const handleOnSwipe = (target: number) => {
-    target === -1 && handleDirection('left');
-    target === 1 && handleDirection('right');
+    target === -1 && handleScroll('left');
+    target === 1 && handleScroll('right');
   };
 
-  const handleDirection = (direction: string) => {
+  const handleScroll = (direction: string | number) => {
     if (scrolling) return;
-    direction === 'left' && active !== 'home' && handleScroll(-1);
-    direction === 'right' && active !== 'contact' && handleScroll(1);
-  };
 
-  const handleScroll = (target: number) => {
-    const vw = window.innerWidth / (isMobile ? 4 : 1);
-    const index = sections.indexOf(active) + target;
-    const pos = vw * index - window.pageXOffset;
+    direction === 'left' && active !== 'home' && (direction = -1);
+    direction === 'right' && active !== 'contact' && (direction = 1);
 
-    setActive(sections[index]);
-    scroll(window.pageXOffset, pos, SCROLL_DURATION);
-    setScrolling(true);
-    setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
+    if (typeof direction === 'number') {
+      const vw = window.innerWidth / (isMobile ? 4 : 1);
+      const index = sections.indexOf(active) + direction;
+      const pos = vw * index - window.pageXOffset;
+
+      setActive(sections[index]);
+      scroll(window.pageXOffset, pos, SCROLL_DURATION);
+      setScrolling(true);
+      setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
+    }
   };
 
   const handleJump = (target: string) => {
@@ -57,10 +62,6 @@ const App: React.FC = () => {
     window.scrollTo(vw * index, 0);
     setActive(sections[index]);
   };
-
-  useEffect(() => {
-    indexRef.current && indexRef.current.focus();
-  }, []);
 
   return (
     <Swipeable
@@ -88,8 +89,7 @@ const Container = styled.main`
   background: white;
   display: flex;
   width: 800vw;
-  height: 100vh;
-  overflow: hidden;
+  height: 100%;
 `;
 
 export default App;
