@@ -9,11 +9,11 @@ interface Props {
 }
 
 export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
-  const [text1, setText1] = useState('Christian Villamin');
-  const [text2, setText2] = useState('');
-  const [posX, setPosX] = useState(window.innerWidth / (isMobile ? 4 : 1) / 2);
+  const [text1, setText1] = useState<string>('Christian Villamin');
+  const [text2, setText2] = useState<string>('');
+  const [posX, setPosX] = useState<number>(0);
   const [posY, setPosY] = useState<number[]>([]);
-  const [anim, setAnim] = useState(false);
+  const [anim, setAnim] = useState<boolean>(false);
   const [sizes, setSizes] = useState<number[]>([isMobile ? 8 : 3.5]);
 
   const texts = [

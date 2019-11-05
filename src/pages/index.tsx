@@ -1,17 +1,17 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './index.css';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
+import { Swipeable } from 'react-swipeable';
+import { scroll } from '../components/scroll';
+import { SCROLL_DURATION } from '../components/constants';
 import { Navbar } from '../components/Navbar';
 import { Home } from '../sections/Home';
 import { Skills } from '../sections/Skills';
 import { Projects } from '../sections/Projects';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
-import { Swipeable } from 'react-swipeable';
 import { FlyingText } from '../components/FlyingText';
-import { scroll } from '../components/scroll';
-import { isMobile } from 'react-device-detect';
-import { SCROLL_DURATION } from '../components/constants';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
@@ -92,33 +92,6 @@ const App: React.FC = () => {
     </Swipeable>
   );
 };
-
-const MyNav = styled.div<{ bottom: number }>`
-  position: fixed;
-  /* display: flex;
-  justify-content: center;
-  align-items: center; */
-  /* border: 5px red solid; */
-  /* left: 50%;
-  top: 50%; */
-  /* left: 200px; */
-  /* bottom: 1500px; */
-
-  /* transform: translate(-50%, -50%); */
-  z-index: 5;
-
-  /* pointer-events: none; */
-
-  left: 0;
-  right: 0;
-  bottom: 0;
-  top: 0;
-
-  text-align: center;
-  :hover {
-    cursor: pointer;
-  }
-`;
 
 const Container = styled.main`
   background: white;
