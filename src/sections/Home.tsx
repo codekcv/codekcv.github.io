@@ -135,7 +135,8 @@ const Container = styled.section<{ anim: boolean }>`
       transform: translateX(-50%);
       width: 180px;
       height: 180px;
-      border: 7px white solid;
+      border: 5px dashed white;
+      box-shadow: 0 0 5px dimgray;
       border-radius: 50%;
     }
 
@@ -144,9 +145,12 @@ const Container = styled.section<{ anim: boolean }>`
       color: white;
       text-align: center;
 
-      padding: 25px 25px 15px 25px;
+      padding: 25px 15px 15px 15px;
       margin-top: -90px;
       border-radius: 6px;
+
+      border: 5px dashed white;
+      box-shadow: 0 0 5px dimgray;
 
       h2 {
         margin-top: 120px;
@@ -157,7 +161,7 @@ const Container = styled.section<{ anim: boolean }>`
         padding: 3px 8px;
         border: 1px dashed darkcyan;
         border-radius: 8px;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.25);
         width: 100%;
       }
 
@@ -174,17 +178,22 @@ const Container = styled.section<{ anim: boolean }>`
       .profile {
         width: 300px;
         height: 300px;
-        border: 10px white solid;
+        border: 5px dashed white;
+        box-shadow: 0 0 5px dimgray;
       }
 
       .information {
         padding: 50px 50px 25px 50px;
         margin-top: -150px;
+        border: 5px dashed white;
+        box-shadow: 0 0 5px dimgray;
+
+        border-radius: 60px;
 
         h2 {
           margin-top: 200px;
           font-size: 2rem;
-          border: 3px dashed darkcyan;
+          border: 2px solid mediumseagreen;
         }
       }
     }

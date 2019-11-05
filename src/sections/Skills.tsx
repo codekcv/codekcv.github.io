@@ -264,6 +264,7 @@ const Container = styled.section`
     justify-content: center;
     align-items: center;
     height: auto;
+    border: 2px pink solid;
 
     .title-area {
       width: 100%;
