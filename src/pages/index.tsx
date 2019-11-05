@@ -41,18 +41,19 @@ const App: React.FC = () => {
   };
 
   const handleScroll = (target: number) => {
-    const vw = isMobile ? window.innerWidth / 4 : window.innerWidth;
+    const vw = window.innerWidth / (isMobile ? 4 : 1);
     const index = sections.indexOf(active) + target;
+    const pos = vw * index - window.pageXOffset;
 
     setActive(sections[index]);
-    scroll(window.pageXOffset, vw * target, SCROLL_DURATION);
+    scroll(window.pageXOffset, pos, SCROLL_DURATION);
     setScrolling(true);
     setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
   };
 
   const handleJump = (target: string) => {
+    const vw = window.innerWidth / (isMobile ? 4 : 1);
     const index = sections.indexOf(target);
-    const vw = isMobile ? window.innerWidth / 4 : window.innerWidth;
     window.scrollTo(vw * index, 0);
     setActive(sections[index]);
   };
