@@ -206,7 +206,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
   return (
     <Container id="skills">
-      <h1 className="skills-title">TECHNOLOGY STACK</h1>
+      {/* <h1 className="skills-title">TECHNOLOGY STACK</h1> */}
 
       <div className="main" id="anim-id">
         {skillsArr.map((skills, index) => (
@@ -251,7 +251,8 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  height: calc(100vh - 250px);
+  margin-top: 250px;
 
   .skills-title {
     color: rgb(35, 35, 50);

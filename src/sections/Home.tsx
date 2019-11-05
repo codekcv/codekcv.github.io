@@ -84,31 +84,31 @@ export const Home: React.FC<Props> = ({ active }) => {
   ];
 
   return (
-    <BackgroundImage fluid={backgroundImage}>
-      <Container id="home" anim={toggle}>
-        <Img className="profile" fluid={profileImage} />
-        <div className="information">
-          <h1>Christian Villamin</h1>
-          <h2>{`I create web sites & web applications.`}</h2>
+    // <BackgroundImage fluid={backgroundImage}>
+    <Container id="home" anim={toggle}>
+      <Img className="profile" fluid={profileImage} />
+      <div className="information">
+        <div className="spacer" style={{ margin: '80px' }}></div>
+        <h2>{`I create web sites & web applications.`}</h2>
 
-          <div className="icons">
-            {links.map(link => (
-              <Icon key={link.name} color={link.color}>
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
-                  <div className="icon">{link.icon}</div>
-                </a>
-                <p className="name">{link.name}</p>
-              </Icon>
-            ))}
-          </div>
+        <div className="icons">
+          {links.map(link => (
+            <Icon key={link.name} color={link.color}>
+              <a href={link.url} target="_blank" rel="noopener noreferrer">
+                <div className="icon">{link.icon}</div>
+              </a>
+              <p className="name">{link.name}</p>
+            </Icon>
+          ))}
         </div>
-      </Container>
-    </BackgroundImage>
+      </div>
+    </Container>
+    // </BackgroundImage>
   );
 };
 
 const Container = styled.section<{ anim: boolean }>`
-  background: rgba(0, 0, 0, 0.65);
+  /* background: rgba(0, 0, 0, 0.65); */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -125,7 +125,7 @@ const Container = styled.section<{ anim: boolean }>`
     width: 175px;
     height: 175px;
     margin-bottom: 2vh;
-    border: 3px white solid;
+    border: 3px black solid;
     border-radius: 50%;
   }
 
@@ -165,7 +165,8 @@ const Container = styled.section<{ anim: boolean }>`
     .profile {
       width: 300px;
       height: 300px;
-      border: 5px white solid;
+      border: none;
+      box-shadow: inset 0 0 10px black;
     }
 
     .information {

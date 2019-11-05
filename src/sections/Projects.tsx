@@ -61,7 +61,7 @@ export const Projects: React.FC<Props> = ({ active }) => {
   return (
     <Container id="projects">
       <div className="title-container">
-        <h1 className="title">Projects</h1>
+        {/* <h1 className="title">Projects</h1> */}
       </div>
 
       <div className="projects-container">

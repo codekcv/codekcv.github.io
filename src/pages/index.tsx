@@ -8,6 +8,7 @@ import { Projects } from '../sections/Projects';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
 import { Swipeable } from 'react-swipeable';
+import { FlyingText } from '../components/FlyingText';
 import { scroll } from '../components/scroll';
 import { isMobile } from 'react-device-detect';
 import { SCROLL_DURATION } from '../components/constants';
@@ -80,6 +81,7 @@ const App: React.FC = () => {
         <Projects active={active} />
         <About active={active} />
         <Contact active={active} />
+        <FlyingText sections={sections} active={active} />
       </Container>
     </Swipeable>
   );
@@ -87,6 +89,7 @@ const App: React.FC = () => {
 
 const Container = styled.main`
   background: white;
+  /* background: rgba(45, 45, 70, 1); */
   display: flex;
   width: 800vw;
   height: 100%;

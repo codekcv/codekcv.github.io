@@ -34,7 +34,7 @@ export const About: React.FC<Props> = ({ active }) => {
       <div className="profile-container">
         {/* <Img className="profile" fluid={fluid} /> */}
       </div>
-      <h1>ABOUT</h1>
+      {/* <h1>ABOUT</h1> */}
       <div className="all-abouts">
         <div className="about-container">
           {/* <h2>About Me</h2> */}

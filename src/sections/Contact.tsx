@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { ANIMATION_DELAY } from '../components/constants';
 
 interface Props {
   active: string;
@@ -14,7 +15,7 @@ export const Contact: React.FC<Props> = ({ active }) => {
 
   return (
     <Container id="contact" anim={toggle}>
-      <h1>Contact</h1>
+      {/* <h1>Contact</h1> */}
       <div className="contact-container">
         <form action="https://formspree.io/mabaetbaet@gmail.com" method="POST">
           <div>
@@ -61,8 +62,6 @@ export const Contact: React.FC<Props> = ({ active }) => {
 };
 
 const Container = styled.div<{ anim: boolean }>`
-  /* background: mediumseagreen; */
-
   position: relative;
   display: flex;
   flex-direction: column;
@@ -86,7 +85,7 @@ const Container = styled.div<{ anim: boolean }>`
     border-radius: 6px;
 
     transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
-    transition-delay: ${props => (props.anim ? '180ms' : '0ms')};
+    transition-delay: ${props => (props.anim ? ANIMATION_DELAY + 'ms' : '0ms')};
     transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
     opacity: ${props => (props.anim ? `1` : `0`)};
   }
