@@ -131,6 +131,11 @@ const Container = styled.div<{ anim: boolean }>`
     }
   }
 
+  @media only screen and (max-height: 660px) {
+    padding-top: 1vh;
+    justify-content: flex-end;
+  }
+  
   @media only screen and (min-width: 768px) {
     .contact-container {
       max-width: 500px;

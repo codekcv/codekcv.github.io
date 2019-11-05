@@ -37,9 +37,6 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
 
   return (
     <Container id="about">
-      <div className="profile-container">
-        {/* <Img className="profile" fluid={fluid} /> */}
-      </div>
       <div className="all-abouts" ref={ref}>
         <div className="about-container">
           <p>
@@ -151,8 +148,6 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
 };
 
 const Container = styled.section`
-  /* background: lightcoral; */
-
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -165,6 +160,7 @@ const Container = styled.section`
     font-size: 8vw;
     text-shadow: 0 3px silver;
   }
+
   .profile {
     width: 125px;
     height: 125px;
@@ -192,6 +188,11 @@ const Container = styled.section`
       margin-left: 24px;
       font-size: 3vw;
     }
+  }
+
+  @media only screen and (max-height: 660px) {
+    padding-top: 1vh;
+    justify-content: flex-end;
   }
 
   @media only screen and (min-width: 768px) {

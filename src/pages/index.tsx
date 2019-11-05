@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../sections/index.css';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
@@ -17,12 +17,7 @@ const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [place, setPlace] = useState<number[]>([]);
-  const indexRef = useRef<HTMLDivElement>(null);
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
-
-  useEffect(() => {
-    indexRef.current && indexRef.current.focus();
-  }, []);
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleScroll('left');
@@ -77,7 +72,6 @@ const App: React.FC = () => {
         onWheel={handleOnWheel}
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
-        ref={indexRef}
       >
         <Home active={active} addPlace={addPlace} />
         <Skills active={active} addPlace={addPlace} />

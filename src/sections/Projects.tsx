@@ -137,6 +137,11 @@ const Container = styled.section`
     }
   }
 
+  @media only screen and (max-height: 660px) {
+    padding-top: 1vh;
+    justify-content: flex-end;
+  }
+
   @media only screen and (min-width: 768px) {
     .anim-container {
       flex-direction: row;
