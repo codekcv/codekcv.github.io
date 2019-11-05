@@ -40,10 +40,8 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
       <div className="profile-container">
         {/* <Img className="profile" fluid={fluid} /> */}
       </div>
-      {/* <h1>ABOUT</h1> */}
       <div className="all-abouts" ref={ref}>
         <div className="about-container">
-          {/* <h2>About Me</h2> */}
           <p>
             I'm Christian Villamin, a web developer specializing in ReactJS and
             its environment.

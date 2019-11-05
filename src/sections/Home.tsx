@@ -111,7 +111,6 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
 };
 
 const Container = styled.section<{ anim: boolean }>`
-/* background: dimgray; */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -121,11 +120,11 @@ const Container = styled.section<{ anim: boolean }>`
   height: 100vh;
 
   #card {
-    /* transition: ${props => (props.anim ? '1s' : '0s')} ease;
+    transition: ${props => (props.anim ? '1s' : '0s')} ease;
     transition-delay: ${props =>
       props.anim ? ANIMATION_DELAY + 'ms' : SCROLL_DURATION - 10 + 'ms'};
     transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
-    opacity: ${props => (props.anim ? 1 : 0)}; */
+    opacity: ${props => (props.anim ? 1 : 0)};
     width: 900px;
     max-width: 90%;
 
@@ -134,9 +133,9 @@ const Container = styled.section<{ anim: boolean }>`
       left: 50%;
       top: 0;
       transform: translateX(-50%);
-      width: ${isMobile ? '180px' : '300px'};
-      height: ${isMobile ? '180px' : '300px'};
-      border: ${isMobile ? '7px' : '10px'} white solid;
+      width: 180px;
+      height: 180px;
+      border: 7px white solid;
       border-radius: 50%;
     }
 
@@ -145,18 +144,18 @@ const Container = styled.section<{ anim: boolean }>`
       color: white;
       text-align: center;
 
-      padding: ${isMobile ? '25px 25px 15px 25px' : '50px 50px 25px 50px'};
-      margin-top: ${isMobile ? '-90px' : '-150px'};
+      padding: 25px 25px 15px 25px;
+      margin-top: -90px;
       border-radius: 6px;
-      
+
       h2 {
-        margin-top: ${isMobile ? '120px' : '200px'};
-        font-size: ${isMobile ? '1rem' : '2rem'};
+        margin-top: 120px;
+        font-size: 1rem;
         font-weight: 300;
         color: gainsboro;
         text-shadow: 2px 2px darkslategray;
         padding: 3px 8px;
-        border: ${isMobile ? '1px' : '3px'} dashed darkcyan;
+        border: 1px dashed darkcyan;
         border-radius: 8px;
         background: rgba(0, 0, 0, 0.5);
         width: 100%;
@@ -169,36 +168,27 @@ const Container = styled.section<{ anim: boolean }>`
       }
     }
   }
-  /* 
+
   @media only screen and (min-width: 768px) {
-    .profile {
-      width: 300px;
-      height: 300px;
-      border: none;
-      box-shadow: inset 0 0 10px black;
-      border: 5px black solid;
-    }
-
-    .information {
-      color: white;
-      text-align: center;
-
-      h1 {
-        font-size: 5rem;
-        text-shadow: none;
+    #card {
+      .profile {
+        width: 300px;
+        height: 300px;
+        border: 10px white solid;
       }
 
-      h2 {
-        font-size: 2rem;
-        text-shadow: 2px 4px darkslategray;
-        padding: 3px 8px 5px 8px;
-      }
+      .information {
+        padding: 50px 50px 25px 50px;
+        margin-top: -150px;
 
-      .icons {
-        margin-top: 10px;
+        h2 {
+          margin-top: 200px;
+          font-size: 2rem;
+          border: 3px dashed darkcyan;
+        }
       }
     }
-  } */
+  }
 `;
 
 const Icon = styled.div<{ color: string }>`

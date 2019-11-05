@@ -22,7 +22,6 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
 
   return (
     <Container id="contact" anim={toggle}>
-      {/* <h1>Contact</h1> */}
       <div className="contact-container" ref={ref}>
         <form action="https://formspree.io/mabaetbaet@gmail.com" method="POST">
           <div>

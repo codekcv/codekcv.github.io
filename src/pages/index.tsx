@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import './index.css';
+import '../sections/index.css';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 import { Swipeable } from 'react-swipeable';
@@ -16,6 +16,7 @@ import { FlyingText } from '../components/FlyingText';
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
   const [scrolling, setScrolling] = useState<boolean>(false);
+  const [place, setPlace] = useState<number[]>([]);
   const indexRef = useRef<HTMLDivElement>(null);
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
 
@@ -64,10 +65,7 @@ const App: React.FC = () => {
     setActive(sections[index]);
   };
 
-  const [place, setPlace] = useState<number[]>([]);
-
   const addPlace = (posY: number) => setPlace(place => [...place, posY]);
-  const showTop = () => console.log(place);
 
   return (
     <Swipeable
@@ -80,7 +78,6 @@ const App: React.FC = () => {
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
         ref={indexRef}
-        onClick={showTop}
       >
         <Home active={active} addPlace={addPlace} />
         <Skills active={active} addPlace={addPlace} />

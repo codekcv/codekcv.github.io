@@ -82,7 +82,6 @@ const Container = styled.div<ContainerProps>`
   left: ${props => props.posX + 'px'};
   transform: ${props =>
     'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw - 15px))'};
-  /* transform: translate(-50%, -100%); */
   transition: 0.35s ease-in-out;
 
   width: 100%;

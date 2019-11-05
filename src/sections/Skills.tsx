@@ -213,7 +213,7 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
 
   return (
     <Container id="skills">
-      <div className="main" id="anim-id" ref={ref}>
+      <div id="main" ref={ref}>
         {skillsArr.map((skills, index) => (
           <Card
             key={`${skills[0]}`}
@@ -258,15 +258,8 @@ const Container = styled.section`
   width: 100vw;
   height: 100vh;
 
-  .skills-title {
-    color: rgb(35, 35, 50);
-    font-size: 8vw;
-    text-shadow: 0 3px silver;
-  }
-
-  .main {
+  #main {
     display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
     height: auto;
@@ -279,17 +272,11 @@ const Container = styled.section`
 
   @media only screen and (max-height: 660px) {
     padding-top: 1vh;
-    justify-content: flex-start;
+    justify-content: flex-end;
   }
 
   @media only screen and (min-width: 768px) {
-    justify-content: center;
-
-    .skills-title {
-      text-shadow: 0 6.5px silver;
-    }
-
-    .main {
+    #main {
       flex-direction: row;
     }
   }
