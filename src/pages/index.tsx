@@ -16,12 +16,6 @@ const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
   const [scrolling, setScrolling] = useState<boolean>(false);
   const indexRef = useRef<HTMLDivElement>(null);
-  const homeRef: any = useRef<HTMLDivElement>(null);
-  const skillsRef: any = useRef<HTMLDivElement>(null);
-  const projectsRef: any = useRef<HTMLDivElement>(null);
-  const aboutRef: any = useRef<HTMLDivElement>(null);
-  const contactRef: any = useRef<HTMLDivElement>(null);
-  const refs = [homeRef, skillsRef, projectsRef, aboutRef, contactRef];
   const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
@@ -58,7 +52,8 @@ const App: React.FC = () => {
 
   const handleJump = (target: string) => {
     const index = sections.indexOf(target);
-    refs[index].current.scrollIntoView();
+    const vw = isMobile ? window.innerWidth / 4 : window.innerWidth;
+    window.scrollTo(vw * index, 0);
     setActive(sections[index]);
   };
 
@@ -78,21 +73,11 @@ const App: React.FC = () => {
         tabIndex={0}
         ref={indexRef}
       >
-        <div id="home" ref={homeRef}>
-          <Home active={active} />
-        </div>
-        <div id="skills" ref={skillsRef}>
-          <Skills active={active} />
-        </div>
-        <div id="projects" ref={projectsRef}>
-          <Projects active={active} />
-        </div>
-        <div id="about" ref={aboutRef}>
-          <About active={active} /> / 4
-        </div>
-        <div id="contact" ref={contactRef}>
-          <Contact active={active} />
-        </div>
+        <Home active={active} />
+        <Skills active={active} />
+        <Projects active={active} />
+        <About active={active} />
+        <Contact active={active} />
       </Container>
     </Swipeable>
   );

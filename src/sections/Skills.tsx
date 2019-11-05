@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
-import { isMobile } from 'react-device-detect';
 import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
 
 interface Props {
@@ -206,7 +205,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
         })();
 
   return (
-    <Container id="skills" isMobile={isMobile}>
+    <Container id="skills">
       <h1 className="skills-title">TECHNOLOGY STACK</h1>
 
       <div className="main" id="anim-id">
@@ -245,9 +244,8 @@ export const Skills: React.FC<Props> = ({ active }) => {
   );
 };
 
-const Container = styled.section<{ isMobile: boolean }>`
+const Container = styled.section`
   position: relative;
-  /* background: rgb(35, 35, 50); */
   display: flex;
   flex-direction: column;
   justify-content: center;
