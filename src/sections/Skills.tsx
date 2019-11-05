@@ -202,7 +202,7 @@ export const Skills: React.FC<Props> = ({ active }) => {
           setTimeout(() => {
             setOut(false);
             setToggle(false);
-          }, 780);
+          }, SCROLL_DURATION - 20);
         })();
 
   return (
