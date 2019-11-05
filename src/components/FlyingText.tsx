@@ -47,8 +47,6 @@ export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
     anim ? setText1(texts[index]) : setText2(texts[index]);
   }, [active]);
 
-  const x = window.scrollX;
-
   return (
     <Container
       index={index}

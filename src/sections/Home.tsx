@@ -117,9 +117,6 @@ const Container = styled.section<{ anim: boolean }>`
   width: 100vw;
   height: 100vh;
 
-  img {
-  }
-
   .profile {
     position: absolute;
     left: 0;
@@ -139,6 +136,11 @@ const Container = styled.section<{ anim: boolean }>`
       props.anim ? ANIMATION_DELAY + 'ms' : SCROLL_DURATION - 10 + 'ms'};
     transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
     opacity: ${props => (props.anim ? 1 : 0)};
+
+    padding: 50px;
+    /* background: rgba(0, 0, 0, 0.25); */
+    border-radius: 6px;
+    box-shadow: 0 0 6px dimgray;
 
     h1 {
       font-size: 2rem;

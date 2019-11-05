@@ -9,7 +9,6 @@ module.exports = {
   plugins: [
     `gatsby-plugin-playground`,
     `gatsby-plugin-typescript`,
-    `gatsby-plugin-styled-components`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
