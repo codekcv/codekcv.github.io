@@ -11,10 +11,10 @@ interface Props {
 export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
   const [text1, setText1] = useState('Christian Villamin');
   const [text2, setText2] = useState('');
-  const [posX, setPosX] = useState(0);
+  const [posX, setPosX] = useState(window.innerWidth / (isMobile ? 4 : 1) / 2);
   const [posY, setPosY] = useState<number[]>([]);
   const [anim, setAnim] = useState(false);
-  const [sizes, setSizes] = useState<number[]>([]);
+  const [sizes, setSizes] = useState<number[]>([isMobile ? 8 : 3.5]);
 
   const texts = [
     'Christian Villamin',
@@ -27,10 +27,13 @@ export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
   const index = sections.indexOf(active);
 
   useEffect(() => {
+    const vw = window.innerWidth / (isMobile ? 4 : 1);
+    setPosX(vw / 2);
+
     if (isMobile) {
-      setSizes([30, 30, 30, 30, 30]);
+      setSizes([8, 9, 10, 14, 13]);
     } else {
-      setSizes([60, 150, 120, 80, 100]);
+      setSizes([3.5, 6.5, 5, 7, 6.5]);
     }
   }, []);
 
@@ -77,9 +80,9 @@ const Container = styled.div<ContainerProps>`
 
   top: ${props => props.posY + 'px'};
   left: ${props => props.posX + 'px'};
-  transform: translate(-50%, -50px);
   transform: ${props =>
-    'translate(-50%, -' + (props.sizes[props.index] / 2 + 10) + 'px)'};
+    'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw - 15px))'};
+  /* transform: translate(-50%, -100%); */
   transition: 0.35s ease-in-out;
 
   width: 100%;
@@ -90,7 +93,7 @@ const Container = styled.div<ContainerProps>`
     font-size: 100px;
     text-shadow: 0 ${isMobile ? '3px' : '6.5px'} silver;
     text-transform: uppercase;
-    font-size: ${props => props.sizes[props.index] + 'px'};
+    font-size: ${props => props.sizes[props.index] + 'vw'};
     transition: 0.5s ease;
   }
 

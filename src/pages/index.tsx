@@ -93,6 +93,33 @@ const App: React.FC = () => {
   );
 };
 
+const MyNav = styled.div<{ bottom: number }>`
+  position: fixed;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  /* border: 5px red solid; */
+  /* left: 50%;
+  top: 50%; */
+  /* left: 200px; */
+  /* bottom: 1500px; */
+
+  /* transform: translate(-50%, -50%); */
+  z-index: 5;
+
+  /* pointer-events: none; */
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+
+  text-align: center;
+  :hover {
+    cursor: pointer;
+  }
+`;
+
 const Container = styled.main`
   background: white;
   display: flex;

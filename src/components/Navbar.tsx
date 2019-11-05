@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { isMobile } from 'react-device-detect';
 
@@ -33,12 +33,12 @@ export const Navbar: React.FC<Props> = ({ handleJump }) => {
 };
 
 const Container = styled.div`
-  display: ${!isMobile ? 'block' : 'none'};
+  display: block;
   position: fixed;
-  left: 50%;
-  transform: translateX(-50%);
-  top: 0;
-  z-index: 9;
+  left: ${isMobile ? 'calc(50% / 4)' : '50%'};
+  top: ${isMobile ? 'calc(90% / 4)' : '20px'};
+  transform: translate(-50%, -50%);
+  z-index: 5;
 
   nav {
     position: relative;
@@ -46,18 +46,18 @@ const Container = styled.div`
     justify-content: center;
     align-items: center;
     top: 30px;
-    left: 17.5px;
+    left: ${isMobile ? 0 : '17.5px'};
 
     ul {
       display: flex;
       list-style: none;
       color: dimgray;
-      font-size: 1.25rem;
+      font-size: ${isMobile ? '1rem' : '1.25rem'};
       font-weight: 300;
       text-transform: uppercase;
 
       li {
-        margin: 0 15px;
+        margin: 0 ${isMobile ? '7px' : '15px'};
         transition: 0.5s ease;
         cursor: pointer;
 

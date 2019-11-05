@@ -368,7 +368,7 @@ const Card = styled.div<{ anim: boolean; index: number }>`
         .skill-name {
           font-size: 14px;
           text-decoration: none;
-          color: white;
+          color: black;
         }
 
         :hover {

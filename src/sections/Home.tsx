@@ -10,6 +10,7 @@ import {
   FaGithub,
 } from 'react-icons/fa';
 import { ANIMATION_DELAY, SCROLL_DURATION } from '../components/constants';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
@@ -50,7 +51,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
   const ref: any = useRef(null);
 
   useEffect(() => {
-    addPlace(ref.current.getBoundingClientRect().top + 70);
+    addPlace(ref.current.getBoundingClientRect().top + (isMobile ? 240 : 395));
   }, []);
 
   const links = [
@@ -58,7 +59,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
       name: 'GitHub',
       icon: <FaGithub className="fa" />,
       url: 'https://github.com/ChristianVillamin',
-      color: 'white',
+      color: 'black',
     },
     {
       name: 'CodePen',
@@ -88,20 +89,21 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
 
   return (
     <Container id="home" anim={toggle}>
-      <Img className="profile" fluid={profileImage} />
-      <div className="information" ref={ref}>
-        <div className="spacer" style={{ margin: '80px' }}></div>
-        <h2>{`I create web sites & web applications.`}</h2>
+      <div id="card" ref={ref}>
+        <Img className="profile" fluid={profileImage} />
+        <div className="information">
+          <h2>{`I create web sites & web applications.`}</h2>
 
-        <div className="icons">
-          {links.map(link => (
-            <Icon key={link.name} color={link.color}>
-              <a href={link.url} target="_blank" rel="noopener noreferrer">
-                <div className="icon">{link.icon}</div>
-              </a>
-              <p className="name">{link.name}</p>
-            </Icon>
-          ))}
+          <div className="icons">
+            {links.map(link => (
+              <Icon key={link.name} color={link.color}>
+                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                  <div className="icon">{link.icon}</div>
+                </a>
+                <p className="name">{link.name}</p>
+              </Icon>
+            ))}
+          </div>
         </div>
       </div>
     </Container>
@@ -109,6 +111,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
 };
 
 const Container = styled.section<{ anim: boolean }>`
+/* background: dimgray; */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -117,54 +120,56 @@ const Container = styled.section<{ anim: boolean }>`
   width: 100vw;
   height: 100vh;
 
-  .profile {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 175px;
-    height: 175px;
-    margin-bottom: 2vh;
-    border: 3px black solid;
-    border-radius: 50%;
-  }
-
-  .information {
-    color: white;
-    text-align: center;
-    transition: ${props => (props.anim ? '1s' : '0s')} ease;
+  #card {
+    /* transition: ${props => (props.anim ? '1s' : '0s')} ease;
     transition-delay: ${props =>
       props.anim ? ANIMATION_DELAY + 'ms' : SCROLL_DURATION - 10 + 'ms'};
     transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
-    opacity: ${props => (props.anim ? 1 : 0)};
+    opacity: ${props => (props.anim ? 1 : 0)}; */
+    width: 900px;
+    max-width: 90%;
 
-    padding: 50px;
-    /* background: rgba(0, 0, 0, 0.25); */
-    border-radius: 6px;
-    box-shadow: 0 0 6px dimgray;
-
-    h1 {
-      font-size: 2rem;
-      text-shadow: 2px 2px darkslategray;
+    .profile {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      transform: translateX(-50%);
+      width: ${isMobile ? '180px' : '300px'};
+      height: ${isMobile ? '180px' : '300px'};
+      border: ${isMobile ? '7px' : '10px'} white solid;
+      border-radius: 50%;
     }
 
-    h2 {
-      font-size: 1rem;
-      font-weight: 300;
-      color: gainsboro;
-      text-shadow: 2px 2px darkslategray;
-      padding: 3px 8px;
-      border: 1px dashed gray;
-      border-radius: 8px;
-      background: rgba(0, 0, 0, 0.75);
-    }
+    .information {
+      background: mediumaquamarine;
+      color: white;
+      text-align: center;
 
-    .icons {
-      display: flex;
-      justify-content: space-evenly;
-      margin-top: 5px;
+      padding: ${isMobile ? '25px 25px 15px 25px' : '50px 50px 25px 50px'};
+      margin-top: ${isMobile ? '-90px' : '-150px'};
+      border-radius: 6px;
+      
+      h2 {
+        margin-top: ${isMobile ? '120px' : '200px'};
+        font-size: ${isMobile ? '1rem' : '2rem'};
+        font-weight: 300;
+        color: gainsboro;
+        text-shadow: 2px 2px darkslategray;
+        padding: 3px 8px;
+        border: ${isMobile ? '1px' : '3px'} dashed darkcyan;
+        border-radius: 8px;
+        background: rgba(0, 0, 0, 0.5);
+        width: 100%;
+      }
+
+      .icons {
+        display: flex;
+        justify-content: space-evenly;
+        margin-top: 15px;
+      }
     }
   }
-
+  /* 
   @media only screen and (min-width: 768px) {
     .profile {
       width: 300px;
@@ -193,7 +198,7 @@ const Container = styled.section<{ anim: boolean }>`
         margin-top: 10px;
       }
     }
-  }
+  } */
 `;
 
 const Icon = styled.div<{ color: string }>`
