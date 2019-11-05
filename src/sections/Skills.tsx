@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import { isMobile } from 'react-device-detect';
+import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
 
 interface Props {
   active: string;
@@ -210,7 +211,11 @@ export const Skills: React.FC<Props> = ({ active }) => {
 
       <div className="main" id="anim-id">
         {skillsArr.map((skills, index) => (
-          <Card key={`${skills[0]}`} anim={toggle} index={180 + 300 * index}>
+          <Card
+            key={`${skills[0]}`}
+            anim={toggle}
+            index={ANIMATION_DELAY + 300 * index}
+          >
             <div className="title-area">
               <h1>{skills[0]}</h1>
               <hr />
@@ -298,7 +303,8 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   flex: 1;
 
   transition: ${props => (props.anim ? '1s' : 'none')} ease;
-  transition-delay: ${props => (props.anim ? props.index + 'ms' : '790ms')};
+  transition-delay: ${props =>
+    props.anim ? props.index + 'ms' : SCROLL_DURATION - 10 + 'ms'};
   transform: ${props => (props.anim ? 0 : `translateY(200px)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
 

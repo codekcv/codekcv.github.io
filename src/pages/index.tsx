@@ -8,15 +8,13 @@ import { Projects } from '../sections/Projects';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
 import { Swipeable } from 'react-swipeable';
-import { Scroll } from '../components/Scroll';
+import { scroll } from '../components/scroll';
 import { isMobile } from 'react-device-detect';
+import { SCROLL_DURATION } from '../components/constants';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
   const [scrolling, setScrolling] = useState<boolean>(false);
-  const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
-
-  // REFS
   const indexRef = useRef<HTMLDivElement>(null);
   const homeRef: any = useRef<HTMLDivElement>(null);
   const skillsRef: any = useRef<HTMLDivElement>(null);
@@ -24,6 +22,7 @@ const App: React.FC = () => {
   const aboutRef: any = useRef<HTMLDivElement>(null);
   const contactRef: any = useRef<HTMLDivElement>(null);
   const refs = [homeRef, skillsRef, projectsRef, aboutRef, contactRef];
+  const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleDirection('left');
@@ -48,38 +47,24 @@ const App: React.FC = () => {
   };
 
   const handleScroll = (target: number) => {
-    let index = sections.indexOf(active) + target;
-    setActive(sections[index]);
-
     const vw = isMobile ? window.innerWidth / 4 : window.innerWidth;
-    Scroll(window.pageXOffset, vw * target, 500);
-    // Scroll(window.scrollX, 400, 500);
+    const index = sections.indexOf(active) + target;
 
-    setPosX(vw / 2 + index * vw);
-
-    // console.log(window.innerWidth / 4);
-    console.log(1, window.pageXOffset);
-    console.log(2, refs[index].current.scrollLeft);
-    console.log(3, index);
+    setActive(sections[index]);
+    scroll(window.pageXOffset, vw * target, SCROLL_DURATION);
     setScrolling(true);
-    setTimeout(() => setScrolling(false), 600);
+    setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
   };
 
   const handleJump = (target: string) => {
     const index = sections.indexOf(target);
-    setActive(sections[index]);
-    // setPosX(vw / 2 + index * vw);
-
     refs[index].current.scrollIntoView();
+    setActive(sections[index]);
   };
 
   useEffect(() => {
     indexRef.current && indexRef.current.focus();
-    setPosX(window.innerWidth / 2);
   }, []);
-
-  // Character
-  const [posX, setPosX] = useState(0);
 
   return (
     <Swipeable
@@ -92,7 +77,6 @@ const App: React.FC = () => {
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
         ref={indexRef}
-        pos={posX}
       >
         <div id="home" ref={homeRef}>
           <Home active={active} />
@@ -109,61 +93,17 @@ const App: React.FC = () => {
         <div id="contact" ref={contactRef}>
           <Contact active={active} />
         </div>
-
-        {/* <div id="character">
-          <div id="screen">
-            <h1 id="section">{active}</h1>
-          </div>
-        </div> */}
       </Container>
     </Swipeable>
   );
 };
 
-const Container = styled.main<{ pos: number }>`
+const Container = styled.main`
   background: white;
-  position: relative;
   display: flex;
-  height: 100vh;
   width: 800vw;
+  height: 100vh;
   overflow: hidden;
-
-  #character {
-    position: absolute;
-    background: white;
-    /* border: 2px silver solid; */
-    width: 75%;
-    height: 250px;
-    left: ${props => 'calc(' + props.pos + 'px)'};
-    transform: translateX(-50%);
-    top: 65px;
-    transition: 1.25s ease;
-    z-index: 0;
-
-    border-radius: 10px;
-    padding: 10px;
-
-    box-shadow: 0 0 5px gray;
-
-    #screen {
-      width: 100%;
-      height: 100%;
-      background: seagreen;
-      /* background: white; */
-      box-shadow: inset 0 0 6px gainsboro;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      #section {
-        /* color: rgba(35, 35, 50, 1); */
-        color: white;
-        font-size: 8vw;
-        text-shadow: 0 6.5px silver;
-      }
-    }
-  }
 `;
 
 export default App;

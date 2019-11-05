@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import BackgroundImage from 'gatsby-background-image';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
-import { Element } from 'react-scroll';
 import { graphql, useStaticQuery } from 'gatsby';
 import {
   FaTwitter,
@@ -11,6 +10,7 @@ import {
   FaCodepen,
   FaGithub,
 } from 'react-icons/fa';
+import { ANIMATION_DELAY, SCROLL_DURATION } from '../components/constants';
 
 interface Props {
   active: string;
@@ -133,7 +133,8 @@ const Container = styled.section<{ anim: boolean }>`
     color: white;
     text-align: center;
     transition: ${props => (props.anim ? '1s' : '0s')} ease;
-    transition-delay: ${props => (props.anim ? '180ms' : '800ms')};
+    transition-delay: ${props =>
+      props.anim ? ANIMATION_DELAY + 'ms' : SCROLL_DURATION - 10 + 'ms'};
     transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
     opacity: ${props => (props.anim ? 1 : 0)};
 

@@ -11,7 +11,7 @@ const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
   return (-c / 2) * (t * (t - 2) - 1) + b;
 };
 
-export const Scroll = (base: number, added: number, duration: number) => {
+export const scroll = (base: number, added: number, duration: number) => {
   const tick = 1000 / 60;
   let val = 0,
     pos = 0;
