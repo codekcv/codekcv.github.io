@@ -64,6 +64,11 @@ const App: React.FC = () => {
     setActive(sections[index]);
   };
 
+  const [place, setPlace] = useState<number[]>([]);
+
+  const addPlace = (posY: number) => setPlace(place => [...place, posY]);
+  const showTop = () => console.log(place);
+
   return (
     <Swipeable
       onSwipedRight={() => handleOnSwipe(-1)}
@@ -75,13 +80,14 @@ const App: React.FC = () => {
         onKeyDown={handleOnKeyDown}
         tabIndex={0}
         ref={indexRef}
+        onClick={showTop}
       >
-        <Home active={active} />
-        <Skills active={active} />
-        <Projects active={active} />
-        <About active={active} />
-        <Contact active={active} />
-        <FlyingText sections={sections} active={active} />
+        <Home active={active} addPlace={addPlace} />
+        <Skills active={active} addPlace={addPlace} />
+        <Projects active={active} addPlace={addPlace} />
+        <About active={active} addPlace={addPlace} />
+        <Contact active={active} addPlace={addPlace} />
+        <FlyingText sections={sections} active={active} place={place} />
       </Container>
     </Swipeable>
   );
@@ -89,7 +95,6 @@ const App: React.FC = () => {
 
 const Container = styled.main`
   background: white;
-  /* background: rgba(45, 45, 70, 1); */
   display: flex;
   width: 800vw;
   height: 100%;

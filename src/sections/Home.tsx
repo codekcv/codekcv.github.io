@@ -1,5 +1,4 @@
-import React, { useState, useRef } from 'react';
-import BackgroundImage from 'gatsby-background-image';
+import React, { useState, useEffect, useRef } from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -14,6 +13,7 @@ import { ANIMATION_DELAY, SCROLL_DURATION } from '../components/constants';
 
 interface Props {
   active: string;
+  addPlace: (posY: number) => void;
 }
 
 const getImages = graphql`
@@ -36,11 +36,8 @@ const getImages = graphql`
   }
 `;
 
-export const Home: React.FC<Props> = ({ active }) => {
+export const Home: React.FC<Props> = ({ active, addPlace }) => {
   const {
-    background: {
-      childImageSharp: { fluid: backgroundImage },
-    },
     profile: {
       childImageSharp: { fluid: profileImage },
     },
@@ -49,6 +46,12 @@ export const Home: React.FC<Props> = ({ active }) => {
   const [toggle, setToggle] = useState<boolean>(true);
 
   active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
+
+  const ref: any = useRef(null);
+
+  useEffect(() => {
+    addPlace(ref.current.getBoundingClientRect().top + 70);
+  }, []);
 
   const links = [
     {
@@ -84,10 +87,9 @@ export const Home: React.FC<Props> = ({ active }) => {
   ];
 
   return (
-    // <BackgroundImage fluid={backgroundImage}>
     <Container id="home" anim={toggle}>
       <Img className="profile" fluid={profileImage} />
-      <div className="information">
+      <div className="information" ref={ref}>
         <div className="spacer" style={{ margin: '80px' }}></div>
         <h2>{`I create web sites & web applications.`}</h2>
 
@@ -103,12 +105,10 @@ export const Home: React.FC<Props> = ({ active }) => {
         </div>
       </div>
     </Container>
-    // </BackgroundImage>
   );
 };
 
 const Container = styled.section<{ anim: boolean }>`
-  /* background: rgba(0, 0, 0, 0.65); */
   position: relative;
   display: flex;
   flex-direction: column;
@@ -116,7 +116,9 @@ const Container = styled.section<{ anim: boolean }>`
   align-items: center;
   width: 100vw;
   height: 100vh;
-  z-index: 200;
+
+  img {
+  }
 
   .profile {
     position: absolute;
@@ -167,6 +169,7 @@ const Container = styled.section<{ anim: boolean }>`
       height: 300px;
       border: none;
       box-shadow: inset 0 0 10px black;
+      border: 5px black solid;
     }
 
     .information {

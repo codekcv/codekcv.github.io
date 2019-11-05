@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 
 interface Props {
   active: string;
+  addPlace: (posY: number) => void;
 }
 
 const getProfile = graphql`
@@ -18,7 +19,7 @@ const getProfile = graphql`
   }
 `;
 
-export const About: React.FC<Props> = ({ active }) => {
+export const About: React.FC<Props> = ({ active, addPlace }) => {
   const {
     profile: {
       childImageSharp: { fluid },
@@ -28,6 +29,11 @@ export const About: React.FC<Props> = ({ active }) => {
   const [toggle, setToggle] = useState<boolean>(false);
 
   active === 'about' ? !toggle && setToggle(true) : toggle && setToggle(false);
+  const ref: any = useRef(null);
+
+  useEffect(() => {
+    addPlace(ref.current.getBoundingClientRect().top);
+  }, []);
 
   return (
     <Container id="about">
@@ -35,7 +41,7 @@ export const About: React.FC<Props> = ({ active }) => {
         {/* <Img className="profile" fluid={fluid} /> */}
       </div>
       {/* <h1>ABOUT</h1> */}
-      <div className="all-abouts">
+      <div className="all-abouts" ref={ref}>
         <div className="about-container">
           {/* <h2>About Me</h2> */}
           <p>

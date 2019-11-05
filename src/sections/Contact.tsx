@@ -1,22 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { ANIMATION_DELAY } from '../components/constants';
 
 interface Props {
   active: string;
+  addPlace: (posY: number) => void;
 }
 
-export const Contact: React.FC<Props> = ({ active }) => {
+export const Contact: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
 
   active === 'contact'
     ? !toggle && setToggle(true)
     : toggle && setToggle(false);
 
+  const ref: any = useRef(null);
+
+  useEffect(() => {
+    addPlace(ref.current.getBoundingClientRect().top);
+  }, []);
+
   return (
     <Container id="contact" anim={toggle}>
       {/* <h1>Contact</h1> */}
-      <div className="contact-container">
+      <div className="contact-container" ref={ref}>
         <form action="https://formspree.io/mabaetbaet@gmail.com" method="POST">
           <div>
             <label htmlFor="name">Name</label>
@@ -86,7 +93,7 @@ const Container = styled.div<{ anim: boolean }>`
 
     transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
     transition-delay: ${props => (props.anim ? ANIMATION_DELAY + 'ms' : '0ms')};
-    transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
+    /* transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)}; */
     opacity: ${props => (props.anim ? `1` : `0`)};
   }
 

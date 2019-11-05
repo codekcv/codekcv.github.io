@@ -1,19 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { SCROLL_DURATION } from './constants';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
   sections: string[];
   active: string;
+  place: number[];
 }
 
-export const FlyingText: React.FC<Props> = ({ sections, active }) => {
+export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
   const [text1, setText1] = useState('Christian Villamin');
   const [text2, setText2] = useState('');
   const [posX, setPosX] = useState(0);
+  const [posY, setPosY] = useState<number[]>([]);
   const [anim, setAnim] = useState(false);
-
-  const posY = [600, 350, 150, 200, 200];
+  const [sizes, setSizes] = useState<number[]>([]);
 
   const texts = [
     'Christian Villamin',
@@ -23,18 +24,27 @@ export const FlyingText: React.FC<Props> = ({ sections, active }) => {
     'Contact Me',
   ];
 
-  const sizes = [60, 150, 120, 80, 100];
   const index = sections.indexOf(active);
 
   useEffect(() => {
-    setPosX(window.innerWidth * index + window.innerWidth / 2);
+    if (isMobile) {
+      setSizes([30, 30, 30, 30, 30]);
+    } else {
+      setSizes([60, 150, 120, 80, 100]);
+    }
+  }, []);
+
+  useEffect(() => {
+    setPosY(place);
+  }, [place]);
+
+  useEffect(() => {
+    const vw = window.innerWidth / (isMobile ? 4 : 1);
+
+    setPosX(vw * index + vw / 2);
     setAnim(anim => !anim);
 
-    if (anim === false) {
-      setText2(texts[index]);
-    } else {
-      setText1(texts[index]);
-    }
+    anim ? setText1(texts[index]) : setText2(texts[index]);
   }, [active]);
 
   const x = window.scrollX;
@@ -69,7 +79,9 @@ const Container = styled.div<ContainerProps>`
 
   top: ${props => props.posY + 'px'};
   left: ${props => props.posX + 'px'};
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -50px);
+  transform: ${props =>
+    'translate(-50%, -' + (props.sizes[props.index] / 2 + 10) + 'px)'};
   transition: 0.35s ease-in-out;
 
   width: 100%;
@@ -78,32 +90,17 @@ const Container = styled.div<ContainerProps>`
     position: absolute;
     color: rgb(35, 35, 50);
     font-size: 100px;
-    text-shadow: 0 6.5px silver;
+    text-shadow: 0 ${isMobile ? '3px' : '6.5px'} silver;
     text-transform: uppercase;
-
-    transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
-    /* transform: scale(1); */
-    /* transform: ${props =>
-      props.anim
-        ? 'scale(' + props.size + ')'
-        : 'scale(' + props.size + ')'}; */
-/* 
-      transform: ${props =>
-        props.index == 1
-          ? 'scale(' + props.sizes[props.index] + 'px)'
-          : '50px'}; */
-
-
-          font-size: ${props => props.sizes[props.index] + 'px'};
+    font-size: ${props => props.sizes[props.index] + 'px'};
+    transition: 0.5s ease;
   }
 
   #current {
     opacity: ${props => (props.anim ? 0 : 1)};
-    /* transform: ${props => 'scale(' + props.size + ')'}; */
   }
 
   #next {
     opacity: ${props => (props.anim ? 1 : 0)};
-    /* transform: ${props => 'scale(' + props.size + ')'}; */
   }
 `;

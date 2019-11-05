@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
-
-interface Props {
-  active: string;
-}
 
 const getLogos = graphql`
   query {
@@ -25,7 +21,12 @@ const getLogos = graphql`
   }
 `;
 
-export const Skills: React.FC<Props> = ({ active }) => {
+interface Props {
+  active: string;
+  addPlace: (posY: number) => void;
+}
+
+export const Skills: React.FC<Props> = ({ active, addPlace }) => {
   const {
     logos: { edges },
   } = useStaticQuery(getLogos);
@@ -204,11 +205,15 @@ export const Skills: React.FC<Props> = ({ active }) => {
           }, SCROLL_DURATION - 20);
         })();
 
+  const ref: any = useRef(null);
+
+  useEffect(() => {
+    addPlace(ref.current.getBoundingClientRect().top);
+  }, []);
+
   return (
     <Container id="skills">
-      {/* <h1 className="skills-title">TECHNOLOGY STACK</h1> */}
-
-      <div className="main" id="anim-id">
+      <div className="main" id="anim-id" ref={ref}>
         {skillsArr.map((skills, index) => (
           <Card
             key={`${skills[0]}`}
@@ -251,8 +256,7 @@ const Container = styled.section`
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: calc(100vh - 250px);
-  margin-top: 250px;
+  height: 100vh;
 
   .skills-title {
     color: rgb(35, 35, 50);

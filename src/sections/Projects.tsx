@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
 interface Props {
   active: string;
+  addPlace: (posY: number) => void;
 }
 
-export const Projects: React.FC<Props> = ({ active }) => {
+export const Projects: React.FC<Props> = ({ active, addPlace }) => {
   const projects = [
     {
       title: 'listerNote',
@@ -58,13 +59,15 @@ export const Projects: React.FC<Props> = ({ active }) => {
 
   const [toggle, setToggle] = useState<boolean>(false);
 
+  const ref: any = useRef(null);
+
+  useEffect(() => {
+    addPlace(ref.current.getBoundingClientRect().top);
+  }, []);
+
   return (
     <Container id="projects">
-      <div className="title-container">
-        {/* <h1 className="title">Projects</h1> */}
-      </div>
-
-      <div className="projects-container">
+      <div className="projects-container" ref={ref}>
         {projects.map(project => (
           <Project key={project.title}>
             <h2>{project.title}</h2>
@@ -88,7 +91,6 @@ export const Projects: React.FC<Props> = ({ active }) => {
 };
 
 const Container = styled.section`
-  /* background: rgb(40, 70, 70); */
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -107,7 +109,6 @@ const Container = styled.section`
   .demo {
     text-decoration: none;
     margin-right: 8px;
-    border: 1px pink solid;
     padding: 2px 4px;
     border-radius: 3px;
   }
@@ -160,6 +161,7 @@ const Project = styled.div`
   background: white;
   margin: 8px;
   padding: 8px;
+  border: 1px gainsboro solid;
   border-radius: 6px;
 
   h2 {
