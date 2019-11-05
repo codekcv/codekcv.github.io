@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
   handleJump: (target: string) => void;
@@ -32,7 +33,7 @@ export const Navbar: React.FC<Props> = ({ handleJump }) => {
 };
 
 const Container = styled.div`
-  display: none;
+  display: ${!isMobile ? 'block' : 'none'};
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
@@ -41,73 +42,46 @@ const Container = styled.div`
 
   nav {
     position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     top: 30px;
+    left: 17.5px;
 
     ul {
       display: flex;
       list-style: none;
-      color: silver;
+      color: dimgray;
       font-size: 1.25rem;
       font-weight: 300;
       text-transform: uppercase;
 
       li {
         margin: 0 15px;
+        transition: 0.5s ease;
         cursor: pointer;
 
         :hover {
-          color: white;
+          color: black;
+          transform: translateY(-3px);
         }
       }
-    }
-  }
 
-  @media only screen and (min-width: 768px) {
-    display: block;
+      li::after {
+        content: '';
+        background: dimgray;
+        position: relative;
+        display: block;
+        width: 0;
+        height: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        transition: 0.5s ease;
+      }
 
-    nav {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      top: 30px;
-      left: 17.5px;
-
-      ul {
+      li:hover:after {
         width: 100%;
-        justify-content: center;
-        list-style: none;
-        color: silver;
-        font-size: 1.25rem;
-        font-weight: 300;
-        text-transform: uppercase;
-
-        li {
-          cursor: pointer;
-          transition: 0.5s ease;
-
-          :hover {
-            color: white;
-            transform: translateY(-3px);
-          }
-        }
-
-        li::after {
-          content: '';
-          position: relative;
-          display: block;
-          width: 0;
-          height: 2px;
-          background: white;
-          left: 50%;
-          transform: translateX(-50%);
-
-          transition: 0.5s ease;
-        }
-
-        li:hover:after {
-          width: 100%;
-          transform: translate(-50%, 3px);
-        }
+        transform: translate(-50%, 3px);
       }
     }
   }
