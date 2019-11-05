@@ -51,7 +51,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
   const ref: any = useRef(null);
 
   useEffect(() => {
-    addPlace(ref.current.getBoundingClientRect().top + (isMobile ? 240 : 395));
+    addPlace(ref.current.getBoundingClientRect().top + (isMobile ? 220 : 395));
   }, []);
 
   const links = [

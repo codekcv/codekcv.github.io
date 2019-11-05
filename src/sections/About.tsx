@@ -191,8 +191,8 @@ const Container = styled.section`
   }
 
   @media only screen and (max-height: 660px) {
-    padding-top: 1vh;
-    justify-content: flex-end;
+    margin-top: 8vh;
+    justify-content: flex-start;
   }
 
   @media only screen and (min-width: 768px) {

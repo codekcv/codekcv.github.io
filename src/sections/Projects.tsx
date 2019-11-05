@@ -91,12 +91,11 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
 };
 
 const Container = styled.section`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: relative;
   align-items: center;
-
   width: 100vw;
   height: 100vh;
 
@@ -138,8 +137,8 @@ const Container = styled.section`
   }
 
   @media only screen and (max-height: 660px) {
-    padding-top: 1vh;
-    justify-content: flex-end;
+    margin-top: 8vh;
+    justify-content: flex-start;
   }
 
   @media only screen and (min-width: 768px) {

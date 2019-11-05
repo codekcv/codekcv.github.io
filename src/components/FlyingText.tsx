@@ -31,7 +31,7 @@ export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
     setPosX(vw / 2);
 
     if (isMobile) {
-      setSizes([8, 9, 10, 14, 13]);
+      setSizes([8, 9, 10, 10, 10]);
     } else {
       setSizes([3.5, 6.5, 5, 7, 6.5]);
     }
@@ -81,7 +81,7 @@ const Container = styled.div<ContainerProps>`
   top: ${props => props.posY + 'px'};
   left: ${props => props.posX + 'px'};
   transform: ${props =>
-    'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw - 15px))'};
+    'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw ))'};
   transition: 0.35s ease-in-out;
 
   width: 100%;
@@ -102,5 +102,10 @@ const Container = styled.div<ContainerProps>`
 
   #next {
     opacity: ${props => (props.anim ? 1 : 0)};
+  }
+
+  @media only screen and (min-width: 768px) {
+    transform: ${props =>
+      'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw - 15px))'};
   }
 `;

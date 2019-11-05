@@ -76,66 +76,60 @@ const Container = styled.div<{ anim: boolean }>`
   width: 100vw;
   height: 100vh;
 
-  h1 {
-    margin-bottom: 2vh;
-    color: rgb(45, 45, 70);
-    text-shadow: 0 3px silver;
-    font-size: 10vw;
-  }
-
   .contact-container {
-    background: white;
+    position: relative;
+    top: 16px;
+    background: LightSeaGreen;
     width: 80%;
     padding: 16px;
     box-shadow: 0 0 5px gray;
     border-radius: 6px;
 
-    transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
+    /* transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
     transition-delay: ${props => (props.anim ? ANIMATION_DELAY + 'ms' : '0ms')};
-    /* transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)}; */
-    opacity: ${props => (props.anim ? `1` : `0`)};
-  }
+    opacity: ${props => (props.anim ? `1` : `0`)}; */
 
-  label {
-    padding-left: 4px;
-  }
-
-  .input {
-    display: block;
-    margin: 2px;
-    padding: 2px;
-    border: 1px lightgray solid;
-    border-radius: 3px;
-    width: 100%;
-    margin-bottom: 12px;
-
-    :hover {
-      border: 1px gray solid;
+    label {
+      padding-left: 4px;
     }
-  }
 
-  textarea {
-    resize: none;
-  }
+    .input {
+      display: block;
+      margin: 2px;
+      padding: 2px;
+      border: 1px lightgray solid;
+      border-radius: 3px;
+      width: 100%;
+      margin-bottom: 12px;
 
-  .submit {
-    background: lightskyblue;
-    width: 100%;
-    border: 3px skyblue solid;
-    padding: 8px 16px;
-    border-radius: 6px;
-    font-size: 1rem;
+      :hover {
+        border: 1px gray solid;
+      }
+    }
 
-    :hover {
-      background: blue;
+    textarea {
+      resize: none;
+    }
+
+    .submit {
+      background: lightskyblue;
+      width: 100%;
+      border: 3px skyblue solid;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 1rem;
+
+      :hover {
+        background: blue;
+      }
     }
   }
 
   @media only screen and (max-height: 660px) {
-    padding-top: 1vh;
-    justify-content: flex-end;
+    margin-top: 8vh;
+    justify-content: flex-start;
   }
-  
+
   @media only screen and (min-width: 768px) {
     .contact-container {
       max-width: 500px;
