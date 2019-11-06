@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import '../sections/index.css';
 import styled from 'styled-components';
-import { isMobile, isFirefox } from 'react-device-detect';
+import result from '../components/browserDivision';
 import { Swipeable } from 'react-swipeable';
 import { scroll } from '../components/scroll';
 import { SCROLL_DURATION } from '../components/constants';
@@ -35,6 +35,8 @@ const App: React.FC = () => {
     target === 1 && handleScroll('right');
   };
 
+  const browserDivision = result();
+
   const handleScroll = (direction: string | number) => {
     if (scrolling) return;
 
@@ -42,7 +44,7 @@ const App: React.FC = () => {
     direction === 'right' && active !== 'contact' && (direction = 1);
 
     if (typeof direction === 'number') {
-      const vw = window.innerWidth / (isMobile && !isFirefox ? 4 : 1);
+      const vw = window.innerWidth / (browserDivision ? 4 : 1);
       const index = sections.indexOf(active) + direction;
       const pos = vw * index - window.pageXOffset;
 
@@ -54,7 +56,7 @@ const App: React.FC = () => {
   };
 
   const handleJump = (target: string) => {
-    const vw = window.innerWidth / (isMobile && !isFirefox ? 4 : 1);
+    const vw = window.innerWidth / (browserDivision ? 4 : 1);
     const index = sections.indexOf(target);
     window.scrollTo(vw * index, 0);
     setActive(sections[index]);

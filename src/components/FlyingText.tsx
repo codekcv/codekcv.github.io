@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { isMobile, isFirefox } from 'react-device-detect';
+import { isMobile, isChrome } from 'react-device-detect';
+import result from './browserDivision';
 
 interface Props {
   sections: string[];
@@ -32,8 +33,10 @@ export const FlyingText: React.FC<Props> = ({
 
   const index = sections.indexOf(active);
 
+  const browserDivision = result();
+
   useEffect(() => {
-    const vw = window.innerWidth / (isMobile && !isFirefox ? 4 : 1);
+    const vw = window.innerWidth / (browserDivision ? 4 : 1);
     setPosX(vw / 2);
 
     if (isMobile) {
@@ -48,7 +51,7 @@ export const FlyingText: React.FC<Props> = ({
   }, [place]);
 
   useEffect(() => {
-    const vw = window.innerWidth / (isMobile && !isFirefox ? 4 : 1);
+    const vw = window.innerWidth / (browserDivision ? 4 : 1);
 
     setPosX(vw * index + vw / 2);
     setAnim(anim => !anim);
