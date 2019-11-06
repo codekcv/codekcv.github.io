@@ -47,10 +47,13 @@ const App: React.FC = () => {
       const index = sections.indexOf(active) + direction;
       const pos = vw * index - window.pageXOffset;
 
-      setActive(sections[index]);
-      setScrolling(true);
-      setTimeout(() => scroll(window.pageXOffset, pos, SCROLL_DURATION), 0);
-      setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
+      scroll(window.pageXOffset, pos, SCROLL_DURATION);
+      setScrolling(scrolling => !scrolling);
+      setTimeout(() => setActive(sections[index]), 0);
+      setTimeout(
+        () => setScrolling(scrolling => !scrolling),
+        SCROLL_DURATION + 10
+      );
     }
   };
 

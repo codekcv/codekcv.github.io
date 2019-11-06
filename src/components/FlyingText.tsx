@@ -55,7 +55,6 @@ export const FlyingText: React.FC<Props> = ({
 
     setPosX(vw * index + vw / 2);
     setAnim(anim => !anim);
-
     anim ? setText1(texts[index]) : setText2(texts[index]);
   }, [active]);
 
@@ -93,7 +92,7 @@ const Container = styled.div<ContainerProps>`
   left: ${props => props.posX + 'px'};
   transform: ${props =>
     'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw))'};
-  transition: ${props => (props.scrolling ? '0.35s' : '0s')} ease-in-out;
+  transition: ${props => (props.scrolling ? '0.35s' : '0')} ease-in-out;
   /* transition: 0.35s ease-in-out; */
 
   width: 100%;
