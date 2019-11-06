@@ -6,25 +6,15 @@ interface Props {
 }
 
 export const Navbar: React.FC<Props> = ({ handleJump }) => {
+  const menu = ['home', 'skills', 'projects', 'about', 'contact'];
+
   return (
     <Container>
       <nav>
         <ul>
-          <li>
-            <div onClick={() => handleJump('home')}>Home</div>
-          </li>
-          <li>
-            <div onClick={() => handleJump('skills')}>Skills</div>
-          </li>
-          <li>
-            <div onClick={() => handleJump('projects')}>Projects</div>
-          </li>
-          <li>
-            <div onClick={() => handleJump('about')}>About</div>
-          </li>
-          <li>
-            <div onClick={() => handleJump('contact')}>Contact</div>
-          </li>
+          {menu.map(item => (
+            <li onClick={() => handleJump(item)}>{item}</li>
+          ))}
         </ul>
       </nav>
     </Container>
