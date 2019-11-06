@@ -101,10 +101,11 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
     },
   ]);
 
-  const DELAY = 75;
+  const DELAY = 100;
   const [delays, setDelays] = useState<number[]>([]);
 
   const [toggle, setToggle] = useState<boolean>(false);
+  const [out, setOut] = useState<boolean>(false);
   const ref: any = useRef(null);
 
   useEffect(() => {
@@ -113,27 +114,36 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
 
   const [st, setSt] = useState(false);
 
-  active === 'projects'
-    ? !toggle &&
-      (() => {
-        if (!st) {
-          setSt(true);
-          const sortedProjects = [...projects];
-          sortedProjects.sort(() => Math.random() - 0.5);
-          setProjects(p => sortedProjects);
+  if (!out)
+    active === 'projects'
+      ? !toggle &&
+        (() => {
+          if (!st) {
+            setSt(true);
+            const sortedProjects = [...projects];
+            sortedProjects.sort(() => Math.random() - 0.5);
+            setProjects(p => sortedProjects);
 
-          const newDelay = [];
-          for (let i = 0; i < projects.length; i++) newDelay.push(DELAY * i);
-          newDelay.sort(() => Math.random() - 0.5);
-          setDelays(newDelay);
+            const newDelay = [];
+            for (let i = 0; i < projects.length; i++) newDelay.push(DELAY * i);
+            newDelay.sort(() => Math.random() - 0.5);
+            setDelays(newDelay);
+
+            setTimeout(() => {
+              setToggle(true);
+              setSt(false);
+            }, 0);
+          }
+        })()
+      : toggle &&
+        (() => {
+          setOut(true);
 
           setTimeout(() => {
-            setToggle(true);
-            setSt(false);
-          }, 0);
-        }
-      })()
-    : toggle && setToggle(false);
+            setOut(false);
+            setToggle(false);
+          }, SCROLL_DURATION - 20);
+        })();
 
   return (
     <Container id="projects">
@@ -203,6 +213,7 @@ const Container = styled.section`
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      justify-content: center;
       width: 80%;
       /* border: 1px pink solid; */
 
@@ -225,15 +236,10 @@ const Project = styled.div<{ anim: number; delay: number }>`
   margin: 24px;
   padding: 16px;
   border-radius: 6px;
-  /* box-shadow: 0 0 5px dimgray; */
 
-  transition: ${props => (props.anim ? '0.75s' : '0')} ease;
-  /* transition: 1s ease; */
+  transition: ${props => (props.anim ? '0.75s' : 'none')} ease;
   transition-delay: ${props =>
     props.anim ? props.delay + 'ms' : SCROLL_DURATION - 10 + 'ms'};
-
-  /* transition-delay: ${props =>
-    props.anim ? '500ms' : SCROLL_DURATION - 10 + 'ms'}; */
 
   opacity: ${props => (props.anim ? 1 : 0)};
   transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};

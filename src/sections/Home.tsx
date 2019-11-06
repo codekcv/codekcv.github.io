@@ -148,6 +148,7 @@ const Container = styled.section<{ anim: boolean }>`
         height: 180px;
         border: 5px dashed white;
         box-shadow: 0 0 5px dimgray;
+        box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
         border-radius: 50%;
       }
 
@@ -161,7 +162,8 @@ const Container = styled.section<{ anim: boolean }>`
         border-radius: 30px;
 
         border: 5px dashed white;
-        box-shadow: 0 0 5px dimgray;
+        /* box-shadow: 0 0 5px dimgray; */
+        box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
 
         h2 {
           margin-top: 120px;
@@ -195,6 +197,8 @@ const Container = styled.section<{ anim: boolean }>`
           height: 300px;
           border: 5px dashed white;
           box-shadow: 0 0 5px dimgray;
+          /* box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6); */
+          box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
         }
 
         .information {
@@ -202,6 +206,8 @@ const Container = styled.section<{ anim: boolean }>`
           margin-top: -150px;
           border: 5px dashed white;
           box-shadow: 0 0 5px dimgray;
+          /* box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6); */
+          box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
           border-radius: 60px;
 
           h2 {

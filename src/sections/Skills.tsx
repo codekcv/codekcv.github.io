@@ -293,6 +293,7 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   margin: 1vh 0;
   padding: 0.4rem;
   border-radius: 4px;
+  box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
   flex: 1;
 
   transition: ${props => (props.anim ? '0.75s' : 'none')} ease;

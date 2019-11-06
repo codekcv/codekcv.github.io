@@ -31,6 +31,7 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
               name="name"
               id="name"
               className="input"
+              placeholder="Name"
               required
             />
           </div>
@@ -41,20 +42,26 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
               name="email"
               id="email"
               className="input"
+              placeholder="Email"
               required
             />
           </div>
           <div>
             <label htmlFor="message">Subject</label>
-            <input className="input" type="input" name="_subject" />
+            <input
+              className="input"
+              type="input"
+              name="_subject"
+              placeholder="Subject"
+            />
           </div>
           <div>
-            <label htmlFor="message">Message</label>
             <textarea
               name="message"
               id="message"
               rows={10}
               className="input"
+              placeholder="Message"
               required
             />
           </div>
@@ -78,11 +85,9 @@ const Container = styled.div<{ anim: boolean }>`
 
   .contact-container {
     position: relative;
-    /* top: 16px; */
-    background: LightSeaGreen;
     width: 80%;
     padding: 16px;
-    box-shadow: 0 0 5px gray;
+    box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
     border-radius: 6px;
 
     /* transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
@@ -96,7 +101,7 @@ const Container = styled.div<{ anim: boolean }>`
     .input {
       display: block;
       margin: 2px;
-      padding: 2px;
+      padding: 12px;
       border: 1px lightgray solid;
       border-radius: 3px;
       width: 100%;
@@ -131,8 +136,11 @@ const Container = styled.div<{ anim: boolean }>`
   }
 
   @media only screen and (min-width: 768px) {
+    border: 5px black solid;
+    
     .contact-container {
-      max-width: 500px;
+      max-width: 600px;
+      margin-top: 100px;
     }
 
     h1 {

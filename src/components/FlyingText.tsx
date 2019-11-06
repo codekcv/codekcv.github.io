@@ -26,7 +26,7 @@ export const FlyingText: React.FC<Props> = ({
   const texts = [
     'Christian Villamin',
     'Technology Stack',
-    'Stuffs I Made',
+    'Things I Made',
     'Get To Know Me',
     'Send Me A Message',
   ];
