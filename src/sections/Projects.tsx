@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 interface Props {
   active: string;
-  addPlace: (posY: number) => void;
+  addPlace: (index: number, posY: number) => void;
 }
 
 export const Projects: React.FC<Props> = ({ active, addPlace }) => {
@@ -59,11 +59,15 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
 
   const [toggle, setToggle] = useState<boolean>(false);
 
+  active === 'projects'
+    ? !toggle && setToggle(true)
+    : toggle && setToggle(false);
+
   const ref: any = useRef(null);
 
   useEffect(() => {
-    addPlace(ref.current.getBoundingClientRect().top);
-  }, []);
+    addPlace(2, ref.current.getBoundingClientRect().top);
+  }, [toggle]);
 
   return (
     <Container id="projects">

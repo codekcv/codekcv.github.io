@@ -4,7 +4,7 @@ import { ANIMATION_DELAY } from '../components/constants';
 
 interface Props {
   active: string;
-  addPlace: (posY: number) => void;
+  addPlace: (index: number, posY: number) => void;
 }
 
 export const Contact: React.FC<Props> = ({ active, addPlace }) => {
@@ -17,8 +17,8 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
   const ref: any = useRef(null);
 
   useEffect(() => {
-    addPlace(ref.current.getBoundingClientRect().top);
-  }, []);
+    addPlace(4, ref.current.getBoundingClientRect().top);
+  }, [toggle]);
 
   return (
     <Container id="contact" anim={toggle}>

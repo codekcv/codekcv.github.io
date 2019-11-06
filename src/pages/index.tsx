@@ -60,7 +60,17 @@ const App: React.FC = () => {
     setActive(sections[index]);
   };
 
-  const addPlace = (posY: number) => setPlace(place => [...place, posY]);
+  const addPlace = (index: number, posY: number) => {
+    if (place.length <= index) {
+      setPlace(place => [...place, posY]);
+    } else {
+      setPlace(place => {
+        const arr = [...place];
+        arr.splice(index, 1, posY);
+        return arr;
+      });
+    }
+  };
 
   return (
     <Swipeable

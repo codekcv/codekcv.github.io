@@ -90,7 +90,7 @@ const Container = styled.div<ContainerProps>`
     position: absolute;
     color: rgb(35, 35, 50);
     font-size: 100px;
-    text-shadow: 0 ${isMobile ? '3px' : '6.5px'} silver;
+    text-shadow: 0 3px silver;
     text-transform: uppercase;
     font-size: ${props => props.sizes[props.index] + 'vw'};
     transition: 0.5s ease;
@@ -107,5 +107,9 @@ const Container = styled.div<ContainerProps>`
   @media only screen and (min-width: 768px) {
     transform: ${props =>
       'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw - 15px))'};
+
+    h1 {
+      text-shadow: 0 6.5px silver;
+    }
   }
 `;

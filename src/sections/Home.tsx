@@ -14,7 +14,7 @@ import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
-  addPlace: (posY: number) => void;
+  addPlace: (index: number, posY: number) => void;
 }
 
 const getImages = graphql`
@@ -51,8 +51,11 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
   const ref: any = useRef(null);
 
   useEffect(() => {
-    addPlace(ref.current.getBoundingClientRect().top + (isMobile ? 220 : 395));
-  }, []);
+    addPlace(
+      0,
+      ref.current.getBoundingClientRect().top + (isMobile ? 220 : 395)
+    );
+  }, [toggle]);
 
   const links = [
     {
@@ -89,20 +92,22 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
 
   return (
     <Container id="home" anim={toggle}>
-      <div id="card" ref={ref}>
-        <Img className="profile" fluid={profileImage} />
-        <div className="information">
-          <h2>{`I create web sites & web applications.`}</h2>
+      <div className="placer" ref={ref}>
+        <div id="card">
+          <Img className="profile" fluid={profileImage} />
+          <div className="information">
+            <h2>{`I create web sites & web applications.`}</h2>
 
-          <div className="icons">
-            {links.map(link => (
-              <Icon key={link.name} color={link.color}>
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
-                  <div className="icon">{link.icon}</div>
-                </a>
-                <p className="name">{link.name}</p>
-              </Icon>
-            ))}
+            <div className="icons">
+              {links.map(link => (
+                <Icon key={link.name} color={link.color}>
+                  <a href={link.url} target="_blank" rel="noopener noreferrer">
+                    <div className="icon">{link.icon}</div>
+                  </a>
+                  <p className="name">{link.name}</p>
+                </Icon>
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -147,7 +152,7 @@ const Container = styled.section<{ anim: boolean }>`
 
       padding: 25px 15px 15px 15px;
       margin-top: -90px;
-      border-radius: 6px;
+      border-radius: 30px;
 
       border: 5px dashed white;
       box-shadow: 0 0 5px dimgray;

@@ -4,7 +4,7 @@ import { graphql, useStaticQuery } from 'gatsby';
 
 interface Props {
   active: string;
-  addPlace: (posY: number) => void;
+  addPlace: (index: number, posY: number) => void;
 }
 
 const getProfile = graphql`
@@ -27,13 +27,13 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
   } = useStaticQuery(getProfile);
 
   const [toggle, setToggle] = useState<boolean>(false);
-
-  active === 'about' ? !toggle && setToggle(true) : toggle && setToggle(false);
   const ref: any = useRef(null);
 
+  active === 'about' ? !toggle && setToggle(true) : toggle && setToggle(false);
+
   useEffect(() => {
-    addPlace(ref.current.getBoundingClientRect().top);
-  }, []);
+    addPlace(3, ref.current.getBoundingClientRect().top);
+  }, [toggle]);
 
   return (
     <Container id="about">

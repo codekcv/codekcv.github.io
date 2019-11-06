@@ -23,7 +23,7 @@ const getLogos = graphql`
 
 interface Props {
   active: string;
-  addPlace: (posY: number) => void;
+  addPlace: (index: number, posY: number) => void;
 }
 
 export const Skills: React.FC<Props> = ({ active, addPlace }) => {
@@ -208,8 +208,8 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
   const ref: any = useRef(null);
 
   useEffect(() => {
-    addPlace(ref.current.getBoundingClientRect().top);
-  }, []);
+    addPlace(1, ref.current.getBoundingClientRect().top);
+  }, [toggle]);
 
   return (
     <Container id="skills">
