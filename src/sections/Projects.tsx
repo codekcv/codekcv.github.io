@@ -139,26 +139,28 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
     <Container id="projects">
       <div className="projects-container" ref={ref}>
         {projects.map((project, index) => (
-          <Project
-            key={project.title}
-            anim={toggle ? 1 : 0}
-            delay={delays[index]}
-          >
-            <h2 className="title">{project.title}</h2>
-            <a className="github" href={project.github}>
-              GitHub
-            </a>
-            <a className="demo" href={project.demo}>
-              Demo
-            </a>
-            <p className="description">{project.description}</p>
+          <div className="select">
+            <Project
+              key={project.title}
+              anim={toggle ? 1 : 0}
+              delay={delays[index]}
+            >
+              <h2 className="title">{project.title}</h2>
+              <a className="github" href={project.github}>
+                GitHub
+              </a>
+              <a className="demo" href={project.demo}>
+                Demo
+              </a>
+              <p className="description">{project.description}</p>
 
-            {project.technologies.map(technology => (
-              <span className="technologies" key={technology}>
-                {technology}
-              </span>
-            ))}
-          </Project>
+              {project.technologies.map(technology => (
+                <span className="technologies" key={technology}>
+                  {technology}
+                </span>
+              ))}
+            </Project>
+          </div>
         ))}
       </div>
     </Container>
@@ -203,6 +205,17 @@ const Container = styled.section`
       flex-wrap: wrap;
       width: 80%;
       /* border: 1px pink solid; */
+
+      .select {
+        border-radius: 12px;
+        transition: 0.5s ease;
+
+        :hover {
+          /* box-shadow: 0 0 5px dimgray; */
+          box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
+          transform: translateY(-10%);
+        }
+      }
     }
   }
 `;
@@ -224,11 +237,6 @@ const Project = styled.div<{ anim: number; delay: number }>`
 
   opacity: ${props => (props.anim ? 1 : 0)};
   transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
-
-  :hover {
-    box-shadow: 0 0 5px dimgray;
-    transform: translateY(-10%);
-  }
 
   .title {
     font-size: 1rem;
