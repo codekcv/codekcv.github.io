@@ -78,7 +78,7 @@ const Container = styled.div<{ anim: boolean }>`
 
   .contact-container {
     position: relative;
-    top: 16px;
+    /* top: 16px; */
     background: LightSeaGreen;
     width: 80%;
     padding: 16px;

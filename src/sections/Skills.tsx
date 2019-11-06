@@ -279,6 +279,8 @@ const Container = styled.section`
   @media only screen and (min-width: 768px) {
     #main {
       flex-direction: row;
+      margin-top: 120px;
+      padding-top: 60px;
     }
   }
 `;

@@ -6,9 +6,15 @@ interface Props {
   sections: string[];
   active: string;
   place: number[];
+  scrolling: boolean;
 }
 
-export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
+export const FlyingText: React.FC<Props> = ({
+  sections,
+  active,
+  place,
+  scrolling,
+}) => {
   const [text1, setText1] = useState<string>('Christian Villamin');
   const [text2, setText2] = useState<string>('');
   const [posX, setPosX] = useState<number>(0);
@@ -19,9 +25,9 @@ export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
   const texts = [
     'Christian Villamin',
     'Technology Stack',
-    'My Projects',
-    'About Me',
-    'Contact Me',
+    'Stuffs I Made',
+    'Get To Know Me',
+    'Send Me A Message',
   ];
 
   const index = sections.indexOf(active);
@@ -31,9 +37,9 @@ export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
     setPosX(vw / 2);
 
     if (isMobile) {
-      setSizes([8, 9, 10, 10, 10]);
+      setSizes([8, 9, 10, 10, 9]);
     } else {
-      setSizes([3.5, 6.5, 5, 7, 6.5]);
+      setSizes([3.5, 6.5, 5, 7, 5]);
     }
   }, []);
 
@@ -57,6 +63,7 @@ export const FlyingText: React.FC<Props> = ({ sections, active, place }) => {
       posY={posY[index]}
       anim={anim}
       sizes={sizes}
+      scrolling={scrolling}
     >
       <h1 id="current">{text1}</h1>
       <h1 id="next">{text2}</h1>
@@ -70,6 +77,7 @@ interface ContainerProps {
   posY: number;
   anim: boolean;
   sizes: number[];
+  scrolling: boolean;
 }
 
 const Container = styled.div<ContainerProps>`
@@ -81,8 +89,8 @@ const Container = styled.div<ContainerProps>`
   top: ${props => props.posY + 'px'};
   left: ${props => props.posX + 'px'};
   transform: ${props =>
-    'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw ))'};
-  transition: 0.35s ease-in-out;
+    'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw))'};
+  transition: ${props => (props.scrolling ? '0.35s' : 0)} ease-in-out;
 
   width: 100%;
 
@@ -105,9 +113,6 @@ const Container = styled.div<ContainerProps>`
   }
 
   @media only screen and (min-width: 768px) {
-    transform: ${props =>
-      'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw - 15px))'};
-
     h1 {
       text-shadow: 0 6.5px silver;
     }

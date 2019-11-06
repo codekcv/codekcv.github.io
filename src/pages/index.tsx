@@ -88,7 +88,12 @@ const App: React.FC = () => {
         <Projects active={active} addPlace={addPlace} />
         <About active={active} addPlace={addPlace} />
         <Contact active={active} addPlace={addPlace} />
-        <FlyingText sections={sections} active={active} place={place} />
+        <FlyingText
+          sections={sections}
+          active={active}
+          place={place}
+          scrolling={scrolling}
+        />
       </Container>
     </Swipeable>
   );

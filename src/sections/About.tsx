@@ -155,6 +155,8 @@ const Container = styled.section`
   width: 100vw;
   height: 100vh;
 
+  /* border: 2px pink solid; */
+
   h1 {
     color: rgb(45, 45, 70);
     font-size: 8vw;
@@ -171,7 +173,7 @@ const Container = styled.section`
 
   .about-container {
     color: gainsboro;
-    margin: 12px;
+    /* margin: 12px; */
     padding: 12px;
     background: black;
     border: 1px silver solid;

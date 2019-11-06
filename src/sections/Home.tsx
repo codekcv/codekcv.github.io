@@ -187,8 +187,6 @@ const Container = styled.section<{ anim: boolean }>`
 
   @media only screen and (min-width: 768px) {
     #placer {
-      border: 1px pink solid;
-
       #card {
         width: 900px;
 
@@ -257,13 +255,13 @@ const Icon = styled.div<{ color: string }>`
 
     :hover {
       .icon {
-        transform: scale(1.25);
+        transform: scale(1.2);
         color: ${props => props.color};
       }
 
       .name {
         opacity: 1;
-        top: 80px;
+        top: 70px;
       }
     }
   }
