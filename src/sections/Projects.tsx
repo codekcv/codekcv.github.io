@@ -9,9 +9,17 @@ interface Props {
 export const Projects: React.FC<Props> = ({ active, addPlace }) => {
   const projects = [
     {
+      title: 'ChristianVillamin.github.io',
+      description: 'My personal portfolio website.',
+      technologies: ['TypeScript', 'Gatsby', 'React', 'GraphQL', 'Styled'],
+      github:
+        'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
+      demo: 'http://christianvillamin.github.io',
+    },
+    {
       title: 'listerNote',
       description:
-        'A note organizer inspired by Trello. You can make boards, lists, and cards.',
+        'A Kanban style note organizer. You can use boards, lists, and cards.',
       technologies: ['TypeScript', 'React', 'Redux', 'Hooks'],
       github: 'https://github.com/ChristianVillamin/lister',
       demo: 'https://listernote.netlify.com/',
@@ -25,12 +33,13 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       demo: 'https://cv-board.glitch.me',
     },
     {
-      title: 'Personal Portfolio',
-      description: 'My own portfolio website you are currently in.',
-      technologies: ['TypeScript', 'Gatsby', 'React', 'GraphQL', 'Styled'],
+      title: 'Stock Price Checker',
+      description:
+        'A full stack app. Fetches from an API to get latest stock prides..',
+      technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Axios'],
       github:
-        'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
-      demo: 'http://christianvillamin.github.io',
+        'https://github.com/ChristianVillamin/boilerplate-project-stockchecker',
+      demo: 'https://cv-stock.glitch.me/',
     },
     {
       title: 'Mini-Piano',
@@ -47,13 +56,47 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       demo: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
     },
     {
-      title: 'Stock Price Checker',
-      description:
-        'A full stack app. Fetches from an API to get latest stock prides..',
-      technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Axios'],
-      github:
-        'https://github.com/ChristianVillamin/boilerplate-project-stockchecker',
-      demo: 'https://cv-stock.glitch.me/',
+      title: 'Podomoro Clock',
+      description: 'A productivity app for study and health.',
+      technologies: ['ES6+', 'React', 'Hooks'],
+      github: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
+      demo: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
+    },
+
+    {
+      title: 'Tribute Page',
+      description: 'A tribute to Walter White from Breaking Bad.',
+      technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
+      github: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+      demo: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+    },
+    {
+      title: 'Biplane Landing Page',
+      description: 'A fun page I made for my likes of biplanes.',
+      technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
+      github: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+      demo: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+    },
+    {
+      title: 'Technical Documentation',
+      description: 'A short HTML documentation page.',
+      technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
+      github: 'https://codepen.io/ChristianVillamin/pen/PrqegB',
+      demo: 'https://codepen.io/ChristianVillamin/pen/PrqegB',
+    },
+    {
+      title: 'Treemap Diagram',
+      description: 'A short HTML documentation page.',
+      technologies: ['JavaScript', 'D3'],
+      github: 'https://codepen.io/ChristianVillamin/pen/rEgVPp',
+      demo: 'https://codepen.io/ChristianVillamin/pen/rEgVPp',
+    },
+    {
+      title: 'Choropleth Map',
+      description: 'A short HTML documentation page.',
+      technologies: ['JavaScript', 'D3'],
+      github: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
+      demo: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
     },
   ];
 
@@ -74,7 +117,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       <div className="projects-container" ref={ref}>
         {projects.map(project => (
           <Project key={project.title}>
-            <h2>{project.title}</h2>
+            <h2 className="title">{project.title}</h2>
             <a className="github" href={project.github}>
               GitHub
             </a>
@@ -82,6 +125,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
               Demo
             </a>
             <p className="description">{project.description}</p>
+
             {project.technologies.map(technology => (
               <span className="technologies" key={technology}>
                 {technology}
@@ -116,28 +160,8 @@ const Container = styled.section`
     border-radius: 3px;
   }
 
-  .title-container {
-    .title {
-      color: rgb(40, 70, 70);
-      font-size: 10vw;
-      text-shadow: 0 3px silver;
-    }
-  }
-
   .projects-container {
     max-width: 95%;
-
-    .description {
-      margin: 4px 0;
-    }
-
-    .technologies {
-      background: lightcoral;
-      font-size: 3.5vw;
-      border-radius: 4px;
-      margin: 3px;
-      padding: 3px;
-    }
   }
 
   @media only screen and (max-height: 660px) {
@@ -146,33 +170,46 @@ const Container = styled.section`
   }
 
   @media only screen and (min-width: 768px) {
-    .anim-container {
-      flex-direction: row;
-    }
-
-    .title-container {
-      .title {
-        font-size: 8vw;
-        text-shadow: 0 6.5px silver;
-      }
-    }
-
     .projects-container {
-      .technologies {
-        font-size: 1rem;
-      }
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      width: 80%;
+      /* border: 1px pink solid; */
     }
   }
 `;
 
 const Project = styled.div`
   background: white;
-  margin: 8px;
-  padding: 8px;
-  border: 1px gainsboro solid;
+  margin: 24px;
+  padding: 16px;
   border-radius: 6px;
+  /* box-shadow: 0 0 5px dimgray; */
 
-  h2 {
+  transition: 0.5s ease;
+
+  :hover {
+    box-shadow: 0 0 5px dimgray;
+    transform: translateY(-10%);
+  }
+
+  .title {
     font-size: 1rem;
+  }
+
+  .description {
+    margin: 4px 0;
+  }
+
+  .technologies {
+    background: lightcoral;
+    background: mediumvioletred;
+    font-weight: 300;
+    color: white;
+    border-radius: 8px;
+    margin: 3px;
+    padding: 3px 6px;
+    font-size: 16px;
   }
 `;
