@@ -6,7 +6,7 @@ interface Props {
   sections: string[];
   active: string;
   place: number[];
-  scrolling: boolean;
+  scrolling: number;
 }
 
 export const FlyingText: React.FC<Props> = ({
@@ -77,7 +77,7 @@ interface ContainerProps {
   posY: number;
   anim: boolean;
   sizes: number[];
-  scrolling: boolean;
+  scrolling: number;
 }
 
 const Container = styled.div<ContainerProps>`
@@ -90,7 +90,7 @@ const Container = styled.div<ContainerProps>`
   left: ${props => props.posX + 'px'};
   transform: ${props =>
     'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw))'};
-  transition: ${props => (props.scrolling ? '0.35s' : 0)} ease-in-out;
+  transition: ${props => (props.scrolling ? '0.35s' : '0s')} ease-in-out;
 
   width: 100%;
 

@@ -92,7 +92,7 @@ const App: React.FC = () => {
           sections={sections}
           active={active}
           place={place}
-          scrolling={scrolling}
+          scrolling={scrolling ? 1 : 0}
         />
       </Container>
     </Swipeable>

@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
+import { SCROLL_DURATION } from '../components/constants';
 
 interface Props {
   active: string;
@@ -7,7 +8,7 @@ interface Props {
 }
 
 export const Projects: React.FC<Props> = ({ active, addPlace }) => {
-  const projects = [
+  const [projects, setProjects] = useState([
     {
       title: 'ChristianVillamin.github.io',
       description: 'My personal portfolio website.',
@@ -98,25 +99,41 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       github: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
       demo: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
     },
-  ];
+  ]);
+
+  const DELAY = 100;
+  const [delays, setDelays] = useState<number[]>([]);
 
   const [toggle, setToggle] = useState<boolean>(false);
-
-  active === 'projects'
-    ? !toggle && setToggle(true)
-    : toggle && setToggle(false);
-
   const ref: any = useRef(null);
 
   useEffect(() => {
     addPlace(2, ref.current.getBoundingClientRect().top);
   }, [toggle]);
 
+  active === 'projects'
+    ? !toggle &&
+      (() => {
+        setToggle(true);
+        const sortedProjects = [...projects];
+        sortedProjects.sort(() => Math.random() - 0.5);
+        setProjects(sortedProjects);
+
+        const newDelay = [];
+        for (let i = 0; i < projects.length; i++)
+          newDelay.push(500 + DELAY * i);
+        // newDelay.sort(() => Math.random() - 0.5);
+        setDelays(newDelay);
+
+        console.log(newDelay);
+      })()
+    : toggle && setToggle(false);
+
   return (
     <Container id="projects">
       <div className="projects-container" ref={ref}>
-        {projects.map(project => (
-          <Project key={project.title}>
+        {projects.map((project, index) => (
+          <Project key={project.title} anim={toggle} delay={100}>
             <h2 className="title">{project.title}</h2>
             <a className="github" href={project.github}>
               GitHub
@@ -180,14 +197,22 @@ const Container = styled.section`
   }
 `;
 
-const Project = styled.div`
+const Project = styled.div<{ anim: boolean; delay: number }>`
   background: white;
   margin: 24px;
   padding: 16px;
   border-radius: 6px;
-  /* box-shadow: 0 0 5px dimgray; */
+  box-shadow: 0 0 5px dimgray;
 
-  transition: 0.5s ease;
+  /* transition: ${props => (props.anim ? '1s' : 'none')} ease; */
+  transition: 1s ease;
+  /* transition-delay: ${props =>
+    props.anim ? props.delay + 'ms' : SCROLL_DURATION - 10 + 'ms'}; */
+
+  transition-delay: ${props =>
+    props.anim ? '500ms' : SCROLL_DURATION - 10 + 'ms'};
+
+  opacity: ${props => (props.anim ? 1 : 0)};
 
   :hover {
     box-shadow: 0 0 5px dimgray;
