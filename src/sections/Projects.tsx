@@ -111,21 +111,27 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
     addPlace(2, ref.current.getBoundingClientRect().top);
   }, [toggle]);
 
+  const [st, setSt] = useState(false);
+
   active === 'projects'
     ? !toggle &&
       (() => {
-        setToggle(true);
-        const sortedProjects = [...projects];
-        sortedProjects.sort(() => Math.random() - 0.5);
-        setProjects(sortedProjects);
+        if (!st) {
+          setSt(true);
+          const sortedProjects = [...projects];
+          sortedProjects.sort(() => Math.random() - 0.5);
+          setProjects(p => sortedProjects);
 
-        const newDelay = [];
-        for (let i = 0; i < projects.length; i++)
-          newDelay.push(500 + DELAY * i);
-        // newDelay.sort(() => Math.random() - 0.5);
-        setDelays(newDelay);
+          const newDelay = [];
+          for (let i = 0; i < projects.length; i++) newDelay.push(DELAY * i);
+          newDelay.sort(() => Math.random() - 0.5);
+          setDelays(newDelay);
 
-        console.log(newDelay);
+          setTimeout(() => {
+            setToggle(true);
+            setSt(false);
+          }, 0);
+        }
       })()
     : toggle && setToggle(false);
 
@@ -133,7 +139,11 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
     <Container id="projects">
       <div className="projects-container" ref={ref}>
         {projects.map((project, index) => (
-          <Project key={project.title} anim={toggle ? 1 : 0} delay={100}>
+          <Project
+            key={project.title}
+            anim={toggle ? 1 : 0}
+            delay={delays[index]}
+          >
             <h2 className="title">{project.title}</h2>
             <a className="github" href={project.github}>
               GitHub
@@ -202,17 +212,18 @@ const Project = styled.div<{ anim: number; delay: number }>`
   margin: 24px;
   padding: 16px;
   border-radius: 6px;
-  box-shadow: 0 0 5px dimgray;
+  /* box-shadow: 0 0 5px dimgray; */
 
-  /* transition: ${props => (props.anim ? '1s' : 'none')} ease; */
-  transition: 1s ease;
-  /* transition-delay: ${props =>
-    props.anim ? props.delay + 'ms' : SCROLL_DURATION - 10 + 'ms'}; */
-
+  transition: ${props => (props.anim ? '1s' : '0')} ease;
+  /* transition: 1s ease; */
   transition-delay: ${props =>
-    props.anim ? '500ms' : SCROLL_DURATION - 10 + 'ms'};
+    props.anim ? props.delay + 'ms' : SCROLL_DURATION - 10 + 'ms'};
+
+  /* transition-delay: ${props =>
+    props.anim ? '500ms' : SCROLL_DURATION - 10 + 'ms'}; */
 
   opacity: ${props => (props.anim ? 1 : 0)};
+  transform: ${props => (props.anim ? `scale(1)` : `scale(0.5)`)};
 
   :hover {
     box-shadow: 0 0 5px dimgray;

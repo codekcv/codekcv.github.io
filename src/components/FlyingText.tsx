@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { isChromium } from 'react-device-detect';
+import { isMobile, isFirefox } from 'react-device-detect';
 
 interface Props {
   sections: string[];
@@ -20,7 +20,7 @@ export const FlyingText: React.FC<Props> = ({
   const [posX, setPosX] = useState<number>(0);
   const [posY, setPosY] = useState<number[]>([]);
   const [anim, setAnim] = useState<boolean>(false);
-  const [sizes, setSizes] = useState<number[]>([isChromium ? 8 : 3.5]);
+  const [sizes, setSizes] = useState<number[]>([isMobile ? 8 : 3.5]);
 
   const texts = [
     'Christian Villamin',
@@ -33,10 +33,10 @@ export const FlyingText: React.FC<Props> = ({
   const index = sections.indexOf(active);
 
   useEffect(() => {
-    const vw = window.innerWidth / (isChromium ? 4 : 1);
+    const vw = window.innerWidth / (isMobile && !isFirefox ? 4 : 1);
     setPosX(vw / 2);
 
-    if (isChromium) {
+    if (isMobile) {
       setSizes([8, 9, 10, 10, 9]);
     } else {
       setSizes([3.5, 6.5, 5, 7, 5]);
@@ -48,7 +48,7 @@ export const FlyingText: React.FC<Props> = ({
   }, [place]);
 
   useEffect(() => {
-    const vw = window.innerWidth / (isChromium ? 4 : 1);
+    const vw = window.innerWidth / (isMobile && !isFirefox ? 4 : 1);
 
     setPosX(vw * index + vw / 2);
     setAnim(anim => !anim);
@@ -90,8 +90,8 @@ const Container = styled.div<ContainerProps>`
   left: ${props => props.posX + 'px'};
   transform: ${props =>
     'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw))'};
-  /* transition: ${props => (props.scrolling ? '0.35s' : '0s')} ease-in-out; */
-  transition: 0.35s ease-in-out;
+  transition: ${props => (props.scrolling ? '0.35s' : '0s')} ease-in-out;
+  /* transition: 0.35s ease-in-out; */
 
   width: 100%;
 

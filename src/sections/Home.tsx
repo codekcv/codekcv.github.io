@@ -132,7 +132,7 @@ const Container = styled.section<{ anim: boolean }>`
     width: 100%;
 
     #card {
-      transition: ${props => (props.anim ? '1s' : '0s')} ease;
+      transition: ${props => (props.anim ? '1s' : '0')} ease;
       transition-delay: ${props =>
         props.anim ? ANIMATION_DELAY + 'ms' : SCROLL_DURATION - 10 + 'ms'};
       transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
