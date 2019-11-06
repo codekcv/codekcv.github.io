@@ -13,7 +13,9 @@ export const Navbar: React.FC<Props> = ({ handleJump }) => {
       <nav>
         <ul>
           {menu.map(item => (
-            <li onClick={() => handleJump(item)}>{item}</li>
+            <li key={item} onClick={() => handleJump(item)}>
+              {item}
+            </li>
           ))}
         </ul>
       </nav>

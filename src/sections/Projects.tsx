@@ -149,12 +149,8 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
     <Container id="projects">
       <div className="projects-container" ref={ref}>
         {projects.map((project, index) => (
-          <div className="select">
-            <Project
-              key={project.title}
-              anim={toggle ? 1 : 0}
-              delay={delays[index]}
-            >
+          <div className="select" key={project.title}>
+            <Project anim={toggle ? 1 : 0} delay={delays[index]}>
               <h2 className="title">{project.title}</h2>
               <a className="github" href={project.github}>
                 GitHub
