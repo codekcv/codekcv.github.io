@@ -20,6 +20,8 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
     addPlace(4, ref.current.getBoundingClientRect().top);
   }, [toggle]);
 
+  // const [name, setName] = ()
+
   return (
     <Container id="contact" anim={toggle}>
       <div className="contact-container" ref={ref}>
@@ -32,6 +34,8 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
               id="name"
               className="input"
               placeholder="Name"
+              // value={name}
+              // onChange=
               required
             />
           </div>

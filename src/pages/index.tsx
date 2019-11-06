@@ -25,7 +25,6 @@ const App: React.FC = () => {
   };
 
   const handleOnKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    e.preventDefault();
     e.key === 'ArrowLeft' && handleScroll('left');
     e.key === 'ArrowRight' && handleScroll('right');
   };
@@ -49,8 +48,8 @@ const App: React.FC = () => {
       const pos = vw * index - window.pageXOffset;
 
       setActive(sections[index]);
-      scroll(window.pageXOffset, pos, SCROLL_DURATION);
       setScrolling(true);
+      setTimeout(() => scroll(window.pageXOffset, pos, SCROLL_DURATION), 0);
       setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
     }
   };
