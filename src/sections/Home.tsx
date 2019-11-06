@@ -45,7 +45,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
   useEffect(() => {
     addPlace(
       0,
-      ref.current.getBoundingClientRect().top + (isMobile ? 220 : 395)
+      ref.current.getBoundingClientRect().top + (isMobile ? 220 : 385)
     );
   }, [toggle]);
 
@@ -146,6 +146,7 @@ const Container = styled.section<{ anim: boolean }>`
 
       .information {
         background: mediumaquamarine;
+        background: mediumslateblue;
         color: white;
         text-align: center;
 

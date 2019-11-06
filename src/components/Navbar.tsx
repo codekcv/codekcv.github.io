@@ -3,9 +3,10 @@ import styled from 'styled-components';
 
 interface Props {
   handleJump: (target: string) => void;
+  active: string;
 }
 
-export const Navbar: React.FC<Props> = ({ handleJump }) => {
+export const Navbar: React.FC<Props> = ({ handleJump, active }) => {
   const menu = ['home', 'skills', 'projects', 'about', 'contact'];
 
   return (
@@ -13,15 +14,45 @@ export const Navbar: React.FC<Props> = ({ handleJump }) => {
       <nav>
         <ul>
           {menu.map(item => (
-            <li key={item} onClick={() => handleJump(item)}>
+            <Section
+              key={item}
+              onClick={() => handleJump(item)}
+              active={item === active}
+            >
               {item}
-            </li>
+            </Section>
           ))}
         </ul>
       </nav>
     </Container>
   );
 };
+
+const Section = styled.li<{ active: boolean }>`
+  margin: 0 7px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: 0.5s ease;
+  transform: ${props => (props.active ? 'translateY(-3px)' : 0)};
+  cursor: pointer;
+
+  :hover {
+    color: ${props => !props.active && 'black'};
+    transform: ${props => !props.active && 'translateY(-5%) scale(1.1)'};
+  }
+
+  ::after {
+    content: '';
+    background: dimgray;
+    position: relative;
+    display: block;
+    width: ${props => (props.active ? '100%' : '0%')};
+    height: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s ease;
+  }
+`;
 
 const Container = styled.div`
   display: block;
@@ -46,34 +77,6 @@ const Container = styled.div`
       font-size: 1rem;
       font-weight: 300;
       text-transform: uppercase;
-
-      li {
-        margin: 0 7px;
-        transition: 0.5s ease;
-        cursor: pointer;
-
-        :hover {
-          color: black;
-          transform: translateY(-3px);
-        }
-      }
-
-      li::after {
-        content: '';
-        background: dimgray;
-        position: relative;
-        display: block;
-        width: 0;
-        height: 2px;
-        left: 50%;
-        transform: translateX(-50%);
-        transition: 0.5s ease;
-      }
-
-      li:hover:after {
-        width: 100%;
-        transform: translate(-50%, 3px);
-      }
     }
   }
 

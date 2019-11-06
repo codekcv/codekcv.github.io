@@ -81,7 +81,7 @@ const App: React.FC = () => {
       onSwipedRight={() => handleOnSwipe(-1)}
       onSwipedLeft={() => handleOnSwipe(1)}
     >
-      <Navbar handleJump={handleJump} />
+      <Navbar handleJump={handleJump} active={active} />
       <Container
         onWheel={handleOnWheel}
         onKeyDown={handleOnKeyDown}
