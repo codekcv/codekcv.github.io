@@ -133,7 +133,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
     <Container id="projects">
       <div className="projects-container" ref={ref}>
         {projects.map((project, index) => (
-          <Project key={project.title} anim={toggle} delay={100}>
+          <Project key={project.title} anim={toggle ? 1 : 0} delay={100}>
             <h2 className="title">{project.title}</h2>
             <a className="github" href={project.github}>
               GitHub
@@ -197,7 +197,7 @@ const Container = styled.section`
   }
 `;
 
-const Project = styled.div<{ anim: boolean; delay: number }>`
+const Project = styled.div<{ anim: number; delay: number }>`
   background: white;
   margin: 24px;
   padding: 16px;
