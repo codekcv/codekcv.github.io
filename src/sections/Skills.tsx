@@ -218,7 +218,7 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
           <Card
             key={`${skills[0]}`}
             anim={toggle}
-            index={ANIMATION_DELAY + 300 * index}
+            index={ANIMATION_DELAY + 225 * index}
           >
             <div className="title-area">
               <h1>{skills[0]}</h1>
@@ -295,10 +295,10 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   border-radius: 4px;
   flex: 1;
 
-  transition: ${props => (props.anim ? '1s' : 'none')} ease;
+  transition: ${props => (props.anim ? '0.75s' : 'none')} ease;
   transition-delay: ${props =>
     props.anim ? props.index + 'ms' : SCROLL_DURATION - 10 + 'ms'};
-  transform: ${props => (props.anim ? 0 : `translateY(200px)`)};
+  transform: ${props => (props.anim ? 0 : `translateY(-200px)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
 
   .title-area {

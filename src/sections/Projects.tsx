@@ -101,7 +101,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
     },
   ]);
 
-  const DELAY = 100;
+  const DELAY = 75;
   const [delays, setDelays] = useState<number[]>([]);
 
   const [toggle, setToggle] = useState<boolean>(false);
@@ -214,7 +214,7 @@ const Project = styled.div<{ anim: number; delay: number }>`
   border-radius: 6px;
   /* box-shadow: 0 0 5px dimgray; */
 
-  transition: ${props => (props.anim ? '1s' : '0')} ease;
+  transition: ${props => (props.anim ? '0.75s' : '0')} ease;
   /* transition: 1s ease; */
   transition-delay: ${props =>
     props.anim ? props.delay + 'ms' : SCROLL_DURATION - 10 + 'ms'};
@@ -223,7 +223,7 @@ const Project = styled.div<{ anim: number; delay: number }>`
     props.anim ? '500ms' : SCROLL_DURATION - 10 + 'ms'}; */
 
   opacity: ${props => (props.anim ? 1 : 0)};
-  transform: ${props => (props.anim ? `scale(1)` : `scale(0.5)`)};
+  transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
 
   :hover {
     box-shadow: 0 0 5px dimgray;
