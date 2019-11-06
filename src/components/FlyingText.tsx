@@ -93,7 +93,6 @@ const Container = styled.div<ContainerProps>`
   transform: ${props =>
     'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw))'};
   transition: ${props => (props.scrolling ? '0.35s' : '0')} ease-in-out;
-  /* transition: 0.35s ease-in-out; */
 
   width: 100%;
 

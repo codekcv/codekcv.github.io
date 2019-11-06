@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { graphql, useStaticQuery } from 'gatsby';
 import { ANIMATION_DELAY } from '../components/constants';
 
 interface Props {
@@ -8,25 +7,7 @@ interface Props {
   addPlace: (index: number, posY: number) => void;
 }
 
-const getProfile = graphql`
-  query {
-    profile: file(relativePath: { eq: "profile.jpg" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid_withWebp_tracedSVG
-        }
-      }
-    }
-  }
-`;
-
 export const About: React.FC<Props> = ({ active, addPlace }) => {
-  const {
-    profile: {
-      childImageSharp: { fluid },
-    },
-  } = useStaticQuery(getProfile);
-
   const [toggle, setToggle] = useState<boolean>(false);
   const ref: any = useRef(null);
 

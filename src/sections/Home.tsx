@@ -19,18 +19,10 @@ interface Props {
 
 const getImages = graphql`
   query {
-    background: file(relativePath: { eq: "codes.jpg" }) {
-      childImageSharp {
-        fluid(quality: 90, maxWidth: 1080) {
-          ...GatsbyImageSharpFluid_withWebp
-        }
-      }
-    }
-
     profile: file(relativePath: { eq: "profile.jpg" }) {
       childImageSharp {
         fluid {
-          ...GatsbyImageSharpFluid_withWebp
+          ...GatsbyImageSharpFluid
         }
       }
     }
