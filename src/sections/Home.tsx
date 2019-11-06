@@ -92,7 +92,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
 
   return (
     <Container id="home" anim={toggle}>
-      <div className="placer" ref={ref}>
+      <div id="placer" ref={ref}>
         <div id="card">
           <Img className="profile" fluid={profileImage} />
           <div className="information">
@@ -124,81 +124,93 @@ const Container = styled.section<{ anim: boolean }>`
   width: 100vw;
   height: 100vh;
 
-  #card {
-    transition: ${props => (props.anim ? '1s' : '0s')} ease;
-    transition-delay: ${props =>
-      props.anim ? ANIMATION_DELAY + 'ms' : SCROLL_DURATION - 10 + 'ms'};
-    transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
-    opacity: ${props => (props.anim ? 1 : 0)};
-    width: 900px;
-    max-width: 90%;
+  #placer {
+    display: flex;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    width: 100%;
 
-    .profile {
-      position: absolute;
-      left: 50%;
-      top: 0;
-      transform: translateX(-50%);
-      width: 180px;
-      height: 180px;
-      border: 5px dashed white;
-      box-shadow: 0 0 5px dimgray;
-      border-radius: 50%;
-    }
+    #card {
+      transition: ${props => (props.anim ? '1s' : '0s')} ease;
+      transition-delay: ${props =>
+        props.anim ? ANIMATION_DELAY + 'ms' : SCROLL_DURATION - 10 + 'ms'};
+      transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
+      opacity: ${props => (props.anim ? 1 : 0)};
+      width: 90%;
 
-    .information {
-      background: mediumaquamarine;
-      color: white;
-      text-align: center;
-
-      padding: 25px 15px 15px 15px;
-      margin-top: -90px;
-      border-radius: 30px;
-
-      border: 5px dashed white;
-      box-shadow: 0 0 5px dimgray;
-
-      h2 {
-        margin-top: 120px;
-        font-size: 1rem;
-        font-weight: 300;
-        color: gainsboro;
-        text-shadow: 2px 2px darkslategray;
-        padding: 3px 8px;
-        border: 1px dashed darkcyan;
-        border-radius: 8px;
-        background: rgba(0, 0, 0, 0.25);
-        width: 100%;
+      .profile {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        transform: translateX(-50%);
+        width: 180px;
+        height: 180px;
+        border: 5px dashed white;
+        box-shadow: 0 0 5px dimgray;
+        border-radius: 50%;
       }
 
-      .icons {
-        display: flex;
-        justify-content: space-evenly;
-        margin-top: 15px;
+      .information {
+        background: mediumaquamarine;
+        color: white;
+        text-align: center;
+
+        padding: 25px 15px 15px 15px;
+        margin-top: -90px;
+        border-radius: 30px;
+
+        border: 5px dashed white;
+        box-shadow: 0 0 5px dimgray;
+
+        h2 {
+          margin-top: 120px;
+          font-size: 1rem;
+          font-weight: 300;
+          color: gainsboro;
+          text-shadow: 2px 2px darkslategray;
+          padding: 3px 8px;
+          border: 1px dashed darkcyan;
+          border-radius: 8px;
+          background: rgba(0, 0, 0, 0.25);
+          width: 100%;
+        }
+
+        .icons {
+          display: flex;
+          justify-content: space-evenly;
+          margin-top: 15px;
+        }
       }
     }
   }
 
   @media only screen and (min-width: 768px) {
-    #card {
-      .profile {
-        width: 300px;
-        height: 300px;
-        border: 5px dashed white;
-        box-shadow: 0 0 5px dimgray;
-      }
+    #placer {
+      border: 1px pink solid;
 
-      .information {
-        padding: 50px 50px 25px 50px;
-        margin-top: -150px;
-        border: 5px dashed white;
-        box-shadow: 0 0 5px dimgray;
+      #card {
+        width: 900px;
 
-        border-radius: 60px;
+        .profile {
+          width: 300px;
+          height: 300px;
+          border: 5px dashed white;
+          box-shadow: 0 0 5px dimgray;
+        }
 
-        h2 {
-          margin-top: 200px;
-          font-size: 2rem;
-          border: 2px solid mediumseagreen;
+        .information {
+          padding: 50px 50px 25px 50px;
+          margin-top: -150px;
+          border: 5px dashed white;
+          box-shadow: 0 0 5px dimgray;
+          border-radius: 60px;
+
+          h2 {
+            margin-top: 200px;
+            font-size: 2rem;
+            border: 2px solid mediumseagreen;
+          }
         }
       }
     }
