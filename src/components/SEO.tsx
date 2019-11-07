@@ -35,8 +35,6 @@ export const SEO: React.FC<Props> = ({ section }) => {
     },
   } = useStaticQuery(getData);
 
-  console.log('imfg', image);
-
   return (
     <Helmet htmlAttributes={{ lang: 'en' }} title={`${section} | ${title}`}>
       <meta name="description" content={description} />;

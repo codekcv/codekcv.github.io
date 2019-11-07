@@ -105,7 +105,6 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
   const DELAY = 100;
   const [delays, setDelays] = useState<number[]>([]);
   const [toggle, setToggle] = useState<boolean>(false);
-  const [linger, setLinger] = useState<boolean>(false);
   const ref: any = useRef(null);
 
   useEffect(() => {
@@ -118,74 +117,25 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
     setDelays(delayArr);
   }, []);
 
-  const [st, setSt] = useState(false);
-
-  if (!linger) {
+  useEffect(() => {
     if (active === 'Projects') {
       if (!toggle) {
-        if (!isMobile) {
-          if (!st) {
-            setSt(true);
-            const randomizedProjects = [...projects];
-            randomizedProjects.sort(() => Math.random() - 0.5);
-            setProjects(randomizedProjects);
+        const randomizedProjects = [...projects];
+        randomizedProjects.sort(() => Math.random() - 0.5);
+        setProjects(randomizedProjects);
 
-            const randomizedDelays = [...delays];
-            randomizedDelays.sort(() => Math.random() - 0.5);
-            setDelays(randomizedDelays);
-
-            setTimeout(() => {
-              setToggle(true);
-              setSt(false);
-            }, 1);
-          }
-        } else {
-          setToggle(true);
-        }
-      }
-    } else {
-      if (toggle) {
-        setLinger(true);
+        const randomizedDelays = [...delays];
+        randomizedDelays.sort(() => Math.random() - 0.5);
+        setDelays(randomizedDelays);
 
         setTimeout(() => {
-          setLinger(false);
-          setToggle(false);
-        }, SCROLL_DURATION - 50);
+          setToggle(true);
+        }, 1);
       }
+    } else {
+      toggle && setTimeout(() => setToggle(false), SCROLL_DURATION / 1.5);
     }
-  }
-
-  // !linger && active === 'projects'
-  //   ? !toggle &&
-  //     (() => {
-  //       !isMobile
-  //         ? !st &&
-  //           (() => {
-  //             setSt(true);
-  //             const randomizedProjects = [...projects];
-  //             randomizedProjects.sort(() => Math.random() - 0.5);
-  //             setProjects(randomizedProjects);
-
-  //             const randomizedDelays = [...delays];
-  //             randomizedDelays.sort(() => Math.random() - 0.5);
-  //             setDelays(randomizedDelays);
-
-  //             setTimeout(() => {
-  //               setToggle(true);
-  //               setSt(false);
-  //             }, 1);
-  //           })()
-  //         : setToggle(true);
-  //     })()
-  //   : toggle &&
-  //     (() => {
-  //       setLinger(true);
-
-  //       setTimeout(() => {
-  //         setLinger(false);
-  //         setToggle(false);
-  //       }, SCROLL_DURATION - 20);
-  //     })();
+  }, [active]);
 
   return (
     <Container id="projects">
@@ -277,10 +227,8 @@ const Project = styled.div<{ anim: number; delay: number }>`
 
   transition: ${props => (props.anim ? '0.75s' : 0)} ease;
   transition-delay: ${props => (props.anim ? props.delay + 'ms' : 0)};
-  /* props.anim ? props.delay + 'ms' : SCROLL_DURATION - 10 + 'ms'}; */
-
-  opacity: ${props => (props.anim ? 1 : 0)};
   transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
+  opacity: ${props => (props.anim ? 1 : 0)};
 
   .title {
     font-size: 1rem;
@@ -301,3 +249,38 @@ const Project = styled.div<{ anim: number; delay: number }>`
     font-size: 16px;
   }
 `;
+
+// if (!linger) {
+//   if (active === 'Projects') {
+//     if (!toggle) {
+//       if (!isMobile) {
+//         if (!st) {
+//           setSt(true);
+//           const randomizedProjects = [...projects];
+//           randomizedProjects.sort(() => Math.random() - 0.5);
+//           setProjects(randomizedProjects);
+
+//           const randomizedDelays = [...delays];
+//           randomizedDelays.sort(() => Math.random() - 0.5);
+//           setDelays(randomizedDelays);
+
+//           setTimeout(() => {
+//             setToggle(true);
+//             setSt(false);
+//           }, 1);
+//         }
+//       } else {
+//         setToggle(true);
+//       }
+//     }
+//   } else {
+//     if (toggle) {
+//       setLinger(true);
+
+//       setTimeout(() => {
+//         setLinger(false);
+//         setToggle(false);
+//       }, SCROLL_DURATION - 50);
+//     }
+//   }
+// }
