@@ -12,12 +12,13 @@ import { Projects } from '../sections/Projects';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
 import { FlyingText } from '../components/FlyingText';
+import { SEO } from '../components/SEO';
 
 const App: React.FC = () => {
   const [active, setActive] = useState<string>('home');
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [place, setPlace] = useState<number[]>([]);
-  const sections: string[] = ['home', 'skills', 'projects', 'about', 'contact'];
+  const sections: string[] = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleScroll('left');
@@ -39,8 +40,10 @@ const App: React.FC = () => {
   const handleScroll = (direction: string | number) => {
     if (scrolling) return;
 
-    direction === 'left' && active !== 'home' && (direction = -1);
-    direction === 'right' && active !== 'contact' && (direction = 1);
+    direction === 'left' && active !== sections[0] && (direction = -1);
+    direction === 'right' &&
+      active !== sections.slice(-1)[0] &&
+      (direction = 1);
 
     if (typeof direction === 'number') {
       const vw = window.innerWidth / (browserDivision ? 4 : 1);
@@ -81,6 +84,7 @@ const App: React.FC = () => {
       onSwipedRight={() => handleOnSwipe(-1)}
       onSwipedLeft={() => handleOnSwipe(1)}
     >
+      <SEO section={active} />
       <Navbar handleJump={handleJump} active={active} />
       <Container
         onWheel={handleOnWheel}

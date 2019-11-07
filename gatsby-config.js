@@ -6,6 +6,13 @@
 
 module.exports = {
   /* Your site config here */
+  siteMetadata: {
+    title: 'My Portfolio',
+    description: 'A website for my personal portfolio.',
+    author: 'Christian Villamin',
+    twitterUsername: '@villamin_c',
+    siteUrl: 'https://ChristianVillamin.github.io',
+  },
   plugins: [
     `gatsby-plugin-playground`,
     `gatsby-plugin-typescript`,
@@ -44,5 +51,6 @@ module.exports = {
         crossOrigin: `use-credentials`,
       },
     },
+    `gatsby-plugin-react-helmet`,
   ],
 };

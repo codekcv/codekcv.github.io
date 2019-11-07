@@ -121,7 +121,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
   const [st, setSt] = useState(false);
 
   if (!linger) {
-    if (active === 'projects') {
+    if (active === 'Projects') {
       if (!toggle) {
         if (!isMobile) {
           if (!st) {

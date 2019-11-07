@@ -30,6 +30,45 @@ const getImages = graphql`
   }
 `;
 
+const links = [
+  {
+    name: 'GitHub',
+    icon: <FaGithub className="fa" />,
+    url: 'https://github.com/ChristianVillamin',
+    color: 'black',
+  },
+  {
+    name: 'CodePen',
+    icon: <FaCodepen className="fa" />,
+    url: 'https://codepen.io/ChristianVillamin',
+    color: 'gray',
+  },
+  {
+    name: 'freeCodeCamp',
+    icon: <FaFreeCodeCamp className="fa" />,
+    url: 'https://www.freecodecamp.org/christianvillamin',
+    color: 'green',
+  },
+  {
+    name: 'LinkedIn',
+    icon: <FaLinkedinIn className="fa" />,
+    url: 'https://www.linkedin.com/in/christian-villamin-907272188/',
+    color: '#0e76a8 ',
+  },
+  {
+    name: 'YouTube',
+    icon: <FaYoutube className="fa" />,
+    url: 'https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg',
+    color: '#c4302b',
+  },
+  {
+    name: 'Twitter',
+    icon: <FaTwitter className="fa" />,
+    url: 'https://twitter.com/villamin_c',
+    color: '#00acee',
+  },
+];
+
 export const Home: React.FC<Props> = ({ active, addPlace }) => {
   const {
     profile: {
@@ -38,9 +77,6 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
   } = useStaticQuery(getImages);
 
   const [toggle, setToggle] = useState<boolean>(true);
-
-  active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
-
   const ref: any = useRef(null);
 
   useEffect(() => {
@@ -50,44 +86,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
     );
   }, [toggle]);
 
-  const links = [
-    {
-      name: 'GitHub',
-      icon: <FaGithub className="fa" />,
-      url: 'https://github.com/ChristianVillamin',
-      color: 'black',
-    },
-    {
-      name: 'CodePen',
-      icon: <FaCodepen className="fa" />,
-      url: 'https://codepen.io/ChristianVillamin',
-      color: 'gray',
-    },
-    {
-      name: 'freeCodeCamp',
-      icon: <FaFreeCodeCamp className="fa" />,
-      url: 'https://www.freecodecamp.org/christianvillamin',
-      color: 'green',
-    },
-    {
-      name: 'LinkedIn',
-      icon: <FaLinkedinIn className="fa" />,
-      url: 'https://www.linkedin.com/in/christian-villamin-907272188/',
-      color: '#0e76a8 ',
-    },
-    {
-      name: 'YouTube',
-      icon: <FaYoutube className="fa" />,
-      url: 'https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg',
-      color: '#c4302b',
-    },
-    {
-      name: 'Twitter',
-      icon: <FaTwitter className="fa" />,
-      url: 'https://twitter.com/villamin_c',
-      color: '#00acee',
-    },
-  ];
+  active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
 
   return (
     <Container id="home" anim={toggle}>

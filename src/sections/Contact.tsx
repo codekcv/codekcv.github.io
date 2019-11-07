@@ -10,7 +10,7 @@ interface Props {
 export const Contact: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
 
-  active === 'contact'
+  active === 'Contact'
     ? !toggle && setToggle(true)
     : toggle && setToggle(false);
 

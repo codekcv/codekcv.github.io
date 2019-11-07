@@ -193,7 +193,7 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
   const [linger, setLinger] = useState<boolean>(false);
 
   if (!linger)
-    active === 'skills'
+    active === 'Skills'
       ? !toggle && setToggle(true)
       : toggle &&
         (() => {

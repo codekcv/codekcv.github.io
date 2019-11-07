@@ -11,7 +11,7 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const ref: any = useRef(null);
 
-  active === 'about' ? !toggle && setToggle(true) : toggle && setToggle(false);
+  active === 'About' ? !toggle && setToggle(true) : toggle && setToggle(false);
 
   useEffect(() => {
     addPlace(3, ref.current.getBoundingClientRect().top);
