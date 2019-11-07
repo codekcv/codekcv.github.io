@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
+import result from '../components/browserDivision';
+import { isMobile } from 'react-device-detect';
 
 const getLogos = graphql`
   query {
@@ -190,36 +192,35 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
   ];
 
   const [toggle, setToggle] = useState<boolean>(false);
-  const [linger, setLinger] = useState<boolean>(false);
 
-  if (!linger)
+  useEffect(() => {
     active === 'Skills'
-      ? !toggle && setToggle(true)
-      : toggle &&
-        (() => {
-          setLinger(true);
-
-          setTimeout(() => {
-            setLinger(false);
-            setToggle(false);
-          }, SCROLL_DURATION - 20);
-        })();
+      ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY)
+      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION - 100);
+  }, [active]);
 
   const ref: any = useRef(null);
 
+  const mobileDivison = result();
+  const [snap, setSnap] = useState(false);
+
   useEffect(() => {
-    addPlace(1, ref.current.getBoundingClientRect().top);
+    addPlace(1, ref.current.getBoundingClientRect().top - 40);
   }, [toggle]);
 
+  useEffect(() => {
+    if (isMobile) {
+      const elementHeight = ref.current.getBoundingClientRect().height;
+      const windowHeight = window.innerHeight / (mobileDivison ? 4 : 1);
+      elementHeight >= windowHeight - 60 && setSnap(true);
+    }
+  }, []);
+
   return (
-    <Container id="skills">
+    <Container id="skills" snap={snap}>
       <div id="main" ref={ref}>
         {skillsArr.map((skills, index) => (
-          <Card
-            key={`${skills[0]}`}
-            anim={toggle}
-            index={ANIMATION_DELAY + 225 * index}
-          >
+          <Card key={`${skills[0]}`} anim={toggle} index={225 * index}>
             <div className="title-area">
               <h1>{skills[0]}</h1>
               <hr />
@@ -249,11 +250,11 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<{ snap: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: ${props => (!props.snap ? 'center' : 'flex-start')};
   align-items: center;
   width: 100vw;
   height: 100vh;

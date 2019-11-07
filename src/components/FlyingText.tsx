@@ -40,9 +40,9 @@ export const FlyingText: React.FC<Props> = ({
     setPosX(vw / 2);
 
     if (isMobile) {
-      setSizes([8, 9, 10, 10, 9]);
+      setSizes([26, 9, 10, 10, 9]);
     } else {
-      setSizes([3.5, 6.5, 5, 7, 5]);
+      setSizes([70, 6.5, 5, 7, 5]);
     }
   }, []);
 
@@ -66,6 +66,7 @@ export const FlyingText: React.FC<Props> = ({
       anim={anim ? 1 : 0}
       sizes={sizes}
       scrolling={scrolling}
+      active={active === 'Home'}
     >
       <h1 id="current">{text1}</h1>
       <h1 id="next">{text2}</h1>
@@ -80,6 +81,7 @@ interface ContainerProps {
   anim: number;
   sizes: number[];
   scrolling: number;
+  active: boolean;
 }
 
 const Container = styled.div<ContainerProps>`
@@ -90,8 +92,14 @@ const Container = styled.div<ContainerProps>`
 
   top: ${props => props.posY + 'px'};
   left: ${props => props.posX + 'px'};
-  transform: ${props =>
-    'translate(-50%, calc(-' + props.sizes[props.index] / 2 + 'vw))'};
+  /* transform: ${props =>
+    'translate(-50%, calc(-' +
+    props.sizes[props.index] / 2 +
+    (props.active ? 'px' : 'vw') +
+    '))'}; */
+    /* transform: translate(-50%, 100%); */
+    transform: translate(-50%);
+    
   transition: ${props => (props.scrolling ? '0.35s' : '0')} ease-in-out;
 
   width: 100%;
@@ -102,7 +110,8 @@ const Container = styled.div<ContainerProps>`
     font-size: 100px;
     text-shadow: 0 3px silver;
     text-transform: uppercase;
-    font-size: ${props => props.sizes[props.index] + 'vw'};
+    font-size: ${props =>
+      props.sizes[props.index] + (props.active ? 'px' : 'vw')};
     transition: 0.5s ease;
   }
 

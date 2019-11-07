@@ -11,11 +11,15 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const ref: any = useRef(null);
 
-  active === 'About' ? !toggle && setToggle(true) : toggle && setToggle(false);
+  useEffect(() => {
+    addPlace(3, ref.current.getBoundingClientRect().top - 30);
+  }, [toggle]);
 
   useEffect(() => {
-    addPlace(3, ref.current.getBoundingClientRect().top);
-  }, [toggle]);
+    active === 'About'
+      ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY + 125)
+      : toggle && setToggle(false);
+  }, [active]);
 
   return (
     <Container>
@@ -135,7 +139,6 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  /* align-items: center; */
   width: 100vw;
   height: 100vh;
 
@@ -164,11 +167,9 @@ const Notepad = styled.div<{ anim: boolean }>`
   width: 90%;
   height: 700px;
   background: #f5f5f5;
-  box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
+  box-shadow: 0 0 30px -10px rgba(150, 170, 180, 1);
 
-  transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
-  transition-delay: ${props => (props.anim ? ANIMATION_DELAY + 150 + 'ms' : 0)};
-
+  transition: 0.5s ease;
   transform: ${props => (props.anim ? 0 : 'translateY(100%)')};
 
   padding: 0.7rem;
@@ -186,13 +187,14 @@ const Notepad = styled.div<{ anim: boolean }>`
   }
 
   p {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 
   @media only screen and (min-width: 768px) {
     width: 700px;
     margin: 0 30px;
     padding: 30px;
+    box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
 
     .title {
       text-indent: 1rem;

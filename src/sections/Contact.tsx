@@ -17,7 +17,7 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
   const ref: any = useRef(null);
 
   useEffect(() => {
-    addPlace(4, ref.current.getBoundingClientRect().top);
+    addPlace(4, ref.current.getBoundingClientRect().top - 30);
   }, [toggle]);
 
   return (

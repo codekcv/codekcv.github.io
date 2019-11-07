@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { SCROLL_DURATION } from '../components/constants';
+import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
 import { isMobile } from 'react-device-detect';
+import result from '../components/browserDivision';
 
 interface Props {
   active: string;
@@ -107,38 +108,51 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const ref: any = useRef(null);
 
-  useEffect(() => {
-    addPlace(2, ref.current.getBoundingClientRect().top);
-  }, [toggle]);
+  const mobileDivison = result();
+  const [snap, setSnap] = useState(false);
 
   useEffect(() => {
     const delayArr = [];
     for (let i = 0; i < projects.length; i++) delayArr.push(DELAY * i);
     setDelays(delayArr);
+
+    //===
   }, []);
 
   useEffect(() => {
-    if (active === 'Projects') {
-      if (!toggle) {
-        const randomizedProjects = [...projects];
-        randomizedProjects.sort(() => Math.random() - 0.5);
-        setProjects(randomizedProjects);
+    snap
+      ? addPlace(2, 20)
+      : addPlace(2, ref.current.getBoundingClientRect().top - 30);
+  }, [toggle]);
 
-        const randomizedDelays = [...delays];
-        randomizedDelays.sort(() => Math.random() - 0.5);
-        setDelays(randomizedDelays);
-
-        setTimeout(() => {
-          setToggle(true);
-        }, 1);
-      }
-    } else {
-      toggle && setTimeout(() => setToggle(false), SCROLL_DURATION / 1.5);
+  useEffect(() => {
+    if (isMobile) {
+      const elementHeight = ref.current.getBoundingClientRect().height;
+      const windowHeight = window.innerHeight / (mobileDivison ? 4 : 1);
+      elementHeight >= windowHeight - 60 && setSnap(true);
     }
+
+    active === 'Projects'
+      ? !toggle &&
+        (() => {
+          !isMobile &&
+            (() => {
+              const randomizedProjects = [...projects];
+              const randomizedDelays = [...delays];
+
+              randomizedProjects.sort(() => Math.random() - 0.5);
+              randomizedDelays.sort(() => Math.random() - 0.5);
+
+              setProjects(randomizedProjects);
+              setDelays(randomizedDelays);
+            })();
+          setTimeout(() => setToggle(true), ANIMATION_DELAY);
+        })()
+      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION - 100);
   }, [active]);
 
   return (
-    <Container id="projects">
+    <Container id="projects" snap={snap}>
       <div className="projects-container" ref={ref}>
         {projects.map((project, index) => (
           <div className="select" key={project.title}>
@@ -165,40 +179,46 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<{ snap: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: ${props => (props.snap ? 'flex-start' : 'center')};
   align-items: center;
+  margin-top: ${props => (props.snap ? '40px' : 0)};
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 
   h2 {
     display: inline-block;
-    margin-right: 8px;
+    margin-right: 4px;
   }
 
   .github,
   .demo {
     text-decoration: none;
-    margin-right: 8px;
+    margin-right: 4px;
     padding: 2px 4px;
-    border-radius: 3px;
   }
 
   .projects-container {
     max-width: 95%;
   }
 
-  @media only screen and (max-height: 660px) {
-    .projects-container {
-      margin-top: 8vh;
-      justify-content: flex-start;
-    }
-  }
-
   @media only screen and (min-width: 768px) {
+    h2 {
+      margin-right: 8px;
+    }
+
+    .github,
+    .demo {
+      text-decoration: none;
+      margin-right: 8px;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+
     .projects-container {
       display: flex;
       flex-direction: row;
@@ -221,8 +241,8 @@ const Container = styled.section`
 
 const Project = styled.div<{ anim: number; delay: number }>`
   background: white;
-  margin: 24px;
-  padding: 16px;
+  margin: 6px 6px 18px 6px;
+  /* padding: 6px; */
   border-radius: 6px;
 
   transition: ${props => (props.anim ? '0.75s' : 0)} ease;
@@ -230,11 +250,14 @@ const Project = styled.div<{ anim: number; delay: number }>`
   transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
 
+  /* border: 1px pink solid; */
+
   .title {
-    font-size: 1rem;
+    font-size: 0.95rem;
   }
 
   .description {
+    font-size: 0.85rem;
     margin: 4px 0;
   }
 
@@ -243,44 +266,33 @@ const Project = styled.div<{ anim: number; delay: number }>`
     background: mediumvioletred;
     font-weight: 300;
     color: white;
-    border-radius: 8px;
-    margin: 3px;
-    padding: 3px 6px;
-    font-size: 16px;
+    border-radius: 3px;
+    margin: 2px;
+    padding: 2px 3px;
+    font-size: 0.75rem;
+  }
+
+  @media only screen and (min-width: 768px) {
+    margin: 24px;
+    padding: 16px;
+    border-radius: 6px;
+
+    .title {
+      font-size: 1rem;
+    }
+
+    .description {
+      font-size: 1rem;
+      margin: 4px 0;
+    }
+
+    .technologies {
+      font-weight: 300;
+      color: white;
+      border-radius: 8px;
+      margin: 3px;
+      padding: 3px 6px;
+      font-size: 16px;
+    }
   }
 `;
-
-// if (!linger) {
-//   if (active === 'Projects') {
-//     if (!toggle) {
-//       if (!isMobile) {
-//         if (!st) {
-//           setSt(true);
-//           const randomizedProjects = [...projects];
-//           randomizedProjects.sort(() => Math.random() - 0.5);
-//           setProjects(randomizedProjects);
-
-//           const randomizedDelays = [...delays];
-//           randomizedDelays.sort(() => Math.random() - 0.5);
-//           setDelays(randomizedDelays);
-
-//           setTimeout(() => {
-//             setToggle(true);
-//             setSt(false);
-//           }, 1);
-//         }
-//       } else {
-//         setToggle(true);
-//       }
-//     }
-//   } else {
-//     if (toggle) {
-//       setLinger(true);
-
-//       setTimeout(() => {
-//         setLinger(false);
-//         setToggle(false);
-//       }, SCROLL_DURATION - 50);
-//     }
-//   }
-// }
