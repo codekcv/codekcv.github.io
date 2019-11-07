@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 interface Props {
   handleJump: (target: string) => void;
   active: string;
+  vw: number;
+  vh: number;
 }
 
-export const Navbar: React.FC<Props> = ({ handleJump, active }) => {
+export const Navbar: React.FC<Props> = ({ handleJump, active, vw, vh }) => {
   const menu = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
 
   return (
-    <Container>
+    <Container vw={vw} vh={vh}>
       <nav>
         <ul>
           {menu.map(item => (
@@ -28,11 +30,16 @@ export const Navbar: React.FC<Props> = ({ handleJump, active }) => {
   );
 };
 
-const Container = styled.div`
+interface ContainerProps {
+  vw: number;
+  vh: number;
+}
+
+const Container = styled.div<ContainerProps>`
   display: block;
   position: fixed;
-  left: calc(50% / 4);
-  top: calc(90% / 4);
+  left: ${props => props.vw / 2 + 'px'};
+  top: ${props => props.vh * 0.92 + 'px'};
   transform: translate(-50%, -50%);
   z-index: 5;
 
@@ -48,14 +55,14 @@ const Container = styled.div`
       display: flex;
       list-style: none;
       color: dimgray;
-      font-size: 1rem;
+      font-size: 0.9rem;
       font-weight: 300;
       text-transform: uppercase;
     }
   }
 
   @media only screen and (min-width: 768px) {
-    left: 50%;
+    left: ${props => props.vw / 2 + 'px'};
     top: 20px;
 
     nav {

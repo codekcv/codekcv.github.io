@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { ANIMATION_DELAY } from '../components/constants';
 import { isMobile } from 'react-device-detect';
-import result from '../components/browserDivision';
 
 interface Props {
   active: string;

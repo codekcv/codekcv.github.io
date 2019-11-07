@@ -2,14 +2,14 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
 import { isMobile } from 'react-device-detect';
-import result from '../components/browserDivision';
 
 interface Props {
   active: string;
   addPlace: (index: number, posY: number) => void;
+  vh: number;
 }
 
-export const Projects: React.FC<Props> = ({ active, addPlace }) => {
+export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
   const [projects, setProjects] = useState([
     {
       title: 'ChristianVillamin.github.io',
@@ -107,7 +107,6 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const ref: any = useRef(null);
 
-  const mobileDivison = result();
   const [snap, setSnap] = useState(false);
 
   useEffect(() => {
@@ -123,9 +122,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
 
     if (isMobile) {
       const elementHeight = ref.current.getBoundingClientRect().height;
-      const windowHeight = window.innerHeight / (mobileDivison ? 4 : 1);
-
-      if (elementHeight >= windowHeight - 60) {
+      if (elementHeight >= vh - 60) {
         isOutside = true;
         setSnap(true);
       }

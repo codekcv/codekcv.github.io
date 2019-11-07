@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import '../sections/index.css';
 import styled from 'styled-components';
-import result from '../components/browserDivision';
 import { Swipeable } from 'react-swipeable';
 import { scroll } from '../components/scroll';
 import { SCROLL_DURATION } from '../components/constants';
@@ -15,10 +14,24 @@ import { FlyingText } from '../components/FlyingText';
 import { SEO } from '../components/SEO';
 
 const App: React.FC = () => {
+  const sections: string[] = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
   const [active, setActive] = useState<string>('Home');
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [place, setPlace] = useState<number[]>([]);
-  const sections: string[] = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
+  const viewport: any = useRef(null);
+  const [vw, setVw] = useState<number>(0);
+  const [vh, setVh] = useState<number>(0);
+
+  useEffect(() => {
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return (() => window.removeEventListener('resize', handleResize))();
+  }, []);
+
+  const handleResize = () => {
+    setVw(viewport.current.getBoundingClientRect().width);
+    setVh(viewport.current.getBoundingClientRect().height);
+  };
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleScroll('left');
@@ -35,8 +48,6 @@ const App: React.FC = () => {
     target === 1 && handleScroll('right');
   };
 
-  const browserDivision = result();
-
   const handleScroll = (direction: string | number) => {
     if (scrolling) return;
 
@@ -46,7 +57,6 @@ const App: React.FC = () => {
       (direction = 1);
 
     if (typeof direction === 'number') {
-      const vw = window.innerWidth / (browserDivision ? 4 : 1);
       const index = sections.indexOf(active) + direction;
       const pos = vw * index - window.pageXOffset;
 
@@ -61,7 +71,6 @@ const App: React.FC = () => {
   };
 
   const handleJump = (target: string) => {
-    const vw = window.innerWidth / (browserDivision ? 4 : 1);
     const index = sections.indexOf(target);
     window.scrollTo(vw * index, 0);
     setActive(sections[index]);
@@ -79,21 +88,26 @@ const App: React.FC = () => {
     }
   };
 
+  const handleOnTouch = (e: React.TouchEvent<HTMLElement>) => {
+    e.preventDefault();
+  };
+
   return (
     <Swipeable
       onSwipedRight={() => handleOnSwipe(-1)}
       onSwipedLeft={() => handleOnSwipe(1)}
     >
       <SEO section={active} />
-      <Navbar handleJump={handleJump} active={active} />
+      <Navbar handleJump={handleJump} active={active} vw={vw} vh={vh} />
       <Container
         onWheel={handleOnWheel}
         onKeyDown={handleOnKeyDown}
+        onTouchStart={handleOnTouch}
         tabIndex={0}
       >
         <Home active={active} addPlace={addPlace} />
-        <Skills active={active} addPlace={addPlace} />
-        <Projects active={active} addPlace={addPlace} />
+        <Skills active={active} addPlace={addPlace} vh={vh} />
+        <Projects active={active} addPlace={addPlace} vh={vh} />
         <About active={active} addPlace={addPlace} />
         <Contact active={active} addPlace={addPlace} />
         <FlyingText
@@ -101,18 +115,25 @@ const App: React.FC = () => {
           active={active}
           place={place}
           scrolling={scrolling ? 1 : 0}
+          vw={vw}
         />
+        <Viewport ref={viewport} />
       </Container>
     </Swipeable>
   );
 };
 
 const Container = styled.main`
-  /* background: palegoldenrod; */
   background: white;
   display: flex;
   width: 800vw;
   height: 100%;
+`;
+
+const Viewport = styled.div`
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
 `;
 
 export default App;

@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
-import result from '../components/browserDivision';
 import { isMobile } from 'react-device-detect';
 
 const getLogos = graphql`
@@ -26,9 +25,10 @@ const getLogos = graphql`
 interface Props {
   active: string;
   addPlace: (index: number, posY: number) => void;
+  vh: number;
 }
 
-export const Skills: React.FC<Props> = ({ active, addPlace }) => {
+export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
   const {
     logos: { edges },
   } = useStaticQuery(getLogos);
@@ -201,7 +201,6 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
 
   const ref: any = useRef(null);
 
-  const mobileDivison = result();
   const [snap, setSnap] = useState(false);
 
   useEffect(() => {
@@ -209,9 +208,8 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
 
     if (isMobile) {
       const elementHeight = ref.current.getBoundingClientRect().height;
-      const windowHeight = window.innerHeight / (mobileDivison ? 4 : 1);
 
-      if (elementHeight >= windowHeight - 60) {
+      if (elementHeight >= vh - 60) {
         isOutside = true;
         setSnap(true);
         console.log('PROJK SNAP');

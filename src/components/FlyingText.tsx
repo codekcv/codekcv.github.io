@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { isMobile, isChrome } from 'react-device-detect';
-import result from './browserDivision';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
   sections: string[];
   active: string;
   place: number[];
   scrolling: number;
+  vw: number;
 }
 
 export const FlyingText: React.FC<Props> = ({
@@ -15,6 +15,7 @@ export const FlyingText: React.FC<Props> = ({
   active,
   place,
   scrolling,
+  vw,
 }) => {
   const [text1, setText1] = useState<string>('Christian Villamin');
   const [text2, setText2] = useState<string>('');
@@ -33,10 +34,7 @@ export const FlyingText: React.FC<Props> = ({
 
   const index = sections.indexOf(active);
 
-  const browserDivision = result();
-
   useEffect(() => {
-    const vw = window.innerWidth / (browserDivision ? 4 : 1);
     setPosX(vw / 2);
 
     if (isMobile) {
@@ -44,15 +42,13 @@ export const FlyingText: React.FC<Props> = ({
     } else {
       setSizes([70, 6.5, 5, 7, 5]);
     }
-  }, []);
+  }, [vw]);
 
   useEffect(() => {
     setPosY(place);
   }, [place]);
 
   useEffect(() => {
-    const vw = window.innerWidth / (browserDivision ? 4 : 1);
-
     setPosX(vw * index + vw / 2);
     setAnim(anim => !anim);
     anim ? setText1(texts[index]) : setText2(texts[index]);
@@ -90,19 +86,11 @@ const Container = styled.div<ContainerProps>`
   justify-content: center;
   align-items: center;
 
+  width: 100%;
   top: ${props => props.posY + 'px'};
   left: ${props => props.posX + 'px'};
-  /* transform: ${props =>
-    'translate(-50%, calc(-' +
-    props.sizes[props.index] / 2 +
-    (props.active ? 'px' : 'vw') +
-    '))'}; */
-    /* transform: translate(-50%, 100%); */
-    transform: translateX(-50%);
-    
+  transform: translateX(-50%);
   transition: ${props => (props.scrolling ? '0.35s' : '0')} ease-in-out;
-
-  width: 100%;
 
   h1 {
     position: absolute;
