@@ -23,7 +23,7 @@ const getImages = graphql`
     profile: file(relativePath: { eq: "profile.png" }) {
       childImageSharp {
         fluid {
-          ...GatsbyImageSharpFluid
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
         }
       }
     }

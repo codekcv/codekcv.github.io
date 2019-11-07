@@ -108,7 +108,8 @@ const App: React.FC = () => {
 };
 
 const Container = styled.main`
-  background: palegoldenrod;
+  /* background: palegoldenrod; */
+  background: white;
   display: flex;
   width: 800vw;
   height: 100%;

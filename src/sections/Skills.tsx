@@ -11,7 +11,7 @@ const getLogos = graphql`
         node {
           name
           childImageSharp {
-            fluid(maxWidth: 128) {
+            fluid(maxWidth: 64) {
               ...GatsbyImageSharpFluid
             }
           }
@@ -297,8 +297,7 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   flex: 1;
 
   transition: ${props => (props.anim ? '0.75s' : 'none')} ease;
-  transition-delay: ${props =>
-    props.anim ? props.index + 'ms' : SCROLL_DURATION - 10 + 'ms'};
+  transition-delay: ${props => (props.anim ? props.index + 'ms' : 0)};
   transform: ${props => (props.anim ? 0 : `translateY(-200px)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
 
