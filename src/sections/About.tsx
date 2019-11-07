@@ -24,9 +24,11 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
           <h1 className="title">About Me</h1>
           <p>
             I'm Christian Villamin, a self-taught web developer. I specialize in
-            Reactjs and its ecosystem.{' '}
+            reactjs and its ecosystem.{' '}
           </p>
           <br />
+
+          {/* ========================================== */}
           <h1 className="title">Programming History</h1>
           <p>
             I started programming in 2007 when I was 11, using{' '}
@@ -45,7 +47,7 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
             >
               JASS
             </a>{' '}
-            to make modifications and create custom maps for their game,{' '}
+            to make modifications and create custom maps in{' '}
             <a
               href="https://en.wikipedia.org/wiki/Warcraft_III:_Reign_of_Chaos"
               target="_blank"
@@ -53,16 +55,20 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
             >
               Warcraft III
             </a>
-            . I learned it through self learning and my love for their game, and
-            since then have enjoyed the art of programming to heart. With it, I
-            made games such as Hero Arena(Now as MOBA), Tower Defense, Campaign
-            Adventures, and many more where I played it with my local and online
-            friends.
+            . I learned it by reading guides & documentations online, and since
+            then have enjoyed the art of programming to heart.
           </p>
           <br />
           <p>
-            After that, I learned to program in Java to make my own Android
-            mobile game using the{' '}
+            After that, I learned to program{' '}
+            <a
+              href="https://en.wikipedia.org/wiki/Java_(programming_language)"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Java
+            </a>{' '}
+            in 2012 to make a mobile game using the{' '}
             <a
               href="https://developer.android.com/studio"
               target="_blank"
@@ -78,8 +84,16 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
             >
               libGDX
             </a>
-            . I made a 2D platform pixel-art running game. A year later, I
-            decided to learn C# & the basics{' '}
+            . I made a 2D platform pixel-art running game. In 2015, I decided to
+            learn{' '}
+            <a
+              href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              C#
+            </a>{' '}
+            & the basics of{' '}
             <a
               href="https://www.blender.org/"
               target="_blank"
@@ -95,10 +109,22 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
             >
               Unity3D
             </a>{' '}
-            to step-up the game.
+            to make 3rd person games, althought nothing serious.
           </p>
           <br />
+          {/* ========================================== */}
           <h1 className="title">Learning Web Development</h1>
+          <p>
+            I started to learn in mid May of 2019. I had great interest in
+            making websites.
+          </p>
+          <br />
+          {/* ========================================== */}
+          <h1 className="title">Hobbies & Interests</h1>
+          <p>
+            I enjoy reading fantasy & mystery books. I love playing piano. I
+            like walking outside to think.
+          </p>
         </Notepad>
       </div>
     </Container>
@@ -116,15 +142,28 @@ const Container = styled.section`
   .notepad-container {
     display: flex;
     justify-content: center;
-    padding-top: 50px;
+    padding-top: 10px;
+  }
+
+  @media only screen and (max-height: 660px) {
+    margin-top: 8vh;
+    justify-content: flex-start;
+    border: 1px pink solid;
+  }
+
+  @media only screen and (min-width: 768px) {
+    .notepad-container {
+      display: flex;
+      justify-content: center;
+      padding-top: 50px;
+    }
   }
 `;
 
 const Notepad = styled.div<{ anim: boolean }>`
-  width: 700px;
+  width: 90%;
   height: 700px;
   background: #f5f5f5;
-  margin: 0 30px;
   box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
 
   transition: ${props => (props.anim ? '0.5s' : '0.5s')} ease;
@@ -132,14 +171,7 @@ const Notepad = styled.div<{ anim: boolean }>`
 
   transform: ${props => (props.anim ? 0 : 'translateY(100%)')};
 
-  padding: 30px;
-
-  font-family: monospace;
-
-  .title {
-    text-indent: 1rem;
-    font-size: 1.4rem;
-  }
+  padding: 0.7rem;
 
   .title,
   p,
@@ -148,11 +180,29 @@ const Notepad = styled.div<{ anim: boolean }>`
     font-family: monospace;
   }
 
-  p {
+  .title {
+    text-indent: 1rem;
     font-size: 1rem;
   }
 
-  /* color: dimgray; */
+  p {
+    font-size: 0.7rem;
+  }
+
+  @media only screen and (min-width: 768px) {
+    width: 700px;
+    margin: 0 30px;
+    padding: 30px;
+
+    .title {
+      text-indent: 1rem;
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+    }
+  }
 `;
 
 /*

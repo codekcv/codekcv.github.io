@@ -28,32 +28,6 @@ export const Navbar: React.FC<Props> = ({ handleJump, active }) => {
   );
 };
 
-const Section = styled.li<{ active: boolean }>`
-  margin: 0 7px;
-  padding: 5px;
-  border-radius: 4px;
-  transition: 0.5s ease;
-  transform: ${props => (props.active ? 'translateY(-3px)' : 0)};
-  cursor: pointer;
-
-  :hover {
-    color: ${props => !props.active && 'black'};
-    transform: ${props => !props.active && 'translateY(-5%) scale(1.1)'};
-  }
-
-  ::after {
-    content: '';
-    background: dimgray;
-    position: relative;
-    display: block;
-    width: ${props => (props.active ? '100%' : '0%')};
-    height: 2px;
-    left: 50%;
-    transform: translateX(-50%);
-    transition: 0.5s ease;
-  }
-`;
-
 const Container = styled.div`
   display: block;
   position: fixed;
@@ -89,11 +63,37 @@ const Container = styled.div`
 
       ul {
         font-size: 1.25rem;
-
-        li {
-          margin: 0 15px;
-        }
       }
     }
+  }
+`;
+
+const Section = styled.li<{ active: boolean }>`
+  margin: 0 3px;
+  padding: 5px;
+  border-radius: 4px;
+  transition: 0.5s ease;
+  transform: ${props => (props.active ? 'translateY(-3px)' : 0)};
+  cursor: ${props => (props.active ? 'default' : 'pointer')};
+
+  :hover {
+    color: ${props => !props.active && 'black'};
+    transform: ${props => !props.active && 'translateY(-5%) scale(1.1)'};
+  }
+
+  ::after {
+    content: '';
+    background: dimgray;
+    position: relative;
+    display: block;
+    width: ${props => (props.active ? '100%' : '0%')};
+    height: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: 0.5s ease;
+  }
+
+  @media only screen and (min-width: 768px) {
+    margin: 0 15px;
   }
 `;

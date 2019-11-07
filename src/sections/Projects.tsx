@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { SCROLL_DURATION } from '../components/constants';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
@@ -103,47 +104,88 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
 
   const DELAY = 100;
   const [delays, setDelays] = useState<number[]>([]);
-
   const [toggle, setToggle] = useState<boolean>(false);
-  const [out, setOut] = useState<boolean>(false);
+  const [linger, setLinger] = useState<boolean>(false);
   const ref: any = useRef(null);
 
   useEffect(() => {
     addPlace(2, ref.current.getBoundingClientRect().top);
   }, [toggle]);
 
+  useEffect(() => {
+    const delayArr = [];
+    for (let i = 0; i < projects.length; i++) delayArr.push(DELAY * i);
+    setDelays(delayArr);
+  }, []);
+
   const [st, setSt] = useState(false);
 
-  if (!out)
-    active === 'projects'
-      ? !toggle &&
-        (() => {
+  if (!linger) {
+    if (active === 'projects') {
+      if (!toggle) {
+        if (!isMobile) {
           if (!st) {
             setSt(true);
-            const sortedProjects = [...projects];
-            sortedProjects.sort(() => Math.random() - 0.5);
-            setProjects(p => sortedProjects);
+            const randomizedProjects = [...projects];
+            randomizedProjects.sort(() => Math.random() - 0.5);
+            setProjects(randomizedProjects);
 
-            const newDelay = [];
-            for (let i = 0; i < projects.length; i++) newDelay.push(DELAY * i);
-            newDelay.sort(() => Math.random() - 0.5);
-            setDelays(newDelay);
+            const randomizedDelays = [...delays];
+            randomizedDelays.sort(() => Math.random() - 0.5);
+            setDelays(randomizedDelays);
 
             setTimeout(() => {
               setToggle(true);
               setSt(false);
-            }, 0);
+            }, 1);
           }
-        })()
-      : toggle &&
-        (() => {
-          setOut(true);
+        } else {
+          setToggle(true);
+        }
+      }
+    } else {
+      if (toggle) {
+        setLinger(true);
 
-          setTimeout(() => {
-            setOut(false);
-            setToggle(false);
-          }, SCROLL_DURATION - 20);
-        })();
+        setTimeout(() => {
+          setLinger(false);
+          setToggle(false);
+        }, SCROLL_DURATION - 20);
+      }
+    }
+  }
+
+  // !linger && active === 'projects'
+  //   ? !toggle &&
+  //     (() => {
+  //       !isMobile
+  //         ? !st &&
+  //           (() => {
+  //             setSt(true);
+  //             const randomizedProjects = [...projects];
+  //             randomizedProjects.sort(() => Math.random() - 0.5);
+  //             setProjects(randomizedProjects);
+
+  //             const randomizedDelays = [...delays];
+  //             randomizedDelays.sort(() => Math.random() - 0.5);
+  //             setDelays(randomizedDelays);
+
+  //             setTimeout(() => {
+  //               setToggle(true);
+  //               setSt(false);
+  //             }, 1);
+  //           })()
+  //         : setToggle(true);
+  //     })()
+  //   : toggle &&
+  //     (() => {
+  //       setLinger(true);
+
+  //       setTimeout(() => {
+  //         setLinger(false);
+  //         setToggle(false);
+  //       }, SCROLL_DURATION - 20);
+  //     })();
 
   return (
     <Container id="projects">
@@ -200,8 +242,10 @@ const Container = styled.section`
   }
 
   @media only screen and (max-height: 660px) {
-    margin-top: 8vh;
-    justify-content: flex-start;
+    .projects-container {
+      margin-top: 8vh;
+      justify-content: flex-start;
+    }
   }
 
   @media only screen and (min-width: 768px) {
@@ -211,14 +255,12 @@ const Container = styled.section`
       flex-wrap: wrap;
       justify-content: center;
       width: 80%;
-      /* border: 1px pink solid; */
 
       .select {
         border-radius: 12px;
         transition: 0.5s ease;
 
         :hover {
-          /* box-shadow: 0 0 5px dimgray; */
           box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
           transform: translateY(-10%);
         }

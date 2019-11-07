@@ -48,12 +48,12 @@ const App: React.FC = () => {
       const pos = vw * index - window.pageXOffset;
 
       scroll(window.pageXOffset, pos, SCROLL_DURATION);
-      setScrolling(scrolling => !scrolling);
-      setTimeout(() => setActive(sections[index]), 0);
-      setTimeout(
-        () => setScrolling(scrolling => !scrolling),
-        SCROLL_DURATION + 10
-      );
+      setScrolling(true);
+
+      setTimeout(() => {
+        setActive(sections[index]);
+        setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
+      }, 0);
     }
   };
 

@@ -189,18 +189,18 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
     ['System', environment],
   ];
 
-  const [toggle, setToggle] = useState<boolean>(true);
-  const [out, setOut] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(false);
+  const [linger, setLinger] = useState<boolean>(false);
 
-  if (!out)
+  if (!linger)
     active === 'skills'
       ? !toggle && setToggle(true)
       : toggle &&
         (() => {
-          setOut(true);
+          setLinger(true);
 
           setTimeout(() => {
-            setOut(false);
+            setLinger(false);
             setToggle(false);
           }, SCROLL_DURATION - 20);
         })();

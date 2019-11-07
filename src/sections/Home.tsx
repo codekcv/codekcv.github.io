@@ -8,8 +8,9 @@ import {
   FaFreeCodeCamp,
   FaCodepen,
   FaGithub,
+  FaLinkedinIn,
 } from 'react-icons/fa';
-import { ANIMATION_DELAY, SCROLL_DURATION } from '../components/constants';
+import { SCROLL_DURATION } from '../components/constants';
 import { isMobile } from 'react-device-detect';
 
 interface Props {
@@ -69,6 +70,12 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
       color: 'green',
     },
     {
+      name: 'LinkedIn',
+      icon: <FaLinkedinIn className="fa" />,
+      url: 'https://www.linkedin.com/in/christian-villamin-907272188/',
+      color: '#0e76a8 ',
+    },
+    {
       name: 'YouTube',
       icon: <FaYoutube className="fa" />,
       url: 'https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg',
@@ -88,7 +95,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
         <div id="card">
           <Img className="profile" fluid={profileImage} />
           <div className="information">
-            <h2>{`I create web sites & web applications.`}</h2>
+            <h2>{`I build web sites & web applications.`}</h2>
 
             <div className="icons">
               {links.map(link => (
@@ -124,10 +131,8 @@ const Container = styled.section<{ anim: boolean }>`
     width: 100%;
 
     #card {
-      transition: ${props => (props.anim ? '1s' : '0')} ease;
       transition-delay: ${props =>
-        props.anim ? ANIMATION_DELAY + 'ms' : SCROLL_DURATION - 10 + 'ms'};
-      transform: ${props => (props.anim ? 0 : `translateY(50px)`)};
+        props.anim ? 0 : SCROLL_DURATION - 10 + 'ms'};
       opacity: ${props => (props.anim ? 1 : 0)};
       width: 90%;
 
@@ -140,13 +145,13 @@ const Container = styled.section<{ anim: boolean }>`
         height: 180px;
         border: 5px dashed white;
         box-shadow: 0 0 5px dimgray;
-        box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
         border-radius: 50%;
       }
 
       .information {
         background: mediumaquamarine;
-        background: mediumslateblue;
+        background: CadetBlue;
+        /* background: mediumslateblue; */
         color: white;
         text-align: center;
 
@@ -155,8 +160,7 @@ const Container = styled.section<{ anim: boolean }>`
         border-radius: 30px;
 
         border: 5px dashed white;
-        /* box-shadow: 0 0 5px dimgray; */
-        box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
+        box-shadow: 0 0 5px dimgray;
 
         h2 {
           margin-top: 120px;
@@ -165,7 +169,7 @@ const Container = styled.section<{ anim: boolean }>`
           color: gainsboro;
           text-shadow: 2px 2px darkslategray;
           padding: 3px 8px;
-          border: 1px dashed darkcyan;
+          /* border: 1px dashed darkcyan; */
           border-radius: 8px;
           background: rgba(0, 0, 0, 0.25);
           width: 100%;
@@ -189,24 +193,19 @@ const Container = styled.section<{ anim: boolean }>`
           width: 300px;
           height: 300px;
           border: 5px dashed white;
-          box-shadow: 0 0 5px dimgray;
-          /* box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6); */
-          box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
         }
 
         .information {
           padding: 50px 50px 25px 50px;
           margin-top: -150px;
           border: 5px dashed white;
-          box-shadow: 0 0 5px dimgray;
-          /* box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6); */
-          box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
           border-radius: 60px;
 
           h2 {
             margin-top: 200px;
             font-size: 2rem;
-            border: 2px solid mediumseagreen;
+            /* border: 2px dotted mediumaquamarine; */
+            text-shadow: 2px 4px darkslategray;
           }
         }
       }
