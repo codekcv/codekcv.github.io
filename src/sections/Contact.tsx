@@ -26,7 +26,7 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
       <div className="outer" ref={ref}>
         <div className="contact-container">
           <form
-            action="https://formspree.io/mabaetbaet@gmail.com"
+            action="https://formspree.io/ChristianVillamin31@gmail.com"
             method="POST"
           >
             <div>

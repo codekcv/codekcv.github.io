@@ -78,7 +78,8 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
             >
               Java
             </a>{' '}
-            in 2012 to make a mobile game using the{' '}
+            in 2012 to build basic desktop apps, do algorithms challenges, etc.
+            In 2014, I decided to make a mobile game using the{' '}
             <a
               href="https://developer.android.com/studio"
               target="_blank"
@@ -94,7 +95,7 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
             >
               libGDX
             </a>
-            . I made a 2D platform pixel-art running game. In 2015, I decided to
+            . I made a 2D platform pixel-art running game. In 2016, I decided to
             learn{' '}
             <a
               href="https://en.wikipedia.org/wiki/C_Sharp_(programming_language)"
@@ -119,21 +120,33 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
             >
               Unity3D
             </a>{' '}
-            to make 3rd person games, althought nothing serious.
+            to make 3rd person games, although nothing serious, just for fun and
+            messing around with my friends. I did learn maths in 3D, so that's
+            nice.
           </p>
           <br />
           {/* ========================================== */}
           <h1 className="title">Learning Web Development</h1>
           <p>
             I started to learn in mid May of 2019. I had great interest in
-            making websites.
+            making my own websites ever since I entered the internet, like, it's
+            so cool, your own place for the world to see. for the world to see.
+            `... desc ... freeCodeCamp(Very awesome) ... comeback later ;0 ;)`
           </p>
           <br />
           {/* ========================================== */}
           <h1 className="title">Hobbies & Interests</h1>
           <p>
-            I enjoy reading fantasy & mystery books. I love playing piano. I
-            like walking outside to think.
+            I enjoy reading fantasy & mystery books. I love playing piano(
+            <a
+              href="https://www.youtube.com/watch?v=Cj82u5rjy3Y"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Watch me play this piece, get dem feels
+            </a>
+            ). I like walking outside to arrange my thoughts.. `... still
+            working this section!! I wanna play Dungeons & Dragons`
           </p>
         </Notepad>
       </div>
@@ -165,15 +178,13 @@ const Container = styled.section`
 `;
 
 const Notepad = styled.div<{ anim: boolean }>`
-  width: 90%;
-  height: 500px;
+  width: 96%;
+  height: 585px;
   background: #f5f5f5;
   box-shadow: 0 0 30px -10px rgba(150, 170, 180, 1);
-
   transition: 0.5s ease;
   transform: ${props => (props.anim ? 0 : 'translateY(100%)')};
-
-  padding: 0.7rem;
+  padding: 0.4rem;
 
   .title,
   p,
@@ -183,12 +194,12 @@ const Notepad = styled.div<{ anim: boolean }>`
   }
 
   .title {
-    text-indent: 1rem;
-    font-size: 1rem;
+    text-indent: 0.9rem;
+    font-size: 0.9rem;
   }
 
   p {
-    font-size: 0.8rem;
+    font-size: 0.7rem;
   }
 
   @media only screen and (min-width: 768px) {
