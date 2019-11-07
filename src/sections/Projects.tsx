@@ -15,8 +15,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       title: 'ChristianVillamin.github.io',
       description: 'My personal portfolio website.',
       technologies: ['TypeScript', 'Gatsby', 'React', 'GraphQL', 'Styled'],
-      github:
-        'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
+      code: 'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
       demo: 'http://christianvillamin.github.io',
     },
     {
@@ -24,14 +23,14 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       description:
         'A Kanban style note organizer. You can use boards, lists, and cards.',
       technologies: ['TypeScript', 'React', 'Redux', 'Hooks'],
-      github: 'https://github.com/ChristianVillamin/lister',
+      code: 'https://github.com/ChristianVillamin/lister',
       demo: 'https://listernote.netlify.com/',
     },
     {
       title: 'Anonymous Message Board',
       description: 'A full stack application message board.',
       technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Chai', 'Mocha'],
-      github:
+      code:
         'https://github.com/ChristianVillamin/boilerplate-project-messageboard',
       demo: 'https://cv-board.glitch.me',
     },
@@ -40,7 +39,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       description:
         'A full stack app. Fetches from an API to get latest stock prides..',
       technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Axios'],
-      github:
+      code:
         'https://github.com/ChristianVillamin/boilerplate-project-stockchecker',
       demo: 'https://cv-stock.glitch.me/',
     },
@@ -48,58 +47,58 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       title: 'Mini-Piano',
       description: 'A virtual 12-keys piano. (Includes 3 songs!)',
       technologies: ['ES6+', 'React', 'Hooks'],
-      github: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
-      demo: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
+      code: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
+      demo: 'https://codepen.io/ChristianVillamin/full/EBQvpo',
     },
     {
       title: 'Calculator',
       description: 'A calculator. Part of freeCodeCamp project.',
       technologies: ['ES6+', 'React', 'Hooks'],
-      github: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
-      demo: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
+      code: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
+      demo: 'https://codepen.io/ChristianVillamin/full/rEdVXo',
     },
     {
       title: 'Podomoro Clock',
       description: 'A productivity app for study and health.',
       technologies: ['ES6+', 'React', 'Hooks'],
-      github: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
-      demo: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
+      code: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
+      demo: 'https://codepen.io/ChristianVillamin/full/ydjajy',
     },
 
     {
       title: 'Tribute Page',
       description: 'A tribute to Walter White from Breaking Bad.',
       technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
-      github: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
-      demo: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+      code: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+      demo: 'https://codepen.io/ChristianVillamin/full/wLwQGP',
     },
     {
       title: 'Biplane Landing Page',
       description: 'A fun page I made for my likes of biplanes.',
       technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
-      github: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
-      demo: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+      code: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+      demo: 'https://codepen.io/ChristianVillamin/full/wLwQGP',
     },
     {
       title: 'Technical Documentation',
       description: 'A short HTML documentation page.',
       technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
-      github: 'https://codepen.io/ChristianVillamin/pen/PrqegB',
-      demo: 'https://codepen.io/ChristianVillamin/pen/PrqegB',
+      code: 'https://codepen.io/ChristianVillamin/pen/PrqegB',
+      demo: 'https://codepen.io/ChristianVillamin/full/PrqegB',
     },
     {
       title: 'Treemap Diagram',
       description: 'A short HTML documentation page.',
       technologies: ['JavaScript', 'D3'],
-      github: 'https://codepen.io/ChristianVillamin/pen/rEgVPp',
-      demo: 'https://codepen.io/ChristianVillamin/pen/rEgVPp',
+      code: 'https://codepen.io/ChristianVillamin/pen/rEgVPp',
+      demo: 'https://codepen.io/ChristianVillamin/full/rEgVPp',
     },
     {
       title: 'Choropleth Map',
       description: 'A short HTML documentation page.',
       technologies: ['JavaScript', 'D3'],
-      github: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
-      demo: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
+      code: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
+      demo: 'https://codepen.io/ChristianVillamin/full/pXBLXq',
     },
   ]);
 
@@ -158,8 +157,8 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
           <div className="select" key={project.title}>
             <Project anim={toggle ? 1 : 0} delay={delays[index]}>
               <h2 className="title">{project.title}</h2>
-              <a className="github" href={project.github}>
-                GitHub
+              <a className="code" href={project.code}>
+                Code
               </a>
               <a className="demo" href={project.demo}>
                 Demo
@@ -195,7 +194,7 @@ const Container = styled.section<{ snap: boolean }>`
     margin-right: 4px;
   }
 
-  .github,
+  .code,
   .demo {
     text-decoration: none;
     margin-right: 4px;
@@ -211,7 +210,7 @@ const Container = styled.section<{ snap: boolean }>`
       margin-right: 8px;
     }
 
-    .github,
+    .code,
     .demo {
       text-decoration: none;
       margin-right: 8px;
