@@ -119,18 +119,24 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
   }, []);
 
   useEffect(() => {
-    snap
-      ? addPlace(2, 20)
+    let isOutside = false;
+
+    if (isMobile) {
+      const elementHeight = ref.current.getBoundingClientRect().height;
+      const windowHeight = window.innerHeight / (mobileDivison ? 4 : 1);
+
+      if (elementHeight >= windowHeight - 60) {
+        isOutside = true;
+        setSnap(true);
+      }
+    }
+
+    isOutside
+      ? addPlace(2, 25)
       : addPlace(2, ref.current.getBoundingClientRect().top - 30);
   }, [toggle]);
 
   useEffect(() => {
-    if (isMobile) {
-      const elementHeight = ref.current.getBoundingClientRect().height;
-      const windowHeight = window.innerHeight / (mobileDivison ? 4 : 1);
-      elementHeight >= windowHeight - 60 && setSnap(true);
-    }
-
     active === 'Projects'
       ? !toggle &&
         (() => {

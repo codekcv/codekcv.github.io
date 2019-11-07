@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { ANIMATION_DELAY } from '../components/constants';
+import { isMobile } from 'react-device-detect';
+import result from '../components/browserDivision';
 
 interface Props {
   active: string;
@@ -11,9 +13,14 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const ref: any = useRef(null);
 
-  useEffect(() => {
-    addPlace(3, ref.current.getBoundingClientRect().top - 30);
-  }, [toggle]);
+  useEffect(
+    () =>
+      addPlace(
+        2,
+        ref.current.getBoundingClientRect().top - (!isMobile ? 30 : 20)
+      ),
+    [toggle]
+  );
 
   useEffect(() => {
     active === 'About'
@@ -146,12 +153,7 @@ const Container = styled.section`
     display: flex;
     justify-content: center;
     padding-top: 10px;
-  }
-
-  @media only screen and (max-height: 660px) {
-    margin-top: 8vh;
-    justify-content: flex-start;
-    border: 1px pink solid;
+    border: 2px dotted solid;
   }
 
   @media only screen and (min-width: 768px) {
@@ -165,7 +167,7 @@ const Container = styled.section`
 
 const Notepad = styled.div<{ anim: boolean }>`
   width: 90%;
-  height: 700px;
+  height: 500px;
   background: #f5f5f5;
   box-shadow: 0 0 30px -10px rgba(150, 170, 180, 1);
 
@@ -192,6 +194,7 @@ const Notepad = styled.div<{ anim: boolean }>`
 
   @media only screen and (min-width: 768px) {
     width: 700px;
+    height: 700px;
     margin: 0 30px;
     padding: 30px;
     box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
@@ -208,80 +211,6 @@ const Notepad = styled.div<{ anim: boolean }>`
 `;
 
 /*
-
-/* border: 2px pink solid; */
-
-/* h1 {
-  color: rgb(45, 45, 70);
-  font-size: 8vw;
-  text-shadow: 0 3px silver;
-}
-
-.profile {
-  width: 125px;
-  height: 125px;
-  border: 5px white solid;
-  border-radius: 50%;
-  margin-bottom: 2vh;
-}
-
-.about-container {
-  color: gainsboro;
-  /* margin: 12px;
-  padding: 12px;
-  background: black;
-  border: 1px silver solid;
-
-  h2 {
-    font-size: 6vw;
-  }
-
-  p {
-    font-size: 3vw;
-  }
-
-  ul {
-    margin-left: 24px;
-    font-size: 3vw;
-  }
-}
-
-@media only screen and (max-height: 660px) {
-  margin-top: 8vh;
-  justify-content: flex-start;
-}
-
-@media only screen and (min-width: 768px) {
-  h1 {
-    text-shadow: 0 6.5px silver;
-  }
-
-  .all-abouts {
-    display: flex;
-  }
-
-  .about-container {
-    color: gainsboro;
-    width: 40vw;
-    max-width: 500px;
-    margin: 12px;
-    padding: 12px;
-
-    h2 {
-      font-size: 2rem;
-    }
-
-    p {
-      font-size: 1rem;
-    }
-
-    ul {
-      margin-left: 24px;
-      font-size: 1rem;
-    }
-  }
-} 
-
 <div className="all-abouts" ref={ref}>
         <div className="about-container">
           <p>

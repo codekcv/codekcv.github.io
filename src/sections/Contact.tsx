@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { ANIMATION_DELAY } from '../components/constants';
+import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
@@ -16,9 +17,9 @@ export const Contact: React.FC<Props> = ({ active, addPlace }) => {
 
   const ref: any = useRef(null);
 
-  useEffect(() => {
-    addPlace(4, ref.current.getBoundingClientRect().top - 30);
-  }, [toggle]);
+  useEffect(() => addPlace(4, ref.current.getBoundingClientRect().top - 30), [
+    toggle,
+  ]);
 
   return (
     <Container id="contact" anim={toggle}>
@@ -88,16 +89,15 @@ const Container = styled.div<{ anim: boolean }>`
   .outer {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
-    padding-top: 50px;
-
+    margin-top: 20px;
+    /* padding-top: 40px; */
     width: 100%;
 
     .contact-container {
       position: relative;
-      width: 80%;
+      width: 90%;
       padding: 16px;
-      box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
+      box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 1);
       border-radius: 6px;
 
       label {
@@ -138,14 +138,16 @@ const Container = styled.div<{ anim: boolean }>`
     }
   }
 
-  @media only screen and (max-height: 660px) {
-    margin-top: 8vh;
-    justify-content: flex-start;
-  }
-
   @media only screen and (min-width: 768px) {
+    .outer {
+      margin-top: 100px;
+      padding-top: 50px;
+    }
+
     .contact-container {
       max-width: 600px;
+      padding: 16px;
+      box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 1);
     }
 
     h1 {

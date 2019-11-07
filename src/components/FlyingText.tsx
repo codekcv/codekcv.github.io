@@ -98,7 +98,7 @@ const Container = styled.div<ContainerProps>`
     (props.active ? 'px' : 'vw') +
     '))'}; */
     /* transform: translate(-50%, 100%); */
-    transform: translate(-50%);
+    transform: translateX(-50%);
     
   transition: ${props => (props.scrolling ? '0.35s' : '0')} ease-in-out;
 

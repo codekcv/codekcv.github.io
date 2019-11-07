@@ -205,16 +205,26 @@ export const Skills: React.FC<Props> = ({ active, addPlace }) => {
   const [snap, setSnap] = useState(false);
 
   useEffect(() => {
-    addPlace(1, ref.current.getBoundingClientRect().top - 40);
-  }, [toggle]);
+    let isOutside = false;
 
-  useEffect(() => {
     if (isMobile) {
       const elementHeight = ref.current.getBoundingClientRect().height;
       const windowHeight = window.innerHeight / (mobileDivison ? 4 : 1);
-      elementHeight >= windowHeight - 60 && setSnap(true);
+
+      if (elementHeight >= windowHeight - 60) {
+        isOutside = true;
+        setSnap(true);
+        console.log('PROJK SNAP');
+      }
     }
-  }, []);
+
+    isOutside
+      ? addPlace(1, 25)
+      : addPlace(
+          1,
+          ref.current.getBoundingClientRect().top - (!isMobile ? 30 : 12)
+        );
+  }, [toggle]);
 
   return (
     <Container id="skills" snap={snap}>
@@ -255,6 +265,7 @@ const Container = styled.section<{ snap: boolean }>`
   display: flex;
   flex-direction: column;
   justify-content: ${props => (!props.snap ? 'center' : 'flex-start')};
+  margin-top: ${props => (props.snap ? '40px' : 0)};
   align-items: center;
   width: 100vw;
   height: 100vh;
@@ -270,11 +281,6 @@ const Container = styled.section<{ snap: boolean }>`
       width: 100%;
       background: rgba(45, 45, 70, 1);
     }
-  }
-
-  @media only screen and (max-height: 660px) {
-    margin-top: 8vh;
-    justify-content: flex-start;
   }
 
   @media only screen and (min-width: 768px) {
@@ -294,7 +300,6 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   margin: 1vh 0;
   padding: 0.4rem;
   border-radius: 4px;
-  box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
   flex: 1;
 
   transition: ${props => (props.anim ? '0.75s' : 'none')} ease;
@@ -346,6 +351,7 @@ const Card = styled.div<{ anim: boolean; index: number }>`
     margin: 2vh 2vw;
     padding: 1rem;
     border-radius: 16px;
+    box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
     align-items: center;
 
     .skills-area {
