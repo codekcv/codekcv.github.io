@@ -15,7 +15,7 @@ import { FlyingText } from '../components/FlyingText';
 import { SEO } from '../components/SEO';
 
 const App: React.FC = () => {
-  const [active, setActive] = useState<string>('home');
+  const [active, setActive] = useState<string>('Home');
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [place, setPlace] = useState<number[]>([]);
   const sections: string[] = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
@@ -108,7 +108,7 @@ const App: React.FC = () => {
 };
 
 const Container = styled.main`
-  background: white;
+  background: palegoldenrod;
   display: flex;
   width: 800vw;
   height: 100%;

@@ -7,7 +7,7 @@ interface Props {
 }
 
 export const Navbar: React.FC<Props> = ({ handleJump, active }) => {
-  const menu = ['home', 'skills', 'projects', 'about', 'contact'];
+  const menu = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
 
   return (
     <Container>

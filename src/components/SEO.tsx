@@ -12,6 +12,7 @@ const getData = graphql`
       siteMetadata {
         title
         description
+        image
         author
         siteUrl
         twitterUsername
@@ -23,22 +24,29 @@ const getData = graphql`
 export const SEO: React.FC<Props> = ({ section }) => {
   const {
     site: {
-      siteMetadata: { title, description, author, siteUrl, twitterUsername },
+      siteMetadata: {
+        title,
+        description,
+        image,
+        author,
+        siteUrl,
+        twitterUsername,
+      },
     },
   } = useStaticQuery(getData);
 
-  console.log(twitterUsername);
+  console.log('imfg', image);
 
   return (
     <Helmet htmlAttributes={{ lang: 'en' }} title={`${section} | ${title}`}>
       <meta name="description" content={description} />;
-      {/* <meta name="image" content= */}
+      <meta name="image" content={image} />
       {/* Twitter Card */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:creator" content={twitterUsername} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      {/* <meta name="twitter:description" content={description} /> */}
+      <meta name="twitter:image" content={`${siteUrl}${image}`} />
     </Helmet>
   );
 };

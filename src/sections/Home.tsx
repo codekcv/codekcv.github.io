@@ -20,7 +20,7 @@ interface Props {
 
 const getImages = graphql`
   query {
-    profile: file(relativePath: { eq: "profile.jpg" }) {
+    profile: file(relativePath: { eq: "profile.png" }) {
       childImageSharp {
         fluid {
           ...GatsbyImageSharpFluid
@@ -86,7 +86,7 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
     );
   }, [toggle]);
 
-  active === 'home' ? !toggle && setToggle(true) : toggle && setToggle(false);
+  active === 'Home' ? !toggle && setToggle(true) : toggle && setToggle(false);
 
   return (
     <Container id="home" anim={toggle}>

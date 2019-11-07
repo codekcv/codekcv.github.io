@@ -8,9 +8,10 @@ module.exports = {
   /* Your site config here */
   siteMetadata: {
     title: 'My Portfolio',
-    description: 'A website for my personal portfolio.',
+    description: 'A website for my personal portfolio containing my journey.',
     author: 'Christian Villamin',
     twitterUsername: '@villamin_c',
+    image: '/card.png',
     siteUrl: 'https://ChristianVillamin.github.io',
   },
   plugins: [

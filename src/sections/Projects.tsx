@@ -145,12 +145,13 @@ export const Projects: React.FC<Props> = ({ active, addPlace }) => {
       }
     } else {
       if (toggle) {
-        setLinger(true);
+        setToggle(false);
+        // setLinger(true);
 
-        setTimeout(() => {
-          setLinger(false);
-          setToggle(false);
-        }, SCROLL_DURATION - 20);
+        // setTimeout(() => {
+        //   setLinger(false);
+        //   setToggle(false);
+        // }, SCROLL_DURATION - 20);
       }
     }
   }
@@ -276,8 +277,8 @@ const Project = styled.div<{ anim: number; delay: number }>`
   border-radius: 6px;
 
   transition: ${props => (props.anim ? '0.75s' : 'none')} ease;
-  transition-delay: ${props =>
-    props.anim ? props.delay + 'ms' : SCROLL_DURATION - 10 + 'ms'};
+  transition-delay: ${props => (props.anim ? props.delay + 'ms' : 0)};
+  /* props.anim ? props.delay + 'ms' : SCROLL_DURATION - 10 + 'ms'}; */
 
   opacity: ${props => (props.anim ? 1 : 0)};
   transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
