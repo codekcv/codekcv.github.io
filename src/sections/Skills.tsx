@@ -206,13 +206,16 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
   useEffect(() => {
     let isOutside = false;
 
-    if (isMobile) {
+    if (isMobile && vh) {
       const elementHeight = ref.current.getBoundingClientRect().height;
 
-      if (elementHeight >= vh - 60) {
+      console.log('p1', elementHeight);
+      console.log('p2', vh);
+
+      if (elementHeight >= vh) {
         isOutside = true;
         setSnap(true);
-        console.log('PROJK SNAP');
+        console.log('TUEUE');
       }
     }
 

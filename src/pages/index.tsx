@@ -12,6 +12,8 @@ import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
 import { FlyingText } from '../components/FlyingText';
 import { SEO } from '../components/SEO';
+import { isIOS } from 'react-device-detect';
+import disableScroll from 'disable-scroll';
 
 const App: React.FC = () => {
   const sections: string[] = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
@@ -24,8 +26,19 @@ const App: React.FC = () => {
 
   useEffect(() => {
     handleResize();
+
     window.addEventListener('resize', handleResize);
-    return (() => window.removeEventListener('resize', handleResize))();
+    document.addEventListener('touchstart', () => {}, {
+      capture: true,
+      passive: true,
+    });
+
+    isIOS && disableScroll.on();
+
+    return (() => {
+      window.removeEventListener('resize', handleResize);
+      document.removeEventListener('touchstart', () => {});
+    })();
   }, []);
 
   const handleResize = () => {
@@ -60,20 +73,34 @@ const App: React.FC = () => {
       const index = sections.indexOf(active) + direction;
       const pos = vw * index - window.pageXOffset;
 
-      scroll(window.pageXOffset, pos, SCROLL_DURATION);
-      setScrolling(true);
+      if (!isIOS) {
+        scroll(window.pageXOffset, pos, SCROLL_DURATION);
+        setScrolling(true);
 
-      setTimeout(() => {
-        setActive(sections[index]);
-        setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
-      }, 0);
+        setTimeout(() => {
+          setActive(sections[index]);
+          setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
+        }, 0);
+      }
     }
   };
 
   const handleJump = (target: string) => {
-    const index = sections.indexOf(target);
-    window.scrollTo(vw * index, 0);
-    setActive(sections[index]);
+    const jump = () => {
+      const index = sections.indexOf(target);
+      window.scrollTo(vw * index, 0);
+      setActive(sections[index]);
+    };
+
+    if (isIOS) {
+      disableScroll.off();
+      setTimeout(() => {
+        jump();
+        setTimeout(() => disableScroll.on(), 0);
+      }, 0);
+    } else {
+      jump();
+    }
   };
 
   const addPlace = (index: number, posY: number) => {
@@ -88,10 +115,6 @@ const App: React.FC = () => {
     }
   };
 
-  const handleOnTouch = (e: React.TouchEvent<HTMLElement>) => {
-    e.preventDefault();
-  };
-
   return (
     <Swipeable
       onSwipedRight={() => handleOnSwipe(-1)}
@@ -102,8 +125,8 @@ const App: React.FC = () => {
       <Container
         onWheel={handleOnWheel}
         onKeyDown={handleOnKeyDown}
-        onTouchStart={handleOnTouch}
         tabIndex={0}
+        className="content-container"
       >
         <Home active={active} addPlace={addPlace} />
         <Skills active={active} addPlace={addPlace} vh={vh} />

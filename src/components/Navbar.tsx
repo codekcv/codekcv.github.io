@@ -39,7 +39,7 @@ const Container = styled.div<ContainerProps>`
   display: block;
   position: fixed;
   left: ${props => props.vw / 2 + 'px'};
-  top: ${props => props.vh * 0.92 + 'px'};
+  top: ${props => props.vh * 0.9 - 56 + 'px'};
   transform: translate(-50%, -50%);
   z-index: 5;
 

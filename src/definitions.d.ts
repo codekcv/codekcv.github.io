@@ -12,3 +12,8 @@ declare module '*.png' {
   const content: any;
   export default content;
 }
+
+declare module 'disable-scroll' {
+  const content: any;
+  export default content;
+}

@@ -9,6 +9,8 @@ import {
   FaCodepen,
   FaGithub,
   FaLinkedinIn,
+  FaAngleLeft,
+  FaAngleRight,
 } from 'react-icons/fa';
 import { SCROLL_DURATION } from '../components/constants';
 import { isMobile } from 'react-device-detect';
@@ -17,18 +19,6 @@ interface Props {
   active: string;
   addPlace: (index: number, posY: number) => void;
 }
-
-const getImages = graphql`
-  query {
-    profile: file(relativePath: { eq: "profile.png" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid_withWebp_tracedSVG
-        }
-      }
-    }
-  }
-`;
 
 const links = [
   {
@@ -69,10 +59,35 @@ const links = [
   },
 ];
 
+const getImages = graphql`
+  query {
+    profile: file(relativePath: { eq: "profile.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        }
+      }
+    }
+    scroll: file(relativePath: { eq: "wtfman.png" }) {
+      childImageSharp {
+        fluid {
+          ...GatsbyImageSharpFluid_withWebp_tracedSVG
+        }
+        # fixed(width: 64) {
+        #   src
+        # }
+      }
+    }
+  }
+`;
+
 export const Home: React.FC<Props> = ({ active, addPlace }) => {
   const {
     profile: {
       childImageSharp: { fluid: profileImage },
+    },
+    scroll: {
+      childImageSharp: { fluid: scrollImage },
     },
   } = useStaticQuery(getImages);
 
@@ -90,12 +105,13 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
 
   return (
     <Container id="home" anim={toggle}>
+      {console.log('prof', profileImage)}
+      {console.log('scrol', scrollImage)}
       <div id="placer" ref={ref}>
         <div id="card">
           <Img className="profile" fluid={profileImage} />
           <div className="information">
             <h2>{`I build web sites & web applications.`}</h2>
-
             <div className="icons">
               {links.map(link => (
                 <Icon key={link.name} color={link.color}>
@@ -107,6 +123,21 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
               ))}
             </div>
           </div>
+          <div className="scroll-container">
+            {isMobile ? (
+              <>
+                <FaAngleLeft />
+                <span className="swipe">Swipe</span>
+                <FaAngleRight />
+              </>
+            ) : (
+              <>
+                <p>Scroll</p>
+                <Img className="scroll-img" fluid={scrollImage} />
+              </>
+            )}
+          </div>
+          {/*  */}
         </div>
       </div>
     </Container>
@@ -179,6 +210,37 @@ const Container = styled.section<{ anim: boolean }>`
           justify-content: space-evenly;
           margin-top: 15px;
         }
+      }
+    }
+  }
+
+  .scroll-container {
+    position: relative;
+    left: 50%;
+    width: 80px;
+    margin-top: 30px;
+    transform: translateX(-50%);
+    height: 64px;
+    text-align: center;
+    opacity: 0.5;
+
+    .swipe {
+      position: relative;
+      top: -3px;
+    }
+
+    animation: anim 2s ease;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+
+    @keyframes anim {
+      from {
+        transform: ${isMobile && 'translateX(-40%)'};
+        opacity: 0.6;
+      }
+      to {
+        transform: ${isMobile && 'translateX(-60%)'};
+        opacity: 0.2;
       }
     }
   }
