@@ -10,6 +10,17 @@ interface Props {
 }
 
 export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
+  const colors = [
+    {
+      'ES6+': 'orange',
+      TypeScript: 'blue',
+      Gatsby: 'purple',
+      GraphQL: 'violet',
+      MongoDB: 'green',
+      Axios: 'white',
+    },
+  ];
+
   const [projects, setProjects] = useState([
     {
       title: 'ChristianVillamin.github.io',

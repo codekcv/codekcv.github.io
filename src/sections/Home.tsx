@@ -61,23 +61,6 @@ const links = [
 
 const getImages = graphql`
   query {
-    # profile: file(relativePath: { eq: "profile.png" }) {
-    #   childImageSharp {
-    #     fluid {
-    #       ...GatsbyImageSharpFluid_withWebp_tracedSVG
-    #     }
-    #   }
-    # }
-    # scroll: file(relativePath: { eq: "scroll.png" }) {
-    #   childImageSharp {
-    #     fluid {
-    #       ...GatsbyImageSharpFluid_withWebp_tracedSVG
-    #     }
-    #     # fixed(width: 64) {
-    #     #   src
-    #     # }
-    #   }
-    # }
     allFile(filter: { relativeDirectory: { eq: "home" } }) {
       edges {
         node {

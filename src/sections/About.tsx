@@ -3,20 +3,17 @@ import styled from 'styled-components';
 import { ANIMATION_DELAY } from '../components/constants';
 import { isMobile } from 'react-device-detect';
 import { graphql, useStaticQuery } from 'gatsby';
-
-interface Props {
-  active: string;
-  addPlace: (index: number, posY: number) => void;
-}
+import Img from 'gatsby-image';
 
 const getImages = graphql`
   query {
-    allFile {
+    allFile(filter: { relativeDirectory: { eq: "about" } }) {
       edges {
         node {
+          name
           childImageSharp {
-            fluid {
-              originalName
+            fluid(maxWidth: 600) {
+              ...GatsbyImageSharpFluid
             }
           }
         }
@@ -25,13 +22,30 @@ const getImages = graphql`
   }
 `;
 
+interface Props {
+  active: string;
+  addPlace: (index: number, posY: number) => void;
+}
+
 export const About: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const ref: any = useRef(null);
 
-  // const {
-  //   allFile: { edges },
-  // } = useStaticQuery(getImages);
+  const {
+    allFile: { edges },
+  } = useStaticQuery(getImages);
+
+  const images = edges.map(
+    ({
+      node: {
+        childImageSharp: { fluid },
+      },
+    }: any) => fluid
+  );
+
+  const img1 = images[0];
+  const img2 = images[1];
+  const img3 = images[2];
 
   useEffect(
     () =>
@@ -169,6 +183,22 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
             ). I like walking outside to arrange my thoughts.. `... still
             working this section!! I wanna play Dungeons & Dragons`
           </p>
+
+          <div className="images">
+            <div className="img img3">
+              <Img fluid={img3} />
+            </div>
+            {!isMobile && (
+              <>
+                <div className="img img1">
+                  <Img fluid={img1} />
+                </div>
+                <div className="img img2">
+                  <Img fluid={img2} />
+                </div>
+              </>
+            )}
+          </div>
         </Notepad>
       </div>
     </Container>
@@ -186,7 +216,6 @@ const Container = styled.section`
     display: flex;
     justify-content: center;
     padding-top: 10px;
-    border: 2px dotted solid;
   }
 
   @media only screen and (min-width: 768px) {
@@ -199,6 +228,7 @@ const Container = styled.section`
 `;
 
 const Notepad = styled.div<{ anim: boolean }>`
+  position: relative;
   width: 96%;
   height: 585px;
   background: #f5f5f5;
@@ -229,6 +259,57 @@ const Notepad = styled.div<{ anim: boolean }>`
     margin: 0 30px;
     padding: 30px;
     box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
+
+    .images {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      /* border: 2px cyan solid; */
+      width: 64px;
+      height: 64px;
+
+      animation: about 4s ease-in-out;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+
+      @keyframes about {
+        from {
+          transform: translateX(-30%);
+        }
+
+        to {
+          transform: translateX(-70%);
+        }
+      }
+    }
+
+    .img {
+      position: absolute;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 300px;
+    }
+
+    .img1 {
+      transition: 3s ease-out;
+      left: -450px;
+      opacity: 0.55;
+      top: ${props => (props.anim ? '300px' : '700px')};
+    }
+
+    .img2 {
+      transition: 3s ease-out;
+      left: 520px;
+      top: ${props => (props.anim ? 0 : '700px')};
+
+      opacity: 0.4;
+    }
+
+    .img3 {
+      transition: 3s ease-in-out;
+      top: ${props => (props.anim ? '-250px' : '0px')};
+      opacity: ${props => (props.anim ? '0.55' : '0')};
+    }
 
     .title {
       text-indent: 1rem;
