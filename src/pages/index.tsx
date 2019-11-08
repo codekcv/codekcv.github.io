@@ -1,9 +1,8 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import '../sections/index.css';
 import styled from 'styled-components';
-import { Swipeable } from 'react-swipeable';
 import { scroll } from '../components/scroll';
-import { SCROLL_DURATION } from '../components/constants';
+import { SCROLL_DURATION, SWIPE_THRESHOLD } from '../components/constants';
 import { Navbar } from '../components/Navbar';
 import { Home } from '../sections/Home';
 import { Skills } from '../sections/Skills';
@@ -17,65 +16,73 @@ import disableScroll from 'disable-scroll';
 
 const App: React.FC = () => {
   const sections: string[] = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
-  const [active, setActive] = useState<string>('Home');
   const [scrolling, setScrolling] = useState<boolean>(false);
+  const [active, setActive] = useState<string>(sections[0]);
   const [place, setPlace] = useState<number[]>([]);
-  const viewport: any = useRef(null);
+  const [swipeDone, setSwipeDone] = useState<boolean>(true);
+  const [swipeX1, setSwipeX1] = useState();
+  const [swipeX2, setSwipeX2] = useState();
   const [vw, setVw] = useState<number>(0);
   const [vh, setVh] = useState<number>(0);
 
-  console.log('calls');
+  const viewport: any = useRef(null);
 
   useEffect(() => {
     isIOS && disableScroll.on();
   }, []);
 
   useLayoutEffect(() => {
-    window.addEventListener('resize', handleResize);
+    const handleResize = () => {
+      setVw(viewport.current.getBoundingClientRect().width / 8);
+      setVh(viewport.current.getBoundingClientRect().height);
+    };
+
     handleResize();
+    window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  const handleResize = () => {
-    setVw(viewport.current.getBoundingClientRect().width);
-    setVh(viewport.current.getBoundingClientRect().height);
-  };
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
     e.deltaY < 0 && handleScroll('left');
     e.deltaY > 0 && handleScroll('right');
   };
 
-  const handleOnKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    e.key === 'ArrowLeft' && handleScroll('left');
-    e.key === 'ArrowRight' && handleScroll('right');
+  const handleSwipe = (type: string, e: React.TouchEvent<HTMLElement>) => {
+    switch (type) {
+      case 'start':
+        setSwipeX1(e.touches[0].clientX);
+        setSwipeX2(e.touches[0].clientX);
+        swipeDone && setSwipeDone(false);
+        break;
+      case 'move':
+        setSwipeX2(e.touches[0].clientX);
+
+        if (Math.abs(swipeX1 - swipeX2) >= SWIPE_THRESHOLD && !swipeDone) {
+          swipeX1 < swipeX2 ? handleScroll('left') : handleScroll('right');
+          setSwipeDone(true);
+        }
+        break;
+      case 'end':
+        swipeX1 !== swipeX2 &&
+          !swipeDone &&
+          (swipeX1 < swipeX2 ? handleScroll('left') : handleScroll('right'));
+    }
   };
 
-  const handleOnSwipe = (target: number) => {
-    target === -1 && handleScroll('left');
-    target === 1 && handleScroll('right');
-  };
-
-  const handleScroll = (direction: string | number) => {
+  const handleScroll = (dir: string | number) => {
     if (scrolling) return;
+    dir === 'left' && active !== sections[0] && (dir = -1);
+    dir === 'right' && active !== sections.slice(-1)[0] && (dir = 1);
 
-    direction === 'left' && active !== sections[0] && (direction = -1);
-    direction === 'right' &&
-      active !== sections.slice(-1)[0] &&
-      (direction = 1);
-
-    if (typeof direction === 'number') {
-      const index = sections.indexOf(active) + direction;
+    if (typeof dir === 'number') {
+      const index = sections.indexOf(active) + dir;
       const pos = vw * index - window.pageXOffset;
 
       if (!isIOS) {
         scroll(window.pageXOffset, pos, SCROLL_DURATION);
         setScrolling(true);
-
-        setTimeout(() => {
-          setActive(sections[index]);
-          setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
-        }, 0);
+        setActive(sections[index]);
+        setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
       }
     }
   };
@@ -87,41 +94,39 @@ const App: React.FC = () => {
       setActive(sections[index]);
     };
 
-    if (isIOS) {
+    if (!isIOS) {
+      jump();
+    } else {
       disableScroll.off();
       setTimeout(() => {
         jump();
         setTimeout(() => disableScroll.on(), 0);
       }, 0);
-    } else {
-      jump();
     }
   };
 
   const addPlace = (index: number, posY: number) => {
-    if (place.length <= index) {
-      setPlace(place => [...place, posY]);
-    } else {
-      setPlace(place => {
-        const arr = [...place];
-        arr.splice(index, 1, posY);
-        return arr;
-      });
-    }
+    place.length <= index
+      ? setPlace(place => [...place, posY])
+      : setPlace(place => {
+          const arr = [...place];
+          arr[index] = posY;
+          return arr;
+        });
   };
 
   return (
-    <Swipeable
-      onSwipedRight={() => handleOnSwipe(-1)}
-      onSwipedLeft={() => handleOnSwipe(1)}
-    >
+    <>
       <SEO section={active} />
       <Navbar handleJump={handleJump} active={active} vw={vw} vh={vh} />
       <Container
         onWheel={handleOnWheel}
-        onKeyDown={handleOnKeyDown}
         tabIndex={0}
         className="content-container"
+        ref={viewport}
+        onTouchStart={e => handleSwipe('start', e)}
+        onTouchMove={e => handleSwipe('move', e)}
+        onTouchEnd={e => handleSwipe('end', e)}
       >
         <Home active={active} addPlace={addPlace} />
         <Skills active={active} addPlace={addPlace} vh={vh} />
@@ -135,9 +140,8 @@ const App: React.FC = () => {
           scrolling={scrolling ? 1 : 0}
           vw={vw}
         />
-        <Viewport ref={viewport} />
       </Container>
-    </Swipeable>
+    </>
   );
 };
 
@@ -145,13 +149,7 @@ const Container = styled.main`
   background: white;
   display: flex;
   width: 800vw;
-  height: 100%;
-`;
-
-const Viewport = styled.div`
-  width: 100vw;
   height: 100vh;
-  opacity: 0;
 `;
 
 export default App;
