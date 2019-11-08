@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import '../sections/index.css';
 import styled from 'styled-components';
 import { Swipeable } from 'react-swipeable';
@@ -24,21 +24,16 @@ const App: React.FC = () => {
   const [vw, setVw] = useState<number>(0);
   const [vh, setVh] = useState<number>(0);
 
+  console.log('calls');
+
   useEffect(() => {
-    handleResize();
-
-    window.addEventListener('resize', handleResize);
-    document.addEventListener('touchstart', () => {}, {
-      capture: true,
-      passive: true,
-    });
-
     isIOS && disableScroll.on();
+  }, []);
 
-    return (() => {
-      window.removeEventListener('resize', handleResize);
-      document.removeEventListener('touchstart', () => {});
-    })();
+  useLayoutEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const handleResize = () => {

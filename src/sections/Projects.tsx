@@ -114,9 +114,8 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
   const DELAY = 100;
   const [delays, setDelays] = useState<number[]>([]);
   const [toggle, setToggle] = useState<boolean>(false);
-  const ref: any = useRef(null);
-
   const [snap, setSnap] = useState(false);
+  const ref: any = useRef(null);
 
   useEffect(() => {
     const delayArr = [];

@@ -43,11 +43,9 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
   });
 
   const getImage = (name: string) => {
-    console.log('WKJLHEgijawehgloiuawheg');
     return logos.find((logo: any) => logo.name === name).fluid;
   };
 
-  // const [frontendSkills, setFrontendSkills] = useState();
   const [skillsArr, setSkillsArr] = useState<any>();
 
   useEffect(() => {
