@@ -2,15 +2,36 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { ANIMATION_DELAY } from '../components/constants';
 import { isMobile } from 'react-device-detect';
+import { graphql, useStaticQuery } from 'gatsby';
 
 interface Props {
   active: string;
   addPlace: (index: number, posY: number) => void;
 }
 
+const getImages = graphql`
+  query {
+    allFile {
+      edges {
+        node {
+          childImageSharp {
+            fluid {
+              originalName
+            }
+          }
+        }
+      }
+    }
+  }
+`;
+
 export const About: React.FC<Props> = ({ active, addPlace }) => {
   const [toggle, setToggle] = useState<boolean>(false);
   const ref: any = useRef(null);
+
+  // const {
+  //   allFile: { edges },
+  // } = useStaticQuery(getImages);
 
   useEffect(
     () =>

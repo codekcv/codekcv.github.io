@@ -212,7 +212,7 @@ const Container = styled.section<{ snap: boolean }>`
   }
 
   .projects-container {
-    max-width: 95%;768
+    max-width: 95%;
   }
 
   @media only screen and (min-width: 768px) {
@@ -229,14 +229,12 @@ const Container = styled.section<{ snap: boolean }>`
     }
 
     .projects-container {
-      /* position: relative; */
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
       width: 80%;
       max-width: 1920;
-      /* top: 60px; */
 
       .select {
         border-radius: 12px;

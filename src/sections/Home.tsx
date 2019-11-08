@@ -105,8 +105,6 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
 
   return (
     <Container id="home" anim={toggle}>
-      {console.log('prof', profileImage)}
-      {console.log('scrol', scrollImage)}
       <div id="placer" ref={ref}>
         <div id="card">
           <Img className="profile" fluid={profileImage} />

@@ -43,153 +43,159 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
   });
 
   const getImage = (name: string) => {
+    console.log('WKJLHEgijawehgloiuawheg');
     return logos.find((logo: any) => logo.name === name).fluid;
   };
 
-  const frontendSkills: Object[] = [
-    {
-      name: 'HTML5',
-      logo: getImage('html5'),
-      link: `https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5`,
-    },
-    {
-      name: 'CSS3',
-      logo: getImage('css3'),
-      link: `https://developer.mozilla.org/en-US/docs/Web/CSS`,
-    },
-    {
-      name: 'JS ES6+',
-      logo: getImage('javascript'),
-      link: `https://developer.mozilla.org/en-US/docs/Web/JavaScript`,
-    },
-    {
-      name: 'TypeScript',
-      logo: getImage('typescript'),
-      link: `https://www.typescriptlang.org/`,
-    },
-    {
-      name: 'React',
-      logo: getImage('reactjs'),
-      link: `https://reactjs.org/`,
-    },
-    {
-      name: 'Redux',
-      logo: getImage('redux'),
-      link: `https://redux.js.org/`,
-    },
-    {
-      name: 'Gatsby',
-      logo: getImage('gatsbyjs'),
-      link: `https://www.gatsbyjs.org/`,
-    },
-    {
-      name: 'Apollo',
-      logo: getImage('apollo'),
-      link: `https://www.apollographql.com/`,
-    },
-    {
-      name: 'D3',
-      logo: getImage('d3'),
-      link: `https://d3js.org/`,
-    },
-  ];
+  // const [frontendSkills, setFrontendSkills] = useState();
+  const [skillsArr, setSkillsArr] = useState<any>();
 
-  const backendSkills: Object[] = [
-    {
-      name: 'NodeJS',
-      logo: getImage('nodejs'),
-      link: `https://nodejs.org/`,
-    },
-    {
-      name: 'RESTful',
-      logo: getImage('rest'),
-      link: `https://restfulapi.net/`,
-    },
-    {
-      name: 'GraphQL',
-      logo: getImage('graphql'),
-      link: `https://graphql.org/`,
-    },
-    {
-      name: 'MongoDB',
-      logo: getImage('mongodb'),
-      link: `http://mongodb.com/`,
-    },
-    {
-      name: 'PostgreSQL',
-      logo: getImage('postgreSQL'),
-      link: `https://www.postgresql.org/`,
-    },
-    {
-      name: 'Express',
-      logo: getImage('express'),
-      link: `https://expressjs.com/`,
-    },
-    {
-      name: 'JWT',
-      logo: getImage('jwt'),
-      link: `https://jwt.io/`,
-    },
-    {
-      name: 'socket.io',
-      logo: getImage('socket'),
-      link: `https://socket.io/`,
-    },
-  ];
+  useEffect(() => {
+    const frontendSkills: Object[] = [
+      {
+        name: 'HTML5',
+        logo: getImage('html5'),
+        link: `https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5`,
+      },
+      {
+        name: 'CSS3',
+        logo: getImage('css3'),
+        link: `https://developer.mozilla.org/en-US/docs/Web/CSS`,
+      },
+      {
+        name: 'JS ES6+',
+        logo: getImage('javascript'),
+        link: `https://developer.mozilla.org/en-US/docs/Web/JavaScript`,
+      },
+      {
+        name: 'TypeScript',
+        logo: getImage('typescript'),
+        link: `https://www.typescriptlang.org/`,
+      },
+      {
+        name: 'React',
+        logo: getImage('reactjs'),
+        link: `https://reactjs.org/`,
+      },
+      {
+        name: 'Redux',
+        logo: getImage('redux'),
+        link: `https://redux.js.org/`,
+      },
+      {
+        name: 'Gatsby',
+        logo: getImage('gatsbyjs'),
+        link: `https://www.gatsbyjs.org/`,
+      },
+      {
+        name: 'Apollo',
+        logo: getImage('apollo'),
+        link: `https://www.apollographql.com/`,
+      },
+      {
+        name: 'D3',
+        logo: getImage('d3'),
+        link: `https://d3js.org/`,
+      },
+    ];
 
-  const environment: Object[] = [
-    {
-      name: 'Pop!_OS',
-      logo: getImage('pop'),
-      link: `https://system76.com/pop`,
-    },
-    {
-      name: 'VSCode',
-      logo: getImage('vscode'),
-      link: `https://code.visualstudio.com/`,
-    },
-    {
-      name: 'Git',
-      logo: getImage('git'),
-      link: `https://git-scm.com/`,
-    },
-    {
-      name: 'GitHub',
-      logo: getImage('github'),
-      link: `https://github.com/christianvillamin`,
-    },
-    {
-      name: 'NPM',
-      logo: getImage('npm'),
-      link: `https://www.npmjs.com/`,
-    },
-    {
-      name: 'Postman',
-      logo: getImage('postman'),
-      link: `https://www.getpostman.com/`,
-    },
-    {
-      name: 'Jest',
-      logo: getImage('jest'),
-      link: `https://jestjs.io/`,
-    },
-    {
-      name: 'ChaiJS',
-      logo: getImage('chai'),
-      link: `https://www.chaijs.com/`,
-    },
-    {
-      name: 'MochaJS',
-      logo: getImage('mocha'),
-      link: `https://mochajs.org/`,
-    },
-  ];
+    const backendSkills: Object[] = [
+      {
+        name: 'NodeJS',
+        logo: getImage('nodejs'),
+        link: `https://nodejs.org/`,
+      },
+      {
+        name: 'RESTful',
+        logo: getImage('rest'),
+        link: `https://restfulapi.net/`,
+      },
+      {
+        name: 'GraphQL',
+        logo: getImage('graphql'),
+        link: `https://graphql.org/`,
+      },
+      {
+        name: 'MongoDB',
+        logo: getImage('mongodb'),
+        link: `http://mongodb.com/`,
+      },
+      {
+        name: 'PostgreSQL',
+        logo: getImage('postgreSQL'),
+        link: `https://www.postgresql.org/`,
+      },
+      {
+        name: 'Express',
+        logo: getImage('express'),
+        link: `https://expressjs.com/`,
+      },
+      {
+        name: 'JWT',
+        logo: getImage('jwt'),
+        link: `https://jwt.io/`,
+      },
+      {
+        name: 'socket.io',
+        logo: getImage('socket'),
+        link: `https://socket.io/`,
+      },
+    ];
 
-  const skillsArr: any[] = [
-    ['Front-End', frontendSkills],
-    ['Back-End', backendSkills],
-    ['System', environment],
-  ];
+    const environment: Object[] = [
+      {
+        name: 'Pop!_OS',
+        logo: getImage('pop'),
+        link: `https://system76.com/pop`,
+      },
+      {
+        name: 'VSCode',
+        logo: getImage('vscode'),
+        link: `https://code.visualstudio.com/`,
+      },
+      {
+        name: 'Git',
+        logo: getImage('git'),
+        link: `https://git-scm.com/`,
+      },
+      {
+        name: 'GitHub',
+        logo: getImage('github'),
+        link: `https://github.com/christianvillamin`,
+      },
+      {
+        name: 'NPM',
+        logo: getImage('npm'),
+        link: `https://www.npmjs.com/`,
+      },
+      {
+        name: 'Postman',
+        logo: getImage('postman'),
+        link: `https://www.getpostman.com/`,
+      },
+      {
+        name: 'Jest',
+        logo: getImage('jest'),
+        link: `https://jestjs.io/`,
+      },
+      {
+        name: 'ChaiJS',
+        logo: getImage('chai'),
+        link: `https://www.chaijs.com/`,
+      },
+      {
+        name: 'MochaJS',
+        logo: getImage('mocha'),
+        link: `https://mochajs.org/`,
+      },
+    ];
+
+    setSkillsArr([
+      ['Front-End', frontendSkills],
+      ['Back-End', backendSkills],
+      ['System', environment],
+    ]);
+  }, []);
 
   const [toggle, setToggle] = useState<boolean>(false);
 
@@ -209,13 +215,9 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
     if (isMobile && vh) {
       const elementHeight = ref.current.getBoundingClientRect().height;
 
-      console.log('p1', elementHeight);
-      console.log('p2', vh);
-
       if (elementHeight >= vh) {
         isOutside = true;
         setSnap(true);
-        console.log('TUEUE');
       }
     }
 
@@ -230,32 +232,33 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
   return (
     <Container id="skills" snap={snap}>
       <div id="main" ref={ref}>
-        {skillsArr.map((skills, index) => (
-          <Card key={`${skills[0]}`} anim={toggle} index={225 * index}>
-            <div className="title-area">
-              <h1>{skills[0]}</h1>
-              <hr />
-            </div>
+        {skillsArr &&
+          skillsArr.map((skills: any, index: any) => (
+            <Card key={`${skills[0]}`} anim={toggle} index={225 * index}>
+              <div className="title-area">
+                <h1>{skills[0]}</h1>
+                <hr />
+              </div>
 
-            <div className="skills-area">
-              {skills[1].map((skill: any) => (
-                <div key={skill.name}>
-                  <a
-                    href={skill.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="logo-container">
-                      <Img fluid={skill.logo} loading="eager" />
+              <div className="skills-area">
+                {skills[1].map((skill: any) => (
+                  <div key={skill.name}>
+                    <a
+                      href={skill.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <div className="logo-container">
+                        <Img fluid={skill.logo} loading="eager" />
 
-                      <div className="skill-name">{skill.name}</div>
-                    </div>
-                  </a>
-                </div>
-              ))}
-            </div>
-          </Card>
-        ))}
+                        <div className="skill-name">{skill.name}</div>
+                      </div>
+                    </a>
+                  </div>
+                ))}
+              </div>
+            </Card>
+          ))}
       </div>
     </Container>
   );
