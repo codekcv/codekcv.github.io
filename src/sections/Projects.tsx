@@ -137,30 +137,24 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
     isOutside
       ? addPlace(2, 25)
       : addPlace(2, ref.current.getBoundingClientRect().top - 30);
-  }, [toggle]);
 
-  useEffect(() => {
-    if (!isMobile) {
-      active === 'Projects'
-        ? !toggle &&
-          (() => {
-            !isMobile &&
-              (() => {
-                const randomizedProjects = [...projects];
-                const randomizedDelays = [...delays];
+    active === 'Projects'
+      ? !toggle &&
+        (() => {
+          !isMobile &&
+            (() => {
+              const randomizedProjects = [...projects];
+              const randomizedDelays = [...delays];
 
-                randomizedProjects.sort(() => Math.random() - 0.5);
-                randomizedDelays.sort(() => Math.random() - 0.5);
+              randomizedProjects.sort(() => Math.random() - 0.5);
+              randomizedDelays.sort(() => Math.random() - 0.5);
 
-                setProjects(randomizedProjects);
-                setDelays(randomizedDelays);
-              })();
-            setTimeout(() => setToggle(true), ANIMATION_DELAY);
-          })()
-        : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION - 100);
-    } else {
-      !toggle && setToggle(true);
-    }
+              setProjects(randomizedProjects);
+              setDelays(randomizedDelays);
+            })();
+          setTimeout(() => setToggle(true), ANIMATION_DELAY);
+        })()
+      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
   }, [active]);
 
   return (
@@ -168,7 +162,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
       <div className="projects-container" ref={ref}>
         {projects.map((project, index) => (
           <div className="select" key={project.title}>
-            <Project anim={toggle ? 1 : 0} delay={delays[index]}>
+            <Project anim={isMobile ? 1 : toggle ? 1 : 0} delay={delays[index]}>
               <h2 className="title">{project.title}</h2>
               <a className="code" href={project.code}>
                 Code

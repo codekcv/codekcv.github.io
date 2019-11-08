@@ -61,21 +61,33 @@ const links = [
 
 const getImages = graphql`
   query {
-    profile: file(relativePath: { eq: "profile.png" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid_withWebp_tracedSVG
+    # profile: file(relativePath: { eq: "profile.png" }) {
+    #   childImageSharp {
+    #     fluid {
+    #       ...GatsbyImageSharpFluid_withWebp_tracedSVG
+    #     }
+    #   }
+    # }
+    # scroll: file(relativePath: { eq: "scroll.png" }) {
+    #   childImageSharp {
+    #     fluid {
+    #       ...GatsbyImageSharpFluid_withWebp_tracedSVG
+    #     }
+    #     # fixed(width: 64) {
+    #     #   src
+    #     # }
+    #   }
+    # }
+    allFile(filter: { relativeDirectory: { eq: "home" } }) {
+      edges {
+        node {
+          name
+          childImageSharp {
+            fluid(maxWidth: 600) {
+              ...GatsbyImageSharpFluid
+            }
+          }
         }
-      }
-    }
-    scroll: file(relativePath: { eq: "scroll.png" }) {
-      childImageSharp {
-        fluid {
-          ...GatsbyImageSharpFluid_withWebp_tracedSVG
-        }
-        # fixed(width: 64) {
-        #   src
-        # }
       }
     }
   }
@@ -83,13 +95,19 @@ const getImages = graphql`
 
 export const Home: React.FC<Props> = ({ active, addPlace }) => {
   const {
-    profile: {
-      childImageSharp: { fluid: profileImage },
-    },
-    scroll: {
-      childImageSharp: { fluid: scrollImage },
-    },
+    allFile: { edges },
   } = useStaticQuery(getImages);
+
+  const images = edges.map(
+    ({
+      node: {
+        childImageSharp: { fluid },
+      },
+    }: any) => fluid
+  );
+
+  const scrollImage = images[0];
+  const profileImage = images[1];
 
   const [toggle, setToggle] = useState<boolean>(true);
   const ref: any = useRef(null);

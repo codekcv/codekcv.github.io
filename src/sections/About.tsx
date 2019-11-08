@@ -36,7 +36,7 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
   useEffect(
     () =>
       addPlace(
-        2,
+        3,
         ref.current.getBoundingClientRect().top - (!isMobile ? 30 : 20)
       ),
     [toggle]

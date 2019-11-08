@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
@@ -33,22 +33,22 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
     logos: { edges },
   } = useStaticQuery(getLogos);
 
-  const logos = edges.map((edge: any) => {
-    const { node } = edge;
-
-    return {
-      name: node.name,
-      fluid: node.childImageSharp.fluid,
-    };
-  });
-
-  const getImage = (name: string) => {
-    return logos.find((logo: any) => logo.name === name).fluid;
-  };
-
   const [skillsArr, setSkillsArr] = useState<any>();
 
   useEffect(() => {
+    const logos = edges.map((edge: any) => {
+      const { node } = edge;
+
+      return {
+        name: node.name,
+        fluid: node.childImageSharp.fluid,
+      };
+    });
+
+    const getImage = (name: string) => {
+      return logos.find((logo: any) => logo.name === name).fluid;
+    };
+
     const frontendSkills: Object[] = [
       {
         name: 'HTML5',
@@ -201,13 +201,31 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
     active === 'Skills'
       ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY)
       : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
+
+    let isOutside = false;
+
+    if (isMobile && vh) {
+      const elementHeight = ref.current.getBoundingClientRect().height;
+
+      if (elementHeight >= vh) {
+        isOutside = true;
+        setSnap(true);
+      }
+    }
+
+    isOutside
+      ? addPlace(1, 25)
+      : addPlace(
+          1,
+          ref.current.getBoundingClientRect().top - (!isMobile ? 30 : 12)
+        );
   }, [active]);
 
   const ref: any = useRef(null);
 
   const [snap, setSnap] = useState(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     let isOutside = false;
 
     if (isMobile && vh) {

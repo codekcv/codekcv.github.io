@@ -45,14 +45,15 @@ export const FlyingText: React.FC<Props> = ({
   }, [vw]);
 
   useEffect(() => {
-    setPosY(place);
-  }, [place]);
-
-  useEffect(() => {
     setPosX(vw * index + vw / 2);
     setAnim(anim => !anim);
     anim ? setText1(texts[index]) : setText2(texts[index]);
   }, [active]);
+
+  useEffect(() => {
+    console.log(place);
+    setPosY(place);
+  }, [place]);
 
   return (
     <Container
@@ -80,6 +81,8 @@ interface ContainerProps {
   active: boolean;
 }
 
+// props.scrolling ? (isMobile ? '0.25s' : '0.35s') : '0'}
+
 const Container = styled.div<ContainerProps>`
   position: absolute;
   display: flex;
@@ -90,7 +93,8 @@ const Container = styled.div<ContainerProps>`
   top: ${props => props.posY + 'px'};
   left: ${props => props.posX + 'px'};
   transform: translateX(-50%);
-  transition: ${props => (props.scrolling ? '0.35s' : '0')} ease-in-out;
+  transition: ${props =>
+    props.scrolling ? (isMobile ? '0.25s linear' : '0.35s ease-in-out') : '0s'};
 
   h1 {
     position: absolute;
