@@ -14,7 +14,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
     {
       title: 'ChristianVillamin.github.io',
       description: 'My personal portfolio website.',
-      technologies: ['TypeScript', 'Gatsby', 'React', 'GraphQL', 'Styled'],
+      technologies: ['TypeScript', 'Gatsby', 'React', 'GraphQL'],
       code: 'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
       demo: 'http://christianvillamin.github.io',
     },
@@ -44,6 +44,36 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
       demo: 'https://cv-stock.glitch.me/',
     },
     {
+      title: 'Podomoro Clock',
+      description: 'A productivity app for study and health.',
+      technologies: ['ES6+', 'React', 'Hooks'],
+      code: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
+      demo: 'https://codepen.io/ChristianVillamin/full/ydjajy',
+    },
+    {
+      title: 'Tribute Page',
+      description: 'A tribute to Walter White from Breaking Bad.',
+      technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
+      code: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+      demo: 'https://codepen.io/ChristianVillamin/full/wLwQGP',
+    },
+    {
+      title: 'Issue Tracker',
+      description: 'Submit issues of projects.',
+      technologies: ['MongoDB', 'Node', 'Helmet', 'Unit Testing'],
+      code:
+        'https://github.com/ChristianVillamin/boilerplate-project-issuetracker',
+      demo: 'https://cv-tracker.glitch.me/',
+    },
+    {
+      title: 'A URL Shorterner Microservice.',
+      description: 'Transforms long links into a short one.',
+      technologies: ['ES6+', 'MongoDB', 'Node', 'Express'],
+      code:
+        'https://github.com/ChristianVillamin/boilerplate-project-urlshortener',
+      demo: 'http://cv-url.glitch.me/',
+    },
+    {
       title: 'Mini-Piano',
       description: 'A virtual 12-keys piano. (Includes 3 songs!)',
       technologies: ['ES6+', 'React', 'Hooks'],
@@ -57,45 +87,25 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
       code: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
       demo: 'https://codepen.io/ChristianVillamin/full/rEdVXo',
     },
-    {
-      title: 'Podomoro Clock',
-      description: 'A productivity app for study and health.',
-      technologies: ['ES6+', 'React', 'Hooks'],
-      code: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
-      demo: 'https://codepen.io/ChristianVillamin/full/ydjajy',
-    },
 
-    {
-      title: 'Tribute Page',
-      description: 'A tribute to Walter White from Breaking Bad.',
-      technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
-      code: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
-      demo: 'https://codepen.io/ChristianVillamin/full/wLwQGP',
-    },
     {
       title: 'Biplane Landing Page',
       description: 'A fun page I made for my likes of biplanes.',
       technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
-      code: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
-      demo: 'https://codepen.io/ChristianVillamin/full/wLwQGP',
+      code: 'https://codepen.io/ChristianVillamin/pen/KjwLdp',
+      demo: 'https://codepen.io/ChristianVillamin/full/KjwLdp',
     },
-    {
-      title: 'Technical Documentation',
-      description: 'A short HTML documentation page.',
-      technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
-      code: 'https://codepen.io/ChristianVillamin/pen/PrqegB',
-      demo: 'https://codepen.io/ChristianVillamin/full/PrqegB',
-    },
+
     {
       title: 'Treemap Diagram',
-      description: 'A short HTML documentation page.',
+      description: 'A data visualization, using treemap design.',
       technologies: ['JavaScript', 'D3'],
       code: 'https://codepen.io/ChristianVillamin/pen/rEgVPp',
       demo: 'https://codepen.io/ChristianVillamin/full/rEgVPp',
     },
     {
       title: 'Choropleth Map',
-      description: 'A short HTML documentation page.',
+      description: 'A data visualization, using choropleth design.',
       technologies: ['JavaScript', 'D3'],
       code: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
       demo: 'https://codepen.io/ChristianVillamin/full/pXBLXq',
@@ -113,8 +123,6 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
     const delayArr = [];
     for (let i = 0; i < projects.length; i++) delayArr.push(DELAY * i);
     setDelays(delayArr);
-
-    //===
   }, []);
 
   useEffect(() => {

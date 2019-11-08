@@ -68,7 +68,7 @@ const getImages = graphql`
         }
       }
     }
-    scroll: file(relativePath: { eq: "wtfman.png" }) {
+    scroll: file(relativePath: { eq: "scroll.png" }) {
       childImageSharp {
         fluid {
           ...GatsbyImageSharpFluid_withWebp_tracedSVG
