@@ -36,8 +36,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
     },
     {
       title: 'Stock Price Checker',
-      description:
-        'A full stack app. Fetches from an API to get latest stock prides..',
+      description: 'Fetches from an API to get latest stock prices.',
       technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Axios'],
       code:
         'https://github.com/ChristianVillamin/boilerplate-project-stockchecker',
@@ -213,7 +212,7 @@ const Container = styled.section<{ snap: boolean }>`
   }
 
   .projects-container {
-    max-width: 95%;
+    max-width: 95%;768
   }
 
   @media only screen and (min-width: 768px) {
@@ -230,11 +229,14 @@ const Container = styled.section<{ snap: boolean }>`
     }
 
     .projects-container {
+      /* position: relative; */
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: center;
       width: 80%;
+      max-width: 1920;
+      /* top: 60px; */
 
       .select {
         border-radius: 12px;
@@ -254,6 +256,8 @@ const Project = styled.div<{ anim: number; delay: number }>`
   margin: 6px 6px 18px 6px;
   /* padding: 6px; */
   border-radius: 6px;
+
+  /* border: 1px blue solid; */
 
   transition: ${props => (props.anim ? '0.75s' : 0)} ease;
   transition-delay: ${props => (props.anim ? props.delay + 'ms' : 0)};
@@ -284,15 +288,15 @@ const Project = styled.div<{ anim: number; delay: number }>`
 
   @media only screen and (min-width: 768px) {
     margin: 24px;
-    padding: 16px;
+    /* padding: 16px; */
     border-radius: 6px;
 
     .title {
-      font-size: 1rem;
+      font-size: 1.1vw;
     }
 
     .description {
-      font-size: 1rem;
+      font-size: 1vw;
       margin: 4px 0;
     }
 
@@ -302,7 +306,7 @@ const Project = styled.div<{ anim: number; delay: number }>`
       border-radius: 8px;
       margin: 3px;
       padding: 3px 6px;
-      font-size: 16px;
+      font-size: 0.85vw;
     }
   }
 `;
