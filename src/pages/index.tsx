@@ -24,7 +24,6 @@ const App: React.FC = () => {
   const [swipeX2, setSwipeX2] = useState();
   const [vw, setVw] = useState<number>(0);
   const [vh, setVh] = useState<number>(0);
-
   const viewport: any = useRef(null);
 
   useEffect(() => {

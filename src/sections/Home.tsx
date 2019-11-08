@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
+import { SCROLL_DURATION } from '../components/constants';
+import { isMobile } from 'react-device-detect';
 import {
   FaTwitter,
   FaYoutube,
@@ -12,8 +14,6 @@ import {
   FaAngleLeft,
   FaAngleRight,
 } from 'react-icons/fa';
-import { SCROLL_DURATION } from '../components/constants';
-import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
@@ -135,7 +135,6 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
               </>
             )}
           </div>
-          {/*  */}
         </div>
       </div>
     </Container>
@@ -177,9 +176,9 @@ const Container = styled.section<{ anim: boolean }>`
       }
 
       .information {
-        background: mediumaquamarine;
-        background: CadetBlue;
+        /* background: mediumaquamarine; */
         /* background: mediumslateblue; */
+        background: CadetBlue;
         color: white;
         text-align: center;
 
@@ -197,7 +196,6 @@ const Container = styled.section<{ anim: boolean }>`
           color: gainsboro;
           text-shadow: 2px 2px darkslategray;
           padding: 3px 8px;
-          /* border: 1px dashed darkcyan; */
           border-radius: 8px;
           background: rgba(0, 0, 0, 0.25);
           width: 100%;
@@ -227,16 +225,21 @@ const Container = styled.section<{ anim: boolean }>`
       top: -3px;
     }
 
-    animation: anim 2s ease;
+    animation: anim 2s ease-in-out;
     animation-iteration-count: infinite;
     animation-direction: alternate;
 
     @keyframes anim {
-      from {
+      0% {
         transform: ${isMobile && 'translateX(-40%)'};
+        opacity: 0.2;
+      }
+
+      50% {
         opacity: 0.6;
       }
-      to {
+
+      100% {
         transform: ${isMobile && 'translateX(-60%)'};
         opacity: 0.2;
       }
@@ -263,7 +266,6 @@ const Container = styled.section<{ anim: boolean }>`
           h2 {
             margin-top: 200px;
             font-size: 2rem;
-            /* border: 2px dotted mediumaquamarine; */
             text-shadow: 2px 4px darkslategray;
           }
         }

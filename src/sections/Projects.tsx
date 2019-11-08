@@ -140,23 +140,27 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
   }, [toggle]);
 
   useEffect(() => {
-    active === 'Projects'
-      ? !toggle &&
-        (() => {
-          !isMobile &&
-            (() => {
-              const randomizedProjects = [...projects];
-              const randomizedDelays = [...delays];
+    if (!isMobile) {
+      active === 'Projects'
+        ? !toggle &&
+          (() => {
+            !isMobile &&
+              (() => {
+                const randomizedProjects = [...projects];
+                const randomizedDelays = [...delays];
 
-              randomizedProjects.sort(() => Math.random() - 0.5);
-              randomizedDelays.sort(() => Math.random() - 0.5);
+                randomizedProjects.sort(() => Math.random() - 0.5);
+                randomizedDelays.sort(() => Math.random() - 0.5);
 
-              setProjects(randomizedProjects);
-              setDelays(randomizedDelays);
-            })();
-          setTimeout(() => setToggle(true), ANIMATION_DELAY);
-        })()
-      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION - 100);
+                setProjects(randomizedProjects);
+                setDelays(randomizedDelays);
+              })();
+            setTimeout(() => setToggle(true), ANIMATION_DELAY);
+          })()
+        : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION - 100);
+    } else {
+      !toggle && setToggle(true);
+    }
   }, [active]);
 
   return (
@@ -251,17 +255,12 @@ const Container = styled.section<{ snap: boolean }>`
 const Project = styled.div<{ anim: number; delay: number }>`
   background: white;
   margin: 6px 6px 18px 6px;
-  /* padding: 6px; */
   border-radius: 6px;
-
-  /* border: 1px blue solid; */
 
   transition: ${props => (props.anim ? '0.75s' : 0)} ease;
   transition-delay: ${props => (props.anim ? props.delay + 'ms' : 0)};
   transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
-
-  /* border: 1px pink solid; */
 
   .title {
     font-size: 0.95rem;

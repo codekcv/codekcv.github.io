@@ -200,7 +200,7 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
   useEffect(() => {
     active === 'Skills'
       ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY)
-      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION - 100);
+      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
   }, [active]);
 
   const ref: any = useRef(null);
