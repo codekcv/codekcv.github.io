@@ -291,23 +291,22 @@ const Notepad = styled.div<{ anim: boolean }>`
     }
 
     .img1 {
-      transition: 3s ease-out;
+      transition: 1.5s ease-out;
       left: -450px;
-      opacity: 0.55;
-      top: ${props => (props.anim ? '300px' : '700px')};
+      top: ${props => (props.anim ? '300px' : '350px')};
+      opacity: ${props => (props.anim ? '0.55' : '0')};
     }
 
     .img2 {
-      transition: 3s ease-out;
+      transition: 1.5s ease-out;
       left: 520px;
-      top: ${props => (props.anim ? 0 : '700px')};
-
-      opacity: 0.4;
+      top: ${props => (props.anim ? 0 : '150px')};
+      opacity: ${props => (props.anim ? '0.4' : '0')};
     }
 
     .img3 {
-      transition: 3s ease-in-out;
-      top: ${props => (props.anim ? '-250px' : '0px')};
+      transition: 1.5s ease-in-out;
+      top: ${props => (props.anim ? '-250px' : '-150px')};
       opacity: ${props => (props.anim ? '0.55' : '0')};
     }
 
