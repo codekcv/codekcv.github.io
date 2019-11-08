@@ -24,12 +24,13 @@ const getImages = graphql`
 
 interface Props {
   active: string;
-  addPlace: (index: number, posY: number) => void;
+  aboutRef: React.MutableRefObject<any>;
+  vh: number;
+  snap: boolean;
 }
 
-export const About: React.FC<Props> = ({ active, addPlace }) => {
+export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
   const [toggle, setToggle] = useState<boolean>(false);
-  const ref: any = useRef(null);
 
   const {
     allFile: { edges },
@@ -47,25 +48,21 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
   const img2 = images[1];
   const img3 = images[2];
 
-  useEffect(
-    () =>
-      addPlace(
-        3,
-        ref.current.getBoundingClientRect().top - (!isMobile ? 30 : 20)
-      ),
-    [toggle]
-  );
-
   useEffect(() => {
     active === 'About'
       ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY + 125)
       : toggle && setToggle(false);
   }, [active]);
 
+  // let y = snap && aboutRef.current.getBoundingClientRect().top;
+  // let y = snap && vh - 30;
+
+  console.log(3, snap);
+
   return (
     <Container>
-      <div className="notepad-container" ref={ref}>
-        <Notepad anim={toggle}>
+      <div className="notepad-container" ref={aboutRef}>
+        <Notepad anim={toggle} snap={snap && active === 'About'} vh={vh}>
           <h1 className="title">About Me</h1>
           <p>
             I'm Christian Villamin, a self-taught web developer. I specialize in
@@ -185,13 +182,13 @@ export const About: React.FC<Props> = ({ active, addPlace }) => {
           </p>
 
           <div className="images">
-            <div className="img img3">
-              <Img fluid={img3} />
+            <div className="img img1">
+              <Img fluid={img1} />
             </div>
             {!isMobile && (
               <>
-                <div className="img img1">
-                  <Img fluid={img1} />
+                <div className="img img3">
+                  <Img fluid={img3} />
                 </div>
                 <div className="img img2">
                   <Img fluid={img2} />
@@ -227,10 +224,10 @@ const Container = styled.section`
   }
 `;
 
-const Notepad = styled.div<{ anim: boolean }>`
+const Notepad = styled.div<{ anim: boolean; snap: boolean; vh: number }>`
   position: relative;
   width: 96%;
-  height: 585px;
+  height: ${props => (props.snap ? props.vh - 60 + 'px' : '585px')};
   background: #f5f5f5;
   box-shadow: 0 0 30px -10px rgba(150, 170, 180, 1);
   transition: 0.5s ease;

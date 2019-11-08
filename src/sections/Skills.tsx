@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
 import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
-import { isMobile } from 'react-device-detect';
 
 const getLogos = graphql`
   query {
@@ -24,11 +23,11 @@ const getLogos = graphql`
 
 interface Props {
   active: string;
-  addPlace: (index: number, posY: number) => void;
-  vh: number;
+  skillsRef: React.MutableRefObject<any>;
+  snap: boolean;
 }
 
-export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
+export const Skills: React.FC<Props> = ({ active, skillsRef, snap }) => {
   const {
     logos: { edges },
   } = useStaticQuery(getLogos);
@@ -201,53 +200,11 @@ export const Skills: React.FC<Props> = ({ active, addPlace, vh }) => {
     active === 'Skills'
       ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY)
       : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
-
-    let isOutside = false;
-
-    if (isMobile && vh) {
-      const elementHeight = ref.current.getBoundingClientRect().height;
-
-      if (elementHeight >= vh) {
-        isOutside = true;
-        setSnap(true);
-      }
-    }
-
-    isOutside
-      ? addPlace(1, 25)
-      : addPlace(
-          1,
-          ref.current.getBoundingClientRect().top - (!isMobile ? 30 : 12)
-        );
   }, [active]);
-
-  const ref: any = useRef(null);
-
-  const [snap, setSnap] = useState(false);
-
-  useLayoutEffect(() => {
-    let isOutside = false;
-
-    if (isMobile && vh) {
-      const elementHeight = ref.current.getBoundingClientRect().height;
-
-      if (elementHeight >= vh) {
-        isOutside = true;
-        setSnap(true);
-      }
-    }
-
-    isOutside
-      ? addPlace(1, 25)
-      : addPlace(
-          1,
-          ref.current.getBoundingClientRect().top - (!isMobile ? 30 : 12)
-        );
-  }, [toggle]);
 
   return (
     <Container id="skills" snap={snap}>
-      <div id="main" ref={ref}>
+      <div id="main" ref={skillsRef}>
         {skillsArr &&
           skillsArr.map((skills: any, index: any) => (
             <Card key={`${skills[0]}`} anim={toggle} index={225 * index}>

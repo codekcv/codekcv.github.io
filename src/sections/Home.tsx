@@ -15,11 +15,6 @@ import {
   FaAngleRight,
 } from 'react-icons/fa';
 
-interface Props {
-  active: string;
-  addPlace: (index: number, posY: number) => void;
-}
-
 const links = [
   {
     name: 'GitHub',
@@ -76,7 +71,12 @@ const getImages = graphql`
   }
 `;
 
-export const Home: React.FC<Props> = ({ active, addPlace }) => {
+interface Props {
+  active: string;
+  homeRef: React.MutableRefObject<any>;
+}
+
+export const Home: React.FC<Props> = ({ active, homeRef }) => {
   const {
     allFile: { edges },
   } = useStaticQuery(getImages);
@@ -93,23 +93,16 @@ export const Home: React.FC<Props> = ({ active, addPlace }) => {
   const profileImage = images[1];
 
   const [toggle, setToggle] = useState<boolean>(true);
-  const ref: any = useRef(null);
-
-  useEffect(() => {
-    addPlace(
-      0,
-      ref.current.getBoundingClientRect().top + (isMobile ? 210 : 350)
-    );
-  }, [toggle]);
 
   active === 'Home' ? !toggle && setToggle(true) : toggle && setToggle(false);
 
   return (
     <Container id="home" anim={toggle}>
-      <div id="placer" ref={ref}>
+      <div id="placer">
         <div id="card">
           <Img className="profile" fluid={profileImage} />
           <div className="information">
+            <div className="flying-text" ref={homeRef} />
             <h2>{`I build web sites & web applications.`}</h2>
             <div className="icons">
               {links.map(link => (
@@ -190,6 +183,11 @@ const Container = styled.section<{ anim: boolean }>`
         border: 5px dashed white;
         box-shadow: 0 0 5px dimgray;
 
+        .flying-text {
+          position: relative;
+          top: 120px;
+        }
+
         h2 {
           margin-top: 120px;
           font-size: 1rem;
@@ -263,6 +261,10 @@ const Container = styled.section<{ anim: boolean }>`
           margin-top: -150px;
           border: 5px dashed white;
           border-radius: 60px;
+
+          .flying-text {
+            top: 175px;
+          }
 
           h2 {
             margin-top: 200px;

@@ -5,11 +5,11 @@ import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
-  addPlace: (index: number, posY: number) => void;
-  vh: number;
+  projectsRef: React.MutableRefObject<any>;
+  snap: boolean;
 }
 
-export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
+export const Projects: React.FC<Props> = ({ active, projectsRef, snap }) => {
   const colors = [
     {
       'ES6+': 'orange',
@@ -125,8 +125,6 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
   const DELAY = 100;
   const [delays, setDelays] = useState<number[]>([]);
   const [toggle, setToggle] = useState<boolean>(false);
-  const [snap, setSnap] = useState(false);
-  const ref: any = useRef(null);
 
   useEffect(() => {
     const delayArr = [];
@@ -135,20 +133,6 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
   }, []);
 
   useEffect(() => {
-    let isOutside = false;
-
-    if (isMobile) {
-      const elementHeight = ref.current.getBoundingClientRect().height;
-      if (elementHeight >= vh - 60) {
-        isOutside = true;
-        setSnap(true);
-      }
-    }
-
-    isOutside
-      ? addPlace(2, 25)
-      : addPlace(2, ref.current.getBoundingClientRect().top - 30);
-
     active === 'Projects'
       ? !toggle &&
         (() => {
@@ -170,7 +154,7 @@ export const Projects: React.FC<Props> = ({ active, addPlace, vh }) => {
 
   return (
     <Container id="projects" snap={snap}>
-      <div className="projects-container" ref={ref}>
+      <div className="projects-container" ref={projectsRef}>
         {projects.map((project, index) => (
           <div className="select" key={project.title}>
             <Project anim={isMobile ? 1 : toggle ? 1 : 0} delay={delays[index]}>

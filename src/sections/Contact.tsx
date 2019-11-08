@@ -5,25 +5,19 @@ import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
-  addPlace: (index: number, posY: number) => void;
+  contactRef: React.MutableRefObject<any>;
 }
 
-export const Contact: React.FC<Props> = ({ active, addPlace }) => {
+export const Contact: React.FC<Props> = ({ active, contactRef }) => {
   const [toggle, setToggle] = useState<boolean>(false);
 
   active === 'Contact'
     ? !toggle && setToggle(true)
     : toggle && setToggle(false);
 
-  const ref: any = useRef(null);
-
-  useEffect(() => addPlace(4, ref.current.getBoundingClientRect().top - 30), [
-    toggle,
-  ]);
-
   return (
     <Container id="contact" anim={toggle}>
-      <div className="outer" ref={ref}>
+      <div className="outer" ref={contactRef}>
         <div className="contact-container">
           <form
             action="https://formspree.io/ChristianVillamin31@gmail.com"

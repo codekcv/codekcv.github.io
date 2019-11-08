@@ -5,22 +5,26 @@ import { isMobile } from 'react-device-detect';
 interface Props {
   sections: string[];
   active: string;
-  place: number[];
   scrolling: number;
   vw: number;
+  vh: number;
+  refs: React.MutableRefObject<any>[];
+  setSnap: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const FlyingText: React.FC<Props> = ({
   sections,
   active,
-  place,
   scrolling,
   vw,
+  vh,
+  refs,
+  setSnap,
 }) => {
   const [text1, setText1] = useState<string>('Christian Villamin');
   const [text2, setText2] = useState<string>('');
   const [posX, setPosX] = useState<number>(0);
-  const [posY, setPosY] = useState<number[]>([]);
+  const [posY, setPosY] = useState<number>(0);
   const [anim, setAnim] = useState<boolean>(false);
   const [sizes, setSizes] = useState<number[]>([isMobile ? 8 : 3.5]);
 
@@ -33,6 +37,22 @@ export const FlyingText: React.FC<Props> = ({
   ];
 
   const index = sections.indexOf(active);
+
+  useEffect(() => {
+    const activeRef = refs[index];
+    let newY = activeRef.current.getBoundingClientRect().top - 30;
+
+    if (isMobile && activeRef.current) {
+      if (newY < 30) {
+        newY = 30;
+        setSnap(true);
+      } else {
+        setSnap(false);
+      }
+    }
+
+    setPosY(newY);
+  }, [active]);
 
   useEffect(() => {
     setPosX(vw / 2);
@@ -50,16 +70,11 @@ export const FlyingText: React.FC<Props> = ({
     anim ? setText1(texts[index]) : setText2(texts[index]);
   }, [active]);
 
-  useEffect(() => {
-    console.log(place);
-    setPosY(place);
-  }, [place]);
-
   return (
     <Container
       index={index}
       posX={posX}
-      posY={posY[index]}
+      posY={posY}
       anim={anim ? 1 : 0}
       sizes={sizes}
       scrolling={scrolling}
@@ -81,8 +96,6 @@ interface ContainerProps {
   active: boolean;
 }
 
-// props.scrolling ? (isMobile ? '0.25s' : '0.35s') : '0'}
-
 const Container = styled.div<ContainerProps>`
   position: absolute;
   display: flex;
@@ -92,7 +105,7 @@ const Container = styled.div<ContainerProps>`
   width: 100%;
   top: ${props => props.posY + 'px'};
   left: ${props => props.posX + 'px'};
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%);
   transition: ${props =>
     props.scrolling ? (isMobile ? '0.25s linear' : '0.35s ease-in-out') : '0s'};
 
