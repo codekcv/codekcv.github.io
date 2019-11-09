@@ -110,7 +110,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             in 2012 to build basic desktop app. In 2013, I joined a local
             programming competition that deals with solving algorithms and{' '}
             <a
-              href="https://christianvillamin.github.io/competition.png"
+              href="https://christianvillamin.github.io/competition.jpg"
               target="_blank"
               rel="noopener noreferrer"
             >
