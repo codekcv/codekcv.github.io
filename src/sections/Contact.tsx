@@ -9,14 +9,8 @@ interface Props {
 export const Contact: React.FC<Props> = ({ active, contactRef }) => {
   const [toggle, setToggle] = useState<boolean>(false);
 
-  useEffect(() => {
-    active === 'Contact'
-      ? !toggle && setToggle(true)
-      : toggle && setToggle(false);
-  }, [active]);
-
   return (
-    <Container id="contact" anim={toggle}>
+    <Container id="contact">
       <div className="outer" ref={contactRef}>
         <div className="contact-container">
           <form
@@ -71,7 +65,7 @@ export const Contact: React.FC<Props> = ({ active, contactRef }) => {
   );
 };
 
-const Container = styled.div<{ anim: boolean }>`
+const Container = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;

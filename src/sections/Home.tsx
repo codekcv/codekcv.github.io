@@ -91,14 +91,9 @@ export const Home: React.FC<Props> = ({ active, homeRef }) => {
 
   const scrollImage = images[0];
   const profileImage = images[1];
-  const [toggle, setToggle] = useState<boolean>(true);
-
-  useEffect(() => {
-    active === 'Home' ? !toggle && setToggle(true) : toggle && setToggle(false);
-  }, [active]);
 
   return (
-    <Container id="home" anim={toggle}>
+    <Container id="home">
       <div id="placer">
         <div id="card">
           <Img className="profile" fluid={profileImage} />
@@ -136,7 +131,7 @@ export const Home: React.FC<Props> = ({ active, homeRef }) => {
   );
 };
 
-const Container = styled.section<{ anim: boolean }>`
+const Container = styled.section`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -153,9 +148,6 @@ const Container = styled.section<{ anim: boolean }>`
     width: 100%;
 
     #card {
-      transition-delay: ${props =>
-        props.anim ? 0 : SCROLL_DURATION - 10 + 'ms'};
-      opacity: ${props => (props.anim ? 1 : 0)};
       width: 90%;
 
       .profile {
