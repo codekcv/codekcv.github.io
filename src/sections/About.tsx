@@ -159,7 +159,8 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             </a>{' '}
             to make 1st person games, although nothing serious, just for fun and
             messing around with my friends. I did learn maths in 3D, so that's
-            nice.
+            nice. This year, 2019, I'm stepping in for good in the wonderful
+            world of web development and beyond.
           </p>
           <br />
           {/* ========================================== */}
@@ -178,16 +179,28 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
           {/* ========================================== */}
           <h1 className="title">Hobbies & Interests</h1>
           <p>
-            I enjoy reading fantasy & mystery books. I love playing piano(
+            I enjoy reading fantasy & mystery books. I'm learning & playing
+            piano(
             <a
               href="https://www.youtube.com/watch?v=Cj82u5rjy3Y"
               target="_blank"
               rel="noopener noreferrer"
             >
-              Watch me play this piece, get dem feels
+              feels play 🙊
             </a>
-            ). I like walking outside to arrange my thoughts.. `... still
-            working this section!! I wanna play Dungeons & Dragons`
+            |
+            <a
+              href="https://www.youtube.com/watch?v=kriH9XzPF4Q"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              blindfold play 🙈
+            </a>
+            ). I like walking around outside to arrange my thoughts. I drink
+            your average joe coffee everyday. I want to play Dungeons & Dragons.
+            I'm very interested to learn AI/Machine Learning when I get time. I
+            love Silicon Valley, the actual place and the TV show. I don't play
+            any computer games anymore.
           </p>
 
           <div className="images">
@@ -219,9 +232,10 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
               >
                 freeCodeCamp
               </a>
-              . I finished its curriculum in 3 months that has an estimated
-              course work of 1800 hours. I solved 800+ challenges and built a
-              total of 30 projects I submitted to get my certifications.
+              . I finished its curriculum that has an estimated course work of
+              1800 hours. I solved 800+ challenges and built a total of 30
+              projects I submitted to get my certifications, all in the span of
+              3 months.
             </p>
             <br />
             <p>
@@ -293,10 +307,61 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             </p>
             <br />
             <p>
+              Having programming background, learning JavaScript(ES6+/Algos/DOM
+              Manipulations) was a breeze. Meanwhile, HTML5 & CSS3 are much
+              easier languages to learn from having that standpoint.
+            </p>
+            <br />
+            <p>
               After that, I focused my learning on the latest and greatest web
-              technologies; ReactJS for the client-side, and NodeJS for the
-              server. From there, the skills expanded to an environment
-              surrounding those two primary technologies.
+              technologies;{' '}
+              <a
+                href="https://reactjs.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ReactJS
+              </a>{' '}
+              for the client-side, and{' '}
+              <a
+                href="https://nodejs.org/en/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                NodeJS
+              </a>{' '}
+              for the server-side. From there, the skills expanded to an
+              environment surrounding those two primary technologies. I'm strong
+              in MERN stack.
+            </p>
+            <br />
+            <p>
+              I created a{' '}
+              <a
+                href="https://twitter.com/villamin_c"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Twitter
+              </a>{' '}
+              &{' '}
+              <a
+                href="https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                YouTube
+              </a>{' '}
+              account as a documentation tool for my progress. Joining the{' '}
+              <a
+                href="https://www.100daysofcode.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                100DaysOfCode
+              </a>{' '}
+              challenge has been a huge help to my learning, as I was able to
+              relate to many people who are also learning web development.
             </p>
           </Notepad>
         )}
