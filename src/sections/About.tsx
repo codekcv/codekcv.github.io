@@ -60,8 +60,8 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
         <Notepad anim={toggle} snap={snap && active === 'About'} vh={vh}>
           <h1 className="title">About Me</h1>
           <p>
-            I'm Christian Villamin, a self-taught web developer. I specialize in
-            reactjs and its ecosystem.
+            I'm Christian Villamin, a web developer. I specialize in ReactJS &
+            NodeJS. I love JavaScript, open source, and learning new things.
           </p>
           <br />
 
@@ -107,8 +107,8 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             >
               Java
             </a>{' '}
-            in 2012 to build basic desktop app. In 2013, I joined a local
-            programming competition that deals with solving algorithms and{' '}
+            in 2012 to build basic desktop app. In 2013, I joined a programming
+            competition that deals with solving algorithms and{' '}
             <a
               href="https://christianvillamin.github.io/competition.jpg"
               target="_blank"
@@ -163,18 +163,6 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             world of web development and beyond.
           </p>
           <br />
-          {/* ========================================== */}
-          {isMobile && (
-            <>
-              <h1 className="title">Learning Web Development</h1>
-              <p>
-                I started to learn in mid May of 2019. I had great interest in
-                making my own websites ever since I entered the internet.
-                `&lt;working&gt; fCC, Traversy, 100DaysOfCode...`
-              </p>
-              <br />
-            </>
-          )}
 
           {/* ========================================== */}
           <h1 className="title">Hobbies & Interests</h1>
@@ -234,77 +222,84 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
               </a>
               . I finished its curriculum that has an estimated course work of
               1800 hours. I solved 800+ challenges and built a total of 30
-              projects I submitted to get my certifications, all in the span of
-              3 months.
+              projects of my own work, passing all unit testing, and submitted
+              to get my certifications. All in the span of{' '}
+              <a
+                href="https://www.freecodecamp.org/christianvillamin"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                3 months
+              </a>
+              .
             </p>
             <br />
-            <p>
-              <ul>
-                <li>
-                  <a
-                    href="https://www.freecodecamp.org/certification/christianvillamin/responsive-web-design"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Responsive Web Design Certification
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.freecodecamp.org/certification/christianvillamin/javascript-algorithms-and-data-structures"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    JavaScript Algorithms and Data Structures Certification
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.freecodecamp.org/certification/christianvillamin/front-end-libraries"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Front End Libraries Certification
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.freecodecamp.org/certification/christianvillamin/data-visualization"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Data Visualization Certification
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.freecodecamp.org/certification/christianvillamin/apis-and-microservices"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    APIs and Microservices Certification
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.freecodecamp.org/certification/christianvillamin/information-security-and-quality-assurance"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Information Security and Quality Assurance Certification
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://www.freecodecamp.org/certification/christianvillamin/full-stack"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Full Stack Certification
-                  </a>
-                </li>
-              </ul>
-            </p>
+
+            <ul>
+              <li>
+                <a
+                  href="https://www.freecodecamp.org/certification/christianvillamin/responsive-web-design"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Responsive Web Design Certification
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.freecodecamp.org/certification/christianvillamin/javascript-algorithms-and-data-structures"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  JavaScript Algorithms and Data Structures Certification
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.freecodecamp.org/certification/christianvillamin/front-end-libraries"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Front End Libraries Certification
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.freecodecamp.org/certification/christianvillamin/data-visualization"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Data Visualization Certification
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.freecodecamp.org/certification/christianvillamin/apis-and-microservices"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  APIs and Microservices Certification
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.freecodecamp.org/certification/christianvillamin/information-security-and-quality-assurance"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Information Security and Quality Assurance Certification
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.freecodecamp.org/certification/christianvillamin/full-stack"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Full Stack Certification
+                </a>
+              </li>
+            </ul>
             <br />
             <p>
               Having programming background, learning JavaScript(ES6+/Algos/DOM
@@ -361,7 +356,8 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
                 100DaysOfCode
               </a>{' '}
               challenge has been a huge help to my learning, as I was able to
-              relate to many people who are also learning web development.
+              relate, help, and share thoughts to many people who are also
+              learning web development.
             </p>
           </Notepad>
         )}

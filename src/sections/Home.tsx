@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
-import { SCROLL_DURATION } from '../components/constants';
 import { isMobile } from 'react-device-detect';
 import {
   FaTwitter,
