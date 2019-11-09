@@ -4,8 +4,8 @@ import { isMobile } from 'react-device-detect';
 /* t = current time
  * b = start value
  * c = target value
- * d = duration
- */
+ * d = duration */
+
 const easeInOutQuad = (t: number, b: number, c: number, d: number) => {
   t /= d / 2;
   if (t < 1) return (c / 2) * t * t + b;
@@ -17,21 +17,26 @@ const easeLinear = (t: number, b: number, c: number, d: number) => {
   return (c * t) / d + b;
 };
 
-let easeType = isMobile ? easeLinear : easeInOutQuad;
+const tick = 1000 / 60;
+const easeType = isMobile ? easeLinear : easeInOutQuad;
 
 export const scroll = (base: number, added: number, duration: number) => {
-  const tick = 1000 / 60;
-  let val = 0,
-    pos = 0;
+  let val = 0;
 
   const myInterval = setInterval(() => {
-    (val += tick) < duration
-      ? (pos = easeType(val, base, added, duration))
-      : (() => {
-          clearInterval(myInterval);
-          pos = base + added;
-        })();
-
-    window.scrollTo(pos, 0);
+    if ((val += tick) < duration) {
+      window.scrollTo(easeType(val, base, added, duration), 0);
+    } else {
+      window.scrollTo(base + added, 0);
+      clearInterval(myInterval);
+    }
   }, tick);
 };
+
+// Old
+// (val += tick) < duration
+//   ? (pos = easeType(val, base, added, duration))
+//   : (() => {
+//       clearInterval(myInterval);
+//       pos = base + added;
+//     })();
