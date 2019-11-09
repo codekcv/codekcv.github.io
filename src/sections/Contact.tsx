@@ -1,7 +1,5 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ANIMATION_DELAY } from '../components/constants';
-import { isMobile } from 'react-device-detect';
 
 interface Props {
   active: string;
@@ -11,9 +9,11 @@ interface Props {
 export const Contact: React.FC<Props> = ({ active, contactRef }) => {
   const [toggle, setToggle] = useState<boolean>(false);
 
-  active === 'Contact'
-    ? !toggle && setToggle(true)
-    : toggle && setToggle(false);
+  useEffect(() => {
+    active === 'Contact'
+      ? !toggle && setToggle(true)
+      : toggle && setToggle(false);
+  }, [active]);
 
   return (
     <Container id="contact" anim={toggle}>

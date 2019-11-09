@@ -133,23 +133,24 @@ export const Projects: React.FC<Props> = ({ active, projectsRef, snap }) => {
   }, []);
 
   useEffect(() => {
-    active === 'Projects'
-      ? !toggle &&
-        (() => {
-          !isMobile &&
-            (() => {
-              const randomizedProjects = [...projects];
-              const randomizedDelays = [...delays];
+    if (active === 'Projects') {
+      if (!toggle) {
+        if (!isMobile) {
+          const randomizedProjects = [...projects];
+          const randomizedDelays = [...delays];
 
-              randomizedProjects.sort(() => Math.random() - 0.5);
-              randomizedDelays.sort(() => Math.random() - 0.5);
+          randomizedProjects.sort(() => Math.random() - 0.5);
+          randomizedDelays.sort(() => Math.random() - 0.5);
 
-              setProjects(randomizedProjects);
-              setDelays(randomizedDelays);
-            })();
-          setTimeout(() => setToggle(true), ANIMATION_DELAY);
-        })()
-      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
+          setProjects(randomizedProjects);
+          setDelays(randomizedDelays);
+        }
+
+        setTimeout(() => setToggle(true), ANIMATION_DELAY);
+      }
+    } else {
+      toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
+    }
   }, [active]);
 
   return (

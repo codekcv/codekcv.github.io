@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { ANIMATION_DELAY } from '../components/constants';
+import { ANIMATION_DELAY, SCROLL_DURATION } from '../components/constants';
 import { isMobile } from 'react-device-detect';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
@@ -30,8 +30,6 @@ interface Props {
 }
 
 export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
-  const [toggle, setToggle] = useState<boolean>(false);
-
   const {
     allFile: { edges },
   } = useStaticQuery(getImages);
@@ -44,20 +42,17 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
     }: any) => fluid
   );
 
-  const img1 = images[0];
-  const img2 = images[1];
-  const img3 = images[2];
+  const [toggle, setToggle] = useState<boolean>(false);
 
   useEffect(() => {
     active === 'About'
-      ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY + 125)
-      : toggle && setToggle(false);
+      ? !toggle &&
+        setTimeout(
+          () => setToggle(true),
+          ANIMATION_DELAY + (!isMobile ? 125 : 0)
+        )
+      : toggle && setTimeout(() => setToggle(false), 0);
   }, [active]);
-
-  // let y = snap && aboutRef.current.getBoundingClientRect().top;
-  // let y = snap && vh - 30;
-
-  console.log(3, snap);
 
   return (
     <Container>
@@ -98,7 +93,9 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
               Warcraft III
             </a>
             . I learned it by reading guides & documentations online, and since
-            then have enjoyed the art of programming to heart.
+            then have enjoyed the art of programming to heart. I made tower
+            defense games, battle arenas, hero campaign maps, etc. with it and
+            played it with my local and online friends.
           </p>
           <br />
           <p>
@@ -110,8 +107,9 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             >
               Java
             </a>{' '}
-            in 2012 to build basic desktop apps, do algorithms challenges, etc.
-            In 2014, I decided to make a mobile game using the{' '}
+            in 2012 to build basic desktop app. I joined a local programming
+            competition that deals with solving algorithms and I won. In 2014, I
+            decided to make a mobile game using the{' '}
             <a
               href="https://developer.android.com/studio"
               target="_blank"
@@ -152,20 +150,24 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             >
               Unity3D
             </a>{' '}
-            to make 3rd person games, although nothing serious, just for fun and
+            to make 1st person games, although nothing serious, just for fun and
             messing around with my friends. I did learn maths in 3D, so that's
             nice.
           </p>
           <br />
           {/* ========================================== */}
-          <h1 className="title">Learning Web Development</h1>
-          <p>
-            I started to learn in mid May of 2019. I had great interest in
-            making my own websites ever since I entered the internet, like, it's
-            so cool, your own place for the world to see. for the world to see.
-            `... desc ... freeCodeCamp(Very awesome) ... comeback later ;0 ;)`
-          </p>
-          <br />
+          {isMobile && (
+            <>
+              <h1 className="title">Learning Web Development</h1>
+              <p>
+                I started to learn in mid May of 2019. I had great interest in
+                making my own websites ever since I entered the internet.
+                `&lt;working&gt; fCC, Traversy, 100DaysOfCode...`
+              </p>
+              <br />
+            </>
+          )}
+
           {/* ========================================== */}
           <h1 className="title">Hobbies & Interests</h1>
           <p>
@@ -183,20 +185,45 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
 
           <div className="images">
             <div className="img img1">
-              <Img fluid={img1} />
+              <Img fluid={images[0]} />
             </div>
             {!isMobile && (
               <>
                 <div className="img img3">
-                  <Img fluid={img3} />
+                  <Img fluid={images[2]} />
                 </div>
                 <div className="img img2">
-                  <Img fluid={img2} />
+                  <Img fluid={images[1]} />
                 </div>
               </>
             )}
           </div>
         </Notepad>
+        {!isMobile && (
+          <Notepad anim={toggle} snap={snap && active === 'About'} vh={vh}>
+            <h1>Web Development Journey</h1>
+            <p>
+              I have a keen interest in doing web development. Looking to learn,
+              I found freeCodeCamp. Having a programming background, learning
+              JavaScript and ES6+ was a breeze. Meanwhile, HTML and CSS are
+              easier languages to learn from having that standpoint.
+            </p>
+            <br />
+            <p>
+              I finished freeCodeCamp's curriculum that has an estimated course
+              work of 1500 hours in 3 months, I 800+ challenges and built a
+              total of 30 projects I submitted to get my certification.
+            </p>
+            <br />
+            <p>
+              After finishing freeCodeCamp and establishing my foundation, I
+              focused on learning the latest and greatest web technologies;
+              ReactJS for the client-side, and NodeJS for the server. From
+              there, the skills expanded to an ecosystem surrounding that
+              technology.
+            </p>
+          </Notepad>
+        )}
       </div>
     </Container>
   );

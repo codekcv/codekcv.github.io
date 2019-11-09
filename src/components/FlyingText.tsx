@@ -55,7 +55,7 @@ export const FlyingText: React.FC<Props> = ({
   }, [active]);
 
   useEffect(() => {
-    setPosX(vw / 2);
+    setPosX(vw * index + vw / 2);
 
     if (isMobile) {
       setSizes([26, 9, 10, 10, 9]);

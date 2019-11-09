@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -91,10 +91,11 @@ export const Home: React.FC<Props> = ({ active, homeRef }) => {
 
   const scrollImage = images[0];
   const profileImage = images[1];
-
   const [toggle, setToggle] = useState<boolean>(true);
 
-  active === 'Home' ? !toggle && setToggle(true) : toggle && setToggle(false);
+  useEffect(() => {
+    active === 'Home' ? !toggle && setToggle(true) : toggle && setToggle(false);
+  }, [active]);
 
   return (
     <Container id="home" anim={toggle}>
