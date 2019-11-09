@@ -61,7 +61,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
           <h1 className="title">About Me</h1>
           <p>
             I'm Christian Villamin, a self-taught web developer. I specialize in
-            reactjs and its ecosystem.{' '}
+            reactjs and its ecosystem.
           </p>
           <br />
 
@@ -107,9 +107,16 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             >
               Java
             </a>{' '}
-            in 2012 to build basic desktop app. I joined a local programming
-            competition that deals with solving algorithms and I won. In 2014, I
-            decided to make a mobile game using the{' '}
+            in 2012 to build basic desktop app. In 2013, I joined a local
+            programming competition that deals with solving algorithms and{' '}
+            <a
+              href="https://christianvillamin.github.io/competition.png"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              I won
+            </a>
+            . In 2014, I decided to make a mobile game using the{' '}
             <a
               href="https://developer.android.com/studio"
               target="_blank"
@@ -201,26 +208,95 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
         </Notepad>
         {!isMobile && (
           <Notepad anim={toggle} snap={snap && active === 'About'} vh={vh}>
-            <h1>Web Development Journey</h1>
+            <h1 className="title">Web Development Journey</h1>
             <p>
               I have a keen interest in doing web development. Looking to learn,
-              I found freeCodeCamp. Having a programming background, learning
-              JavaScript and ES6+ was a breeze. Meanwhile, HTML and CSS are
-              easier languages to learn from having that standpoint.
+              I found{' '}
+              <a
+                href="https://www.freecodecamp.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                freeCodeCamp
+              </a>
+              . I finished its curriculum in 3 months that has an estimated
+              course work of 1800 hours. I solved 800+ challenges and built a
+              total of 30 projects I submitted to get my certifications.
             </p>
             <br />
             <p>
-              I finished freeCodeCamp's curriculum that has an estimated course
-              work of 1500 hours in 3 months, I 800+ challenges and built a
-              total of 30 projects I submitted to get my certification.
+              <ul>
+                <li>
+                  <a
+                    href="https://www.freecodecamp.org/certification/christianvillamin/responsive-web-design"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Responsive Web Design Certification
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.freecodecamp.org/certification/christianvillamin/javascript-algorithms-and-data-structures"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    JavaScript Algorithms and Data Structures Certification
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.freecodecamp.org/certification/christianvillamin/front-end-libraries"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Front End Libraries Certification
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.freecodecamp.org/certification/christianvillamin/data-visualization"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Data Visualization Certification
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.freecodecamp.org/certification/christianvillamin/apis-and-microservices"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    APIs and Microservices Certification
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.freecodecamp.org/certification/christianvillamin/information-security-and-quality-assurance"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Information Security and Quality Assurance Certification
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="https://www.freecodecamp.org/certification/christianvillamin/full-stack"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Full Stack Certification
+                  </a>
+                </li>
+              </ul>
             </p>
             <br />
             <p>
-              After finishing freeCodeCamp and establishing my foundation, I
-              focused on learning the latest and greatest web technologies;
-              ReactJS for the client-side, and NodeJS for the server. From
-              there, the skills expanded to an ecosystem surrounding that
-              technology.
+              After that, I focused my learning on the latest and greatest web
+              technologies; ReactJS for the client-side, and NodeJS for the
+              server. From there, the skills expanded to an environment
+              surrounding those two primary technologies.
             </p>
           </Notepad>
         )}
@@ -275,6 +351,10 @@ const Notepad = styled.div<{ anim: boolean; snap: boolean; vh: number }>`
 
   p {
     font-size: 0.7rem;
+  }
+
+  li {
+    margin-left: 2rem;
   }
 
   @media only screen and (min-width: 768px) {
