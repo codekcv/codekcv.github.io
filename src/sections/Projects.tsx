@@ -1,17 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
 
 interface Props {
   projectsRef: React.MutableRefObject<any>;
-  measure: any;
+  measures: any;
   active: string;
   snap: boolean;
 }
 
 export const Projects: React.FC<Props> = ({
   projectsRef,
-  measure,
+  measures,
   active,
   snap,
 }) => {
@@ -140,7 +139,7 @@ export const Projects: React.FC<Props> = ({
   useEffect(() => {
     if (active === 'Projects') {
       if (!toggle) {
-        if (!measure.isMobile) {
+        if (!measures.isMobile) {
           const randomizedProjects = [...projects];
           const randomizedDelays = [...delays];
 
@@ -151,10 +150,10 @@ export const Projects: React.FC<Props> = ({
           setDelays(randomizedDelays);
         }
 
-        setTimeout(() => setToggle(true), ANIMATION_DELAY);
+        setTimeout(() => setToggle(true), measures.ANIMATION_DELAY);
       }
     } else {
-      toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
+      toggle && setTimeout(() => setToggle(false), measures.SCROLL_DURATION);
     }
   }, [active]);
 
@@ -172,7 +171,7 @@ export const Projects: React.FC<Props> = ({
         {projects.map((project, index) => (
           <div className="select" key={project.title}>
             <Project
-              anim={measure.isMobile ? 1 : toggle ? 1 : 0}
+              anim={measures.isMobile ? 1 : toggle ? 1 : 0}
               delay={delays[index]}
             >
               <h2 className="title">{project.title}</h2>

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
-import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
 
 const getLogos = graphql`
   query {
@@ -22,12 +21,18 @@ const getLogos = graphql`
 `;
 
 interface Props {
-  active: string;
   skillsRef: React.MutableRefObject<any>;
+  measures: any;
+  active: string;
   snap: boolean;
 }
 
-export const Skills: React.FC<Props> = ({ active, skillsRef, snap }) => {
+export const Skills: React.FC<Props> = ({
+  skillsRef,
+  measures,
+  snap,
+  active,
+}) => {
   const {
     logos: { edges },
   } = useStaticQuery(getLogos);
@@ -198,8 +203,8 @@ export const Skills: React.FC<Props> = ({ active, skillsRef, snap }) => {
 
   useEffect(() => {
     active === 'Skills'
-      ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY)
-      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
+      ? !toggle && setTimeout(() => setToggle(true), measures.ANIMATION_DELAY)
+      : toggle && setTimeout(() => setToggle(false), measures.SCROLL_DURATION);
   }, [active]);
 
   const [snapIt, setSnapIt] = useState(false);

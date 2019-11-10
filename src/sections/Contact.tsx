@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ANIMATION_DELAY, SCROLL_DURATION } from '../components/constants';
 
 interface Props {
-  active: string;
   contactRef: React.MutableRefObject<any>;
+  measures: any;
+  active: string;
 }
 
-export const Contact: React.FC<Props> = ({ active, contactRef }) => {
+export const Contact: React.FC<Props> = ({ contactRef, measures, active }) => {
   const [toggle, setToggle] = useState(false);
 
   useEffect(() => {
     active === 'Contact'
-      ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY)
-      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
+      ? !toggle && setTimeout(() => setToggle(true), measures.ANIMATION_DELAY)
+      : toggle && setTimeout(() => setToggle(false), measures.SCROLL_DURATION);
   }, [active]);
 
   return (

@@ -2,7 +2,6 @@ import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import '../sections/index.css';
 import styled from 'styled-components';
 import { scroll } from '../components/scroll';
-import { SCROLL_DURATION, SWIPE_THRESHOLD } from '../components/constants';
 import { Navbar } from '../components/Navbar';
 import { Home } from '../sections/Home';
 import { Skills } from '../sections/Skills';
@@ -20,8 +19,14 @@ const App: React.FC = () => {
   const [swipeDone, setSwipeDone] = useState<boolean>(true);
   const [swipeX1, setSwipeX1] = useState();
   const [swipeX2, setSwipeX2] = useState();
-  const [measure, setMeasure] = useState<any>({ vw: 0 });
+  const [measures, setMeasures] = useState<any>({ vw: 0 });
   const [isIOS, setIsIOS] = useState(false);
+  const homeRef = useRef<any>(null);
+  const skillsRef = useRef<any>(null);
+  const projectsRef = useRef<any>(null);
+  const aboutRef = useRef<any>(null);
+  const contactRef = useRef<any>(null);
+  const [snap, setSnap] = useState<boolean>(false);
   const viewport: any = useRef(null);
 
   useEffect(() => {
@@ -34,10 +39,20 @@ const App: React.FC = () => {
 
   useLayoutEffect(() => {
     const handleResize = () => {
-      setMeasure({
-        vw: viewport.current.getBoundingClientRect().width,
-        vh: viewport.current.getBoundingClientRect().height,
-        isMobile: viewport.current.getBoundingClientRect().width < 768,
+      const vw = viewport.current.getBoundingClientRect().width;
+      const vh = viewport.current.getBoundingClientRect().height;
+      const isMobile = viewport.current.getBoundingClientRect().width < 768;
+      const SCROLL_DURATION = isMobile ? 250 : 500;
+      const ANIMATION_DELAY = isMobile ? 250 : 150;
+      const SWIPE_THRESHOLD = 40;
+
+      setMeasures({
+        vw,
+        vh,
+        isMobile,
+        SCROLL_DURATION,
+        ANIMATION_DELAY,
+        SWIPE_THRESHOLD,
       });
     };
 
@@ -62,7 +77,10 @@ const App: React.FC = () => {
       case 'move':
         setSwipeX2(e.touches[0].clientX);
 
-        if (Math.abs(swipeX1 - swipeX2) >= SWIPE_THRESHOLD && !swipeDone) {
+        if (
+          Math.abs(swipeX1 - swipeX2) >= measures.SWIPE_THRESHOLD &&
+          !swipeDone
+        ) {
           swipeX1 < swipeX2 ? handleScroll('left') : handleScroll('right');
           setSwipeDone(true);
         }
@@ -81,14 +99,14 @@ const App: React.FC = () => {
 
     if (typeof dir === 'number') {
       const index = sections.indexOf(active) + dir;
-      const pos = measure.vw * index - window.pageXOffset;
+      const pos = measures.vw * index - window.pageXOffset;
 
       if (!isIOS) {
-        scroll(window.pageXOffset, pos, SCROLL_DURATION);
+        scroll(window.pageXOffset, pos, measures.SCROLL_DURATION);
         setScrolling(true);
 
         setTimeout(() => setActive(sections[index]));
-        setTimeout(() => setScrolling(false), SCROLL_DURATION + 50);
+        setTimeout(() => setScrolling(false), measures.SCROLL_DURATION + 50);
       }
     }
   };
@@ -96,7 +114,7 @@ const App: React.FC = () => {
   const handleJump = (target: string) => {
     const jump = () => {
       const index = sections.indexOf(target);
-      window.scrollTo(measure.vw * index, 0);
+      window.scrollTo(measures.vw * index, 0);
       setActive(sections[index]);
     };
 
@@ -111,14 +129,7 @@ const App: React.FC = () => {
     }
   };
 
-  const homeRef = useRef<any>(null);
-  const skillsRef = useRef<any>(null);
-  const projectsRef = useRef<any>(null);
-  const aboutRef = useRef<any>(null);
-  const contactRef = useRef<any>(null);
-  const [snap, setSnap] = useState<boolean>(false);
-
-  if (measure.vw === 0) return <Viewport ref={viewport} />;
+  if (measures.vw === 0) return <Viewport ref={viewport} />;
 
   return (
     <>
@@ -126,8 +137,8 @@ const App: React.FC = () => {
       <Navbar
         handleJump={handleJump}
         active={active}
-        vw={measure.vw}
-        vh={measure.vh}
+        vw={measures.vw}
+        vh={measures.vh}
       />
       <Container
         className="content-container"
@@ -136,26 +147,31 @@ const App: React.FC = () => {
         onTouchMove={e => handleSwipe('move', e)}
         onTouchEnd={e => handleSwipe('end', e)}
       >
-        <Home homeRef={homeRef} active={active} measure={measure} />
-        <Skills skillsRef={skillsRef} active={active} snap={snap} />
+        <Home homeRef={homeRef} measures={measures} />
+        <Skills
+          skillsRef={skillsRef}
+          measures={measures}
+          active={active}
+          snap={snap}
+        />
         <Projects
           projectsRef={projectsRef}
-          measure={measure}
+          measures={measures}
           active={active}
           snap={snap}
         />
         <About
           aboutRef={aboutRef}
+          measures={measures}
           active={active}
-          measure={measure}
           snap={snap}
         />
-        <Contact contactRef={contactRef} active={active} />
+        <Contact contactRef={contactRef} measures={measures} active={active} />
         <FlyingText
           sections={sections}
           active={active}
           scrolling={scrolling ? 1 : 0}
-          measure={measure}
+          measures={measures}
           refs={[homeRef, skillsRef, projectsRef, aboutRef, contactRef]}
           setSnap={setSnap}
         />

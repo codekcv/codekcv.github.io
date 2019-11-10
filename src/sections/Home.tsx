@@ -68,12 +68,11 @@ const getImages = graphql`
 `;
 
 interface Props {
-  active: string;
   homeRef: React.MutableRefObject<any>;
-  measure: any;
+  measures: any;
 }
 
-export const Home: React.FC<Props> = ({ active, homeRef, measure }) => {
+export const Home: React.FC<Props> = ({ homeRef, measures }) => {
   const {
     allFile: { edges },
   } = useStaticQuery(getImages);
@@ -90,7 +89,7 @@ export const Home: React.FC<Props> = ({ active, homeRef, measure }) => {
   const profileImage = images[1];
 
   return (
-    <Container id="home" isMobile={measure.isMobile}>
+    <Container id="home" isMobile={measures.isMobile}>
       <div id="placer">
         <div id="card">
           <Img className="profile" fluid={profileImage} />
@@ -109,7 +108,7 @@ export const Home: React.FC<Props> = ({ active, homeRef, measure }) => {
             </div>
           </div>
           <div className="indicator-container">
-            {measure.isMobile ? (
+            {measures.isMobile ? (
               <div className="swipe-container">
                 <p>&lt; Swipe &gt;</p>
                 {/* {isIOS && (
