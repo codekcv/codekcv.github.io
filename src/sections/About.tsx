@@ -234,7 +234,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             >
               Machine Learning
             </a>{' '}
-            sometime. I love Silicon Valley, the place and the{' '}
+            sometime. I like Silicon Valley, the place and the{' '}
             <a
               href="https://www.imdb.com/title/tt2575988/"
               target="_blank"
@@ -511,6 +511,54 @@ const Notepad = styled.div<NotepadProps>`
   }
 
   @media only screen and (min-width: 768px) {
+    width: 600px;
+    height: 600px;
+    margin: 0 30px;
+    padding: 30px;
+
+    .title {
+      text-indent: 1rem;
+      font-size: 1.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+    }
+
+    a {
+      font-size: 0.8rem;
+    }
+
+    .img {
+      position: absolute;
+      transform: translateX(-50%);
+      width: 300px;
+      height: 300px;
+    }
+
+    .img1 {
+      transition: 1.5s ease-out;
+      left: -425px;
+      top: ${props => (props.anim ? '120px' : '170px')};
+      opacity: ${props => (props.anim ? '0.55' : '0')};
+    }
+
+    .img2 {
+      transition: 1.5s ease-out;
+      left: 1220px;
+      top: ${props => (props.anim ? 0 : '150px')};
+      opacity: ${props => (props.anim ? '0.4' : '0')};
+    }
+
+    .img3 {
+      transition: 1.5s ease-in-out;
+      left: 435px;
+      top: ${props => (props.anim ? '-250px' : '-150px')};
+      opacity: ${props => (props.anim ? '0.55' : '0')};
+    }
+  }
+
+  @media only screen and (min-width: 1600px) {
     width: 700px;
     height: 700px;
     margin: 0 30px;
@@ -582,150 +630,3 @@ const Notepad = styled.div<NotepadProps>`
     }
   }
 `;
-
-/*
-<div className="all-abouts" ref={ref}>
-        <div className="about-container">
-          <p>
-            I'm Christian Villamin, a web developer specializing in ReactJS and
-            its environment.
-          </p>
-          <ul>
-            <li>I love learning new things and I learn fast.</li>
-            <li>I'm flexible and adapt to environments fast</li>
-            <li>I'm always on my programming game, I code clean and fast.</li>
-          </ul>
-          <br />
-          <h2>Programming History</h2>
-          <p>
-            I have started programming back in 2007 when I was 11, using{' '}
-            <a
-              href="https://en.wikipedia.org/wiki/Blizzard_Entertainment"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Blizzard
-            </a>
-            's event-driven scripting language called{' '}
-            <a
-              href="https://en.wikipedia.org/wiki/JASS"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              JASS
-            </a>{' '}
-            to make modifications and create custom maps for their game,{' '}
-            <a
-              href="https://en.wikipedia.org/wiki/Warcraft_III:_Reign_of_Chaos"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Warcraft III
-            </a>
-            . I learned it through self learning and my love for their game, and
-            since then have enjoyed the art of programming to heart. With it, I
-            made games such as Hero Arena(Now as MOBA), Tower Defense, Campaign
-            Adventures, and many more where I played it with my local and online
-            friends.
-          </p>
-          <br />
-          <p>
-            After that, I learned to program in Java to make my own Android
-            mobile game using the{' '}
-            <a
-              href="https://developer.android.com/studio"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Android Studio
-            </a>{' '}
-            IDE and an awesome library called{' '}
-            <a
-              href="https://libgdx.badlogicgames.com/index.html"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              libGDX
-            </a>
-            . I made a 2D platform pixel-art running game. A year later, I
-            decided to learn C# &{' '}
-            <a
-              href="https://www.blender.org/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Blender
-            </a>
-            , and moved to{' '}
-            <a
-              href="https://unity.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Unity3D
-            </a>{' '}
-            to step-up the game.
-          </p>
-          <br />
-        </div>
-
-        <div className="about-container">
-          <h2>Web Development</h2>
-          <p>`...description...`</p>
-          <br />
-          <h2>Hobbies & Interests</h2>
-          <p>Things I love (other than programming)</p>
-          <ul>
-            <li>Playing the piano.</li>
-            <li>Reading fantasy books.</li>
-            <li>Helping people.</li>
-          </ul>
-          <br />
-          <p>Things I want to do someday</p>
-          <ul>
-            <li>AI & Machine Learning</li>
-            <li>Dungeons & Dragons</li>
-            <li>Godot Engine & GDScript</li>
-            <li>YT & Make Tutorials</li>
-          </ul>
-
-          <br />
-          <p>
-            I am eternally grateful to{' '}
-            <a
-              href="https://twitter.com/ossia"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Quincy
-            </a>
-            ,{' '}
-            <a
-              href="https://twitter.com/ka11away"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Alex
-            </a>
-            ,{' '}
-            <a
-              href="https://twitter.com/traversymedia"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Brad
-            </a>
-            , and finally,{' '}
-            <a
-              href="https://www.google.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              this thicc boi
-            </a>
-            .
-          </p>
-        </div>
-      </div>
-
-*/

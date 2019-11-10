@@ -17,7 +17,6 @@ export const FlyingText: React.FC<Props> = ({
   active,
   scrolling,
   vw,
-  vh,
   refs,
   setSnap,
 }) => {
@@ -58,9 +57,9 @@ export const FlyingText: React.FC<Props> = ({
     setPosX(vw * index + vw / 2);
 
     if (isMobile) {
-      setSizes([26, 9, 10, 10, 9]);
+      setSizes([7, 9, 10, 10, 9]);
     } else {
-      setSizes([70, 6.5, 5, 7, 5]);
+      setSizes([3, 6.5, 6, 6, 5]);
     }
   }, [vw]);
 
@@ -116,8 +115,7 @@ const Container = styled.div<ContainerProps>`
     font-size: 100px;
     text-shadow: 0 3px silver;
     text-transform: uppercase;
-    font-size: ${props =>
-      props.sizes[props.index] + (props.active ? 'px' : 'vw')};
+    font-size: ${props => props.sizes[props.index] + 'vw'};
     transition: 0.5s ease;
   }
 

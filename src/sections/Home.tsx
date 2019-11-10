@@ -240,6 +240,37 @@ const Container = styled.section`
   @media only screen and (min-width: 768px) {
     #placer {
       #card {
+        width: 700px;
+
+        .profile {
+          width: 200px;
+          height: 200px;
+          border: 5px dashed white;
+        }
+
+        .information {
+          padding: 50px 50px 25px 50px;
+          margin-top: -100px;
+          border: 5px dashed white;
+          border-radius: 60px;
+
+          .flying-text {
+            top: 110px;
+          }
+
+          h2 {
+            margin-top: 120px;
+            font-size: 2rem;
+            text-shadow: 2px 4px darkslategray;
+          }
+        }
+      }
+    }
+  }
+
+  @media only screen and (min-width: 1600px) {
+    #placer {
+      #card {
         width: 900px;
 
         .profile {
@@ -269,7 +300,12 @@ const Container = styled.section`
   }
 `;
 
-const Icon = styled.div<{ color: string }>`
+interface Ic {
+  color: string;
+}
+
+const Icon = styled.div<Ic>(
+  props => `
   position: relative;
   display: flex;
   flex-direction: column;
@@ -310,7 +346,7 @@ const Icon = styled.div<{ color: string }>`
     :hover {
       .icon {
         transform: scale(1.2);
-        color: ${props => props.color};
+        color: ${props.color};
       }
 
       .name {
@@ -319,4 +355,5 @@ const Icon = styled.div<{ color: string }>`
       }
     }
   }
-`;
+`
+);

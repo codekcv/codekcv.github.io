@@ -84,11 +84,11 @@ export const Skills: React.FC<Props> = ({ active, skillsRef, snap }) => {
         logo: getImage('gatsbyjs'),
         link: `https://www.gatsbyjs.org/`,
       },
-      {
-        name: 'Apollo',
-        logo: getImage('apollo'),
-        link: `https://www.apollographql.com/`,
-      },
+      // {
+      //   name: 'Apollo',
+      //   logo: getImage('apollo'),
+      //   link: `https://www.apollographql.com/`,
+      // },
       {
         name: 'D3',
         logo: getImage('d3'),
