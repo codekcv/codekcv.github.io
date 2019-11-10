@@ -277,7 +277,6 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   margin: 1vh 0;
   padding: 0.4rem;
   border-radius: 4px;
-  flex: 1;
 
   transition: ${props => (props.anim ? '0.75s' : 'none')} ease;
   transition-delay: ${props => (props.anim ? props.index + 'ms' : 0)};
@@ -285,13 +284,13 @@ const Card = styled.div<{ anim: boolean; index: number }>`
   opacity: ${props => (props.anim ? 1 : 0)};
 
   .title-area {
-    margin-bottom: 6px;
+    margin-bottom: 2px;
     padding-bottom: 2px;
 
     h1 {
       color: silver;
-      font-weight: 100;
-      font-size: 2rem;
+      font-weight: 300;
+      font-size: 1.5rem;
       text-align: center;
     }
   }
@@ -330,6 +329,16 @@ const Card = styled.div<{ anim: boolean; index: number }>`
     border-radius: 16px;
     box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
     align-items: center;
+
+    .title-area {
+      margin-bottom: 6px;
+      padding-bottom: 2px;
+
+      h1 {
+        font-weight: 100;
+        font-size: 2rem;
+      }
+    }
 
     .skills-area {
       .logo-container {

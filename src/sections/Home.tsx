@@ -110,17 +110,15 @@ export const Home: React.FC<Props> = ({ active, homeRef }) => {
           </div>
           <div className="indicator-container">
             {isMobile ? (
-              <>
-                <div className="swipe-container">
-                  <p>&lt; Swipe &gt;</p>
-                  {isIOS && (
-                    <div className="ios-warn">
-                      <p>iOS Swipe Disabled ATM</p>
-                      <p>Use the navbar fn.</p>
-                    </div>
-                  )}
-                </div>
-              </>
+              <div className="swipe-container">
+                <p>&lt; Swipe &gt;</p>
+                {isIOS && (
+                  <div className="ios-warn">
+                    <p>iOS Swipe Disabled ATM</p>
+                    <p>Use the navbar fn.</p>
+                  </div>
+                )}
+              </div>
             ) : (
               <div className="scroll-container">
                 <p>Scroll</p>
@@ -222,7 +220,7 @@ const Container = styled.section`
             text-align: center;
 
             p {
-              font-size: 0.9rem;
+              font-size: 0.39rem;
             }
           }
         }
