@@ -244,21 +244,21 @@ const Container = styled.section<{ snap: boolean }>`
 
 const Project = styled.div<{ anim: number; delay: number }>`
   background: white;
-  margin: 6px 6px 18px 6px;
+  margin: 6px 6px 12px 6px;
   border-radius: 6px;
 
   transition: ${props => (props.anim ? '0.75s' : 0)} ease;
   transition-delay: ${props => (props.anim ? props.delay + 'ms' : 0)};
   transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
+  margin-top: 10px;
 
   .title {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
   }
 
   .description {
     font-size: 0.85rem;
-    margin: 4px 0;
   }
 
   .technologies {

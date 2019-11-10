@@ -217,7 +217,10 @@ const Container = styled.section`
           align-items: center;
 
           .ios-warn {
+            border: 1px pink solid;
+            width: 100%;
             text-align: center;
+
             p {
               font-size: 0.9rem;
             }

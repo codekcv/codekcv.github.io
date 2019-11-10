@@ -127,7 +127,13 @@ const App: React.FC = () => {
         <Home active={active} homeRef={homeRef} />
         <Skills active={active} skillsRef={skillsRef} snap={snap} />
         <Projects active={active} projectsRef={projectsRef} snap={snap} />
-        <About active={active} aboutRef={aboutRef} vh={vh} snap={snap} />
+        <About
+          active={active}
+          aboutRef={aboutRef}
+          vw={vw}
+          vh={vh}
+          snap={snap}
+        />
         <Contact active={active} contactRef={contactRef} />
         <FlyingText
           sections={sections}
