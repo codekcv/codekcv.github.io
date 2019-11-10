@@ -101,6 +101,7 @@ const Container = styled.div<ContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;
+  pointer-events: none;
 
   width: 100%;
   top: ${props => props.posY + 'px'};

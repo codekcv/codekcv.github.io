@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ANIMATION_DELAY } from '../components/constants';
 import { isMobile } from 'react-device-detect';
@@ -43,14 +43,17 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
   );
 
   const [toggle, setToggle] = useState<boolean>(false);
+  const [mobile, setMobile] = useState(false);
+
+  useEffect(() => {
+    setMobile(isMobile);
+    console.log('is', isMobile);
+  }, []);
 
   useEffect(() => {
     active === 'About'
       ? !toggle &&
-        setTimeout(
-          () => setToggle(true),
-          ANIMATION_DELAY + (!isMobile ? 125 : 0)
-        )
+        setTimeout(() => setToggle(true), ANIMATION_DELAY + (!mobile ? 125 : 0))
       : toggle && setTimeout(() => setToggle(false), 0);
   }, [active]);
 
@@ -62,9 +65,9 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
 
   return (
     <Container>
-      {isMobile && (
+      {mobile && (
         <>
-          <Selection ref={isMobile ? aboutRef : null}>
+          <Selection ref={mobile ? aboutRef : null}>
             <Select
               selected={selection === 'about'}
               onClick={() => handleOnSelect('about')}
@@ -80,12 +83,13 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
           </Selection>
         </>
       )}
-      <div className="notepad-container" ref={!isMobile ? aboutRef : null}>
+      <div className="notepad-container" ref={!mobile ? aboutRef : null}>
         <Notepad
           selection={selection === 'about'}
           anim={toggle}
           snap={snap && active === 'About'}
           vh={vh}
+          mobile={mobile}
         >
           <h1 className="title">About Me</h1>
           <p>
@@ -245,7 +249,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             <div className="img img1">
               <Img fluid={images[0]} />
             </div>
-            {!isMobile && (
+            {!mobile && (
               <>
                 <div className="img img3">
                   <Img fluid={images[2]} />
@@ -263,6 +267,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
           anim={toggle}
           snap={snap && active === 'about'}
           vh={vh}
+          mobile={mobile}
         >
           <h1 className="title">Web Development Journey</h1>
           <p>
@@ -278,7 +283,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             . I finished its curriculum that has an estimated course work of
             1800 hours. I solved 800+ challenges and built a total of 30
             projects of my own work, passing all unit testing, and submitted to
-            get my certifications. All in the span of{' '}
+            get my certifications in the span of{' '}
             <a
               href="https://www.freecodecamp.org/christianvillamin"
               target="_blank"
@@ -413,42 +418,6 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             relate, help, and share thoughts to many people who are also
             learning web development.
           </p>
-          <br />
-          <p>
-            I am eternally grateful to{' '}
-            <a
-              href="https://twitter.com/ossia"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Quincy
-            </a>
-            ,{' '}
-            <a
-              href="https://twitter.com/ka11away"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Alex
-            </a>
-            ,{' '}
-            <a
-              href="https://twitter.com/traversymedia"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Brad
-            </a>
-            , and finally,{' '}
-            <a
-              href="https://www.google.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              this thicc boi
-            </a>
-            .
-          </p>
         </Notepad>
       </div>
     </Container>
@@ -502,14 +471,15 @@ interface NotepadProps {
   anim: boolean;
   snap: boolean;
   vh: number;
+  mobile: boolean;
 }
 
 const Notepad = styled.div<NotepadProps>`
   display: ${props =>
-    isMobile ? (props.selection ? 'block' : 'none') : 'block'};
+    props.mobile ? (props.selection ? 'block' : 'none') : 'block'};
   position: relative;
   width: 96%;
-  height: ${props => (props.snap ? props.vh - 60 + 'px' : '650px')};
+  height: ${props => (props.snap ? props.vh - 60 + 'px' : '540px')};
   background: #f5f5f5;
   box-shadow: 0 0 30px -10px rgba(150, 170, 180, 1);
   transition: 0.5s ease;
@@ -524,16 +494,16 @@ const Notepad = styled.div<NotepadProps>`
   }
 
   .title {
-    text-indent: 0.9rem;
-    font-size: 0.9rem;
+    text-indent: 0.85rem;
+    font-size: 0.85rem;
   }
 
   p {
-    font-size: 0.8rem;
+    font-size: 0.65rem;
   }
 
   a {
-    font-size: 0.7rem;
+    font-size: 0.55rem;
   }
 
   li {
@@ -579,20 +549,21 @@ const Notepad = styled.div<NotepadProps>`
 
     .img1 {
       transition: 1.5s ease-out;
-      left: -450px;
-      top: ${props => (props.anim ? '300px' : '350px')};
+      left: -425px;
+      top: ${props => (props.anim ? '120px' : '170px')};
       opacity: ${props => (props.anim ? '0.55' : '0')};
     }
 
     .img2 {
       transition: 1.5s ease-out;
-      left: 520px;
+      left: 1220px;
       top: ${props => (props.anim ? 0 : '150px')};
       opacity: ${props => (props.anim ? '0.4' : '0')};
     }
 
     .img3 {
       transition: 1.5s ease-in-out;
+      left: 435px;
       top: ${props => (props.anim ? '-250px' : '-150px')};
       opacity: ${props => (props.anim ? '0.55' : '0')};
     }
@@ -604,6 +575,10 @@ const Notepad = styled.div<NotepadProps>`
 
     p {
       font-size: 1.1rem;
+    }
+
+    a {
+      font-size: 0.9rem;
     }
   }
 `;
@@ -713,6 +688,43 @@ const Notepad = styled.div<NotepadProps>`
             <li>Godot Engine & GDScript</li>
             <li>YT & Make Tutorials</li>
           </ul>
+
+          <br />
+          <p>
+            I am eternally grateful to{' '}
+            <a
+              href="https://twitter.com/ossia"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Quincy
+            </a>
+            ,{' '}
+            <a
+              href="https://twitter.com/ka11away"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Alex
+            </a>
+            ,{' '}
+            <a
+              href="https://twitter.com/traversymedia"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Brad
+            </a>
+            , and finally,{' '}
+            <a
+              href="https://www.google.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              this thicc boi
+            </a>
+            .
+          </p>
         </div>
       </div>
 
