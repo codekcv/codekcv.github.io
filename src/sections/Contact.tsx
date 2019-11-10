@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { ANIMATION_DELAY, SCROLL_DURATION } from '../components/constants';
 
 interface Props {
   active: string;
@@ -7,10 +8,16 @@ interface Props {
 }
 
 export const Contact: React.FC<Props> = ({ active, contactRef }) => {
-  const [toggle, setToggle] = useState<boolean>(false);
+  const [toggle, setToggle] = useState(false);
+
+  useEffect(() => {
+    active === 'Contact'
+      ? !toggle && setTimeout(() => setToggle(true), ANIMATION_DELAY)
+      : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
+  }, [active]);
 
   return (
-    <Container id="contact">
+    <Container id="contact" anim={toggle}>
       <div className="outer" ref={contactRef}>
         <div className="contact-container">
           <form
@@ -65,7 +72,7 @@ export const Contact: React.FC<Props> = ({ active, contactRef }) => {
   );
 };
 
-const Container = styled.div`
+const Container = styled.div<{ anim: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -73,6 +80,10 @@ const Container = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
+
+  transition: ${props => (props.anim ? '0.75s' : 0)} ease;
+  transform: ${props => (props.anim ? `scale(1)` : `scale(1.25)`)};
+  opacity: ${props => (props.anim ? 1 : 0)};
 
   .outer {
     display: flex;

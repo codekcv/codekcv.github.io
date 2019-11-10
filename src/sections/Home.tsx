@@ -2,7 +2,7 @@ import React from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
-import { isMobile } from 'react-device-detect';
+import { isMobile, isIOS } from 'react-device-detect';
 import {
   FaTwitter,
   FaYoutube,
@@ -10,8 +10,6 @@ import {
   FaCodepen,
   FaGithub,
   FaLinkedinIn,
-  FaAngleLeft,
-  FaAngleRight,
 } from 'react-icons/fa';
 
 const links = [
@@ -110,18 +108,26 @@ export const Home: React.FC<Props> = ({ active, homeRef }) => {
               ))}
             </div>
           </div>
-          <div className="scroll-container">
+          <div className="indicator-container">
             {isMobile ? (
               <>
-                <FaAngleLeft />
-                <span className="swipe">Swipe</span>
-                <FaAngleRight />
+                <div className="swipe-container">
+                  <p>&lt; Swipe &gt;</p>
+                  {isIOS && (
+                    <div className="ios-warn">
+                      <p>iOS Swipe Disabled ATM</p>
+                      <p>Use the navbar fn.</p>
+                    </div>
+                  )}
+                </div>
               </>
             ) : (
-              <>
+              <div className="scroll-container">
                 <p>Scroll</p>
-                <Img className="scroll-img" fluid={scrollImage} />
-              </>
+                <div style={{ width: '64px' }}>
+                  <Img fluid={scrollImage} />
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -198,41 +204,54 @@ const Container = styled.section`
           margin-top: 15px;
         }
       }
-    }
-  }
 
-  .scroll-container {
-    position: relative;
-    left: 50%;
-    width: 80px;
-    margin-top: 30px;
-    transform: translateX(-50%);
-    height: 64px;
-    text-align: center;
-    opacity: 0.5;
+      .indicator-container {
+        width: 100%;
+        height: auto;
+        margin-top: 30px;
 
-    .swipe {
-      position: relative;
-      top: -3px;
-    }
+        .swipe-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
 
-    animation: anim 2s ease-in-out;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+          .ios-warn {
+            text-align: center;
+            p {
+              font-size: 0.9rem;
+            }
+          }
+        }
 
-    @keyframes anim {
-      0% {
-        transform: ${isMobile && 'translateX(-40%)'};
-        opacity: 0.2;
-      }
+        .scroll-container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 90px;
+        }
 
-      50% {
-        opacity: 0.6;
-      }
+        animation: anim 2s ease-in-out;
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
 
-      100% {
-        transform: ${isMobile && 'translateX(-60%)'};
-        opacity: 0.2;
+        @keyframes anim {
+          0% {
+            transform: ${isMobile && 'translateX(-5%)'};
+            opacity: 0.2;
+          }
+
+          50% {
+            opacity: 0.6;
+          }
+
+          100% {
+            transform: ${isMobile && 'translateX(5%)'};
+            opacity: 0.2;
+          }
+        }
       }
     }
   }

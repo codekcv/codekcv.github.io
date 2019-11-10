@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
@@ -84,11 +84,11 @@ export const Skills: React.FC<Props> = ({ active, skillsRef, snap }) => {
         logo: getImage('gatsbyjs'),
         link: `https://www.gatsbyjs.org/`,
       },
-      // {
-      //   name: 'Apollo',
-      //   logo: getImage('apollo'),
-      //   link: `https://www.apollographql.com/`,
-      // },
+      {
+        name: 'Apollo',
+        logo: getImage('apollo'),
+        link: `https://www.apollographql.com/`,
+      },
       {
         name: 'D3',
         logo: getImage('d3'),

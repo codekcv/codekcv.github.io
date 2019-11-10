@@ -32,11 +32,3 @@ export const scroll = (base: number, added: number, duration: number) => {
     }
   }, tick);
 };
-
-// Old
-// (val += tick) < duration
-//   ? (pos = easeType(val, base, added, duration))
-//   : (() => {
-//       clearInterval(myInterval);
-//       pos = base + added;
-//     })();

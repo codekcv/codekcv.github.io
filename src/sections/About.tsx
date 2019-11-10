@@ -43,17 +43,14 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
   );
 
   const [toggle, setToggle] = useState<boolean>(false);
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    setMobile(isMobile);
-    console.log('is', isMobile);
-  }, []);
 
   useEffect(() => {
     active === 'About'
       ? !toggle &&
-        setTimeout(() => setToggle(true), ANIMATION_DELAY + (!mobile ? 125 : 0))
+        setTimeout(
+          () => setToggle(true),
+          ANIMATION_DELAY + (!isMobile ? 125 : 0)
+        )
       : toggle && setTimeout(() => setToggle(false), 0);
   }, [active]);
 
@@ -65,9 +62,9 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
 
   return (
     <Container>
-      {mobile && (
+      {isMobile && (
         <>
-          <Selection ref={mobile ? aboutRef : null}>
+          <Selection ref={isMobile ? aboutRef : null}>
             <Select
               selected={selection === 'about'}
               onClick={() => handleOnSelect('about')}
@@ -83,13 +80,13 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
           </Selection>
         </>
       )}
-      <div className="notepad-container" ref={!mobile ? aboutRef : null}>
+      <div className="notepad-container" ref={!isMobile ? aboutRef : null}>
         <Notepad
           selection={selection === 'about'}
           anim={toggle}
           snap={snap && active === 'About'}
           vh={vh}
-          mobile={mobile}
+          mobile={isMobile}
         >
           <h1 className="title">About Me</h1>
           <p>
@@ -249,7 +246,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             <div className="img img1">
               <Img fluid={images[0]} />
             </div>
-            {!mobile && (
+            {!isMobile && (
               <>
                 <div className="img img3">
                   <Img fluid={images[2]} />
@@ -267,7 +264,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
           anim={toggle}
           snap={snap && active === 'about'}
           vh={vh}
-          mobile={mobile}
+          mobile={isMobile}
         >
           <h1 className="title">Web Development Journey</h1>
           <p>
