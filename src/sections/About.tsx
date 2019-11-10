@@ -56,6 +56,12 @@ export const About: React.FC<Props> = ({ active, aboutRef, vw, vh, snap }) => {
       : toggle && setTimeout(() => setToggle(false), 0);
   }, [active]);
 
+  const [snapIt, setSnapIt] = useState(false);
+
+  useEffect(() => {
+    active === 'About' ? snap && setSnapIt(true) : !snapIt && setSnapIt(false);
+  }, [snap]);
+
   const handleOnSelect = (select: string) => {
     setSelection(select);
   };
@@ -86,7 +92,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vw, vh, snap }) => {
         <Notepad
           selection={selection === 'about'}
           anim={toggle}
-          snap={snap && active === 'About'}
+          snap={snapIt}
           vh={vh}
           mobile={mobile}
         >

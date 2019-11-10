@@ -153,8 +153,16 @@ export const Projects: React.FC<Props> = ({ active, projectsRef, snap }) => {
     }
   }, [active]);
 
+  const [snapIt, setSnapIt] = useState(false);
+
+  useEffect(() => {
+    active === 'Projects'
+      ? snap && setSnapIt(true)
+      : !snapIt && setSnapIt(false);
+  }, [snap]);
+
   return (
-    <Container id="projects" snap={snap}>
+    <Container id="projects" snap={snapIt}>
       <div className="projects-container" ref={projectsRef}>
         {projects.map((project, index) => (
           <div className="select" key={project.title}>

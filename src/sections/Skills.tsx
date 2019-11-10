@@ -202,8 +202,14 @@ export const Skills: React.FC<Props> = ({ active, skillsRef, snap }) => {
       : toggle && setTimeout(() => setToggle(false), SCROLL_DURATION);
   }, [active]);
 
+  const [snapIt, setSnapIt] = useState(false);
+
+  useEffect(() => {
+    active === 'Skills' ? snap && setSnapIt(true) : !snapIt && setSnapIt(false);
+  }, [snap]);
+
   return (
-    <Container id="skills" snap={snap}>
+    <Container id="skills" snap={snapIt}>
       <div id="main" ref={skillsRef}>
         {skillsArr &&
           skillsArr.map((skills: any, index: any) => (
