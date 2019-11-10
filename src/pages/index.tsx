@@ -11,7 +11,6 @@ import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
 import { FlyingText } from '../components/FlyingText';
 import { SEO } from '../components/SEO';
-import { isIOS } from 'react-device-detect';
 import disableScroll from 'disable-scroll';
 
 const App: React.FC = () => {
@@ -21,18 +20,25 @@ const App: React.FC = () => {
   const [swipeDone, setSwipeDone] = useState<boolean>(true);
   const [swipeX1, setSwipeX1] = useState();
   const [swipeX2, setSwipeX2] = useState();
-  const [vw, setVw] = useState<number>(0);
-  const [vh, setVh] = useState<number>(0);
+  const [measure, setMeasure] = useState<any>({ vw: 0 });
+  const [isIOS, setIsIOS] = useState(false);
   const viewport: any = useRef(null);
 
   useEffect(() => {
-    isIOS && disableScroll.on();
+    // Disable iOS Devices Scroll
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+      setIsIOS(true);
+      disableScroll.on();
+    }
   }, []);
 
   useLayoutEffect(() => {
     const handleResize = () => {
-      setVw(viewport.current.getBoundingClientRect().width / 8);
-      setVh(viewport.current.getBoundingClientRect().height);
+      setMeasure({
+        vw: viewport.current.getBoundingClientRect().width,
+        vh: viewport.current.getBoundingClientRect().height,
+        isMobile: viewport.current.getBoundingClientRect().width < 768,
+      });
     };
 
     handleResize();
@@ -75,7 +81,7 @@ const App: React.FC = () => {
 
     if (typeof dir === 'number') {
       const index = sections.indexOf(active) + dir;
-      const pos = vw * index - window.pageXOffset;
+      const pos = measure.vw * index - window.pageXOffset;
 
       if (!isIOS) {
         scroll(window.pageXOffset, pos, SCROLL_DURATION);
@@ -90,7 +96,7 @@ const App: React.FC = () => {
   const handleJump = (target: string) => {
     const jump = () => {
       const index = sections.indexOf(target);
-      window.scrollTo(vw * index, 0);
+      window.scrollTo(measure.vw * index, 0);
       setActive(sections[index]);
     };
 
@@ -112,39 +118,49 @@ const App: React.FC = () => {
   const contactRef = useRef<any>(null);
   const [snap, setSnap] = useState<boolean>(false);
 
+  if (measure.vw === 0) return <Viewport ref={viewport} />;
+
   return (
     <>
       <SEO section={active} />
-      <Navbar handleJump={handleJump} active={active} vw={vw} vh={vh} />
+      <Navbar
+        handleJump={handleJump}
+        active={active}
+        vw={measure.vw}
+        vh={measure.vh}
+      />
       <Container
         className="content-container"
-        ref={viewport}
         onWheel={handleOnWheel}
         onTouchStart={e => handleSwipe('start', e)}
         onTouchMove={e => handleSwipe('move', e)}
         onTouchEnd={e => handleSwipe('end', e)}
       >
-        <Home active={active} homeRef={homeRef} />
-        <Skills active={active} skillsRef={skillsRef} snap={snap} />
-        <Projects active={active} projectsRef={projectsRef} snap={snap} />
-        <About
+        <Home homeRef={homeRef} active={active} measure={measure} />
+        <Skills skillsRef={skillsRef} active={active} snap={snap} />
+        <Projects
+          projectsRef={projectsRef}
+          measure={measure}
           active={active}
-          aboutRef={aboutRef}
-          vw={vw}
-          vh={vh}
           snap={snap}
         />
-        <Contact active={active} contactRef={contactRef} />
+        <About
+          aboutRef={aboutRef}
+          active={active}
+          measure={measure}
+          snap={snap}
+        />
+        <Contact contactRef={contactRef} active={active} />
         <FlyingText
           sections={sections}
           active={active}
           scrolling={scrolling ? 1 : 0}
-          vw={vw}
-          vh={vh}
+          measure={measure}
           refs={[homeRef, skillsRef, projectsRef, aboutRef, contactRef]}
           setSnap={setSnap}
         />
       </Container>
+      <Viewport ref={viewport} />
     </>
   );
 };
@@ -153,6 +169,11 @@ const Container = styled.main`
   background: white;
   display: flex;
   width: 800vw;
+  height: 100vh;
+`;
+
+const Viewport = styled.main`
+  width: 100vw;
   height: 100vh;
 `;
 

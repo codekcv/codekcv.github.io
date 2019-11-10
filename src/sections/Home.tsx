@@ -2,7 +2,6 @@ import React from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
-import { isMobile, isIOS } from 'react-device-detect';
 import {
   FaTwitter,
   FaYoutube,
@@ -71,9 +70,10 @@ const getImages = graphql`
 interface Props {
   active: string;
   homeRef: React.MutableRefObject<any>;
+  measure: any;
 }
 
-export const Home: React.FC<Props> = ({ active, homeRef }) => {
+export const Home: React.FC<Props> = ({ active, homeRef, measure }) => {
   const {
     allFile: { edges },
   } = useStaticQuery(getImages);
@@ -90,7 +90,7 @@ export const Home: React.FC<Props> = ({ active, homeRef }) => {
   const profileImage = images[1];
 
   return (
-    <Container id="home">
+    <Container id="home" isMobile={measure.isMobile}>
       <div id="placer">
         <div id="card">
           <Img className="profile" fluid={profileImage} />
@@ -109,15 +109,15 @@ export const Home: React.FC<Props> = ({ active, homeRef }) => {
             </div>
           </div>
           <div className="indicator-container">
-            {isMobile ? (
+            {measure.isMobile ? (
               <div className="swipe-container">
                 <p>&lt; Swipe &gt;</p>
-                {isIOS && (
+                {/* {isIOS && (
                   <div className="ios-warn">
                     <p>iOS Swipe Disabled ATM</p>
                     <p>Use the navbar fn.</p>
                   </div>
-                )}
+                )} */}
               </div>
             ) : (
               <div className="scroll-container">
@@ -134,7 +134,7 @@ export const Home: React.FC<Props> = ({ active, homeRef }) => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.section<{ isMobile: boolean }>`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -240,7 +240,7 @@ const Container = styled.section`
 
         @keyframes anim {
           0% {
-            transform: ${isMobile && 'translateX(-5%)'};
+            transform: ${props => props.isMobile && 'translateX(-5%)'};
             opacity: 0.2;
           }
 
@@ -249,7 +249,7 @@ const Container = styled.section`
           }
 
           100% {
-            transform: ${isMobile && 'translateX(5%)'};
+            transform: ${props => props.isMobile && 'translateX(5%)'};
             opacity: 0.2;
           }
         }

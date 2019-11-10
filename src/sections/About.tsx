@@ -24,12 +24,11 @@ const getImages = graphql`
 interface Props {
   active: string;
   aboutRef: React.MutableRefObject<any>;
-  vw: number;
-  vh: number;
+  measure: any;
   snap: boolean;
 }
 
-export const About: React.FC<Props> = ({ active, aboutRef, vw, vh, snap }) => {
+export const About: React.FC<Props> = ({ active, aboutRef, measure, snap }) => {
   const {
     allFile: { edges },
   } = useStaticQuery(getImages);
@@ -43,16 +42,14 @@ export const About: React.FC<Props> = ({ active, aboutRef, vw, vh, snap }) => {
   );
 
   const [toggle, setToggle] = useState<boolean>(false);
-  const [mobile, setMobile] = useState(false);
-
-  useEffect(() => {
-    setMobile(vw < 768);
-  }, [vw]);
 
   useEffect(() => {
     active === 'About'
       ? !toggle &&
-        setTimeout(() => setToggle(true), ANIMATION_DELAY + (!mobile ? 125 : 0))
+        setTimeout(
+          () => setToggle(true),
+          ANIMATION_DELAY + (!measure.isMobile ? 125 : 0)
+        )
       : toggle && setTimeout(() => setToggle(false), 0);
   }, [active]);
 
@@ -70,9 +67,9 @@ export const About: React.FC<Props> = ({ active, aboutRef, vw, vh, snap }) => {
 
   return (
     <Container>
-      {mobile && (
+      {measure.isMobile && (
         <>
-          <Selection ref={mobile ? aboutRef : null}>
+          <Selection ref={measure.isMobile ? aboutRef : null}>
             <Select
               selected={selection === 'about'}
               onClick={() => handleOnSelect('about')}
@@ -88,13 +85,16 @@ export const About: React.FC<Props> = ({ active, aboutRef, vw, vh, snap }) => {
           </Selection>
         </>
       )}
-      <div className="notepad-container" ref={!mobile ? aboutRef : null}>
+      <div
+        className="notepad-container"
+        ref={!measure.isMobile ? aboutRef : null}
+      >
         <Notepad
           selection={selection === 'about'}
           anim={toggle}
           snap={snapIt}
-          vh={vh}
-          mobile={mobile}
+          vh={measure.vh}
+          mobile={measure.isMobile}
         >
           <h1 className="title">About Me</h1>
           <p>
@@ -254,7 +254,7 @@ export const About: React.FC<Props> = ({ active, aboutRef, vw, vh, snap }) => {
             <div className="img img1">
               <Img fluid={images[0]} />
             </div>
-            {!mobile && (
+            {!measure.isMobile && (
               <>
                 <div className="img img3">
                   <Img fluid={images[2]} />
@@ -271,8 +271,8 @@ export const About: React.FC<Props> = ({ active, aboutRef, vw, vh, snap }) => {
           selection={selection === 'webdev'}
           anim={toggle}
           snap={snap && active === 'about'}
-          vh={vh}
-          mobile={mobile}
+          vh={measure.vh}
+          mobile={measure.isMobile}
         >
           <h1 className="title">Web Development Journey</h1>
           <p>

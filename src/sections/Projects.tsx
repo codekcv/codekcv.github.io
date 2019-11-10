@@ -1,15 +1,20 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { SCROLL_DURATION, ANIMATION_DELAY } from '../components/constants';
-import { isMobile } from 'react-device-detect';
 
 interface Props {
-  active: string;
   projectsRef: React.MutableRefObject<any>;
+  measure: any;
+  active: string;
   snap: boolean;
 }
 
-export const Projects: React.FC<Props> = ({ active, projectsRef, snap }) => {
+export const Projects: React.FC<Props> = ({
+  projectsRef,
+  measure,
+  active,
+  snap,
+}) => {
   const colors = [
     {
       'ES6+': 'orange',
@@ -135,7 +140,7 @@ export const Projects: React.FC<Props> = ({ active, projectsRef, snap }) => {
   useEffect(() => {
     if (active === 'Projects') {
       if (!toggle) {
-        if (!isMobile) {
+        if (!measure.isMobile) {
           const randomizedProjects = [...projects];
           const randomizedDelays = [...delays];
 
@@ -166,7 +171,10 @@ export const Projects: React.FC<Props> = ({ active, projectsRef, snap }) => {
       <div className="projects-container" ref={projectsRef}>
         {projects.map((project, index) => (
           <div className="select" key={project.title}>
-            <Project anim={isMobile ? 1 : toggle ? 1 : 0} delay={delays[index]}>
+            <Project
+              anim={measure.isMobile ? 1 : toggle ? 1 : 0}
+              delay={delays[index]}
+            >
               <h2 className="title">{project.title}</h2>
               <a className="code" href={project.code}>
                 Code

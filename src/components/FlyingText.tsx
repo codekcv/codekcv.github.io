@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { isMobile } from 'react-device-detect';
 
 interface Props {
   sections: string[];
   active: string;
   scrolling: number;
-  vw: number;
-  vh: number;
+  measure: any;
   refs: React.MutableRefObject<any>[];
   setSnap: React.Dispatch<React.SetStateAction<boolean>>;
 }
@@ -16,16 +14,16 @@ export const FlyingText: React.FC<Props> = ({
   sections,
   active,
   scrolling,
-  vw,
+  measure,
   refs,
   setSnap,
 }) => {
   const [text1, setText1] = useState<string>('Christian Villamin');
   const [text2, setText2] = useState<string>('');
-  const [posX, setPosX] = useState<number>(0);
-  const [posY, setPosY] = useState<number>(0);
+  const [posX, setPosX] = useState<number>(measure.vw / 2);
+  const [posY, setPosY] = useState<number>(-100);
   const [anim, setAnim] = useState<boolean>(false);
-  const [sizes, setSizes] = useState<number[]>([isMobile ? 8 : 3.5]);
+  const [sizes, setSizes] = useState<number[]>([measure.isMobile ? 8 : 3.5]);
 
   const texts = [
     'Christian Villamin',
@@ -41,7 +39,7 @@ export const FlyingText: React.FC<Props> = ({
     const activeRef = refs[index];
     let newY = activeRef.current.getBoundingClientRect().top - 30;
 
-    if (isMobile && activeRef.current) {
+    if (measure.isMobile && activeRef.current) {
       if (newY < 30) {
         newY = 30;
         setSnap(true);
@@ -54,17 +52,18 @@ export const FlyingText: React.FC<Props> = ({
   }, [active]);
 
   useEffect(() => {
-    setPosX(vw * index + vw / 2);
+    setPosX(measure.vw * index + measure.vw / 2);
 
-    if (isMobile) {
+    if (measure.isMobile) {
       setSizes([7, 9, 10, 10, 9]);
     } else {
       setSizes([3, 6.5, 6, 6, 5]);
     }
-  }, [vw]);
+    console.log('omg');
+  }, [measure.vw]);
 
   useEffect(() => {
-    setPosX(vw * index + vw / 2);
+    setPosX(measure.vw * index + measure.vw / 2);
     setAnim(anim => !anim);
     anim ? setText1(texts[index]) : setText2(texts[index]);
   }, [active]);
@@ -78,6 +77,7 @@ export const FlyingText: React.FC<Props> = ({
       sizes={sizes}
       scrolling={scrolling}
       active={active === 'Home'}
+      isMobile={measure.isMobile}
     >
       <h1 id="current">{text1}</h1>
       <h1 id="next">{text2}</h1>
@@ -93,6 +93,7 @@ interface ContainerProps {
   sizes: number[];
   scrolling: number;
   active: boolean;
+  isMobile: boolean;
 }
 
 const Container = styled.div<ContainerProps>`
@@ -107,7 +108,11 @@ const Container = styled.div<ContainerProps>`
   left: ${props => props.posX + 'px'};
   transform: translate(-50%, -50%);
   transition: ${props =>
-    props.scrolling ? (isMobile ? '0.25s linear' : '0.35s ease-in-out') : '0s'};
+    props.scrolling
+      ? props.isMobile
+        ? '0.2s linear'
+        : '0.35s ease-in-out'
+      : 0};
 
   h1 {
     position: absolute;
