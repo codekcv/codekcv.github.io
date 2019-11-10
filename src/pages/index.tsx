@@ -41,10 +41,9 @@ const App: React.FC = () => {
     const handleResize = () => {
       const vw = viewport.current.getBoundingClientRect().width;
       const vh = viewport.current.getBoundingClientRect().height;
-      const isMobile = viewport.current.getBoundingClientRect().width < 768;
+      const isMobile = vw < 768;
       const SCROLL_DURATION = isMobile ? 250 : 500;
       const ANIMATION_DELAY = isMobile ? 250 : 150;
-      const SWIPE_THRESHOLD = 40;
 
       setMeasures({
         vw,
@@ -52,7 +51,6 @@ const App: React.FC = () => {
         isMobile,
         SCROLL_DURATION,
         ANIMATION_DELAY,
-        SWIPE_THRESHOLD,
       });
     };
 
@@ -77,10 +75,7 @@ const App: React.FC = () => {
       case 'move':
         setSwipeX2(e.touches[0].clientX);
 
-        if (
-          Math.abs(swipeX1 - swipeX2) >= measures.SWIPE_THRESHOLD &&
-          !swipeDone
-        ) {
+        if (Math.abs(swipeX1 - swipeX2) >= 40 && !swipeDone) {
           swipeX1 < swipeX2 ? handleScroll('left') : handleScroll('right');
           setSwipeDone(true);
         }
@@ -147,7 +142,7 @@ const App: React.FC = () => {
         onTouchMove={e => handleSwipe('move', e)}
         onTouchEnd={e => handleSwipe('end', e)}
       >
-        <Home homeRef={homeRef} measures={measures} />
+        <Home homeRef={homeRef} measures={measures} isIOS={isIOS} />
         <Skills
           skillsRef={skillsRef}
           measures={measures}

@@ -70,9 +70,10 @@ const getImages = graphql`
 interface Props {
   homeRef: React.MutableRefObject<any>;
   measures: any;
+  isIOS: boolean;
 }
 
-export const Home: React.FC<Props> = ({ homeRef, measures }) => {
+export const Home: React.FC<Props> = ({ homeRef, measures, isIOS }) => {
   const {
     allFile: { edges },
   } = useStaticQuery(getImages);
@@ -111,12 +112,12 @@ export const Home: React.FC<Props> = ({ homeRef, measures }) => {
             {measures.isMobile ? (
               <div className="swipe-container">
                 <p>&lt; Swipe &gt;</p>
-                {/* {isIOS && (
+                {isIOS && (
                   <div className="ios-warn">
                     <p>iOS Swipe Disabled ATM</p>
                     <p>Use the navbar fn.</p>
                   </div>
-                )} */}
+                )}
               </div>
             ) : (
               <div className="scroll-container">
@@ -219,7 +220,7 @@ const Container = styled.section<{ isMobile: boolean }>`
             text-align: center;
 
             p {
-              font-size: 0.39rem;
+              font-size: 0.8rem;
             }
           }
         }
