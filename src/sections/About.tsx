@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
-import { ANIMATION_DELAY, SCROLL_DURATION } from '../components/constants';
+import { ANIMATION_DELAY } from '../components/constants';
 import { isMobile } from 'react-device-detect';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
@@ -54,10 +54,39 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
       : toggle && setTimeout(() => setToggle(false), 0);
   }, [active]);
 
+  const handleOnSelect = (select: string) => {
+    setSelection(select);
+  };
+
+  const [selection, setSelection] = useState('about');
+
   return (
     <Container>
-      <div className="notepad-container" ref={aboutRef}>
-        <Notepad anim={toggle} snap={snap && active === 'About'} vh={vh}>
+      {isMobile && (
+        <>
+          <Selection ref={isMobile ? aboutRef : null}>
+            <Select
+              selected={selection === 'about'}
+              onClick={() => handleOnSelect('about')}
+            >
+              About
+            </Select>
+            <Select
+              selected={selection === 'webdev'}
+              onClick={() => handleOnSelect('webdev')}
+            >
+              WebDev
+            </Select>
+          </Selection>
+        </>
+      )}
+      <div className="notepad-container" ref={!isMobile ? aboutRef : null}>
+        <Notepad
+          selection={selection === 'about'}
+          anim={toggle}
+          snap={snap && active === 'About'}
+          vh={vh}
+        >
           <h1 className="title">About Me</h1>
           <p>
             I'm Christian Villamin, a web developer. I specialize in ReactJS &
@@ -185,10 +214,31 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
               blindfold play 🙈
             </a>
             ). I like walking around outside to arrange my thoughts. I drink
-            your average joe coffee everyday. I want to play Dungeons & Dragons.
-            I'm very interested to learn AI/Machine Learning when I get time. I
-            love Silicon Valley, the actual place and the TV show. I don't play
-            any computer games anymore.
+            your average joe coffee everyday. I want to play{' '}
+            <a
+              href="https://www.amazon.com/Dungeons-Dragons-Starter-Set-Roleplaying/dp/0786965592"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Dungeons & Dragons
+            </a>
+            . I will learn AI|
+            <a
+              href="https://en.wikipedia.org/wiki/Machine_learning"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Machine Learning
+            </a>{' '}
+            sometime. I love Silicon Valley, the place and the{' '}
+            <a
+              href="https://www.imdb.com/title/tt2575988/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              TV Show
+            </a>
+            . I don't play any computer games anymore.
           </p>
 
           <div className="images">
@@ -207,160 +257,199 @@ export const About: React.FC<Props> = ({ active, aboutRef, vh, snap }) => {
             )}
           </div>
         </Notepad>
-        {!isMobile && (
-          <Notepad anim={toggle} snap={snap && active === 'About'} vh={vh}>
-            <h1 className="title">Web Development Journey</h1>
-            <p>
-              I have a keen interest in doing web development. Looking to learn,
-              I found{' '}
-              <a
-                href="https://www.freecodecamp.org/"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                freeCodeCamp
-              </a>
-              . I finished its curriculum that has an estimated course work of
-              1800 hours. I solved 800+ challenges and built a total of 30
-              projects of my own work, passing all unit testing, and submitted
-              to get my certifications. All in the span of{' '}
-              <a
-                href="https://www.freecodecamp.org/christianvillamin"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                3 months
-              </a>
-              .
-            </p>
-            <br />
 
-            <ul>
-              <li>
-                <a
-                  href="https://www.freecodecamp.org/certification/christianvillamin/responsive-web-design"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Responsive Web Design Certification
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.freecodecamp.org/certification/christianvillamin/javascript-algorithms-and-data-structures"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  JavaScript Algorithms and Data Structures Certification
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.freecodecamp.org/certification/christianvillamin/front-end-libraries"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Front End Libraries Certification
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.freecodecamp.org/certification/christianvillamin/data-visualization"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Data Visualization Certification
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.freecodecamp.org/certification/christianvillamin/apis-and-microservices"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  APIs and Microservices Certification
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.freecodecamp.org/certification/christianvillamin/information-security-and-quality-assurance"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Information Security and Quality Assurance Certification
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.freecodecamp.org/certification/christianvillamin/full-stack"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Full Stack Certification
-                </a>
-              </li>
-            </ul>
-            <br />
-            <p>
-              Having programming background, learning JavaScript(ES6+/Algos/DOM
-              Manipulations) was a breeze. Meanwhile, HTML5 & CSS3 are much
-              easier languages to learn from having that standpoint.
-            </p>
-            <br />
-            <p>
-              After that, I focused my learning on the latest and greatest web
-              technologies;{' '}
+        <Notepad
+          selection={selection === 'webdev'}
+          anim={toggle}
+          snap={snap && active === 'about'}
+          vh={vh}
+        >
+          <h1 className="title">Web Development Journey</h1>
+          <p>
+            I have a keen interest in doing web development. Looking to learn, I
+            found{' '}
+            <a
+              href="https://www.freecodecamp.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              freeCodeCamp
+            </a>
+            . I finished its curriculum that has an estimated course work of
+            1800 hours. I solved 800+ challenges and built a total of 30
+            projects of my own work, passing all unit testing, and submitted to
+            get my certifications. All in the span of{' '}
+            <a
+              href="https://www.freecodecamp.org/christianvillamin"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              3 months
+            </a>
+            .
+          </p>
+          <br />
+          <ul>
+            <li>
               <a
-                href="https://reactjs.org/"
+                href="https://www.freecodecamp.org/certification/christianvillamin/responsive-web-design"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                ReactJS
-              </a>{' '}
-              for the client-side, and{' '}
+                Responsive Web Design Certification
+              </a>
+            </li>
+            <li>
               <a
-                href="https://nodejs.org/en/"
+                href="https://www.freecodecamp.org/certification/christianvillamin/javascript-algorithms-and-data-structures"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                NodeJS
-              </a>{' '}
-              for the server-side. From there, the skills expanded to an
-              environment surrounding those two primary technologies. I'm strong
-              in MERN stack.
-            </p>
-            <br />
-            <p>
-              I created a{' '}
+                JavaScript Algorithms and Data Structures Certification
+              </a>
+            </li>
+            <li>
               <a
-                href="https://twitter.com/villamin_c"
+                href="https://www.freecodecamp.org/certification/christianvillamin/front-end-libraries"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Twitter
-              </a>{' '}
-              &{' '}
+                Front End Libraries Certification
+              </a>
+            </li>
+            <li>
               <a
-                href="https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg"
+                href="https://www.freecodecamp.org/certification/christianvillamin/data-visualization"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                YouTube
-              </a>{' '}
-              account as a documentation tool for my progress. Joining the{' '}
+                Data Visualization Certification
+              </a>
+            </li>
+            <li>
               <a
-                href="https://www.100daysofcode.com/"
+                href="https://www.freecodecamp.org/certification/christianvillamin/apis-and-microservices"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                100DaysOfCode
-              </a>{' '}
-              challenge has been a huge help to my learning, as I was able to
-              relate, help, and share thoughts to many people who are also
-              learning web development.
-            </p>
-          </Notepad>
-        )}
+                APIs and Microservices Certification
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.freecodecamp.org/certification/christianvillamin/information-security-and-quality-assurance"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Information Security and Quality Assurance Certification
+              </a>
+            </li>
+            <li>
+              <a
+                href="https://www.freecodecamp.org/certification/christianvillamin/full-stack"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Full Stack Certification
+              </a>
+            </li>
+          </ul>
+          <br />
+          <p>
+            Having programming background, learning JavaScript(ES6+/Algos/DOM
+            Manipulations) was a breeze. Meanwhile, HTML5 & CSS3 are much easier
+            languages to learn from having that standpoint.
+          </p>
+          <br />
+          <p>
+            After that, I focused my learning on the latest and greatest web
+            technologies;{' '}
+            <a
+              href="https://reactjs.org/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              ReactJS
+            </a>{' '}
+            for the client-side, and{' '}
+            <a
+              href="https://nodejs.org/en/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              NodeJS
+            </a>{' '}
+            for the server-side. From there, the skills expanded to an
+            environment surrounding those two primary technologies. I'm strong
+            in MERN stack.
+          </p>
+          <br />
+          <p>
+            I created a{' '}
+            <a
+              href="https://twitter.com/villamin_c"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Twitter
+            </a>{' '}
+            &{' '}
+            <a
+              href="https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              YouTube
+            </a>{' '}
+            account as a documentation tool for my progress. Joining the{' '}
+            <a
+              href="https://www.100daysofcode.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              100DaysOfCode
+            </a>{' '}
+            challenge has been a huge help to my learning, as I was able to
+            relate, help, and share thoughts to many people who are also
+            learning web development.
+          </p>
+          <br />
+          <p>
+            I am eternally grateful to{' '}
+            <a
+              href="https://twitter.com/ossia"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Quincy
+            </a>
+            ,{' '}
+            <a
+              href="https://twitter.com/ka11away"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Alex
+            </a>
+            ,{' '}
+            <a
+              href="https://twitter.com/traversymedia"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Brad
+            </a>
+            , and finally,{' '}
+            <a
+              href="https://www.google.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              this thicc boi
+            </a>
+            .
+          </p>
+        </Notepad>
       </div>
     </Container>
   );
@@ -388,10 +477,39 @@ const Container = styled.section`
   }
 `;
 
-const Notepad = styled.div<{ anim: boolean; snap: boolean; vh: number }>`
+const Selection = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const Select = styled.div<{ selected: boolean }>`
+  background: ${props => (props.selected ? 'black' : 'none')};
+  color: ${props => (props.selected ? 'white' : 'black')};
+  /* border: 1px rgba(150, 170, 180, 1) solid; */
+  /* border-radius: 6px; */
+  margin: 0 6px;
+  width: 100px;
+  height: 25px;
+  text-align: center;
+  line-height: 25px;
+  /* box-shadow: 0 0 30px -10px rgba(150, 170, 180, 1); */
+  box-shadow: 0 0 5px dimgray;
+`;
+
+interface NotepadProps {
+  selection: boolean;
+  anim: boolean;
+  snap: boolean;
+  vh: number;
+}
+
+const Notepad = styled.div<NotepadProps>`
+  display: ${props =>
+    isMobile ? (props.selection ? 'block' : 'none') : 'block'};
   position: relative;
   width: 96%;
-  height: ${props => (props.snap ? props.vh - 60 + 'px' : '585px')};
+  height: ${props => (props.snap ? props.vh - 60 + 'px' : '650px')};
   background: #f5f5f5;
   box-shadow: 0 0 30px -10px rgba(150, 170, 180, 1);
   transition: 0.5s ease;
@@ -411,6 +529,10 @@ const Notepad = styled.div<{ anim: boolean; snap: boolean; vh: number }>`
   }
 
   p {
+    font-size: 0.8rem;
+  }
+
+  a {
     font-size: 0.7rem;
   }
 
