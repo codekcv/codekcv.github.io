@@ -19,62 +19,33 @@ const App: React.FC = () => {
   const [swipeX1, setSwipeX1] = useState<number>(0);
   const [swipeX2, setSwipeX2] = useState<number>(0);
   const [measures, setMeasures] = useState<any>({ vw: 0 });
-  const homeRef = useRef<React.FunctionComponent>(null);
-  const skillsRef = useRef<React.FunctionComponent>(null);
-  const projectsRef = useRef<React.FunctionComponent>(null);
-  const aboutRef = useRef<React.FunctionComponent>(null);
-  const contactRef = useRef<React.FunctionComponent>(null);
+  const homeRef = useRef<React.FC>(null);
+  const skillsRef = useRef<React.FC>(null);
+  const projectsRef = useRef<React.FC>(null);
+  const aboutRef = useRef<React.FC>(null);
+  const contactRef = useRef<React.FC>(null);
   const viewport: any = useRef(null);
 
-  useEffect(() => {
-    window.addEventListener('touchmove', e => e.preventDefault(), {
-      passive: false,
-    });
-
-    return () => {
-      window.removeEventListener('touchmove', e => e.preventDefault());
-    };
-  }, []);
-
-  useLayoutEffect(() => {
-    const handleResize = () => {
-      const vw = viewport.current.getBoundingClientRect().width;
-      const vh = viewport.current.getBoundingClientRect().height;
-      const isMobile = vw < 768;
-      const SCROLL_DURATION = isMobile ? 250 : 500;
-      const ANIMATION_DELAY = isMobile ? 250 : 150;
-
-      setMeasures({ vw, vh, isMobile, SCROLL_DURATION, ANIMATION_DELAY });
-    };
-
-    handleResize();
-    window.scrollTo(0, 0);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const handleOnWheel = (e: React.WheelEvent<HTMLElement>) => {
-    e.deltaY < 0 && handleScroll('left');
-    e.deltaY > 0 && handleScroll('right');
-  };
+  const handleOnWheel = (e: React.WheelEvent<HTMLElement>) =>
+    e.deltaY < 0 ? handleScroll('left') : handleScroll('right');
 
   const handleSwipe = (type: string, e: React.TouchEvent<HTMLElement>) => {
     switch (type) {
       case 'start':
         e.preventDefault();
+
         setSwipeX1(e.touches[0].clientX);
         setSwipeX2(e.touches[0].clientX);
         swipeDone && setSwipeDone(false);
         break;
       case 'move':
         e.preventDefault();
-        const x = e.touches[0].clientX;
 
-        if (Math.abs(swipeX1 - x) >= 60 && !swipeDone) {
+        if (Math.abs(swipeX1 - e.touches[0].clientX) >= 60 && !swipeDone) {
           swipeX1 < swipeX2 ? handleScroll('left') : handleScroll('right');
           setSwipeDone(true);
         } else {
-          setSwipeX2(x);
+          setSwipeX2(e.touches[0].clientX);
         }
         break;
       case 'end':
@@ -86,6 +57,7 @@ const App: React.FC = () => {
 
   const handleScroll = (dir: string | number) => {
     if (scrolling) return;
+
     dir === 'left' && active !== sections[0] && (dir = -1);
     dir === 'right' && active !== sections.slice(-1)[0] && (dir = 1);
 
@@ -126,6 +98,33 @@ const App: React.FC = () => {
     window.scrollTo(measures.vw * index, 0);
     setActive(sections[index]);
   };
+
+  useEffect(() => {
+    window.addEventListener('touchmove', e => e.preventDefault(), {
+      passive: false,
+    });
+
+    return () => {
+      window.removeEventListener('touchmove', e => e.preventDefault());
+    };
+  }, []);
+
+  useLayoutEffect(() => {
+    const handleResize = () => {
+      const vw = viewport.current.getBoundingClientRect().width;
+      const vh = viewport.current.getBoundingClientRect().height;
+      const isMobile = vw < 768;
+      const SCROLL_DURATION = isMobile ? 250 : 500;
+      const ANIMATION_DELAY = isMobile ? 250 : 150;
+
+      setMeasures({ vw, vh, isMobile, SCROLL_DURATION, ANIMATION_DELAY });
+    };
+
+    handleResize();
+    window.scrollTo(0, 0);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   if (measures.vw === 0) return <Viewport ref={viewport} />;
 
