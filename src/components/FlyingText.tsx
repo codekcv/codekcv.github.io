@@ -55,7 +55,7 @@ export const FlyingText: React.FC<Props> = ({
     setPosX(measures.vw * index + measures.vw / 2);
 
     if (measures.isMobile) {
-      setSizes([7, 9, 10, 10, 9]);
+      setSizes([7, 7, 8.5, 8.5, 6.5]);
     } else {
       setSizes([3, 6.5, 6, 6, 5]);
     }

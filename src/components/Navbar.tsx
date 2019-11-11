@@ -2,17 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  handleJump: (target: string) => void;
+  menu: string[];
+  measures: any;
   active: string;
-  vw: number;
-  vh: number;
+  handleJump: (target: string) => void;
 }
 
-export const Navbar: React.FC<Props> = ({ handleJump, active, vw, vh }) => {
-  const menu = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
-
+export const Navbar: React.FC<Props> = ({
+  menu,
+  measures,
+  active,
+  handleJump,
+}) => {
   return (
-    <Container vw={vw} vh={vh}>
+    <Container vw={measures.vw} vh={measures.vh}>
       <nav>
         <ul>
           {menu.map(item => (
