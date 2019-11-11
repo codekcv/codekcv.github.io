@@ -1,7 +1,6 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
 import '../sections/index.css';
 import styled from 'styled-components';
-import { scroll } from '../components/scroll';
 import { Navbar } from '../components/Navbar';
 import { Home } from '../sections/Home';
 import { Skills } from '../sections/Skills';
@@ -10,31 +9,31 @@ import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
 import { FlyingText } from '../components/FlyingText';
 import { SEO } from '../components/SEO';
-import disableScroll from 'disable-scroll';
 
 const App: React.FC = () => {
   const sections: string[] = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
-  const [scrolling, setScrolling] = useState<boolean>(false);
   const [active, setActive] = useState<string>(sections[0]);
+  const [scrolling, setScrolling] = useState<boolean>(false);
   const [swipeDone, setSwipeDone] = useState<boolean>(true);
-  const [swipeX1, setSwipeX1] = useState();
-  const [swipeX2, setSwipeX2] = useState();
-  const [measures, setMeasures] = useState<any>({ vw: 0 });
-  const [isIOS, setIsIOS] = useState(false);
-  const homeRef = useRef<any>(null);
-  const skillsRef = useRef<any>(null);
-  const projectsRef = useRef<any>(null);
-  const aboutRef = useRef<any>(null);
-  const contactRef = useRef<any>(null);
   const [snap, setSnap] = useState<boolean>(false);
+  const [swipeX1, setSwipeX1] = useState<number>(0);
+  const [swipeX2, setSwipeX2] = useState<number>(0);
+  const [measures, setMeasures] = useState<any>({ vw: 0 });
+  const homeRef = useRef<React.FunctionComponent>(null);
+  const skillsRef = useRef<React.FunctionComponent>(null);
+  const projectsRef = useRef<React.FunctionComponent>(null);
+  const aboutRef = useRef<React.FunctionComponent>(null);
+  const contactRef = useRef<React.FunctionComponent>(null);
   const viewport: any = useRef(null);
 
   useEffect(() => {
-    // Disable iOS Devices Scroll
-    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
-      setIsIOS(true);
-      disableScroll.on();
-    }
+    window.addEventListener('touchmove', e => e.preventDefault(), {
+      passive: false,
+    });
+
+    return () => {
+      window.removeEventListener('touchmove', e => e.preventDefault());
+    };
   }, []);
 
   useLayoutEffect(() => {
@@ -45,13 +44,7 @@ const App: React.FC = () => {
       const SCROLL_DURATION = isMobile ? 250 : 500;
       const ANIMATION_DELAY = isMobile ? 250 : 150;
 
-      setMeasures({
-        vw,
-        vh,
-        isMobile,
-        SCROLL_DURATION,
-        ANIMATION_DELAY,
-      });
+      setMeasures({ vw, vh, isMobile, SCROLL_DURATION, ANIMATION_DELAY });
     };
 
     handleResize();
@@ -68,16 +61,20 @@ const App: React.FC = () => {
   const handleSwipe = (type: string, e: React.TouchEvent<HTMLElement>) => {
     switch (type) {
       case 'start':
+        e.preventDefault();
         setSwipeX1(e.touches[0].clientX);
         setSwipeX2(e.touches[0].clientX);
         swipeDone && setSwipeDone(false);
         break;
       case 'move':
-        setSwipeX2(e.touches[0].clientX);
+        e.preventDefault();
+        const x = e.touches[0].clientX;
 
-        if (Math.abs(swipeX1 - swipeX2) >= 40 && !swipeDone) {
+        if (Math.abs(swipeX1 - x) >= 60 && !swipeDone) {
           swipeX1 < swipeX2 ? handleScroll('left') : handleScroll('right');
           setSwipeDone(true);
+        } else {
+          setSwipeX2(x);
         }
         break;
       case 'end':
@@ -96,32 +93,38 @@ const App: React.FC = () => {
       const index = sections.indexOf(active) + dir;
       const pos = measures.vw * index - window.pageXOffset;
 
-      if (!isIOS) {
-        scroll(window.pageXOffset, pos, measures.SCROLL_DURATION);
-        setScrolling(true);
+      setScrolling(true);
+      setActive(sections[index]);
+      setTimeout(() => setScrolling(false), measures.SCROLL_DURATION + 50);
 
-        setTimeout(() => setActive(sections[index]));
-        setTimeout(() => setScrolling(false), measures.SCROLL_DURATION + 50);
-      }
+      let val = 0;
+      const tick = 1000 / 60;
+      const base = window.pageXOffset;
+      const ease = !measures.isMobile
+        ? (t: number, b: number, c: number) => {
+            t /= measures.SCROLL_DURATION / 2;
+            if (t < 1) return (c / 2) * t * t + b;
+            t--;
+            return (-c / 2) * (t * (t - 2) - 1) + b;
+          }
+        : (t: number, b: number, c: number) =>
+            (c * t) / measures.SCROLL_DURATION + b;
+
+      const myInterval = setInterval(() => {
+        if ((val += tick) < measures.SCROLL_DURATION) {
+          window.scrollTo(ease(val, base, pos), 0);
+        } else {
+          window.scrollTo(base + pos, 0);
+          clearInterval(myInterval);
+        }
+      }, tick);
     }
   };
 
   const handleJump = (target: string) => {
-    const jump = () => {
-      const index = sections.indexOf(target);
-      window.scrollTo(measures.vw * index, 0);
-      setActive(sections[index]);
-    };
-
-    if (!isIOS) {
-      jump();
-    } else {
-      disableScroll.off();
-      setTimeout(() => {
-        jump();
-        setTimeout(() => disableScroll.on(), 0);
-      }, 0);
-    }
+    const index = sections.indexOf(target);
+    window.scrollTo(measures.vw * index, 0);
+    setActive(sections[index]);
   };
 
   if (measures.vw === 0) return <Viewport ref={viewport} />;
@@ -130,10 +133,10 @@ const App: React.FC = () => {
     <>
       <SEO section={active} />
       <Navbar
+        menu={sections}
+        measures={measures}
         handleJump={handleJump}
         active={active}
-        vw={measures.vw}
-        vh={measures.vh}
       />
       <Container
         className="content-container"
@@ -142,7 +145,7 @@ const App: React.FC = () => {
         onTouchMove={e => handleSwipe('move', e)}
         onTouchEnd={e => handleSwipe('end', e)}
       >
-        <Home homeRef={homeRef} measures={measures} isIOS={isIOS} />
+        <Home homeRef={homeRef} measures={measures} />
         <Skills
           skillsRef={skillsRef}
           measures={measures}
