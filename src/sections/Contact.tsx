@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const Contact: React.FC<Props> = ({ contactRef, measures, active }) => {
-  const [toggle, setToggle] = useState(false);
+  const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
     active === 'Contact'

@@ -117,7 +117,7 @@ export const Projects: React.FC<Props> = ({
 
   const DELAY = 100;
   const [delays, setDelays] = useState<number[]>([]);
-  const [toggle, setToggle] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(true);
 
   useEffect(() => {
     const delayArr = [];

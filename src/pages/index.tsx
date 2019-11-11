@@ -26,6 +26,23 @@ const App: React.FC = () => {
   const contactRef = useRef<React.FC>(null);
   const viewport: any = useRef(null);
 
+  useLayoutEffect(() => {
+    const handleMeasurements = () => {
+      const vw = viewport.current.getBoundingClientRect().width;
+      const vh = viewport.current.getBoundingClientRect().height;
+      const isMobile = vw < 768;
+      const SCROLL_DURATION = isMobile ? 250 : 500;
+      const ANIMATION_DELAY = isMobile ? 250 : 150;
+
+      setMeasures({ vw, vh, isMobile, SCROLL_DURATION, ANIMATION_DELAY });
+    };
+
+    handleMeasurements();
+    window.scrollTo(0, 0);
+    window.addEventListener('resize', handleMeasurements);
+    return () => window.removeEventListener('resize', handleMeasurements);
+  }, []);
+
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) =>
     e.deltaY < 0 ? handleScroll('left') : handleScroll('right');
 
@@ -107,23 +124,6 @@ const App: React.FC = () => {
     return () => {
       window.removeEventListener('touchmove', e => e.preventDefault());
     };
-  }, []);
-
-  useLayoutEffect(() => {
-    const handleResize = () => {
-      const vw = viewport.current.getBoundingClientRect().width;
-      const vh = viewport.current.getBoundingClientRect().height;
-      const isMobile = vw < 768;
-      const SCROLL_DURATION = isMobile ? 250 : 500;
-      const ANIMATION_DELAY = isMobile ? 250 : 150;
-
-      setMeasures({ vw, vh, isMobile, SCROLL_DURATION, ANIMATION_DELAY });
-    };
-
-    handleResize();
-    window.scrollTo(0, 0);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   if (measures.vw === 0) return <Viewport ref={viewport} />;

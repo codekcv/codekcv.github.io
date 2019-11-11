@@ -44,7 +44,7 @@ export const About: React.FC<Props> = ({
     }: any) => fluid
   );
 
-  const [toggle, setToggle] = useState<boolean>(false);
+  const [toggle, setToggle] = useState<boolean>(true);
 
   useEffect(() => {
     active === 'About'
