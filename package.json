@@ -16,7 +16,6 @@
   "dependencies": {
     "babel-plugin-styled-components": "^1.10.6",
     "gatsby": "^2.16.1",
-    "gatsby-background-image": "^0.8.15",
     "gatsby-image": "^2.2.29",
     "gatsby-plugin-manifest": "^2.2.23",
     "gatsby-plugin-react-helmet": "^3.1.13",
@@ -28,7 +27,7 @@
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "react-helmet": "^5.2.1",
-    "react-icons": "^3.7.0",
+    "react-icons": "^3.8.0",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
@@ -36,9 +35,7 @@
     "@types/react": "^16.9.9",
     "@types/react-dom": "^16.9.2",
     "@types/react-helmet": "^5.0.14",
-    "@types/react-swipeable": "^4.3.0",
     "@types/styled-components": "^4.1.19",
-    "gatsby-plugin-playground": "^1.0.6",
     "gh-pages": "^2.1.1",
     "prettier": "^1.18.2"
   },
