@@ -37,7 +37,7 @@ export const FlyingText: React.FC<Props> = ({
 
   useEffect(() => {
     const activeRef = refs[index];
-    let newY = activeRef.current.getBoundingClientRect().top - 30;
+    let newY = activeRef.current.getBoundingClientRect().top - 18;
 
     if (measures.isMobile && activeRef.current) {
       if (newY < 30) {

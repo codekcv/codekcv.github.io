@@ -3,12 +3,12 @@ import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import {
-  FaTwitter,
-  FaYoutube,
-  FaFreeCodeCamp,
-  FaCodepen,
   FaGithub,
+  FaCodepen,
+  FaFreeCodeCamp,
+  FaYoutube,
   FaLinkedinIn,
+  FaTwitter,
 } from 'react-icons/fa';
 
 const links = [
@@ -31,17 +31,18 @@ const links = [
     color: 'green',
   },
   {
-    name: 'LinkedIn',
-    icon: <FaLinkedinIn className="fa" />,
-    url: 'https://www.linkedin.com/in/christian-villamin-907272188/',
-    color: '#0e76a8 ',
-  },
-  {
     name: 'YouTube',
     icon: <FaYoutube className="fa" />,
     url: 'https://www.youtube.com/channel/UC9NkngOuNAcPGfx4Nl3ODgg',
     color: '#c4302b',
   },
+  {
+    name: 'LinkedIn',
+    icon: <FaLinkedinIn className="fa" />,
+    url: 'https://www.linkedin.com/in/christian-villamin-907272188/',
+    color: '#0e76a8 ',
+  },
+
   {
     name: 'Twitter',
     icon: <FaTwitter className="fa" />,
@@ -173,7 +174,7 @@ const Container = styled.section<{ isMobile: boolean }>`
 
         .flying-text {
           position: relative;
-          top: 120px;
+          top: 110px;
         }
 
         h2 {
@@ -267,7 +268,7 @@ const Container = styled.section<{ isMobile: boolean }>`
           border-radius: 60px;
 
           .flying-text {
-            top: 110px;
+            top: 100px;
           }
 
           h2 {
@@ -298,7 +299,7 @@ const Container = styled.section<{ isMobile: boolean }>`
           border-radius: 60px;
 
           .flying-text {
-            top: 175px;
+            top: 165px;
           }
 
           h2 {

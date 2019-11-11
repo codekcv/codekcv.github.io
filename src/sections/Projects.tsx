@@ -244,6 +244,8 @@ const Container = styled.section<{ snap: boolean }>`
       width: 80%;
       max-width: 1920;
 
+      padding-top: 20px;
+
       .select {
         border-radius: 12px;
         transition: 0.5s ease;

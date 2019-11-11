@@ -82,20 +82,18 @@ const Container = styled.div<{ anim: boolean }>`
   height: 100vh;
 
   transition: ${props => (props.anim ? '0.75s' : 0)} ease;
-  transform: ${props => (props.anim ? `scale(1)` : `scale(1.25)`)};
+  /* transform: ${props => (props.anim ? `scale(1)` : `scale(1.25)`)}; */
   opacity: ${props => (props.anim ? 1 : 0)};
 
   .outer {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
-    /* padding-top: 40px; */
     width: 100%;
 
     .contact-container {
       position: relative;
-      width: 90%;
-      padding: 16px;
+      width: 80%;
+      padding: 8px;
       box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 1);
       border-radius: 6px;
 
@@ -106,7 +104,7 @@ const Container = styled.div<{ anim: boolean }>`
       .input {
         display: block;
         margin: 2px;
-        padding: 12px;
+        padding: 6px;
         border: 1px lightgray solid;
         border-radius: 3px;
         width: 100%;
