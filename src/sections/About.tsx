@@ -8,7 +8,6 @@ const getImages = graphql`
     allFile(filter: { relativeDirectory: { eq: "about" } }) {
       edges {
         node {
-          name
           childImageSharp {
             fluid(maxWidth: 600) {
               ...GatsbyImageSharpFluid
@@ -102,7 +101,7 @@ export const About: React.FC<Props> = ({
         >
           <h1 className="title">About Me</h1>
           <p>
-            I'm Christian Villamin, a web developer. I specialize in ReactJS &
+            I'm Christian Villamin, a web developer specializing in ReactJS &
             NodeJS. I love JavaScript, open source, and learning new things.
           </p>
           <br />

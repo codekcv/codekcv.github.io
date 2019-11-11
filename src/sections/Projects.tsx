@@ -14,17 +14,6 @@ export const Projects: React.FC<Props> = ({
   active,
   snap,
 }) => {
-  const colors = [
-    {
-      'ES6+': 'orange',
-      TypeScript: 'blue',
-      Gatsby: 'purple',
-      GraphQL: 'violet',
-      MongoDB: 'green',
-      Axios: 'white',
-    },
-  ];
-
   const [projects, setProjects] = useState([
     {
       title: 'ChristianVillamin.github.io',
@@ -171,14 +160,25 @@ export const Projects: React.FC<Props> = ({
         {projects.map((project, index) => (
           <div className="select" key={project.title}>
             <Project
-              anim={measures.isMobile ? 1 : toggle ? 1 : 0}
+              anim={toggle ? 1 : 0}
               delay={delays[index]}
+              isMobile={measures.isMobile}
             >
               <h2 className="title">{project.title}</h2>
-              <a className="code" href={project.code}>
+              <a
+                className="code"
+                href={project.code}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Code
               </a>
-              <a className="demo" href={project.demo}>
+              <a
+                className="demo"
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 Demo
               </a>
               <p className="description">{project.description}</p>
@@ -257,14 +257,21 @@ const Container = styled.section<{ snap: boolean }>`
   }
 `;
 
-const Project = styled.div<{ anim: number; delay: number }>`
+const Project = styled.div<{ anim: number; delay: number; isMobile: boolean }>`
   background: white;
   margin: 6px 6px 12px 6px;
   border-radius: 6px;
 
   transition: ${props => (props.anim ? '0.75s' : 0)} ease;
   transition-delay: ${props => (props.anim ? props.delay + 'ms' : 0)};
-  transform: ${props => (props.anim ? `scale(1)` : `scale(0)`)};
+  transform: ${props =>
+    props.anim
+      ? props.isMobile
+        ? `translateX(0)`
+        : `scale(1)`
+      : props.isMobile
+      ? `translateX(25%)`
+      : `scale(0)`};
   opacity: ${props => (props.anim ? 1 : 0)};
   margin-top: 10px;
 

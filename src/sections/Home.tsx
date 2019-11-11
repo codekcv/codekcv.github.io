@@ -55,7 +55,6 @@ const getImages = graphql`
     allFile(filter: { relativeDirectory: { eq: "home" } }) {
       edges {
         node {
-          name
           childImageSharp {
             fluid(maxWidth: 600) {
               ...GatsbyImageSharpFluid
@@ -70,10 +69,9 @@ const getImages = graphql`
 interface Props {
   homeRef: React.MutableRefObject<any>;
   measures: any;
-  isIOS: boolean;
 }
 
-export const Home: React.FC<Props> = ({ homeRef, measures, isIOS }) => {
+export const Home: React.FC<Props> = ({ homeRef, measures }) => {
   const {
     allFile: { edges },
   } = useStaticQuery(getImages);
@@ -112,12 +110,6 @@ export const Home: React.FC<Props> = ({ homeRef, measures, isIOS }) => {
             {measures.isMobile ? (
               <div className="swipe-container">
                 <p>&lt; Swipe &gt;</p>
-                {isIOS && (
-                  <div className="ios-warn">
-                    <p>iOS Swipe Disabled ATM</p>
-                    <p>Use the navbar fn.</p>
-                  </div>
-                )}
               </div>
             ) : (
               <div className="scroll-container">
