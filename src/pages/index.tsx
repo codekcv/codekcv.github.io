@@ -167,9 +167,10 @@ const App: React.FC = () => {
         <FlyingText
           sections={sections}
           active={active}
-          scrolling={scrolling ? 1 : 0}
+          isScrolling={scrolling}
           measures={measures}
           refs={[homeRef, skillsRef, projectsRef, aboutRef, contactRef]}
+          snap={snap}
           setSnap={setSnap}
         />
       </Container>

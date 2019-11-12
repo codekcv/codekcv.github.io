@@ -4,18 +4,20 @@ import styled from 'styled-components';
 interface Props {
   sections: string[];
   active: string;
-  scrolling: number;
+  isScrolling: boolean;
   measures: any;
   refs: React.MutableRefObject<any>[];
+  snap: boolean;
   setSnap: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const FlyingText: React.FC<Props> = ({
   sections,
   active,
-  scrolling,
+  isScrolling,
   measures,
   refs,
+  snap,
   setSnap,
 }) => {
   const [text1, setText1] = useState<string>('Christian Villamin');
@@ -23,8 +25,8 @@ export const FlyingText: React.FC<Props> = ({
   const [posX, setPosX] = useState<number>(measures.vw / 2);
   const [posY, setPosY] = useState<number>(-100);
   const [anim, setAnim] = useState<boolean>(false);
-  const [sizes, setSizes] = useState<number[]>([measures.isMobile ? 8 : 3.5]);
-
+  const index = sections.indexOf(active);
+  const sizes = measures.isMobile ? [7, 7, 8.5, 8.5, 6.5] : [3, 6.5, 6, 6, 5];
   const texts = [
     'Christian Villamin',
     'Technology Stack',
@@ -33,50 +35,33 @@ export const FlyingText: React.FC<Props> = ({
     'Send Me A Message',
   ];
 
-  const index = sections.indexOf(active);
-
-  useEffect(() => {
-    const activeRef = refs[index];
-    let newY = activeRef.current.getBoundingClientRect().top - 18;
-
-    if (measures.isMobile && activeRef.current) {
-      if (newY < 30) {
-        newY = 30;
-        setSnap(true);
-      } else {
-        setSnap(false);
-      }
-    }
-
-    setPosY(newY);
-  }, [active]);
-
   useEffect(() => {
     setPosX(measures.vw * index + measures.vw / 2);
-
-    if (measures.isMobile) {
-      setSizes([7, 7, 8.5, 8.5, 6.5]);
-    } else {
-      setSizes([3, 6.5, 6, 6, 5]);
-    }
-    console.log('omg');
   }, [measures.vw]);
 
   useEffect(() => {
-    setPosX(measures.vw * index + measures.vw / 2);
-    setAnim(anim => !anim);
+    let newY = refs[index].current.getBoundingClientRect().top - 18;
+
+    if (measures.isMobile && newY < 30 && !snap) {
+      newY = 30;
+      setSnap(true);
+    } else {
+      snap && setSnap(false);
+    }
+
     anim ? setText1(texts[index]) : setText2(texts[index]);
+    setPosX(measures.vw * index + measures.vw / 2);
+    setPosY(newY);
+    setAnim(anim => !anim);
   }, [active]);
 
   return (
     <Container
-      index={index}
       posX={posX}
       posY={posY}
-      anim={anim ? 1 : 0}
-      sizes={sizes}
-      scrolling={scrolling}
-      active={active === 'Home'}
+      anim={anim}
+      size={sizes[index]}
+      isScrolling={isScrolling}
       isMobile={measures.isMobile}
     >
       <h1 id="current">{text1}</h1>
@@ -86,13 +71,11 @@ export const FlyingText: React.FC<Props> = ({
 };
 
 interface ContainerProps {
-  index: number;
   posX: number;
   posY: number;
-  anim: number;
-  sizes: number[];
-  scrolling: number;
-  active: boolean;
+  size: number;
+  isScrolling: boolean;
+  anim: boolean;
   isMobile: boolean;
 }
 
@@ -108,7 +91,7 @@ const Container = styled.div<ContainerProps>`
   left: ${props => props.posX + 'px'};
   transform: translate(-50%, -50%);
   transition: ${props =>
-    props.scrolling
+    props.isScrolling
       ? props.isMobile
         ? '0.2s linear'
         : '0.35s ease-in-out'
@@ -120,7 +103,7 @@ const Container = styled.div<ContainerProps>`
     font-size: 100px;
     text-shadow: 0 3px silver;
     text-transform: uppercase;
-    font-size: ${props => props.sizes[props.index] + 'vw'};
+    font-size: ${props => props.size + 'vw'};
     transition: 0.5s ease;
   }
 
