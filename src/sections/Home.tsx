@@ -53,14 +53,29 @@ const links = [
 
 const getImages = graphql`
   query {
-    allFile(filter: { relativeDirectory: { eq: "home" } }) {
-      edges {
-        node {
-          childImageSharp {
-            fluid(maxWidth: 300) {
-              ...GatsbyImageSharpFluid
-            }
-          }
+    # allFile(filter: { relativeDirectory: { eq: "home" } }) {
+    #   edges {
+    #     node {
+    #       childImageSharp {
+    #         fluid(maxWidth: 300) {
+    #           ...GatsbyImageSharpFluid
+    #         }
+    #       }
+    #     }
+    #   }
+    # }
+    profile: file(relativePath: { eq: "home/profile.png" }) {
+      childImageSharp {
+        fluid(maxWidth: 300) {
+          ...GatsbyImageSharpFluid
+        }
+      }
+    }
+
+    scroll: file(relativePath: { eq: "home/scroll.png" }) {
+      childImageSharp {
+        fixed(height: 60) {
+          ...GatsbyImageSharpFixed_tracedSVG
         }
       }
     }
@@ -73,26 +88,37 @@ interface Props {
 }
 
 export const Home: React.FC<Props> = ({ homeRef, measures }) => {
+  // const {
+  //   allFile: { edges },
+  // } = useStaticQuery(getImages);
+
+  // const images = edges.map(
+  //   ({
+  //     node: {
+  //       childImageSharp: { fluid },
+  //     },
+  //   }: any) => fluid
+  // );
   const {
-    allFile: { edges },
+    profile: {
+      childImageSharp: { fluid: profileImage },
+    },
+    scroll: {
+      childImageSharp: { fixed: scrollImage },
+    },
   } = useStaticQuery(getImages);
 
-  const images = edges.map(
-    ({
-      node: {
-        childImageSharp: { fluid },
-      },
-    }: any) => fluid
-  );
+  console.log('ass1, ', profileImage);
+  console.log('ass2, ', scrollImage);
 
-  const scrollImage = images[0];
-  const profileImage = images[1];
+  // const scrollImage = images[0];
+  // const profileImage = images[1];
 
   return (
     <Container id="home" isMobile={measures.isMobile}>
       <div id="placer">
         <div id="card">
-          <Img className="profile" fluid={profileImage} />
+          <Img className="profile" fluid={profileImage} loading={`eager`} />
           <div className="information">
             <div className="flying-text" ref={homeRef} />
             <h2>{`I build web sites & web applications.`}</h2>
@@ -115,8 +141,8 @@ export const Home: React.FC<Props> = ({ homeRef, measures }) => {
             ) : (
               <div className="scroll-container">
                 <p>Scroll</p>
-                <div style={{ width: '64px' }}>
-                  <Img fluid={scrollImage} />
+                <div style={{ width: '58px' }}>
+                  <Img fixed={scrollImage} loading={`eager`} />
                 </div>
               </div>
             )}

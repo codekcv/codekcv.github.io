@@ -129,7 +129,7 @@ export const Skills: React.FC<Props> = ({
       },
       {
         name: 'PostgreSQL',
-        logo: getImage('postgreSQL'),
+        logo: getImage('postgresql'),
         link: `https://www.postgresql.org/`,
       },
       {
