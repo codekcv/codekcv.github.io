@@ -1,6 +1,5 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
-import '../sections/index.css';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Navbar } from '../components/Navbar';
 import { Home } from '../sections/Home';
 import { Skills } from '../sections/Skills';
@@ -131,6 +130,7 @@ const App: React.FC = () => {
   return (
     <>
       <SEO section={active} />
+      <GlobalStyle />
       <Navbar
         menu={sections}
         measures={measures}
@@ -189,6 +189,27 @@ const Container = styled.main`
 const Viewport = styled.main`
   width: 100vw;
   height: 100vh;
+`;
+
+const GlobalStyle = createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400&display=swap');
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    touch-action: none;
+  }
+
+  body {
+    overflow: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+
 `;
 
 export default App;
