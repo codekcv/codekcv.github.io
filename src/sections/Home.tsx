@@ -57,7 +57,7 @@ const getImages = graphql`
       edges {
         node {
           childImageSharp {
-            fluid(maxWidth: 600) {
+            fluid(maxWidth: 300) {
               ...GatsbyImageSharpFluid
             }
           }
@@ -95,7 +95,7 @@ export const Home: React.FC<Props> = ({ homeRef, measures }) => {
           <Img className="profile" fluid={profileImage} />
           <div className="information">
             <div className="flying-text" ref={homeRef} />
-            <h2>{`I build web sites & web applications.`}</h2>
+            <h2>{`I1 build web sites & web applications.`}</h2>
             <div className="icons">
               {links.map(link => (
                 <Icon key={link.name} color={link.color}>

@@ -5,7 +5,7 @@ interface Props {
   projectsRef: React.MutableRefObject<any>;
   measures: any;
   active: string;
-  snap: boolean;
+  snap: number;
 }
 
 export const Projects: React.FC<Props> = ({

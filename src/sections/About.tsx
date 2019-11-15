@@ -23,7 +23,7 @@ interface Props {
   aboutRef: React.MutableRefObject<any>;
   measures: any;
   active: string;
-  snap: boolean;
+  snap: number;
 }
 
 export const About: React.FC<Props> = ({
@@ -273,7 +273,7 @@ export const About: React.FC<Props> = ({
         <Notepad
           selection={selection === 'webdev'}
           anim={toggle}
-          snap={snap && active === 'about'}
+          snap={(snap ? true : false) && active === 'about'}
           vh={measures.vh}
           mobile={measures.isMobile}
         >

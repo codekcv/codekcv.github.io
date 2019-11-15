@@ -10,8 +10,8 @@ const getLogos = graphql`
         node {
           name
           childImageSharp {
-            fixed(width: 46) {
-              ...GatsbyImageSharpFixed
+            fluid(maxWidth: 64) {
+              ...GatsbyImageSharpFluid
             }
           }
         }
@@ -24,7 +24,7 @@ interface Props {
   skillsRef: React.MutableRefObject<any>;
   measures: any;
   active: string;
-  snap: boolean;
+  snap: number;
 }
 
 export const Skills: React.FC<Props> = ({
@@ -45,12 +45,12 @@ export const Skills: React.FC<Props> = ({
 
       return {
         name: node.name,
-        fixed: node.childImageSharp.fixed,
+        fluid: node.childImageSharp.fluid,
       };
     });
 
     const getImage = (name: string) => {
-      return logos.find((logo: any) => logo.name === name).fixed;
+      return logos.find((logo: any) => logo.name === name).fluid;
     };
 
     const frontendSkills: Object[] = [
@@ -238,11 +238,7 @@ export const Skills: React.FC<Props> = ({
                       rel="noopener noreferrer"
                     >
                       <div className="logo-container">
-                        <Img
-                          imgStyle={{ objectFit: 'contain' }}
-                          fixed={skill.logo}
-                          loading={`eager`}
-                        />
+                        <Img fluid={skill.logo} loading={`eager`} />
 
                         <div className="skill-name">{skill.name}</div>
                       </div>
@@ -290,13 +286,11 @@ const Container = styled.section<{ snap: boolean }>`
 `;
 
 const Card = styled.div<{ anim: boolean; index: number }>`
-  max-width: 95%;
-  height: 100%;
-
   background: rgba(0, 0, 0, 0.15);
-  margin: 1vh 0;
-
-  padding: 0.2rem;
+  width: 90%;
+  height: 100%;
+  margin: 1vh 2vw;
+  padding: 0.4rem;
   border-radius: 4px;
 
   transition: ${props => (props.anim ? '0.75s' : 'none')} ease;
@@ -322,19 +316,13 @@ const Card = styled.div<{ anim: boolean; index: number }>`
 
     .logo-container {
       position: relative;
-      width: 14vw;
-      height: 14vw;
+      width: 14.5vw;
+      height: 14.5vw;
       margin: 0.2rem;
       padding: 6px;
       background: white;
       border-radius: 6px;
       transition: 0.3s;
-
-      width: 58px;
-      height: 58px;
-      margin: 0.2rem;
-      padding: 6px;
-      border-radius: 6px;
 
       .skill-name {
         position: absolute;
