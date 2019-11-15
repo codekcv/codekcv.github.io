@@ -1,5 +1,6 @@
 import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
-import styled, { createGlobalStyle } from 'styled-components';
+import '../components/global.css';
+import styled from 'styled-components';
 import { Navbar } from '../components/Navbar';
 import { Home } from '../sections/Home';
 import { Skills } from '../sections/Skills';
@@ -14,9 +15,8 @@ const App: React.FC = () => {
   const [active, setActive] = useState<string>(sections[0]);
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [swipeDone, setSwipeDone] = useState<boolean>(true);
-  const [snap, setSnap] = useState<boolean>(false);
-  const [swipeX1, setSwipeX1] = useState<number>(0);
-  const [swipeX2, setSwipeX2] = useState<number>(0);
+  const [snap, setSnap] = useState<number>(0);
+  const [swipeX, setSwipeX] = useState<number>(0);
   const [measures, setMeasures] = useState<any>({ vw: 0 });
   const homeRef = useRef<React.FC>(null);
   const skillsRef = useRef<React.FC>(null);
@@ -43,37 +43,27 @@ const App: React.FC = () => {
   }, []);
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) =>
-    e.deltaY < 0 ? handleScroll('left') : handleScroll('right');
+    !scrolling && (e.deltaY < 0 ? handleScroll('left') : handleScroll('right'));
 
-  const handleSwipe = (type: string, e: React.TouchEvent<HTMLElement>) => {
-    switch (type) {
-      case 'start':
-        e.preventDefault();
+  const handleSwipe = (type: number, e: React.TouchEvent<HTMLElement>) => {
+    e.preventDefault();
+    if (scrolling) return;
 
-        setSwipeX1(e.touches[0].clientX);
-        setSwipeX2(e.touches[0].clientX);
-        swipeDone && setSwipeDone(false);
-        break;
-      case 'move':
-        e.preventDefault();
-
-        if (Math.abs(swipeX1 - e.touches[0].clientX) >= 60 && !swipeDone) {
-          swipeX1 < swipeX2 ? handleScroll('left') : handleScroll('right');
-          setSwipeDone(true);
-        } else {
-          setSwipeX2(e.touches[0].clientX);
-        }
-        break;
-      case 'end':
-        swipeX1 !== swipeX2 &&
-          !swipeDone &&
-          (swipeX1 < swipeX2 ? handleScroll('left') : handleScroll('right'));
+    if (type === 0) {
+      setSwipeX(e.touches[0].clientX);
+      swipeDone && setSwipeDone(false);
+    } else {
+      const threshold = measures.vw / 10;
+      if (Math.abs(swipeX - e.touches[0].clientX) >= threshold && !swipeDone) {
+        swipeX < e.touches[0].clientX
+          ? handleScroll('left')
+          : handleScroll('right');
+        setSwipeDone(true);
+      }
     }
   };
 
   const handleScroll = (dir: string | number) => {
-    if (scrolling) return;
-
     dir === 'left' && active !== sections[0] && (dir = -1);
     dir === 'right' && active !== sections.slice(-1)[0] && (dir = 1);
 
@@ -81,8 +71,8 @@ const App: React.FC = () => {
       const index = sections.indexOf(active) + dir;
       const pos = measures.vw * index - window.pageXOffset;
 
-      setScrolling(true);
       setActive(sections[index]);
+      setScrolling(true);
       setTimeout(() => setScrolling(false), measures.SCROLL_DURATION + 50);
 
       let val = 0;
@@ -125,12 +115,12 @@ const App: React.FC = () => {
     };
   }, []);
 
-  if (measures.vw === 0) return <Viewport ref={viewport} />;
+  if (measures.vw === 0)
+    return <div ref={viewport} style={{ width: '100vw', height: '100vh' }} />;
 
   return (
     <>
       <SEO section={active} />
-      <GlobalStyle />
       <Navbar
         menu={sections}
         measures={measures}
@@ -140,9 +130,8 @@ const App: React.FC = () => {
       <Container
         className="content-container"
         onWheel={handleOnWheel}
-        onTouchStart={e => handleSwipe('start', e)}
-        onTouchMove={e => handleSwipe('move', e)}
-        onTouchEnd={e => handleSwipe('end', e)}
+        onTouchStart={e => handleSwipe(0, e)}
+        onTouchMove={e => handleSwipe(1, e)}
       >
         <Home homeRef={homeRef} measures={measures} />
         <Skills
@@ -165,7 +154,7 @@ const App: React.FC = () => {
         />
         <Contact contactRef={contactRef} measures={measures} active={active} />
         <FlyingText
-          sections={sections}
+          index={sections.indexOf(active)}
           active={active}
           isScrolling={scrolling}
           measures={measures}
@@ -174,7 +163,7 @@ const App: React.FC = () => {
           setSnap={setSnap}
         />
       </Container>
-      <Viewport ref={viewport} />
+      <div ref={viewport} style={{ width: '100vw', height: '100vh' }} />;
     </>
   );
 };
@@ -184,32 +173,6 @@ const Container = styled.main`
   display: flex;
   width: 800vw;
   height: 100vh;
-`;
-
-const Viewport = styled.main`
-  width: 100vw;
-  height: 100vh;
-`;
-
-const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css?family=Roboto:100,200,300,400&display=swap');
-
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-    touch-action: none;
-  }
-
-  body {
-    overflow: hidden;
-  }
-
-  ::-webkit-scrollbar {
-    width: 0;
-  }
-
 `;
 
 export default App;
