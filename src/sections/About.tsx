@@ -9,8 +9,8 @@ const getImages = graphql`
       edges {
         node {
           childImageSharp {
-            fluid(maxWidth: 600) {
-              ...GatsbyImageSharpFluid
+            fixed(width: 300) {
+              ...GatsbyImageSharpFixed
             }
           }
         }
@@ -39,9 +39,9 @@ export const About: React.FC<Props> = ({
   const images = edges.map(
     ({
       node: {
-        childImageSharp: { fluid },
+        childImageSharp: { fixed },
       },
-    }: any) => fluid
+    }: any) => fixed
   );
 
   const [toggle, setToggle] = useState<boolean>(true);
@@ -255,15 +255,15 @@ export const About: React.FC<Props> = ({
 
           <div className="images">
             <div className="img img1">
-              <Img fluid={images[0]} />
+              <Img fixed={images[0]} loading={`eager`} />
             </div>
             {!measures.isMobile && (
               <>
                 <div className="img img3">
-                  <Img fluid={images[2]} />
+                  <Img fixed={images[2]} loading={`eager`} />
                 </div>
                 <div className="img img2">
-                  <Img fluid={images[1]} />
+                  <Img fixed={images[1]} loading={`eager`} />
                 </div>
               </>
             )}

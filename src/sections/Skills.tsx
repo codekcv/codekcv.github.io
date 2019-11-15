@@ -10,8 +10,8 @@ const getLogos = graphql`
         node {
           name
           childImageSharp {
-            fluid(maxWidth: 64) {
-              ...GatsbyImageSharpFluid
+            fixed(width: 46) {
+              ...GatsbyImageSharpFixed
             }
           }
         }
@@ -45,12 +45,12 @@ export const Skills: React.FC<Props> = ({
 
       return {
         name: node.name,
-        fluid: node.childImageSharp.fluid,
+        fixed: node.childImageSharp.fixed,
       };
     });
 
     const getImage = (name: string) => {
-      return logos.find((logo: any) => logo.name === name).fluid;
+      return logos.find((logo: any) => logo.name === name).fixed;
     };
 
     const frontendSkills: Object[] = [
@@ -116,6 +116,11 @@ export const Skills: React.FC<Props> = ({
         name: 'GraphQL',
         logo: getImage('graphql'),
         link: `https://graphql.org/`,
+      },
+      {
+        name: 'Prisma',
+        logo: getImage('prisma'),
+        link: `https://www.prisma.io/`,
       },
       {
         name: 'MongoDB',
@@ -233,7 +238,11 @@ export const Skills: React.FC<Props> = ({
                       rel="noopener noreferrer"
                     >
                       <div className="logo-container">
-                        <Img fluid={skill.logo} loading="eager" />
+                        <Img
+                          imgStyle={{ objectFit: 'contain' }}
+                          fixed={skill.logo}
+                          loading={`eager`}
+                        />
 
                         <div className="skill-name">{skill.name}</div>
                       </div>
@@ -281,12 +290,13 @@ const Container = styled.section<{ snap: boolean }>`
 `;
 
 const Card = styled.div<{ anim: boolean; index: number }>`
-  max-width: 90%;
+  max-width: 95%;
   height: 100%;
 
   background: rgba(0, 0, 0, 0.15);
   margin: 1vh 0;
-  padding: 0.4rem;
+
+  padding: 0.2rem;
   border-radius: 4px;
 
   transition: ${props => (props.anim ? '0.75s' : 'none')} ease;
@@ -320,6 +330,12 @@ const Card = styled.div<{ anim: boolean; index: number }>`
       border-radius: 6px;
       transition: 0.3s;
 
+      width: 58px;
+      height: 58px;
+      margin: 0.2rem;
+      padding: 6px;
+      border-radius: 6px;
+
       .skill-name {
         position: absolute;
         left: 0;
@@ -335,7 +351,7 @@ const Card = styled.div<{ anim: boolean; index: number }>`
 
   @media only screen and (min-width: 768px) {
     width: 25vw;
-    margin: 2vh 2vw;
+    margin: 0 2vw;
     padding: 1rem;
     border-radius: 16px;
     box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.6);
