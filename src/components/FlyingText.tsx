@@ -2,17 +2,17 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 
 interface Props {
-  sections: string[];
+  index: number;
   active: string;
   isScrolling: boolean;
   measures: any;
   refs: React.MutableRefObject<any>[];
-  snap: boolean;
-  setSnap: React.Dispatch<React.SetStateAction<boolean>>;
+  snap: number;
+  setSnap: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const FlyingText: React.FC<Props> = ({
-  sections,
+  index,
   active,
   isScrolling,
   measures,
@@ -25,7 +25,6 @@ export const FlyingText: React.FC<Props> = ({
   const [posX, setPosX] = useState<number>(measures.vw / 2);
   const [posY, setPosY] = useState<number>(-100);
   const [anim, setAnim] = useState<boolean>(false);
-  const index = sections.indexOf(active);
   const sizes = measures.isMobile ? [7, 7, 8.5, 8.5, 6.5] : [3, 6.5, 6, 6, 5];
   const texts = [
     'Christian Villamin',
@@ -42,11 +41,11 @@ export const FlyingText: React.FC<Props> = ({
   useEffect(() => {
     let newY = refs[index].current.getBoundingClientRect().top - 18;
 
-    if (measures.isMobile && newY < 30 && !snap) {
+    if (measures.isMobile && newY < 30) {
       newY = 30;
-      setSnap(true);
+      setSnap(snap + 1);
     } else {
-      snap && setSnap(false);
+      snap && setSnap(0);
     }
 
     anim ? setText1(texts[index]) : setText2(texts[index]);
@@ -95,11 +94,13 @@ const Container = styled.div<ContainerProps>`
       ? props.isMobile
         ? '0.2s linear'
         : '0.35s ease-in-out'
-      : 0};
+      : '0s'};
 
   h1 {
     position: absolute;
-    color: rgb(35, 35, 50);
+    width: 100%;
+    text-align: center;
+    color: rgb(55, 55, 80);
     font-size: 100px;
     text-shadow: 0 3px silver;
     text-transform: uppercase;
