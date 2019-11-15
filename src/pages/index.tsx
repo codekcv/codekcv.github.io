@@ -115,7 +115,7 @@ const App: React.FC = () => {
   return (
     <>
       <SEO section={active} />
-      {measures.vw && (
+      {measures.vw ? (
         <>
           <Navbar
             menu={sections}
@@ -164,7 +164,7 @@ const App: React.FC = () => {
             />
           </Container>
         </>
-      )}
+      ) : null}
       <div style={{ width: '100vw', height: '100vh' }} ref={viewport} />
     </>
   );
