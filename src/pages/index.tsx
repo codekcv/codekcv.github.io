@@ -112,67 +112,62 @@ const App: React.FC = () => {
     setActive(sections[index]);
   };
 
-  if (measures.vw) {
-    return (
-      <>
-        <SEO section={active} />
-        <Navbar
-          menu={sections}
-          measures={measures}
-          handleJump={handleJump}
-          active={active}
-        />
-        <Container
-          className="content-container"
-          onWheel={handleOnWheel}
-          onTouchStart={e => handleSwipe(true, e)}
-          onTouchMove={e => handleSwipe(false, e)}
-        >
-          <Home homeRef={homeRef} measures={measures} />
-          <Skills
-            skillsRef={skillsRef}
+  return (
+    <>
+      <SEO section={active} />
+      {measures.vw && (
+        <>
+          <Navbar
+            menu={sections}
             measures={measures}
-            active={active}
-            snap={snap}
-          />
-          <Projects
-            projectsRef={projectsRef}
-            measures={measures}
-            active={active}
-            snap={snap}
-          />
-          <About
-            aboutRef={aboutRef}
-            measures={measures}
-            active={active}
-            snap={snap}
-          />
-          <Contact
-            contactRef={contactRef}
-            measures={measures}
+            handleJump={handleJump}
             active={active}
           />
-          <FlyingText
-            index={sections.indexOf(active)}
-            active={active}
-            isScrolling={scrolling}
-            measures={measures}
-            refs={[homeRef, skillsRef, projectsRef, aboutRef, contactRef]}
-            snap={snap}
-            setSnap={setSnap}
-          />
-        </Container>
-        <div style={{ width: '100vw', height: '100vh' }} ref={viewport} />;
-      </>
-    );
-  } else {
-    return (
-      <>
-        <SEO section={active} />
-        <div style={{ width: '100vw', height: '100vh' }} ref={viewport} />
-      </>
-    );
-  }
+          <Container
+            className="content-container"
+            onWheel={handleOnWheel}
+            onTouchStart={e => handleSwipe(true, e)}
+            onTouchMove={e => handleSwipe(false, e)}
+          >
+            <Home homeRef={homeRef} measures={measures} />
+            <Skills
+              skillsRef={skillsRef}
+              measures={measures}
+              active={active}
+              snap={snap}
+            />
+            <Projects
+              projectsRef={projectsRef}
+              measures={measures}
+              active={active}
+              snap={snap}
+            />
+            <About
+              aboutRef={aboutRef}
+              measures={measures}
+              active={active}
+              snap={snap}
+            />
+            <Contact
+              contactRef={contactRef}
+              measures={measures}
+              active={active}
+            />
+            <FlyingText
+              index={sections.indexOf(active)}
+              active={active}
+              isScrolling={scrolling}
+              measures={measures}
+              refs={[homeRef, skillsRef, projectsRef, aboutRef, contactRef]}
+              snap={snap}
+              setSnap={setSnap}
+            />
+          </Container>
+        </>
+      )}
+      <div style={{ width: '100vw', height: '100vh' }} ref={viewport} />
+    </>
+  );
 };
 
 const Container = styled.main`
