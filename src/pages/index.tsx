@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef, useEffect } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import '../components/global.css';
 import styled from 'styled-components';
 import { Navbar } from '../components/Navbar';
@@ -39,17 +39,24 @@ const App: React.FC = () => {
     handleMeasurements();
     window.scrollTo(0, 0);
     window.addEventListener('resize', handleMeasurements);
-    return () => window.removeEventListener('resize', handleMeasurements);
+    window.addEventListener('touchmove', e => e.preventDefault(), {
+      passive: false,
+    });
+
+    return () => {
+      window.removeEventListener('resize', handleMeasurements);
+      window.removeEventListener('touchmove', e => e.preventDefault());
+    };
   }, []);
 
   const handleOnWheel = (e: React.WheelEvent<HTMLElement>) =>
     !scrolling && (e.deltaY < 0 ? handleScroll('left') : handleScroll('right'));
 
-  const handleSwipe = (type: number, e: React.TouchEvent<HTMLElement>) => {
+  const handleSwipe = (start: boolean, e: React.TouchEvent<HTMLElement>) => {
     e.preventDefault();
     if (scrolling) return;
 
-    if (type === 0) {
+    if (start) {
       setSwipeX(e.touches[0].clientX);
       swipeDone && setSwipeDone(false);
     } else {
@@ -105,67 +112,67 @@ const App: React.FC = () => {
     setActive(sections[index]);
   };
 
-  useEffect(() => {
-    window.addEventListener('touchmove', e => e.preventDefault(), {
-      passive: false,
-    });
-
-    return () => {
-      window.removeEventListener('touchmove', e => e.preventDefault());
-    };
-  }, []);
-
-  if (measures.vw === 0)
-    return <div ref={viewport} style={{ width: '100vw', height: '100vh' }} />;
-
-  return (
-    <>
-      <SEO section={active} />
-      <Navbar
-        menu={sections}
-        measures={measures}
-        handleJump={handleJump}
-        active={active}
-      />
-      <Container
-        className="content-container"
-        onWheel={handleOnWheel}
-        onTouchStart={e => handleSwipe(0, e)}
-        onTouchMove={e => handleSwipe(1, e)}
-      >
-        <Home homeRef={homeRef} measures={measures} />
-        <Skills
-          skillsRef={skillsRef}
+  if (measures.vw) {
+    return (
+      <>
+        <SEO section={active} />
+        <Navbar
+          menu={sections}
           measures={measures}
+          handleJump={handleJump}
           active={active}
-          snap={snap}
         />
-        <Projects
-          projectsRef={projectsRef}
-          measures={measures}
-          active={active}
-          snap={snap}
-        />
-        <About
-          aboutRef={aboutRef}
-          measures={measures}
-          active={active}
-          snap={snap}
-        />
-        <Contact contactRef={contactRef} measures={measures} active={active} />
-        <FlyingText
-          index={sections.indexOf(active)}
-          active={active}
-          isScrolling={scrolling}
-          measures={measures}
-          refs={[homeRef, skillsRef, projectsRef, aboutRef, contactRef]}
-          snap={snap}
-          setSnap={setSnap}
-        />
-      </Container>
-      <div ref={viewport} style={{ width: '100vw', height: '100vh' }} />;
-    </>
-  );
+        <Container
+          className="content-container"
+          onWheel={handleOnWheel}
+          onTouchStart={e => handleSwipe(true, e)}
+          onTouchMove={e => handleSwipe(false, e)}
+        >
+          <Home homeRef={homeRef} measures={measures} />
+          <Skills
+            skillsRef={skillsRef}
+            measures={measures}
+            active={active}
+            snap={snap}
+          />
+          <Projects
+            projectsRef={projectsRef}
+            measures={measures}
+            active={active}
+            snap={snap}
+          />
+          <About
+            aboutRef={aboutRef}
+            measures={measures}
+            active={active}
+            snap={snap}
+          />
+          <Contact
+            contactRef={contactRef}
+            measures={measures}
+            active={active}
+          />
+          <FlyingText
+            index={sections.indexOf(active)}
+            active={active}
+            isScrolling={scrolling}
+            measures={measures}
+            refs={[homeRef, skillsRef, projectsRef, aboutRef, contactRef]}
+            snap={snap}
+            setSnap={setSnap}
+          />
+        </Container>
+        <div style={{ width: '100vw', height: '100vh' }} ref={viewport} />;
+      </>
+    );
+  } else {
+    return (
+      <>
+        <SEO section={active} />
+        <div style={{ width: '100vw', height: '100vh' }} ref={viewport} />
+      </>
+    );
+  }
 };
 
 const Container = styled.main`
