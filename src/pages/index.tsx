@@ -15,9 +15,9 @@ const App: React.FC = () => {
   const [active, setActive] = useState<string>(sections[0]);
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [swipeDone, setSwipeDone] = useState<boolean>(true);
-  const [snap, setSnap] = useState<number>(0);
   const [swipeX, setSwipeX] = useState<number>(0);
   const [measures, setMeasures] = useState<any>({ vw: 0 });
+  const [snap, setSnap] = useState<number>(0);
   const homeRef = useRef<React.FC>(null);
   const skillsRef = useRef<React.FC>(null);
   const projectsRef = useRef<React.FC>(null);

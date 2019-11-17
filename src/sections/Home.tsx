@@ -53,17 +53,6 @@ const links = [
 
 const getImages = graphql`
   query {
-    # allFile(filter: { relativeDirectory: { eq: "home" } }) {
-    #   edges {
-    #     node {
-    #       childImageSharp {
-    #         fluid(maxWidth: 300) {
-    #           ...GatsbyImageSharpFluid
-    #         }
-    #       }
-    #     }
-    #   }
-    # }
     profile: file(relativePath: { eq: "home/profile.png" }) {
       childImageSharp {
         fluid(maxWidth: 300) {
@@ -88,17 +77,6 @@ interface Props {
 }
 
 export const Home: React.FC<Props> = ({ homeRef, measures }) => {
-  // const {
-  //   allFile: { edges },
-  // } = useStaticQuery(getImages);
-
-  // const images = edges.map(
-  //   ({
-  //     node: {
-  //       childImageSharp: { fluid },
-  //     },
-  //   }: any) => fluid
-  // );
   const {
     profile: {
       childImageSharp: { fluid: profileImage },
@@ -107,12 +85,6 @@ export const Home: React.FC<Props> = ({ homeRef, measures }) => {
       childImageSharp: { fixed: scrollImage },
     },
   } = useStaticQuery(getImages);
-
-  console.log('ass1, ', profileImage);
-  console.log('ass2, ', scrollImage);
-
-  // const scrollImage = images[0];
-  // const profileImage = images[1];
 
   return (
     <Container id="home" isMobile={measures.isMobile}>
