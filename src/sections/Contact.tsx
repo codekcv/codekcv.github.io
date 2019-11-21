@@ -82,7 +82,7 @@ const Container = styled.div<{ anim: boolean }>`
   height: 100vh;
 
   transition: ${props => (props.anim ? '0.75s' : 0)} ease;
-  /* transform: ${props => (props.anim ? `scale(1)` : `scale(1.25)`)}; */
+  transform: ${props => (props.anim ? `scale(1)` : `scale(1.25)`)};
   opacity: ${props => (props.anim ? 1 : 0)};
 
   .outer {
@@ -97,13 +97,8 @@ const Container = styled.div<{ anim: boolean }>`
       box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 1);
       border-radius: 6px;
 
-      label {
-        padding-left: 4px;
-      }
-
       .input {
         display: block;
-        margin: 2px;
         padding: 6px;
         border: 1px lightgray solid;
         border-radius: 3px;
@@ -138,18 +133,12 @@ const Container = styled.div<{ anim: boolean }>`
   @media only screen and (min-width: 768px) {
     .outer {
       margin-top: 100px;
-      padding-top: 50px;
-    }
 
-    .contact-container {
-      max-width: 600px;
-      padding: 16px;
-      box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 1);
-    }
-
-    h1 {
-      font-size: 8vw;
-      text-shadow: 0 6px silver;
+      .contact-container {
+        max-width: 600px;
+        padding: 16px;
+        box-shadow: 0 7px 30px -10px rgba(150, 170, 180, 0.5);
+      }
     }
   }
 `;
