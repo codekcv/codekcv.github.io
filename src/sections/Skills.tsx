@@ -286,7 +286,7 @@ const Container = styled.section<{ snap: boolean }>`
 `;
 
 const Card = styled.div<{ anim: boolean; index: number }>`
-  background: rgba(0, 0, 0, 0.15);
+  background: rgba(128, 128, 128, 0.05);
   width: 90%;
   height: 100%;
   margin: 1vh 2vw;
