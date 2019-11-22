@@ -133,6 +133,7 @@ const Container = styled.div<{ anim: boolean }>`
   @media only screen and (min-width: 768px) {
     .outer {
       margin-top: 100px;
+      padding-top: 25px;
 
       .contact-container {
         max-width: 600px;

@@ -255,15 +255,15 @@ export const About: React.FC<Props> = ({
 
           <div className="images">
             <div className="img img1">
-              <Img fixed={images[0]} loading={`eager`} />
+              <Img fixed={images[1]} loading={`eager`} />
             </div>
             {!measures.isMobile && (
               <>
                 <div className="img img3">
-                  <Img fixed={images[2]} loading={`eager`} />
+                  <Img fixed={images[0]} loading={`eager`} />
                 </div>
                 <div className="img img2">
-                  <Img fixed={images[1]} loading={`eager`} />
+                  <Img fixed={images[2]} loading={`eager`} />
                 </div>
               </>
             )}
