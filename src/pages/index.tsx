@@ -121,8 +121,6 @@ const App: React.FC = () => {
     setActive(sections[index]);
   };
 
-  const [update, setUpdate] = useState(0);
-
   return (
     <>
       <SEO section={active} />
@@ -135,12 +133,11 @@ const App: React.FC = () => {
             active={active}
           />
           <Container
+            id="main"
             className="content-container"
             onWheel={handleOnWheel}
             onTouchStart={e => handleSwipe(true, e)}
             onTouchMove={e => handleSwipe(false, e)}
-            onClick={() => setUpdate(x => x + 1)}
-            id="main"
           >
             <Home homeRef={homeRef} measures={measures} />
             <Skills
