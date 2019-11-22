@@ -260,7 +260,6 @@ const Container = styled.section<{ snap: boolean }>`
 `;
 
 const Project = styled.div<{ anim: number; delay: number; isMobile: boolean }>`
-  background: white;
   margin: 6px 6px 12px 6px;
   border-radius: 6px;
 

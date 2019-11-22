@@ -7,11 +7,19 @@ import { Skills } from '../sections/Skills';
 import { Projects } from '../sections/Projects';
 import { About } from '../sections/About';
 import { Contact } from '../sections/Contact';
+import { Blog } from '../sections/Blog';
 import { FlyingText } from '../components/FlyingText';
 import { SEO } from '../components/SEO';
 
 const App: React.FC = () => {
-  const sections: string[] = ['Home', 'Skills', 'Projects', 'About', 'Contact'];
+  const sections: string[] = [
+    'Home',
+    'Skills',
+    'Projects',
+    'About',
+    'Contact',
+    'Blog',
+  ];
   const [active, setActive] = useState<string>(sections[0]);
   const [scrolling, setScrolling] = useState<boolean>(false);
   const [swipeDone, setSwipeDone] = useState<boolean>(true);
@@ -23,6 +31,7 @@ const App: React.FC = () => {
   const projectsRef = useRef<React.FC>(null);
   const aboutRef = useRef<React.FC>(null);
   const contactRef = useRef<React.FC>(null);
+  const blogRef = useRef<React.FC>(null);
   const viewport: any = useRef(null);
 
   useLayoutEffect(() => {
@@ -112,6 +121,8 @@ const App: React.FC = () => {
     setActive(sections[index]);
   };
 
+  const [update, setUpdate] = useState(0);
+
   return (
     <>
       <SEO section={active} />
@@ -128,6 +139,7 @@ const App: React.FC = () => {
             onWheel={handleOnWheel}
             onTouchStart={e => handleSwipe(true, e)}
             onTouchMove={e => handleSwipe(false, e)}
+            onClick={() => setUpdate(x => x + 1)}
           >
             <Home homeRef={homeRef} measures={measures} />
             <Skills
@@ -153,12 +165,20 @@ const App: React.FC = () => {
               measures={measures}
               active={active}
             />
+            <Blog blogRef={blogRef} measures={measures} active={active} />
             <FlyingText
               index={sections.indexOf(active)}
               active={active}
               isScrolling={scrolling}
               measures={measures}
-              refs={[homeRef, skillsRef, projectsRef, aboutRef, contactRef]}
+              refs={[
+                homeRef,
+                skillsRef,
+                projectsRef,
+                aboutRef,
+                contactRef,
+                blogRef,
+              ]}
               snap={snap}
               setSnap={setSnap}
             />
@@ -173,8 +193,54 @@ const App: React.FC = () => {
 const Container = styled.main`
   background: white;
   display: flex;
-  width: 800vw;
+  width: 900vw;
   height: 100vh;
+  background: linear-gradient(
+      22.5deg,
+      rgba(67, 67, 67, 0.02) 0%,
+      rgba(67, 67, 67, 0.02) 29%,
+      rgba(47, 47, 47, 0.02) 29%,
+      rgba(47, 47, 47, 0.02) 37%,
+      rgba(23, 23, 23, 0.02) 37%,
+      rgba(23, 23, 23, 0.02) 55%,
+      rgba(182, 182, 182, 0.02) 55%,
+      rgba(182, 182, 182, 0.02) 69%,
+      rgba(27, 27, 27, 0.02) 69%,
+      rgba(27, 27, 27, 0.02) 71%,
+      rgba(250, 250, 250, 0.02) 71%,
+      rgba(250, 250, 250, 0.02) 100%
+    ),
+    linear-gradient(
+      67.5deg,
+      rgba(117, 117, 117, 0.02) 0%,
+      rgba(117, 117, 117, 0.02) 14%,
+      rgba(199, 199, 199, 0.02) 14%,
+      rgba(199, 199, 199, 0.02) 40%,
+      rgba(33, 33, 33, 0.02) 40%,
+      rgba(33, 33, 33, 0.02) 48%,
+      rgba(135, 135, 135, 0.02) 48%,
+      rgba(135, 135, 135, 0.02) 60%,
+      rgba(148, 148, 148, 0.02) 60%,
+      rgba(148, 148, 148, 0.02) 95%,
+      rgba(53, 53, 53, 0.02) 95%,
+      rgba(53, 53, 53, 0.02) 100%
+    ),
+    linear-gradient(
+      135deg,
+      rgba(190, 190, 190, 0.02) 0%,
+      rgba(190, 190, 190, 0.02) 6%,
+      rgba(251, 251, 251, 0.02) 6%,
+      rgba(251, 251, 251, 0.02) 18%,
+      rgba(2, 2, 2, 0.02) 18%,
+      rgba(2, 2, 2, 0.02) 27%,
+      rgba(253, 253, 253, 0.02) 27%,
+      rgba(253, 253, 253, 0.02) 49%,
+      rgba(128, 128, 128, 0.02) 49%,
+      rgba(128, 128, 128, 0.02) 76%,
+      rgba(150, 150, 150, 0.02) 76%,
+      rgba(150, 150, 150, 0.02) 100%
+    ),
+    linear-gradient(90deg, #fff, #fff);
 `;
 
 export default App;

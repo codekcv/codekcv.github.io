@@ -25,13 +25,16 @@ export const FlyingText: React.FC<Props> = ({
   const [posX, setPosX] = useState<number>(measures.vw / 2);
   const [posY, setPosY] = useState<number>(-100);
   const [anim, setAnim] = useState<boolean>(false);
-  const sizes = measures.isMobile ? [7, 7, 8.5, 8.5, 6.5] : [3, 6.5, 6, 6, 5];
+  const sizes = measures.isMobile
+    ? [7, 7, 8.5, 8.5, 6.5, 6]
+    : [3, 6.5, 6, 6, 5, 4.5];
   const texts = [
     'Christian Villamin',
     'Technology Stack',
     'Things I Made',
     'Get To Know Me',
     'Send Me A Message',
+    'Coming Soon',
   ];
 
   useEffect(() => {

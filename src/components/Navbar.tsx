@@ -13,12 +13,14 @@ export const Navbar: React.FC<Props> = ({
   measures,
   active,
   handleJump,
-}) => {
-  return (
-    <Container vw={measures.vw} vh={measures.vh}>
-      <nav>
-        <ul>
-          {menu.map(item => (
+}) => (
+  <Container vw={measures.vw} vh={measures.vh}>
+    <nav>
+      <ul>
+        {menu.map(item => {
+          if (measures.isMobile && item === 'Blog') return null;
+
+          return (
             <Section
               key={item}
               onClick={() => handleJump(item)}
@@ -26,12 +28,12 @@ export const Navbar: React.FC<Props> = ({
             >
               {item}
             </Section>
-          ))}
-        </ul>
-      </nav>
-    </Container>
-  );
-};
+          );
+        })}
+      </ul>
+    </nav>
+  </Container>
+);
 
 interface ContainerProps {
   vw: number;
@@ -69,7 +71,7 @@ const Container = styled.div<ContainerProps>`
     top: 20px;
 
     nav {
-      left: 17.5px;
+      /* left: 17.5px; */
 
       ul {
         font-size: 1.25rem;
