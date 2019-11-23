@@ -180,7 +180,7 @@ const Container = styled.section<{ isMobile: boolean }>`
           font-size: 1rem;
           font-weight: 300;
           color: gainsboro;
-          text-shadow: 2px 2px darkslategray;
+          /* text-shadow: 2px 2px darkslategray; */
           padding: 3px 8px;
           border-radius: 8px;
           background: rgba(0, 0, 0, 0.25);
@@ -256,13 +256,11 @@ const Container = styled.section<{ isMobile: boolean }>`
         .profile {
           width: 200px;
           height: 200px;
-          border: 5px dashed white;
         }
 
         .information {
           padding: 50px 50px 25px 50px;
           margin-top: -100px;
-          border: 5px dashed white;
           border-radius: 60px;
 
           .flying-text {
@@ -272,7 +270,7 @@ const Container = styled.section<{ isMobile: boolean }>`
           h2 {
             margin-top: 120px;
             font-size: 2rem;
-            text-shadow: 2px 4px darkslategray;
+            /* text-shadow: 2px 4px darkslategray; */
           }
         }
       }
@@ -287,13 +285,11 @@ const Container = styled.section<{ isMobile: boolean }>`
         .profile {
           width: 300px;
           height: 300px;
-          border: 5px dashed white;
         }
 
         .information {
           padding: 50px 50px 25px 50px;
           margin-top: -150px;
-          border: 5px dashed white;
           border-radius: 60px;
 
           .flying-text {

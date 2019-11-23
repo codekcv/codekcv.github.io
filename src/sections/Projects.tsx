@@ -115,7 +115,7 @@ export const Projects: React.FC<Props> = ({
     },
   ]);
 
-  const DELAY = 100;
+  const DELAY = 65;
   const [delays, setDelays] = useState<number[]>([]);
   const [toggle, setToggle] = useState<boolean>(true);
 
@@ -285,7 +285,7 @@ const Project = styled.div<{ anim: number; delay: number; isMobile: boolean }>`
   }
 
   .technologies {
-    background: lightcoral;
+    /* background: lightcoral; */
     background: mediumvioletred;
     font-weight: 300;
     color: white;
@@ -297,22 +297,22 @@ const Project = styled.div<{ anim: number; delay: number; isMobile: boolean }>`
 
   @media only screen and (min-width: 768px) {
     margin: 24px;
-    /* padding: 16px; */
     border-radius: 6px;
 
     .title {
       font-size: 1.1vw;
+      color: #2f2f2f;
     }
 
     .description {
       font-size: 1vw;
-      margin: 4px 0;
+      margin: 0 0 6px 0;
     }
 
     .technologies {
       font-weight: 300;
       color: white;
-      border-radius: 8px;
+      border-radius: 4px;
       margin: 3px;
       padding: 3px 6px;
       font-size: 0.85vw;
