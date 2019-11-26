@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo, useMemo } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -8,31 +8,32 @@ interface Props {
   handleJump: (target: string) => void;
 }
 
-export const Navbar: React.FC<Props> = ({
-  menu,
-  measures,
-  active,
-  handleJump,
-}) => (
-  <Container vw={measures.vw} vh={measures.vh}>
-    <nav>
-      <ul>
-        {menu.map(item => {
-          if (measures.isMobile && item === 'Blog') return null;
+export const Navbar: React.FC<Props> = memo(
+  ({ menu, measures, active, handleJump }) => {
+    const Menus = menu.map(item => {
+      return useMemo(
+        () => (
+          <NavLi
+            key={item}
+            onClick={() => handleJump(item)}
+            active={item === active}
+          >
+            {item}
+          </NavLi>
+        ),
+        [item === active]
+      );
+    });
 
-          return (
-            <Section
-              key={item}
-              onClick={() => handleJump(item)}
-              active={item === active}
-            >
-              {item}
-            </Section>
-          );
-        })}
-      </ul>
-    </nav>
-  </Container>
+    return (
+      <Container vw={measures.vw} vh={measures.vh}>
+        <nav>
+          <ul>{Menus}</ul>
+        </nav>
+      </Container>
+    );
+  },
+  (prev, next) => prev.active === next.active
 );
 
 interface ContainerProps {
@@ -80,7 +81,7 @@ const Container = styled.div<ContainerProps>`
   }
 `;
 
-const Section = styled.li<{ active: boolean }>`
+const NavLi = styled.li<{ active: boolean }>`
   margin: 0 3px;
   padding: 5px;
   border-radius: 4px;

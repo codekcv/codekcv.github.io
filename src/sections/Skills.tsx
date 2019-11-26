@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useMemo } from 'react';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
 import Img from 'gatsby-image';
@@ -27,231 +27,234 @@ interface Props {
   snap: number;
 }
 
-export const Skills: React.FC<Props> = ({
-  skillsRef,
-  measures,
-  snap,
-  active,
-}) => {
-  const {
-    logos: { edges },
-  } = useStaticQuery(getLogos);
+export const Skills: React.FC<Props> = memo(
+  ({ skillsRef, measures, snap, active }) => {
+    const {
+      logos: { edges },
+    } = useStaticQuery(getLogos);
 
-  const [skillsArr, setSkillsArr] = useState<any>();
+    const [skillsArr, setSkillsArr] = useState<any>();
+    const [init, setInit] = useState(false);
 
-  useEffect(() => {
-    const logos = edges.map((edge: any) => {
-      const { node } = edge;
+    useEffect(() => {
+      const logos = edges.map((edge: any) => {
+        const { node } = edge;
 
-      return {
-        name: node.name,
-        fluid: node.childImageSharp.fluid,
+        return {
+          name: node.name,
+          fluid: node.childImageSharp.fluid,
+        };
+      });
+
+      const getImage = (name: string) => {
+        return logos.find((logo: any) => logo.name === name).fluid;
       };
-    });
 
-    const getImage = (name: string) => {
-      return logos.find((logo: any) => logo.name === name).fluid;
-    };
+      const frontendSkills: Object[] = [
+        {
+          name: 'HTML5',
+          logo: getImage('html5'),
+          link: `https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5`,
+        },
+        {
+          name: 'CSS3',
+          logo: getImage('css3'),
+          link: `https://developer.mozilla.org/en-US/docs/Web/CSS`,
+        },
+        {
+          name: 'JS ES6+',
+          logo: getImage('javascript'),
+          link: `https://developer.mozilla.org/en-US/docs/Web/JavaScript`,
+        },
+        {
+          name: 'TypeScript',
+          logo: getImage('typescript'),
+          link: `https://www.typescriptlang.org/`,
+        },
+        {
+          name: 'React',
+          logo: getImage('reactjs'),
+          link: `https://reactjs.org/`,
+        },
+        {
+          name: 'Redux',
+          logo: getImage('redux'),
+          link: `https://redux.js.org/`,
+        },
+        {
+          name: 'Gatsby',
+          logo: getImage('gatsbyjs'),
+          link: `https://www.gatsbyjs.org/`,
+        },
+        {
+          name: 'Apollo',
+          logo: getImage('apollo'),
+          link: `https://www.apollographql.com/`,
+        },
+        {
+          name: 'D3',
+          logo: getImage('d3'),
+          link: `https://d3js.org/`,
+        },
+      ];
 
-    const frontendSkills: Object[] = [
-      {
-        name: 'HTML5',
-        logo: getImage('html5'),
-        link: `https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/HTML5`,
-      },
-      {
-        name: 'CSS3',
-        logo: getImage('css3'),
-        link: `https://developer.mozilla.org/en-US/docs/Web/CSS`,
-      },
-      {
-        name: 'JS ES6+',
-        logo: getImage('javascript'),
-        link: `https://developer.mozilla.org/en-US/docs/Web/JavaScript`,
-      },
-      {
-        name: 'TypeScript',
-        logo: getImage('typescript'),
-        link: `https://www.typescriptlang.org/`,
-      },
-      {
-        name: 'React',
-        logo: getImage('reactjs'),
-        link: `https://reactjs.org/`,
-      },
-      {
-        name: 'Redux',
-        logo: getImage('redux'),
-        link: `https://redux.js.org/`,
-      },
-      {
-        name: 'Gatsby',
-        logo: getImage('gatsbyjs'),
-        link: `https://www.gatsbyjs.org/`,
-      },
-      {
-        name: 'Apollo',
-        logo: getImage('apollo'),
-        link: `https://www.apollographql.com/`,
-      },
-      {
-        name: 'D3',
-        logo: getImage('d3'),
-        link: `https://d3js.org/`,
-      },
-    ];
+      const backendSkills: Object[] = [
+        {
+          name: 'NodeJS',
+          logo: getImage('nodejs'),
+          link: `https://nodejs.org/`,
+        },
+        {
+          name: 'RESTful',
+          logo: getImage('rest'),
+          link: `https://restfulapi.net/`,
+        },
+        {
+          name: 'GraphQL',
+          logo: getImage('graphql'),
+          link: `https://graphql.org/`,
+        },
+        {
+          name: 'Prisma',
+          logo: getImage('prisma'),
+          link: `https://www.prisma.io/`,
+        },
+        {
+          name: 'MongoDB',
+          logo: getImage('mongodb'),
+          link: `http://mongodb.com/`,
+        },
+        {
+          name: 'PostgreSQL',
+          logo: getImage('postgresql'),
+          link: `https://www.postgresql.org/`,
+        },
+        {
+          name: 'Express',
+          logo: getImage('express'),
+          link: `https://expressjs.com/`,
+        },
+        {
+          name: 'JWT',
+          logo: getImage('jwt'),
+          link: `https://jwt.io/`,
+        },
+        {
+          name: 'socket.io',
+          logo: getImage('socket'),
+          link: `https://socket.io/`,
+        },
+      ];
 
-    const backendSkills: Object[] = [
-      {
-        name: 'NodeJS',
-        logo: getImage('nodejs'),
-        link: `https://nodejs.org/`,
-      },
-      {
-        name: 'RESTful',
-        logo: getImage('rest'),
-        link: `https://restfulapi.net/`,
-      },
-      {
-        name: 'GraphQL',
-        logo: getImage('graphql'),
-        link: `https://graphql.org/`,
-      },
-      {
-        name: 'Prisma',
-        logo: getImage('prisma'),
-        link: `https://www.prisma.io/`,
-      },
-      {
-        name: 'MongoDB',
-        logo: getImage('mongodb'),
-        link: `http://mongodb.com/`,
-      },
-      {
-        name: 'PostgreSQL',
-        logo: getImage('postgresql'),
-        link: `https://www.postgresql.org/`,
-      },
-      {
-        name: 'Express',
-        logo: getImage('express'),
-        link: `https://expressjs.com/`,
-      },
-      {
-        name: 'JWT',
-        logo: getImage('jwt'),
-        link: `https://jwt.io/`,
-      },
-      {
-        name: 'socket.io',
-        logo: getImage('socket'),
-        link: `https://socket.io/`,
-      },
-    ];
+      const environment: Object[] = [
+        {
+          name: 'Pop!_OS',
+          logo: getImage('pop'),
+          link: `https://system76.com/pop`,
+        },
+        {
+          name: 'VSCode',
+          logo: getImage('vscode'),
+          link: `https://code.visualstudio.com/`,
+        },
+        {
+          name: 'Git',
+          logo: getImage('git'),
+          link: `https://git-scm.com/`,
+        },
+        {
+          name: 'GitHub',
+          logo: getImage('github'),
+          link: `https://github.com/christianvillamin`,
+        },
+        {
+          name: 'NPM',
+          logo: getImage('npm'),
+          link: `https://www.npmjs.com/`,
+        },
+        {
+          name: 'Postman',
+          logo: getImage('postman'),
+          link: `https://www.getpostman.com/`,
+        },
+        {
+          name: 'Jest',
+          logo: getImage('jest'),
+          link: `https://jestjs.io/`,
+        },
+        {
+          name: 'ChaiJS',
+          logo: getImage('chai'),
+          link: `https://www.chaijs.com/`,
+        },
+        {
+          name: 'MochaJS',
+          logo: getImage('mocha'),
+          link: `https://mochajs.org/`,
+        },
+      ];
 
-    const environment: Object[] = [
-      {
-        name: 'Pop!_OS',
-        logo: getImage('pop'),
-        link: `https://system76.com/pop`,
-      },
-      {
-        name: 'VSCode',
-        logo: getImage('vscode'),
-        link: `https://code.visualstudio.com/`,
-      },
-      {
-        name: 'Git',
-        logo: getImage('git'),
-        link: `https://git-scm.com/`,
-      },
-      {
-        name: 'GitHub',
-        logo: getImage('github'),
-        link: `https://github.com/christianvillamin`,
-      },
-      {
-        name: 'NPM',
-        logo: getImage('npm'),
-        link: `https://www.npmjs.com/`,
-      },
-      {
-        name: 'Postman',
-        logo: getImage('postman'),
-        link: `https://www.getpostman.com/`,
-      },
-      {
-        name: 'Jest',
-        logo: getImage('jest'),
-        link: `https://jestjs.io/`,
-      },
-      {
-        name: 'ChaiJS',
-        logo: getImage('chai'),
-        link: `https://www.chaijs.com/`,
-      },
-      {
-        name: 'MochaJS',
-        logo: getImage('mocha'),
-        link: `https://mochajs.org/`,
-      },
-    ];
+      setSkillsArr([
+        ['Front-End', frontendSkills],
+        ['Back-End', backendSkills],
+        ['System', environment],
+      ]);
+      setInit(true);
+    }, []);
 
-    setSkillsArr([
-      ['Front-End', frontendSkills],
-      ['Back-End', backendSkills],
-      ['System', environment],
-    ]);
-  }, []);
+    const [toggle, setToggle] = useState<boolean>(true);
 
-  const [toggle, setToggle] = useState<boolean>(true);
+    useEffect(() => {
+      active === 'Skills'
+        ? !toggle && setTimeout(() => setToggle(true), measures.ANIMATION_DELAY)
+        : toggle &&
+          setTimeout(() => setToggle(false), measures.SCROLL_DURATION);
+    }, [active]);
 
-  useEffect(() => {
-    active === 'Skills'
-      ? !toggle && setTimeout(() => setToggle(true), measures.ANIMATION_DELAY)
-      : toggle && setTimeout(() => setToggle(false), measures.SCROLL_DURATION);
-  }, [active]);
+    const [snapIt, setSnapIt] = useState(false);
 
-  const [snapIt, setSnapIt] = useState(false);
+    useEffect(() => {
+      active === 'Skills'
+        ? snap && setSnapIt(true)
+        : !snapIt && setSnapIt(false);
+    }, [snap]);
 
-  useEffect(() => {
-    active === 'Skills' ? snap && setSnapIt(true) : !snapIt && setSnapIt(false);
-  }, [snap]);
+    const Cards = useMemo(() => {
+      if (!skillsArr) return null;
 
-  return (
-    <Container id="skills" snap={snapIt}>
-      <div id="main" ref={skillsRef}>
-        {skillsArr &&
-          skillsArr.map((skills: any, index: any) => (
-            <Card key={`${skills[0]}`} anim={toggle} index={225 * index}>
-              <div className="title-area">
-                <h1>{skills[0]}</h1>
-                <hr />
-              </div>
+      return skillsArr.map((skills: any, index: any) => (
+        <Card key={`${skills[0]}`} anim={toggle} index={225 * index}>
+          <div className="title-area">
+            <h1>{skills[0]}</h1>
+            <hr />
+          </div>
 
-              <div className="skills-area">
-                {skills[1].map((skill: any) => (
-                  <div key={skill.name}>
-                    <a
-                      href={skill.link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <div className="logo-container">
-                        <Img fluid={skill.logo} loading={`eager`} />
+          <div className="skills-area">
+            {skills[1].map((skill: any) => (
+              <div key={skill.name}>
+                <a href={skill.link} target="_blank" rel="noopener noreferrer">
+                  <div className="logo-container">
+                    <Img fluid={skill.logo} loading={`eager`} />
 
-                        <div className="skill-name">{skill.name}</div>
-                      </div>
-                    </a>
+                    <div className="skill-name">{skill.name}</div>
                   </div>
-                ))}
+                </a>
               </div>
-            </Card>
-          ))}
-      </div>
-    </Container>
-  );
-};
+            ))}
+          </div>
+        </Card>
+      ));
+    }, [toggle, init]);
+
+    return (
+      <Container id="skills" snap={snapIt}>
+        <div id="main" ref={skillsRef}>
+          {Cards}
+        </div>
+      </Container>
+    );
+  }
+);
 
 const Container = styled.section<{ snap: boolean }>`
   position: relative;

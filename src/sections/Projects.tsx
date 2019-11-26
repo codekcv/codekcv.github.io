@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, memo, useMemo } from 'react';
 import styled from 'styled-components';
 
 interface Props {
@@ -8,156 +8,154 @@ interface Props {
   snap: number;
 }
 
-export const Projects: React.FC<Props> = ({
-  projectsRef,
-  measures,
-  active,
-  snap,
-}) => {
-  const [projects, setProjects] = useState([
-    {
-      title: 'ChristianVillamin.github.io',
-      description: 'My personal portfolio website.',
-      technologies: ['TypeScript', 'Gatsby', 'React', 'GraphQL'],
-      code: 'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
-      demo: 'http://christianvillamin.github.io',
-    },
-    {
-      title: 'listerNote',
-      description:
-        'A Kanban style note organizer. You can use boards, lists, and cards.',
-      technologies: ['TypeScript', 'React', 'Redux', 'Hooks'],
-      code: 'https://github.com/ChristianVillamin/lister',
-      demo: 'https://listernote.netlify.com/',
-    },
-    {
-      title: 'Anonymous Message Board',
-      description: 'A full stack application message board.',
-      technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Chai', 'Mocha'],
-      code:
-        'https://github.com/ChristianVillamin/boilerplate-project-messageboard',
-      demo: 'https://cv-board.glitch.me',
-    },
-    {
-      title: 'Stock Price Checker',
-      description: 'Fetches from an API to get latest stock prices.',
-      technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Axios'],
-      code:
-        'https://github.com/ChristianVillamin/boilerplate-project-stockchecker',
-      demo: 'https://cv-stock.glitch.me/',
-    },
-    {
-      title: 'Podomoro Clock',
-      description: 'A productivity app for study and health.',
-      technologies: ['ES6+', 'React', 'Hooks'],
-      code: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
-      demo: 'https://codepen.io/ChristianVillamin/full/ydjajy',
-    },
-    {
-      title: 'Tribute Page',
-      description: 'A tribute to Walter White from Breaking Bad.',
-      technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
-      code: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
-      demo: 'https://codepen.io/ChristianVillamin/full/wLwQGP',
-    },
-    {
-      title: 'Issue Tracker',
-      description: 'Submit issues of projects.',
-      technologies: ['MongoDB', 'Node', 'Helmet', 'Unit Testing'],
-      code:
-        'https://github.com/ChristianVillamin/boilerplate-project-issuetracker',
-      demo: 'https://cv-tracker.glitch.me/',
-    },
-    {
-      title: 'A URL Shorterner Microservice.',
-      description: 'Transforms long links into a short one.',
-      technologies: ['ES6+', 'MongoDB', 'Node', 'Express'],
-      code:
-        'https://github.com/ChristianVillamin/boilerplate-project-urlshortener',
-      demo: 'http://cv-url.glitch.me/',
-    },
-    {
-      title: 'Mini-Piano',
-      description: 'A virtual 12-keys piano. (Includes 3 songs!)',
-      technologies: ['ES6+', 'React', 'Hooks'],
-      code: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
-      demo: 'https://codepen.io/ChristianVillamin/full/EBQvpo',
-    },
-    {
-      title: 'Calculator',
-      description: 'A calculator. Part of freeCodeCamp project.',
-      technologies: ['ES6+', 'React', 'Hooks'],
-      code: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
-      demo: 'https://codepen.io/ChristianVillamin/full/rEdVXo',
-    },
+export const Projects: React.FC<Props> = memo(
+  ({ projectsRef, measures, active, snap }) => {
+    const [projects, setProjects] = useState([
+      {
+        title: 'ChristianVillamin.github.io',
+        description: 'My personal portfolio website.',
+        technologies: ['TypeScript', 'Gatsby', 'React', 'GraphQL'],
+        code:
+          'https://github.com/ChristianVillamin/ChristianVillamin.github.io',
+        demo: 'http://christianvillamin.github.io',
+      },
+      {
+        title: 'listerNote',
+        description:
+          'A Kanban style note organizer. You can use boards, lists, and cards.',
+        technologies: ['TypeScript', 'React', 'Redux', 'Hooks'],
+        code: 'https://github.com/ChristianVillamin/lister',
+        demo: 'https://listernote.netlify.com/',
+      },
+      {
+        title: 'Anonymous Message Board',
+        description: 'A full stack application message board.',
+        technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Chai', 'Mocha'],
+        code:
+          'https://github.com/ChristianVillamin/boilerplate-project-messageboard',
+        demo: 'https://cv-board.glitch.me',
+      },
+      {
+        title: 'Stock Price Checker',
+        description: 'Fetches from an API to get latest stock prices.',
+        technologies: ['ES6+', 'Node', 'Express', 'MongoDB', 'Axios'],
+        code:
+          'https://github.com/ChristianVillamin/boilerplate-project-stockchecker',
+        demo: 'https://cv-stock.glitch.me/',
+      },
+      {
+        title: 'Podomoro Clock',
+        description: 'A productivity app for study and health.',
+        technologies: ['ES6+', 'React', 'Hooks'],
+        code: 'https://codepen.io/ChristianVillamin/pen/ydjajy',
+        demo: 'https://codepen.io/ChristianVillamin/full/ydjajy',
+      },
+      {
+        title: 'Tribute Page',
+        description: 'A tribute to Walter White from Breaking Bad.',
+        technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
+        code: 'https://codepen.io/ChristianVillamin/pen/wLwQGP',
+        demo: 'https://codepen.io/ChristianVillamin/full/wLwQGP',
+      },
+      {
+        title: 'Issue Tracker',
+        description: 'Submit issues of projects.',
+        technologies: ['MongoDB', 'Node', 'Helmet', 'Unit Testing'],
+        code:
+          'https://github.com/ChristianVillamin/boilerplate-project-issuetracker',
+        demo: 'https://cv-tracker.glitch.me/',
+      },
+      {
+        title: 'A URL Shorterner Microservice.',
+        description: 'Transforms long links into a short one.',
+        technologies: ['ES6+', 'MongoDB', 'Node', 'Express'],
+        code:
+          'https://github.com/ChristianVillamin/boilerplate-project-urlshortener',
+        demo: 'http://cv-url.glitch.me/',
+      },
+      {
+        title: 'Mini-Piano',
+        description: 'A virtual 12-keys piano. (Includes 3 songs!)',
+        technologies: ['ES6+', 'React', 'Hooks'],
+        code: 'https://codepen.io/ChristianVillamin/pen/EBQvpo',
+        demo: 'https://codepen.io/ChristianVillamin/full/EBQvpo',
+      },
+      {
+        title: 'Calculator',
+        description: 'A calculator. Part of freeCodeCamp project.',
+        technologies: ['ES6+', 'React', 'Hooks'],
+        code: 'https://codepen.io/ChristianVillamin/pen/rEdVXo',
+        demo: 'https://codepen.io/ChristianVillamin/full/rEdVXo',
+      },
 
-    {
-      title: 'Biplane Landing Page',
-      description: 'A fun page I made for my likes of biplanes.',
-      technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
-      code: 'https://codepen.io/ChristianVillamin/pen/KjwLdp',
-      demo: 'https://codepen.io/ChristianVillamin/full/KjwLdp',
-    },
+      {
+        title: 'Biplane Landing Page',
+        description: 'A fun page I made for my likes of biplanes.',
+        technologies: ['HTML5', 'CSS3', 'Flexbox', 'Grid'],
+        code: 'https://codepen.io/ChristianVillamin/pen/KjwLdp',
+        demo: 'https://codepen.io/ChristianVillamin/full/KjwLdp',
+      },
 
-    {
-      title: 'Treemap Diagram',
-      description: 'A data visualization, using treemap design.',
-      technologies: ['JavaScript', 'D3'],
-      code: 'https://codepen.io/ChristianVillamin/pen/rEgVPp',
-      demo: 'https://codepen.io/ChristianVillamin/full/rEgVPp',
-    },
-    {
-      title: 'Choropleth Map',
-      description: 'A data visualization, using choropleth design.',
-      technologies: ['JavaScript', 'D3'],
-      code: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
-      demo: 'https://codepen.io/ChristianVillamin/full/pXBLXq',
-    },
-  ]);
+      {
+        title: 'Treemap Diagram',
+        description: 'A data visualization, using treemap design.',
+        technologies: ['JavaScript', 'D3'],
+        code: 'https://codepen.io/ChristianVillamin/pen/rEgVPp',
+        demo: 'https://codepen.io/ChristianVillamin/full/rEgVPp',
+      },
+      {
+        title: 'Choropleth Map',
+        description: 'A data visualization, using choropleth design.',
+        technologies: ['JavaScript', 'D3'],
+        code: 'https://codepen.io/ChristianVillamin/pen/pXBLXq',
+        demo: 'https://codepen.io/ChristianVillamin/full/pXBLXq',
+      },
+    ]);
 
-  const DELAY = 65;
-  const [delays, setDelays] = useState<number[]>([]);
-  const [toggle, setToggle] = useState<boolean>(true);
+    const DELAY = 65;
+    const [delays, setDelays] = useState<number[]>([]);
+    const [toggle, setToggle] = useState<boolean>(true);
+    const [init, setInit] = useState(false);
 
-  useEffect(() => {
-    const delayArr = [];
-    for (let i = 0; i < projects.length; i++) delayArr.push(DELAY * i);
-    setDelays(delayArr);
-  }, []);
+    useEffect(() => {
+      const delayArr = [];
+      for (let i = 0; i < projects.length; i++) delayArr.push(DELAY * i);
+      setDelays(delayArr);
+      setInit(true);
+    }, []);
 
-  useEffect(() => {
-    if (active === 'Projects') {
-      if (!toggle) {
-        if (!measures.isMobile) {
-          const randomizedProjects = [...projects];
-          const randomizedDelays = [...delays];
+    useEffect(() => {
+      if (active === 'Projects') {
+        if (!toggle) {
+          if (!measures.isMobile) {
+            const randomizedProjects = [...projects];
+            const randomizedDelays = [...delays];
 
-          randomizedProjects.sort(() => Math.random() - 0.5);
-          randomizedDelays.sort(() => Math.random() - 0.5);
+            randomizedProjects.sort(() => Math.random() - 0.5);
+            randomizedDelays.sort(() => Math.random() - 0.5);
 
-          setProjects(randomizedProjects);
-          setDelays(randomizedDelays);
+            setProjects(randomizedProjects);
+            setDelays(randomizedDelays);
+          }
+
+          setTimeout(() => setToggle(true), measures.ANIMATION_DELAY);
         }
-
-        setTimeout(() => setToggle(true), measures.ANIMATION_DELAY);
+      } else {
+        toggle && setTimeout(() => setToggle(false), measures.SCROLL_DURATION);
       }
-    } else {
-      toggle && setTimeout(() => setToggle(false), measures.SCROLL_DURATION);
-    }
-  }, [active]);
+    }, [active]);
 
-  const [snapIt, setSnapIt] = useState(false);
+    const [snapIt, setSnapIt] = useState(false);
 
-  useEffect(() => {
-    active === 'Projects'
-      ? snap && setSnapIt(true)
-      : !snapIt && setSnapIt(false);
-  }, [snap]);
+    useEffect(() => {
+      active === 'Projects'
+        ? snap && setSnapIt(true)
+        : !snapIt && setSnapIt(false);
+    }, [snap]);
 
-  return (
-    <Container id="projects" snap={snapIt}>
-      <div className="projects-container" ref={projectsRef}>
-        {projects.map((project, index) => (
+    const Projects = useMemo(() => {
+      return projects.map((project, index) => {
+        return (
           <div className="select" key={project.title}>
             <Project
               anim={toggle ? 1 : 0}
@@ -190,11 +188,19 @@ export const Projects: React.FC<Props> = ({
               ))}
             </Project>
           </div>
-        ))}
-      </div>
-    </Container>
-  );
-};
+        );
+      });
+    }, [toggle, delays]);
+
+    return (
+      <Container id="projects" snap={snapIt}>
+        <div className="projects-container" ref={projectsRef}>
+          {Projects}
+        </div>
+      </Container>
+    );
+  }
+);
 
 const Container = styled.section<{ snap: boolean }>`
   position: relative;

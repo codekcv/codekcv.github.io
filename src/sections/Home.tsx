@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { memo } from 'react';
 import Img from 'gatsby-image';
 import styled from 'styled-components';
 import { graphql, useStaticQuery } from 'gatsby';
@@ -76,7 +76,7 @@ interface Props {
   measures: any;
 }
 
-export const Home: React.FC<Props> = ({ homeRef, measures }) => {
+export const Home: React.FC<Props> = memo(({ homeRef, measures }) => {
   const {
     profile: {
       childImageSharp: { fluid: profileImage },
@@ -123,7 +123,7 @@ export const Home: React.FC<Props> = ({ homeRef, measures }) => {
       </div>
     </Container>
   );
-};
+});
 
 const Container = styled.section<{ isMobile: boolean }>`
   position: relative;
