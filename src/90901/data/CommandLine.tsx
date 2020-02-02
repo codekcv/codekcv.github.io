@@ -5,7 +5,7 @@ export const COMMAND_LINE: Commands = {
   data: [
     {
       title: `echo`,
-      command: `echo {text}qq dq{utot} ss{3rd}`,
+      command: `echo {text}`,
       info: `Prints the argument`,
     },
     {
