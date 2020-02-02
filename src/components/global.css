@@ -8,15 +8,10 @@
   touch-action: none;
 }
 
-body {
-  overflow: hidden;
-}
-
-::-webkit-scrollbar {
-  width: 0;
-}
-
 #main {
+  overflow-y: hidden;
+  overflow-x: scroll;
+
   background: linear-gradient(
       22.5deg,
       rgba(67, 67, 67, 0.02) 0%,

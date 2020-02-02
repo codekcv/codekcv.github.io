@@ -1,6 +1,6 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import '../components/global.css';
-import styled from 'styled-components';
+import styled, { createGlobalStyle } from 'styled-components';
 import { Navbar } from '../components/Navbar';
 import { Home } from '../sections/Home';
 import { Skills } from '../sections/Skills';
@@ -123,7 +123,10 @@ const App: React.FC = () => {
 
   return (
     <>
+      <GlobalStyle />
+
       <SEO section={active} />
+
       {measures.vw ? (
         <>
           <Navbar
@@ -140,30 +143,36 @@ const App: React.FC = () => {
             onTouchMove={e => handleSwipe(false, e)}
           >
             <Home homeRef={homeRef} measures={measures} />
+
             <Skills
               skillsRef={skillsRef}
               measures={measures}
               active={active}
               snap={snap}
             />
+
             <Projects
               projectsRef={projectsRef}
               measures={measures}
               active={active}
               snap={snap}
             />
+
             <About
               aboutRef={aboutRef}
               measures={measures}
               active={active}
               snap={snap}
             />
+
             <Contact
               contactRef={contactRef}
               measures={measures}
               active={active}
             />
+
             <Blog blogRef={blogRef} measures={measures} active={active} />
+
             <FlyingText
               index={sections.indexOf(active)}
               active={active}
@@ -187,6 +196,16 @@ const App: React.FC = () => {
     </>
   );
 };
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    overflow: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+  }
+`;
 
 const Container = styled.main`
   background: white;
