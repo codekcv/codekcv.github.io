@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { COMMAND_LINE } from './data/CommandLine';
 import { TEXT_FU } from './data/TextFu';
 import { USER_MANAGEMENT } from './data/UserManagement';
@@ -85,7 +84,8 @@ export const Grasshopper: React.FC = () => {
       <Container>
         <Title>
           <h4>
-            Christian Villamin | 90/90/1 ( 2020 Q1 ) - January Deliverable
+            <a href="http://crxnvlmn.github.io/">Christian Villamin</a> |
+            90/90/1 ( 2020 Q1 ) - January Deliverable
           </h4>
           <h1>Grasshopper</h1>
           <h2>
@@ -127,6 +127,11 @@ export const Grasshopper: React.FC = () => {
             ))}
           </Commands>
         ))}
+        <div id="source-code">
+          <a href="https://github.com/crxnvlmn/crxnvlmn.github.io/tree/develop/src/90901">
+            Source Code
+          </a>
+        </div>
       </Container>
     </>
   );
@@ -144,6 +149,18 @@ const GlobalStyle = createGlobalStyle`
 const Container = styled.div<{}>`
   border: 1px gray solid;
   background: darkseagreen;
+
+  #source-code {
+    text-align: center;
+    border-top: 1px papayawhip dashed;
+    padding: 0.5rem;
+    font-size: 1.25rem;
+    background: firebrick;
+  }
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 const Title = styled.div<{}>`
