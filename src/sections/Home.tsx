@@ -15,7 +15,7 @@ const links = [
   {
     name: 'GitHub',
     icon: <FaGithub className="fa" />,
-    url: 'https://github.com/ChristianVillamin',
+    url: 'https://github.com/crxnvlmn',
     color: 'black',
   },
   {
@@ -39,14 +39,14 @@ const links = [
   {
     name: 'LinkedIn',
     icon: <FaLinkedinIn className="fa" />,
-    url: 'https://www.linkedin.com/in/christian-villamin-907272188/',
+    url: 'https://www.linkedin.com/in/crxnvlmn/',
     color: '#0e76a8 ',
   },
 
   {
     name: 'Twitter',
     icon: <FaTwitter className="fa" />,
-    url: 'https://twitter.com/villamin_c',
+    url: 'https://twitter.com/crxnvlmn',
     color: '#00acee',
   },
 ];
@@ -133,6 +133,7 @@ const Container = styled.section<{ isMobile: boolean }>`
   align-items: center;
   width: 100vw;
   height: 100vh;
+  overflow-y: hidden;
 
   #placer {
     display: flex;
