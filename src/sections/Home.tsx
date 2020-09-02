@@ -15,19 +15,19 @@ const links = [
   {
     name: 'GitHub',
     icon: <FaGithub className="fa" />,
-    url: 'https://github.com/crxnvlmn',
+    url: 'https://github.com/codekcv',
     color: 'black',
   },
   {
     name: 'CodePen',
     icon: <FaCodepen className="fa" />,
-    url: 'https://codepen.io/ChristianVillamin',
+    url: 'https://codepen.io/codekcv',
     color: 'gray',
   },
   {
     name: 'freeCodeCamp',
     icon: <FaFreeCodeCamp className="fa" />,
-    url: 'https://www.freecodecamp.org/christianvillamin',
+    url: 'https://www.freecodecamp.org/codekcv',
     color: 'green',
   },
   {
@@ -39,14 +39,14 @@ const links = [
   {
     name: 'LinkedIn',
     icon: <FaLinkedinIn className="fa" />,
-    url: 'https://www.linkedin.com/in/crxnvlmn/',
+    url: 'https://www.linkedin.com/in/codekcv',
     color: '#0e76a8 ',
   },
 
   {
     name: 'Twitter',
     icon: <FaTwitter className="fa" />,
-    url: 'https://twitter.com/crxnvlmn',
+    url: 'https://twitter.com/codekcv',
     color: '#00acee',
   },
 ];
