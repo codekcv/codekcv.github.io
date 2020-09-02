@@ -10,7 +10,7 @@ module.exports = {
     title: 'My Portfolio',
     description: 'A website for my personal portfolio containing my journey.',
     author: 'Christian Villamin',
-    twitterUsername: '@villamin_c',
+    twitterUsername: '@codekcv',
     image: '/card.png',
     siteUrl: 'https://ChristianVillamin.github.io',
   },
